@@ -1,4 +1,4 @@
-import logo from './assets/wo_thumbnail2.png';
+import logo from './assets/wo_logo2.png';
 import './App.css';
 
 function App() {
