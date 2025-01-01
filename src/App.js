@@ -1,5 +1,5 @@
 import logo from './assets/wo_logo2.png';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
