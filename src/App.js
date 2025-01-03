@@ -1,9 +1,11 @@
 import logo from './assets/wo_logo2.png';
 import './App.scss';
+import Header from './dashboard/header'
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
