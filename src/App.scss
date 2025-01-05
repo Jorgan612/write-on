@@ -1,6 +1,7 @@
 @import 'variables';
 
 .main-app-container {
+  /*FIX WIDTH AND HEIGHT WHY WON'T HEIGHT PERCENTAGE WORK?*/
   width: 100vw;
   height: 97vh;
   border: 2px solid red;
