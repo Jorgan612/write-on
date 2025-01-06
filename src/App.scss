@@ -1,8 +1,38 @@
 @import 'variables';
 
+//Figure out adding font
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+
 .main-app-container {
   /*FIX WIDTH AND HEIGHT WHY WON'T HEIGHT PERCENTAGE WORK?*/
   width: 100vw;
-  height: 97vh;
-  border: 2px solid red;
+  height: 100vh;
+  overflow: hidden !important;
+
+  .amaranth-regular {
+    font-family: "Amaranth", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .amaranth-bold {
+    font-family: "Amaranth", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .amaranth-regular-italic {
+    font-family: "Amaranth", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .amaranth-bold-italic {
+    font-family: "Amaranth", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
 }

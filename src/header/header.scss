@@ -1,7 +1,67 @@
 @import '../variables.scss';
 
 .header-container {
+    display: flex;
+    justify-content: space-between;
     height: 20%;
     background-color: $light4;
-    border: 2px solid yellow;
+    padding-left: 2rem;
+
+
+
+    .app-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4rem;
+        padding: 1rem;
+        color: $light1;
+        font-weight: 700;
+    }
+
+    .menu-items-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        color: $light1;
+        font-weight: 400;
+        font-size: 2rem;
+    }
+}
+
+
+/*FOR MOBILE RESPONSIVENESS*/
+
+@media only screen and (max-width: 600px) { 
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        height: 20%;
+        background-color: $light4;
+        padding-left: 2rem;
+    
+    
+    
+        .app-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            padding: 1rem;
+            color: $light1;
+            font-weight: 700;
+        }
+    
+        .menu-items-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+            color: $light1;
+            font-weight: 400;
+            font-size: 2rem;
+        }
+    }
 }
