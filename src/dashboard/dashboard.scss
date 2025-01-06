@@ -4,9 +4,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    // need to figure out width and height weirdness
     height: 75%;
-    background-color: $light4;
     padding: 2rem;
 
 
@@ -43,23 +41,20 @@
 }
 
 
-/*FOR MOBILE RESPONSIVENESS*/
+/* FOR VERTICAL TABLET RESPONSIVENESS */
 
-@media only screen and (max-width: 600px) { 
+@media only screen and (min-width: 600px) and (max-width: 1050px) { 
     .dashboard-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
         height: 100%;
-        background-color: $light4;
-        padding: 2rem;
-    
+        padding: 1rem 2rem;
     
         .dashboard-contents {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             width: 100%;
             height: 95%;
             border: 2px solid $light2;
@@ -69,7 +64,7 @@
     
             .left-side {
                 width: 100%;
-                height: 25%;
+                height: 35%;
                 border-radius: .5rem;
                 background-color: $light1;
                 margin-bottom: 1rem;
@@ -78,8 +73,58 @@
             .right-side {
                 display: flex;
                 flex-direction: column;
+                justify-content: space-around;
                 width: 100%;
-                height: 45%;
+                height: 75%;
+    
+                .dashboard-section {
+                    width: 100%;
+                    height: 50%;
+                    border-radius: .5rem;
+                    background-color: $light1;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+}
+
+
+/* FOR MOBILE RESPONSIVENESS */
+
+@media only screen and (max-width: 600px) { 
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+    
+    
+        .dashboard-contents {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 95%;
+            border: 2px solid $light2;
+            background-color: $light2;
+            border-radius: .5rem;
+            padding: 1rem;
+    
+            .left-side {
+                width: 100%;
+                height: 35%;
+                border-radius: .5rem;
+                background-color: $light1;
+                margin-bottom: 1rem;
+            }
+    
+            .right-side {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 100%;
+                height: 75%;
     
                 .dashboard-section {
                     width: 100%;

@@ -6,33 +6,12 @@
 
 
 .main-app-container {
-  /*FIX WIDTH AND HEIGHT WHY WON'T HEIGHT PERCENTAGE WORK?*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 100vw;
   height: 100vh;
   overflow: hidden !important;
-
-  .amaranth-regular {
-    font-family: "Amaranth", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .amaranth-bold {
-    font-family: "Amaranth", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .amaranth-regular-italic {
-    font-family: "Amaranth", serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .amaranth-bold-italic {
-    font-family: "Amaranth", serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
+  cursor: default;
+  background-color: $light5;
 }
