@@ -1,0 +1,113 @@
+@import '../variables.scss';
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    height: 15%;
+    padding: 1rem 2rem;
+
+    .app-title {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 4rem;
+        color: $light1;
+        font-weight: 700;
+    }
+
+    .mobile-menu-icon {
+        display: none;
+    }
+
+    .menu-items-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+        color: $light1;
+        font-weight: 400;
+        font-size: 2rem;
+
+        .menu-item {
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .menu-item:hover {
+           background-color: $light4;
+           transition: 1s;
+        }
+    }
+}
+
+
+/* FOR VERTICAL TABLET RESPONSIVENESS */
+
+@media only screen and (min-width: 601px) and (max-width: 1050px) { 
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 15%;
+        padding: 1rem 2rem;
+    
+    
+    
+        .app-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: $light1;
+            font-weight: 700;
+        }
+
+        .menu-items-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            color: $light1;
+            font-weight: 400;
+            font-size: 2rem;
+            box-sizing: border-box;
+        }
+
+        .mobile-menu-icon { 
+            display: none;
+        }
+    }
+}
+
+
+/*FOR MOBILE RESPONSIVENESS*/
+
+@media only screen and (max-width: 600px) { 
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        height: 10%;
+    
+        .app-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: $light1;
+            font-weight: 700;
+        }
+
+        .menu-items-container {
+            display: none;
+        }
+
+        .mobile-menu-icon { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 25%;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+@import 'variables';
+
+//Figure out adding font
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+
+.main-app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+  cursor: default;
+  background-color: $light5;
+}
