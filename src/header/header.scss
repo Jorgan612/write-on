@@ -15,7 +15,7 @@
         font-weight: 700;
     }
 
-    .mobile-menu-icon {
+    .dropdown-container {
         display: none;
     }
 
@@ -75,7 +75,7 @@
             box-sizing: border-box;
         }
 
-        .mobile-menu-icon { 
+        .dropdown-container { 
             display: none;
         }
     }
@@ -103,11 +103,14 @@
             display: none;
         }
 
-        .mobile-menu-icon { 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 25%;
+        .dropdown-container {
+            display: block;
+            position: relative;
+
+            .menu-icon {
+                display: flex;
+                justify-content: flex-end;
+            }
         }
     }
 }
