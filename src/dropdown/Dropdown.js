@@ -1,7 +1,7 @@
 import '../dropdown/dropdown.scss';
 import { useState } from 'react';
 
-function Dropdown({menuClicked}) {
+function Dropdown({menuClicked, setMenuClicked}) {
 
     const dropdownOptions = [{
         name: 'Dashboard',
@@ -23,8 +23,9 @@ function Dropdown({menuClicked}) {
     const [selectedOption, setSelectedOption] = useState('');
 
     const selectOption = (option) => {
-        console.log('option selected:', option )
+        console.log('option', option)
         setSelectedOption(option);
+        setMenuClicked(false);
         console.log('selectedOption', selectedOption)
     }
 
