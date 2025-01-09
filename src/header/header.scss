@@ -24,20 +24,24 @@
         justify-content: space-around;
         align-items: center;
         gap: 1rem;
-        color: $light1;
         font-weight: 400;
         font-size: 2rem;
+        list-style: none;
 
         .menu-item {
             cursor: pointer;
             padding: 1rem;
-            border-radius: 0.5rem;
             white-space: nowrap;
+            border-bottom: 4px solid $light5;
+            color: $light1;
         }
 
         .menu-item:hover {
-           background-color: $light4;
-           transition: 1s;
+        border-bottom: 4px solid $light4;
+        }
+
+        .selected-menu-item {
+            border-bottom: 4px solid $light3;
         }
     }
 }
