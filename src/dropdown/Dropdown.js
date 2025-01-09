@@ -1,40 +1,23 @@
 import '../dropdown/dropdown.scss';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Dropdown({menuClicked}) {
-
-    const dropdownOptions = [{
-        name: 'Dashboard',
-        id: 'dashboard'
-    },
-    {
-        name: 'Warm Up',
-        id: 'warmup'
-    },
-    {
-        name: 'Goals',
-        id: 'goals'
-    },
-    {
-        name: 'Profile',
-        id: 'profile'
-    }];
+function Dropdown({menuClicked, setMenuClicked, menuOptions}) {
 
     const [selectedOption, setSelectedOption] = useState('');
 
-    const selectOption = (option) => {
-        console.log('option selected:', option )
+    const selectDropdownOption = (option) => {
         setSelectedOption(option);
-        console.log('selectedOption', selectedOption)
+        setMenuClicked(false);
     }
 
 return (
     <ul className='dropdown-options-container'>
-        {
-         dropdownOptions.map((option) => (
-            <li onClick={() => {selectOption(option.id)}} className='option' key={option.id}>{option.name}</li>
-         ))   
-        }
+        {menuOptions.map((option) => (
+            <Link to={`${option.id}`}>
+                <li onClick={() => {selectDropdownOption(option.id)}} className='option' key={option.id}>{option.name}</li>
+            </Link>
+         ))}
     </ul>
    );
 }
