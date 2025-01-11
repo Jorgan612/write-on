@@ -14,8 +14,8 @@ function Dropdown({menuClicked, setMenuClicked, menuOptions}) {
 return (
     <ul className='dropdown-options-container'>
         {menuOptions.map((option) => (
-            <Link to={`${option.id}`}>
-                <li onClick={() => {selectDropdownOption(option.id)}} className='option' key={option.id}>{option.name}</li>
+            <Link to={`${option.path}`} key={option.id}>
+                <li onClick={() => {selectDropdownOption(option.id)}} className='option'>{option.name}</li>
             </Link>
          ))}
     </ul>

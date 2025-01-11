@@ -12,19 +12,23 @@ function Header() {
 
     const menuOptions = [{
         name: 'Dashboard',
-        id: '/'
+        path: '/',
+        id: 'dashboard'
     },
     {
         name: 'Warm-up',
-        id: '/warmup'
+        path: '/warmup',
+        id: 'warmup'
     },
     {
         name: 'Goals',
-        id: '/activeGoals'
+        path: '/activeGoals',
+        id: 'activeGoals'
     },
     {
         name: 'Profile',
-        id: '/profile'
+        path: '/profile',
+        id: 'profile'
     }];
 
     const handleMenuClick = (option) => {
@@ -41,8 +45,8 @@ function Header() {
             <div className='app-title'>Write On!</div>
             <div className='menu-items-container'>
                 {menuOptions.map((option) => (
-                        <Link to={`${option.id}`}>
-                            <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' key={option.id}>{option.name}</div>
+                        <Link to={`${option.path}`} key={option.id}>
+                            <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' >{option.name}</div>
                         </Link>
                  ))}
             </div>

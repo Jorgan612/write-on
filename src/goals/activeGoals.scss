@@ -3,26 +3,47 @@
 
 .active-goals-container {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 75%;
-    padding: 2rem;
-
+    height: 100%;
 
     .goal-contents {
-        display: flex;
-        justify-content: space-around;
         width: 100%;
-        height: 100%;
-        border: 2px solid $light2;
-        background-color: $light2;
+        height: 95%;
         border-radius: .5rem;
         padding: 1rem;
 
-        .left-side {
-            width: 50%;
+        .list {
+            width: 100%;
+            height: 100%;
             border-radius: .5rem;
             background-color: $light1;
+
+            .goal-header {
+                color: $light5;
+                padding: 1rem .5rem;
+                font-size: $font1;
+                font-weight: 500;
+                text-decoration: underline;
+            }
+
+            .goals-list-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 24px;
+                height: 83%;
+                color: $light5;
+                font-size: $font1;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    padding: 1rem .5rem;
+
+                    svg {
+                        padding: .5rem;
+                    }
+                }
+            }
         }
 
         .right-side {
