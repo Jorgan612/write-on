@@ -1,0 +1,37 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.menu-options-container {
+    position: relative;
+    width: 100%;
+    border: 3px solid $light5;
+    border-radius: 0.5rem;
+    background-color: $light4;
+    padding: .5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+
+    .default-option {
+        color: $light1;
+        font-weight: 500;
+    }
+
+    .option {
+        display: flex;
+        justify-content: center;
+        background-color: $light2;
+        color: $light5;
+        padding: 1rem .5rem;
+        font-size: $font1;
+        font-weight: 500;
+    }
+
+    .option:hover {
+        background-color: $light1;
+    }
+}
+
+.hidden {
+    display: none;
+}

@@ -1,8 +1,8 @@
-import '../dropdown/dropdown.scss';
+import '../dropdown/navDropdown.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Dropdown({menuClicked, setMenuClicked, menuOptions}) {
+function NavDropdown({menuClicked, setMenuClicked, options}) {
 
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -13,7 +13,7 @@ function Dropdown({menuClicked, setMenuClicked, menuOptions}) {
 
 return (
     <ul className='dropdown-options-container'>
-        {menuOptions.map((option) => (
+        {options.map((option) => (
             <Link to={`${option.path}`} key={option.id}>
                 <li onClick={() => {selectDropdownOption(option.id)}} className='option'>{option.name}</li>
             </Link>
@@ -22,4 +22,4 @@ return (
    );
 }
 
-export default Dropdown;
+export default NavDropdown;

@@ -1,4 +1,4 @@
-const userGoals = [
+export const userGoals = [
     {
         name: 'Word Count',
         id: '1',
@@ -7,17 +7,24 @@ const userGoals = [
     },
     {
         name: 'Deadline',
-        id: '1',
+        id: '2',
         value: '12/31/2025',
         type: 'deadline'
     },
     {
         name: 'Session Frequency',
-        id: '1',
+        id: '3',
         value: 5,
         type: 'frequency'
     },
 ]
 
 
-export default userGoals;
+export const goalOptions = [
+    {name: 'Word Count', type: 'count'},
+    {name: 'Deadline', type: 'deadline'},
+    {name: 'Frequency', type: 'frequency'}
+]
+
+
+// export default {userGoals, goalOptions};
