@@ -1,12 +1,17 @@
 import '../goals/activeGoals.scss';
 import {userGoals, goalOptions} from '../datasets/datasets';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MenuDropdown from '../dropdown/MenuDropdown';
+import Form from '../forms/Form';
 
 
 function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
-    const [newGoal, setNewGoal] = useState({name: '', id: null, value: null, type: ''})
+    const [newGoal, setNewGoal] = useState('')
+
+    useEffect(() => { 
+
+    }, [newGoal]);
 
 
     const openNewGoalForm = () => {
@@ -35,12 +40,9 @@ function ActiveGoals() {
                 </div>
                 { formOpened && <div className='add-goal-container'>
                         
-                    { formOpened && <MenuDropdown options={goalOptions} /> }
+                    { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
 
-                    { newGoal.name && <div className='add-goal-form'>
-                       <label className='form-label'>Name:</label>
-                        <input placeholder='Example: Word Count' className='form-input'/>
-                    </div> }
+                    { newGoal && <Form goalName={newGoal} /> }
                 </div> }
             </div>
             <div className='footer-container'>
