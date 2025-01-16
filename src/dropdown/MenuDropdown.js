@@ -1,29 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../dropdown/menuDropdown.scss';
 
-function MenuDropdown({menuClicked, setMenuClicked, options, setNewGoal}) {
+function MenuDropdown({options}) {
     const [optionMenuClicked, setOptionMenuClicked] = useState(false);
+    const [goalName, setGoalName] = useState('');
 
-    const selectMenuOption = () => {
-        console.log('menuOption clicked!')
-        setMenuClicked( prev => !prev );
-        setNewGoal({name: '', id: null, value: null, type: ''})
+    const selectMenuOption = (name) => {
+        setGoalName(name);
+        setOptionMenuClicked( false );
+
+        // setNewGoal({name: '', id: null, value: null, type: ''})
     }
 
     const openMenu = () => {
-        console.log('Type Menu clicked!')
-        setOptionMenuClicked( prev => !prev);
+        setOptionMenuClicked( true );
     }
 
-return ( 
-    <div>
-        <div className='default-option' onClick={openMenu}>Select a Type</div>
-        {optionMenuClicked ? options.map((option) => (
-            <div key={option.id}>
-                <div onClick={() => {selectMenuOption(option.name)}} className='option'>{option.name}</div>
-            </div>
-        )) : <div className='hidden'></div>}
+    useEffect(() => { 
+        console.log(optionMenuClicked); 
+    }, [optionMenuClicked]);
 
+return ( 
+    <div className='menu-dropdown-container'>
+        <div className='default-option' onClick={openMenu}>
+            { goalName || 'Select a Type' }
+        </div>
+        {optionMenuClicked && options.map((option) => (
+            <div key={option.id} onClick={() => {selectMenuOption(option.name)}} className='option'>
+                {option.name}
+            </div>
+        ))}
     </div>
 )
 

@@ -39,8 +39,8 @@
 
         .add-goal-container {
             @include flexbox(flex, column, flex-start, center);
-            @include content(100%, 50%, $light2);
-            padding: 0 1rem;
+            @include content(95%, 50%, $light2);
+            padding: 1rem;
             border-radius: .5rem;
 
 

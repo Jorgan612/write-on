@@ -2,10 +2,13 @@
 @import '../mixins.scss';
 
 
-.menu-options-container {
+.menu-dropdown-container {
+
+    @include flexbox(flex, column, center, center);
+    @include content(5%, 50%, $light4);
     position: relative;
-    width: 100%;
-    border: 3px solid $light5;
+    // width: 100%;
+    border: 2px solid $light5;
     border-radius: 0.5rem;
     background-color: $light4;
     padding: .5rem;
@@ -13,23 +16,30 @@
     cursor: pointer;
 
     .default-option {
+        @include flexbox(flex, column, center, center);
         color: $light1;
         font-weight: 500;
     }
 
     .option {
+        // position: relative;
+        // top: 10%;
+        @include flexbox(flex, row, center, center);
+        @include content(75%, 50%, $light4);
         display: flex;
         justify-content: center;
-        background-color: $light2;
+        background-color: $light1;
         color: $light5;
         padding: 1rem .5rem;
-        font-size: $font1;
+        font-size: $font2;
         font-weight: 500;
+        border: 2px solid $light3;
     }
 
     .option:hover {
-        background-color: $light1;
+        background-color: $light2;
     }
+
 }
 
 .hidden {

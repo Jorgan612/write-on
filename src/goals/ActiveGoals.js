@@ -5,13 +5,20 @@ import MenuDropdown from '../dropdown/MenuDropdown';
 
 
 function ActiveGoals() {
-    const [addGoalClicked, setAddGoalClicked] = useState(false);
+    const [formOpened, setFormOpened] = useState(false);
     const [newGoal, setNewGoal] = useState({name: '', id: null, value: null, type: ''})
 
 
     const openNewGoalForm = () => {
-        console.log('Clicked!')
-        setAddGoalClicked( prev => !prev );
+        setFormOpened( prev => !prev );
+        if (formOpened) {
+            // If the menu is true meaning, the form is open AND form is complete (will need to add logic once inputs added and/or also disable Add Goal button to avoid edge case) then addGoal() to user's goal list
+            addGoal();
+        }
+    }
+
+    const addGoal = () => {
+        console.log('added goal!')
     }
 
     return (
@@ -26,21 +33,18 @@ function ActiveGoals() {
                         </div>
                     ))}
                 </div>
-                <div className='add-goal-container'>
-                    <div className='menu-options-container'>
+                { formOpened && <div className='add-goal-container'>
                         
-                        { addGoalClicked ? <MenuDropdown setMenuClicked={setAddGoalClicked} options={goalOptions} openMenu={openNewGoalForm} setNewGoal={setNewGoal}/> 
-                        : <div className='hidden'></div>}
-                    </div>
-                    { newGoal.name ? <div className='add-goal-form'>
+                    { formOpened && <MenuDropdown options={goalOptions} /> }
+
+                    { newGoal.name && <div className='add-goal-form'>
                        <label className='form-label'>Name:</label>
                         <input placeholder='Example: Word Count' className='form-input'/>
-                    </div>
-                    : <div className='hidden'></div>}
-                </div>
+                    </div> }
+                </div> }
             </div>
             <div className='footer-container'>
-                <div className='new-goal-button' onClick={openNewGoalForm}>{ !addGoalClicked ? 'New Goal' : 'Add Goal'}</div>
+                <div className='new-goal-button' onClick={openNewGoalForm}>{ !formOpened ? 'New Goal' : 'Add Goal'}</div>
             </div>
         </div>
     );
