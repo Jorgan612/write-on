@@ -1,0 +1,42 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.form-container {
+    @include flexbox(flex, column, center, center);
+    @include content(100%, 100%, null);
+    padding: 2rem;
+
+    .goal-name {
+        padding: 1rem;
+    }
+
+    .section {
+        @include flexbox(flex, column, center, center);
+        @include content(10%, 100%, null);
+        color: $light4;
+        font-weight: 500;
+        font-size: $font1;
+    }
+
+    label {
+        padding: 1rem;
+    }
+
+
+    input {
+        @include content(50%, 20%, null);
+        border: none;
+        border-radius: .5rem;
+        padding: .5rem;
+        margin-left: 1rem;
+        color: $light5;
+        font-weight: 600;
+        font-size: $font2
+    }
+
+    input:focus {
+        outline: none;
+        border: 2px solid $light4;
+    }
+}

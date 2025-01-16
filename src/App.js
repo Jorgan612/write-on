@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Header from './header/Header.js';
+import Header from './header/Header.js'
 import Dashboard from './dashboard/Dashboard';
 import ActiveGoals from './goals/ActiveGoals.js';
 import Warmup from './warm-up/Warmup.js';

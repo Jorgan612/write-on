@@ -1,0 +1,40 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.menu-dropdown-container {
+    @include flexbox(flex, column, center, center);
+    @include content(8%, 50%, $light4);
+    border: 2px solid $light5;
+    border-radius: 0.5rem;
+    background-color: $light4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+
+    .default-option {
+        @include flexbox(flex, column, center, center);
+        @include content(100%, 100%, null);
+        color: $light1;
+        font-weight: 500;
+    }
+
+    .option {
+        @include flexbox(flex, row, center, center);
+        @include content(75%, 90%, $light1);
+        position: relative;
+        top: 4rem;
+        color: $light5;
+        padding: 1rem .5rem;
+        font-size: $font2;
+        font-weight: 500;
+        border: 2px solid $light3;
+    }
+
+    .option:hover {
+        background-color: $light2;
+    }
+}
+
+.hidden {
+    display: none;
+}

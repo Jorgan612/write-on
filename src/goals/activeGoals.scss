@@ -1,35 +1,78 @@
 @import '../variables.scss';
+@import '../mixins.scss';
 
 
 .active-goals-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 75%;
-    padding: 2rem;
+    @include flexbox(flex, column, null, null);
+    @include content(75%, 95%, $light1);
+    border-radius: .5rem;
+    padding: 1rem;
 
+    .goal-header {
+        color: $light5;
+        padding: 1rem .5rem;
+        font-size: $font1;
+        font-weight: 500;
+        text-decoration: underline;
+    }
 
-    .goal-contents {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 100%;
-        border: 2px solid $light2;
-        background-color: $light2;
-        border-radius: .5rem;
-        padding: 1rem;
+    .list {
+        @include flexbox(flex, row, flex-start, null);
+        @include content(100%, 100%, $light1);
 
-        .left-side {
-            width: 50%;
-            border-radius: .5rem;
-            background-color: $light1;
+        .goals-list-container {
+            @include flexbox(flex, column, flex-start, null);
+            @include content(100%, 50%, $light1);
+            gap: 24px;
+            color: $light5;
+            font-size: $font1;
+
+            .item {
+                @include flexbox(flex, row, null, center);    
+                padding: 1rem .5rem;
+
+                svg {
+                    padding: .5rem;
+                }
+            }
         }
 
-        .right-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 45%;
+        .add-goal-container {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(95%, 50%, $light2);
+            padding: 1rem;
+            border-radius: .5rem;
+
+
+            .add-goal-form {
+                @include content(100%, 50%, $light2);
+                padding: .5rem;
+            }
+
+            button {
+                padding: .5rem;
+            }
+        }
+    }
+
+    .footer-container {
+        @include flexbox(flex, row, center, center);
+        width: 100%;
+        padding: 1rem;
+
+        .new-goal-button {
+            border: 2px solid $light4;
+            border-radius: 2rem;
+            background-color: $light5;
+            color: $light1;
+            font-size: $font1;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .new-goal-button:hover {
+            background-color: $light4;
         }
     }
 }
