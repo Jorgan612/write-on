@@ -17,6 +17,26 @@
         color: $light4;
         font-weight: 500;
         font-size: $font1;
+
+        .timeframe-container {
+            @include flexbox(flex, row, space-around, center);
+            @include content(100%, 100%, null);
+
+            p {
+                @include flexbox(flex, row, center, center);
+                @include content(100%, 20%, $light4);
+                padding: .2rem;
+                margin-top: 4rem;
+                border: 2px solid $light5;
+                border-radius: .5rem;
+                color: $light1;
+                cursor: pointer;
+
+                &:hover {
+                    @include content(100%, 20%, $light5);
+                }
+            }
+        }
     }
 
     label {

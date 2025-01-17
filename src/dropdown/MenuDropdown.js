@@ -9,7 +9,6 @@ function MenuDropdown({options, goal, newGoal}) {
         setGoalName(name);
         setOptionMenuClicked( false );
         newGoal(name);
-
         // setNewGoal({name: '', id: null, value: null, type: ''})
     }
 
@@ -27,7 +26,7 @@ function MenuDropdown({options, goal, newGoal}) {
                 { goalName ? goalName : 'Select a Type' }
             </div>
             {optionMenuClicked && options.map((option) => (
-                <div key={option.id} onClick={() => {selectMenuOption(option.name)}} className='option'>
+                <div key={option.id} onClick={() => {selectMenuOption(option.type)}} className='option'>
                     {option.name}
                 </div>
             ))}

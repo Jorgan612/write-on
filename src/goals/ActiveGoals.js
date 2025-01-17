@@ -7,7 +7,14 @@ import Form from '../forms/Form';
 
 function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
+    const [formComplete, setFormComplete] = useState(false);
     const [newGoal, setNewGoal] = useState('')
+
+    const [goals, setGoals] = useState(() => {
+        const savedGoals = localStorage.getItem('goals');
+        const initialValue = JSON.parse(savedGoals);
+        return initialValue || '';
+      });
 
     useEffect(() => { 
 
@@ -16,7 +23,8 @@ function ActiveGoals() {
 
     const openNewGoalForm = () => {
         setFormOpened( prev => !prev );
-        if (formOpened) {
+        if (formOpened && formComplete) {
+            console.log('formOpened && formComplete')
             // If the menu is true meaning, the form is open AND form is complete (will need to add logic once inputs added and/or also disable Add Goal button to avoid edge case) then addGoal() to user's goal list
             addGoal();
         }

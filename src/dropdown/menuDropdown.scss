@@ -16,6 +16,10 @@
         @include content(100%, 100%, null);
         color: $light1;
         font-weight: 500;
+
+        &:hover {
+            @include content(100%, 100%, $light5);
+        }
     }
 
     .option {
