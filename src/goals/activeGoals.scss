@@ -4,7 +4,7 @@
 
 .active-goals-container {
     @include flexbox(flex, column, null, null);
-    @include content(75%, 95%, $light1);
+    @include content(75%, 98%, $light1);
     border-radius: .5rem;
     padding: 1rem;
 
@@ -39,7 +39,7 @@
 
         .add-goal-container {
             @include flexbox(flex, column, flex-start, center);
-            @include content(95%, 50%, $light2);
+            @include content(95%, 50%, null);
             padding: 1rem;
             border-radius: .5rem;
 

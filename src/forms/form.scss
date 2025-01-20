@@ -3,38 +3,45 @@
 
 
 .form-container {
-    @include flexbox(flex, column, center, center);
-    @include content(100%, 100%, null);
-    padding: 2rem;
+    @include flexbox(flex, column, flex-start, center);
+    @include content(50%, 100%, null);
 
     .goal-name {
         padding: 1rem;
     }
 
     .section {
-        @include flexbox(flex, column, center, center);
+        @include flexbox(flex, column, null, center);
         @include content(10%, 100%, null);
         color: $light4;
         font-weight: 500;
-        font-size: $font1;
+        font-size: $font2;
+
+        label {
+            margin-top: 2rem;
+        }
 
         .timeframe-container {
             @include flexbox(flex, row, space-around, center);
-            @include content(100%, 100%, null);
+            @include content(75%, 85%, null);
 
             p {
                 @include flexbox(flex, row, center, center);
-                @include content(100%, 20%, $light4);
+                @include content(85%, 20%, $light4);
                 padding: .2rem;
-                margin-top: 4rem;
                 border: 2px solid $light5;
                 border-radius: .5rem;
                 color: $light1;
                 cursor: pointer;
 
                 &:hover {
-                    @include content(100%, 20%, $light5);
+                    @include content(85%, 20%, $light5);
                 }
+            }
+
+            .selected-time {
+                @include content(85%, 20%, $light3);
+                border: 2px solid $light4;
             }
         }
     }

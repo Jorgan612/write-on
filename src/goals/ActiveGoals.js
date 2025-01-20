@@ -50,7 +50,7 @@ function ActiveGoals() {
                         
                     { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
 
-                    { newGoal && <Form goalName={newGoal} /> }
+                    { newGoal && <Form newGoal={newGoal} /> }
                 </div> }
             </div>
             <div className='footer-container'>
