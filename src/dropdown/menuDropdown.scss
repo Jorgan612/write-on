@@ -4,37 +4,55 @@
 
 .menu-dropdown-container {
     @include flexbox(flex, column, center, center);
-    @include content(8%, 50%, $light4);
+    @include content(5%, 25%, $light4);
     border: 2px solid $light5;
     border-radius: 0.5rem;
     background-color: $light4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    font-size: 1rem;
     cursor: pointer;
 
     .default-option {
-        @include flexbox(flex, column, center, center);
+        @include flexbox(flex, row, center, center);
         @include content(100%, 100%, null);
+        text-align: center;
         color: $light1;
         font-weight: 500;
+
+        div {
+            @include flexbox(flex, row, center, center);
+            @include content(100%, 60%, null);
+            text-align: center;
+            padding: .5rem;
+        }
+
+        svg {
+            @include content(2rem, 2rem, null);
+            margin-left: 1rem;
+        }
+
+        &:hover {
+            @include content(100%, 100%, $light5);
+        }
     }
 
     .option {
         @include flexbox(flex, row, center, center);
-        @include content(75%, 90%, $light1);
+        @include content(50%, 90%, $light2);
         position: relative;
-        top: 4rem;
+        top: 3rem;
         color: $light5;
         padding: 1rem .5rem;
         font-size: $font2;
         font-weight: 500;
-        border: 2px solid $light3;
+        // border: 2px solid $light3;
     }
 
     .option:hover {
-        background-color: $light2;
+        background-color: $light3;
     }
-}
 
-.hidden {
-    display: none;
+    .hidden {
+        visibility: hidden;
+    }
 }

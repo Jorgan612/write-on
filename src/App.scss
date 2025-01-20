@@ -5,6 +5,7 @@
 
 html, body, body > div {
   height: 100%;
+  box-sizing: border-box;
   margin: 0;
   overflow: hidden;
 }

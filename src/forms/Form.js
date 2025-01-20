@@ -1,30 +1,56 @@
 import { useState } from 'react';
 import './form.scss';
 
-const Form = ({goalName}) => {
+const Form = ({newGoal}) => {
 
-    const [inputValue, setInputValue] = useState(null);
-    // put limits on number value input? no more than 6 digits?
+    const timeframes = ['Day', 'Week', 'Year'];
 
-    // figure out a way to select a specific form based on goal type?
-    // ex: word count will JUST be total words
-    // ex: deadline will need to be a DATE selection
-    // ex: frequency will be a number of sessions WITH ability to specify timeframe to achieve? 5 sessions a day/week/year
+    const [inputValue, setInputValue] = useState('');
+    const [selectedTimeframe, setSelectedTimeframe] = useState('');
 
     const updateGoalDetails = (e) => {
-        e.preventDefault();
-        console.log('e', e.target.value)
+        setInputValue(e.target.value);
+    }
+
+    const selectTimeframe = (timeframe) => {
+        setSelectedTimeframe(timeframe);
     }
 
 
     return (
         <div className='form-container'>
-            <div className='section'>
+            {newGoal.type === 'count' && <div className='section'>
                 <label>
                     What is your word count goal?
                 </label>
-                <input placeholder='######' value={inputValue} onChange={updateGoalDetails}/>
-            </div>
+                <input type="text" placeholder='######' value={inputValue} onChange={updateGoalDetails}/>
+                {inputValue && <p>You're goal is to write {inputValue} words. Nice!</p>}
+            </div>}
+
+            {newGoal.type === 'deadline' && <div className='section'>
+                <label>
+                    What is your Deadline?
+                </label>
+                <input type="text" placeholder='######' value={inputValue} onChange={updateGoalDetails}/>
+                {inputValue && <p>You have selected {inputValue} as your deadline date.</p>}
+            </div>}
+
+            {newGoal.type === 'frequency' && <div className='section'>
+                <label>
+                    How many sessions to you want to have?
+                </label>
+                <input type="text" placeholder='######' value={inputValue} onChange={updateGoalDetails}/>
+
+                <label>
+                    What is the timeframe these sessions should occur within?
+                </label>
+                <div className='timeframe-container'>
+                    {timeframes.map((time) => {
+                       return <p className={selectedTimeframe === time ? 'selected-time' : ''} onClick={() => selectTimeframe(time)} key={time}>{time}</p>
+                    })}
+                </div>
+                {selectedTimeframe && <p>You want to have {inputValue} session(s) per {selectedTimeframe}</p>}
+            </div>}
         </div>
     )
 
