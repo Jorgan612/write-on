@@ -3,7 +3,7 @@
 
 
 .form-container {
-    @include flexbox(flex, column, flex-start, center);
+    @include flexbox(flex, column, space-between, center);
     @include content(50%, 100%, null);
 
     .goal-name {
@@ -65,5 +65,20 @@
     input:focus {
         outline: none;
         border: 2px solid $light4;
+    }
+
+    .add-goal-button {
+        border: 2px solid $light4;
+        border-radius: 2rem;
+        background-color: $light5;
+        color: $light1;
+        font-size: $font2;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+
+    .add-goal-button:hover {
+        background-color: $light4;
     }
 }

@@ -6,6 +6,7 @@ function MenuDropdown({options, goal, newGoal}) {
     const [goalName, setGoalName] = useState('');
 
     const selectMenuOption = (option) => {
+        console.log('OPTION', option)
         setGoalName(option.name);
         setOptionMenuClicked( false );
         newGoal(option);
@@ -17,6 +18,7 @@ function MenuDropdown({options, goal, newGoal}) {
     }
 
     useEffect(() => { 
+        console.log('goalName', goalName)
 
     }, [optionMenuClicked, goalName]);
 

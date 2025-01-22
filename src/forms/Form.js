@@ -1,14 +1,33 @@
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import './form.scss';
 
-const Form = ({newGoal}) => {
+const Form = ({newGoal, submitGoal}) => {
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: {errors},
+    } = useForm({
+        goal: {
+            name: '',
+            id: Math.random(1, 100),
+            value: null,
+            current: null,
+            type: ''
+        }
+    })
+
+    const onSubmit = data => submitGoal(data);
 
     const timeframes = ['Day', 'Week', 'Year'];
 
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState([]);
     const [selectedTimeframe, setSelectedTimeframe] = useState('');
 
     const updateGoalDetails = (e) => {
+        // inputValue is currently being updated based on react-hook-form stuff and updateGoalDetails is not doing anything but keeping it for now
         setInputValue(e.target.value);
     }
 
@@ -19,13 +38,14 @@ const Form = ({newGoal}) => {
 
     return (
         <div className='form-container'>
-            {newGoal.type === 'count' && <div className='section'>
+            {newGoal.type === 'count' && <form className='section'>
                 <label>
                     What is your word count goal?
                 </label>
-                <input type="text" placeholder='######' value={inputValue} onChange={updateGoalDetails}/>
-                {inputValue && <p>You're goal is to write {inputValue} words. Nice!</p>}
-            </div>}
+                <input {...register("newGoal.value", {required: true, minLength: 3})}/>
+                <p>{errors.value?.message}</p>
+                {inputValue && <p>You're goal is to write {inputValue} words. Excellent!</p>}
+            </form>}
 
             {newGoal.type === 'deadline' && <div className='section'>
                 <label>
@@ -51,9 +71,10 @@ const Form = ({newGoal}) => {
                 </div>
                 {selectedTimeframe && <p>You want to have {inputValue} session(s) per {selectedTimeframe}</p>}
             </div>}
+
+            {true && <button className='add-goal-button' onClick={handleSubmit(onSubmit)}>Add Goal</button>}
         </div>
     )
-
 }
 
 
