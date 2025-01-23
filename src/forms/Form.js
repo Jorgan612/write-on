@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import './form.scss';
 
@@ -11,7 +11,7 @@ const Form = ({newGoal, submitGoal}) => {
         formState: {errors},
     } = useForm({
         goal: {
-            name: '',
+            name: newGoal.name,
             id: Math.random(1, 100),
             value: null,
             current: null,
@@ -23,8 +23,17 @@ const Form = ({newGoal, submitGoal}) => {
 
     const timeframes = ['Day', 'Week', 'Year'];
 
+    // const [testGoal, setTestGoal] = useState(null);
+
     const [inputValue, setInputValue] = useState([]);
     const [selectedTimeframe, setSelectedTimeframe] = useState('');
+
+    useEffect(() => { 
+            // console.log('goalName', goalName)
+            // setTestGoal(onSubmit)
+            // console.log('setTestGoal', testGoal)
+    
+        }, [onSubmit]);
 
     const updateGoalDetails = (e) => {
         // inputValue is currently being updated based on react-hook-form stuff and updateGoalDetails is not doing anything but keeping it for now

@@ -9,7 +9,13 @@ function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
     const [formComplete, setFormComplete] = useState(false);
     const [formValues, setFormValues] = useState({});
-    const [newGoal, setNewGoal] = useState('')
+    const [newGoal, setNewGoal] = useState({
+        name: "",
+        id: Math.random(1, 100),
+        value: null,
+        current: null,
+        type: ''
+    })
 
     const [goals, setGoals] = useState(() => {
         const savedGoals = localStorage.getItem('goals');
