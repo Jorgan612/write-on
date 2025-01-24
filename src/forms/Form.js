@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import './form.scss';
 
-const Form = ({newGoal, submitGoal}) => {
+const Form = ({submitGoal, goalName, formValue, setFormValue}) => {
 
     const {
         register,
@@ -11,7 +11,7 @@ const Form = ({newGoal, submitGoal}) => {
         formState: {errors},
     } = useForm({
         goal: {
-            name: newGoal.name,
+            name: goalName,
             id: Math.random(1, 100),
             value: null,
             current: null,
@@ -28,10 +28,11 @@ const Form = ({newGoal, submitGoal}) => {
     const [inputValue, setInputValue] = useState([]);
     const [selectedTimeframe, setSelectedTimeframe] = useState('');
 
-    useEffect(() => { 
+    useEffect(() => {
             // console.log('goalName', goalName)
             // setTestGoal(onSubmit)
             // console.log('setTestGoal', testGoal)
+            // setFormValue(onSubmit);
     
         }, [onSubmit]);
 
@@ -47,16 +48,16 @@ const Form = ({newGoal, submitGoal}) => {
 
     return (
         <div className='form-container'>
-            {newGoal.type === 'count' && <form className='section'>
+            {goalName === 'Word Count' && <form className='section'>
                 <label>
                     What is your word count goal?
                 </label>
-                <input {...register("newGoal.value", {required: true, minLength: 3})}/>
-                <p>{errors.value?.message}</p>
+                <input {...register("formValue", {required: true})} aria-invalid={errors ? "true" : "false"}/>
+                {!errors.inputValue && <p>ERROR</p>}
                 {inputValue && <p>You're goal is to write {inputValue} words. Excellent!</p>}
             </form>}
 
-            {newGoal.type === 'deadline' && <div className='section'>
+            {goalName === 'Deadline' && <div className='section'>
                 <label>
                     What is your Deadline?
                 </label>
@@ -64,7 +65,7 @@ const Form = ({newGoal, submitGoal}) => {
                 {inputValue && <p>You have selected {inputValue} as your deadline date.</p>}
             </div>}
 
-            {newGoal.type === 'frequency' && <div className='section'>
+            {goalName === 'Frequency' && <div className='section'>
                 <label>
                     How many sessions to you want to have?
                 </label>

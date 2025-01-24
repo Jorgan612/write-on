@@ -8,7 +8,8 @@ import Form from '../forms/Form';
 function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
     const [formComplete, setFormComplete] = useState(false);
-    const [formValues, setFormValues] = useState({});
+    const [formValue, setFormValue] = useState('null');
+    const [goalName, setGoalName] = useState('');
     const [newGoal, setNewGoal] = useState({
         name: "",
         id: Math.random(1, 100),
@@ -23,9 +24,16 @@ function ActiveGoals() {
         return initialValue || '';
       });
 
-    useEffect(() => { 
-
-    }, [newGoal]);
+    useEffect(() => {
+        // console.log('newGoal', newGoal)
+        console.log('goalName', goalName)
+        setNewGoal(prevNewGoal => ({
+            ...prevNewGoal,
+            name: goalName,
+            value: formValue.formValue
+        }))
+        console.log('NEWGOAL', newGoal)
+    }, [goalName, formValue]);
 
 
     const openNewGoalForm = () => {
@@ -44,6 +52,8 @@ function ActiveGoals() {
 
     const submitGoal = (goal) => {
         console.log('submitGoal', goal)
+        setFormValue(goal)
+        console.log('formValue', formValue)
     }
 
     return (
@@ -60,9 +70,9 @@ function ActiveGoals() {
                 </div>
                 { formOpened && <div className='add-goal-container'>
                         
-                    { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
+                    { formOpened && <MenuDropdown options={goalOptions} setGoalName={setGoalName} goalName={goalName} /> }
 
-                    { newGoal && <Form newGoal={newGoal} submitGoal={submitGoal} /> } 
+                    { goalName && <Form submitGoal={submitGoal} goalName={goalName} formValue={formValue} setFormValue={setFormValue} /> } 
                 </div> }
             </div>
             <div className='footer-container'>
