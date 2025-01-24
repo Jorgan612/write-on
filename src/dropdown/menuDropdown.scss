@@ -18,6 +18,7 @@
         text-align: center;
         color: $light1;
         font-weight: 500;
+        text-wrap: nowrap;
 
         div {
             @include flexbox(flex, row, center, center);

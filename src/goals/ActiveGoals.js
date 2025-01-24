@@ -1,14 +1,21 @@
 import '../goals/activeGoals.scss';
 import {userGoals, goalOptions} from '../datasets/datasets';
 import { useState, useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
-
 
 function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
     const [formComplete, setFormComplete] = useState(false);
-    const [newGoal, setNewGoal] = useState('')
+    const [formValues, setFormValues] = useState({});
+    const [newGoal, setNewGoal] = useState({
+        name: "",
+        id: Math.random(1, 100),
+        value: null,
+        current: null,
+        type: ''
+    })
 
     const [goals, setGoals] = useState(() => {
         const savedGoals = localStorage.getItem('goals');
@@ -23,15 +30,20 @@ function ActiveGoals() {
 
     const openNewGoalForm = () => {
         setFormOpened( prev => !prev );
+        // handleSubmit(onSubmit);
+        // line 26 onSubmit is logging IF you call handleSubmit on the button to submit form, but it is an empty obj. Figure out how to hook up input value.
+
+        
+        // console.log('test?', onSubmit)
         if (formOpened && formComplete) {
             console.log('formOpened && formComplete')
             // If the menu is true meaning, the form is open AND form is complete (will need to add logic once inputs added and/or also disable Add Goal button to avoid edge case) then addGoal() to user's goal list
-            addGoal();
+            submitGoal();
         }
     }
 
-    const addGoal = () => {
-        console.log('added goal!')
+    const submitGoal = (goal) => {
+        console.log('submitGoal', goal)
     }
 
     return (
@@ -50,11 +62,11 @@ function ActiveGoals() {
                         
                     { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
 
-                    { newGoal && <Form newGoal={newGoal} /> }
+                    { newGoal && <Form newGoal={newGoal} submitGoal={submitGoal} /> } 
                 </div> }
             </div>
             <div className='footer-container'>
-                <div className='new-goal-button' onClick={openNewGoalForm}>{ !formOpened ? 'New Goal' : 'Add Goal'}</div>
+                <button className={!formOpened ? 'new-goal-button' : 'hidden'} onClick={openNewGoalForm}>New Goal</button>
             </div>
         </div>
     );

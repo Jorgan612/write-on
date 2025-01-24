@@ -17,6 +17,7 @@ function MenuDropdown({options, goal, newGoal}) {
     }
 
     useEffect(() => { 
+        console.log('goalName', goalName)
 
     }, [optionMenuClicked, goalName]);
 
