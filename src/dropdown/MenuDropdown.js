@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import '../dropdown/menuDropdown.scss';
 
-function MenuDropdown({options, goal, newGoal}) {
+function MenuDropdown({options, setGoalName, goalName}) {
     const [optionMenuClicked, setOptionMenuClicked] = useState(false);
-    const [goalName, setGoalName] = useState('');
+    // const [goalName, setGoalName] = useState('');
 
     const selectMenuOption = (option) => {
+        console.log('option', option)
         setGoalName(option.name);
         setOptionMenuClicked( false );
-        newGoal(option);
+        // newGoal(option);
         // setNewGoal({name: '', id: null, value: null, type: ''})
     }
 
@@ -17,8 +18,9 @@ function MenuDropdown({options, goal, newGoal}) {
     }
 
     useEffect(() => { 
+        // console.log('goalName', goalName)
 
-    }, [optionMenuClicked, goalName]);
+    }, [optionMenuClicked]);
 
     return (
         <div className='menu-dropdown-container'>
