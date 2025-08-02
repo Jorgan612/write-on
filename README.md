@@ -1,7 +1,7 @@
 
 # Write On!
 
-This is a passion project I'm currently working on. It's a writing tracker for writers. I hope to add all of the features a writer could wish for to help them finish their manuscript. 
+This is a passion project I'm currently working on. It's a word count tracker for writers. I hope to add all of the features a writer could wish for in order to help them finish their manuscript. 
 
 ## Available Scripts
 
