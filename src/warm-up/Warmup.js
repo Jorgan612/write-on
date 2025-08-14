@@ -5,10 +5,10 @@ function Warmup() {
         <div className="warm-up-container">
             <div className='warm-up-contents'>
                 <div className='left-side'>
-                    WARM-UP LEFT
+                    Future Feature!
                 </div>
                 <div className='right-side'>
-                    WARM-UP RIGHT
+                    Future Feature!
                 </div>
             </div>
         </div>

@@ -5,10 +5,10 @@ function Profile() {
         <div className="profile-container">
             <div className='profile-contents'>
                 <div className='left-side'>
-                    PROFILE LEFT
+                    Future Feature!
                 </div>
                 <div className='right-side'>
-                    PROFILE RIGHT
+                    Future Feature!
                 </div>
             </div>
         </div>
