@@ -10,7 +10,6 @@ import Profile from './profile/Profile.js';
 function App() {
 
   useEffect(() => {
-    document.title = "Write On!";
   }, []);
 
   return (
