@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import './App.scss';
-import Header from './header/header.js'
+import Header from './header/header'
 import Dashboard from './dashboard/dashboard';
-import ActiveGoals from './goals/ActiveGoals.js';
-import Warmup from './warm-up/Warmup.js';
-import Profile from './profile/Profile.js';
+import ActiveGoals from './goals/ActiveGoals';
+import Warmup from './warm-up/Warmup';
+import Profile from './profile/Profile';
 
 function App() {
 

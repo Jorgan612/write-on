@@ -46,7 +46,7 @@ function ActiveGoals() {
                         </div>
                     ))}
                 </div>
-                { formOpened && <div className='add-goal-container'>
+                { formOpened && <div className='add-goal-container'> 
                         
                     { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
 
