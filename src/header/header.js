@@ -32,7 +32,7 @@ function Header() {
     }];
 
     const handleMenuClick = (option) => {
-        // This function is for mobile menua icon click
+        // This function is for mobile menu icon click
 
         // Need condition to determine screensize to allow for accurate dropdown menu open and close if screensize changes and menu icon shows vs doesn't show 
         setMenuIconClicked( prev => !prev ); 
