@@ -16,10 +16,10 @@ function App() {
     <div className="main-app-container">
       <Header />
       <Routes>
-        <Route path="/" element={ <Dashboard /> } />
+        {/* <Route path="/" element={ <Dashboard /> } />
         <Route path="activeGoals" element={ <ActiveGoals /> } />
         <Route path="warmup" element={ <Warmup /> } />
-        <Route path="profile" element={ <Profile /> } />
+        <Route path="profile" element={ <Profile /> } /> */}
       </Routes>
     </div>
   );

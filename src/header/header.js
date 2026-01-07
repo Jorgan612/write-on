@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import NavDropdown from '../dropdown/NavDropdown';
+import WordTracker from '../tracker/WordTracker';
 import './header.scss';
 import menuIcon from "../assets/icons/menu_icon.svg";
+import woLogo from "../assets/logos/wo_logo2.png";
 
 function Header() {
 
@@ -42,7 +44,9 @@ function Header() {
 
     return (
         <div className="header-container">
-            <div className='app-title'>Write On!</div>
+            <img className='header-logo' src={woLogo} alt='app logo' />
+            <WordTracker />
+
             <div className='menu-items-container'>
                 {menuOptions.map((option) => (
                         <Link to={`${option.path}`} key={option.id}>
