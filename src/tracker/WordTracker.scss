@@ -4,8 +4,8 @@
 .word-tracker-container {
   @include flexbox(flex, column, center, null);
   @include content(100%, 30%, null);
-  color: #fff;
-  margin-top: .5rem;
+  color: $dark1;
+  margin: .5rem 0rem 0rem 1rem;
 
   form {
     @include content(25%, 100%, null);
