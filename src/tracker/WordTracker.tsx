@@ -1,9 +1,15 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import dayjs from 'dayjs';
-
+import {Entry} from '../interfaces/interfaces';
 import './WordTracker.scss';
 
-function WordTracker({setEntries}) {
+
+interface WordTrackerProps {
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+}
+
+
+function WordTracker({setEntries}: WordTrackerProps) {
   const [newWords, setNewWords] = useState<string>('');
   let [total, setTotal] = useState<number>(0);
   // const [entry, setEntry] = useState<object>({id: 0, total: 0, date: null});
@@ -14,7 +20,7 @@ function WordTracker({setEntries}) {
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
-    updateDailyTotal(newWords)
+    updateDailyTotal(newWords);
     setNewWords('');
   }
 
@@ -29,7 +35,7 @@ function WordTracker({setEntries}) {
     
     setTotal(prev => prev + wordCount);
 
-    setEntries((prevEntries: any) => [...prevEntries, newEntry]);
+    setEntries((prevEntries: Entry[]) => [...prevEntries, newEntry]);
   }
 
   return (

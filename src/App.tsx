@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './App.scss';
+import {Entry} from './interfaces/interfaces';
 import Header from './header/header'
 import Dashboard from './dashboard/dashboard';
 import ActiveGoals from './goals/ActiveGoals';
@@ -9,7 +10,7 @@ import Profile from './profile/Profile';
 
 function App() {
 
-  const [entries, setEntries] = useState<object[]>([]);
+  const [entries, setEntries] = useState<Entry[]>([]);
   
 
   useEffect(() => {

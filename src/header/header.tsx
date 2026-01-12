@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
+import {Entry} from '../interfaces/interfaces';
 import NavDropdown from '../dropdown/NavDropdown';
 import WordTracker from '../tracker/WordTracker';
 import './header.scss';
 // import menuIcon from "../assets/icons/menu_icon.svg";
 // import woLogo from "../assets/logos/wo_logo2.png";
 
-function Header({setEntries}) {
+interface HeaderProps {
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+}
+
+
+
+function Header({setEntries}: HeaderProps) {
 
     const [menuIconClicked, setMenuIconClicked] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState('/')
