@@ -14,7 +14,8 @@ function App() {
   
 
   useEffect(() => {
-  }, []);
+    console.log('entries', entries)
+  }, [entries]);
 
   return (
     <div className="main-app-container">
