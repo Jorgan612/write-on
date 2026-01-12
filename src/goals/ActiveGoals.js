@@ -1,14 +1,22 @@
 import '../goals/activeGoals.scss';
 import {userGoals, goalOptions} from '../datasets/datasets';
 import { useState, useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
-
 
 function ActiveGoals() {
     const [formOpened, setFormOpened] = useState(false);
     const [formComplete, setFormComplete] = useState(false);
-    const [newGoal, setNewGoal] = useState('')
+    const [formValue, setFormValue] = useState('null');
+    const [goalName, setGoalName] = useState('');
+    const [newGoal, setNewGoal] = useState({
+        name: "",
+        id: Math.random(1, 100),
+        value: null,
+        current: null,
+        type: ''
+    })
 
     const [goals, setGoals] = useState(() => {
         const savedGoals = localStorage.getItem('goals');
@@ -16,22 +24,36 @@ function ActiveGoals() {
         return initialValue || '';
       });
 
-    useEffect(() => { 
-
-    }, [newGoal]);
+    useEffect(() => {
+        // console.log('newGoal', newGoal)
+        console.log('goalName', goalName)
+        setNewGoal(prevNewGoal => ({
+            ...prevNewGoal,
+            name: goalName,
+            value: formValue.formValue
+        }))
+        console.log('NEWGOAL', newGoal)
+    }, [goalName, formValue]);
 
 
     const openNewGoalForm = () => {
         setFormOpened( prev => !prev );
+        // handleSubmit(onSubmit);
+        // line 26 onSubmit is logging IF you call handleSubmit on the button to submit form, but it is an empty obj. Figure out how to hook up input value.
+
+        
+        // console.log('test?', onSubmit)
         if (formOpened && formComplete) {
             console.log('formOpened && formComplete')
             // If the menu is true meaning, the form is open AND form is complete (will need to add logic once inputs added and/or also disable Add Goal button to avoid edge case) then addGoal() to user's goal list
-            addGoal();
+            submitGoal();
         }
     }
 
-    const addGoal = () => {
-        console.log('added goal!')
+    const submitGoal = (goal) => {
+        console.log('submitGoal', goal)
+        setFormValue(goal)
+        console.log('formValue', formValue)
     }
 
     return (
@@ -48,13 +70,13 @@ function ActiveGoals() {
                 </div>
                 { formOpened && <div className='add-goal-container'> 
                         
-                    { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
+                    { formOpened && <MenuDropdown options={goalOptions} setGoalName={setGoalName} goalName={goalName} /> }
 
-                    { newGoal && <Form newGoal={newGoal} /> }
+                    { goalName && <Form submitGoal={submitGoal} goalName={goalName} formValue={formValue} setFormValue={setFormValue} /> } 
                 </div> }
             </div>
             <div className='footer-container'>
-                <div className='new-goal-button' onClick={openNewGoalForm}>{ !formOpened ? 'New Goal' : 'Add Goal'}</div>
+                <button className={!formOpened ? 'new-goal-button' : 'hidden'} onClick={openNewGoalForm}>New Goal</button>
             </div>
         </div>
     );

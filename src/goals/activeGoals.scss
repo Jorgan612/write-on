@@ -74,5 +74,9 @@
         .new-goal-button:hover {
             background-color: $light4;
         }
+
+        .hidden {
+            visibility: hidden;
+        }
     }
 }
