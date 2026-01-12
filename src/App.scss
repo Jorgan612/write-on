@@ -1,4 +1,5 @@
-@import 'variables';
+@import './variables.scss';
+@import './mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 
@@ -31,6 +32,7 @@
 
 html, body, body > div {
   font-family: 'amaranth-regular';
+  color: $dark1;
   height: 100%;
   box-sizing: border-box;
   margin: 0;
@@ -43,11 +45,44 @@ html, body, body > div {
   justify-content: flex-start;
   height: 100%;
   cursor: default;
-  background-color: $light5;
+  background-color: $dark5;
   text-decoration: none;
-  padding: 1rem;
+  // padding: 1rem;
+
+  //TESTING COLOR SCHEME
+  .dark1 {
+    @include content(100px, 1000px, null);
+    // border: 1px solid white;
+    background-color: $dark1;
+  }
+  
+  .dark2 {
+    @include content(100px, 1000px, null);
+    // border: 1px solid white;
+    background-color: $dark2;
+  }
+  
+  .dark3 {
+    @include content(100px, 1000px, null);
+    // border: 1px solid white;
+    background-color: $dark3;
+  }
+  
+  .dark4 {
+    @include content(100px, 1000px, null);
+    // border: 1px solid white;
+    background-color: $dark4;
+  }
+  
+  .dark5 {
+    @include content(100px, 1000px, null);
+    // border: 1px solid white;
+    background-color: $dark5;
+  }
 }
 
 a {
   text-decoration: none;
 }
+
+

@@ -1,11 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
+import {Entry} from '../interfaces/interfaces';
 import NavDropdown from '../dropdown/NavDropdown';
+import WordTracker from '../tracker/WordTracker';
 import './header.scss';
-import menuIcon from "../assets/icons/menu_icon.svg";
+// import menuIcon from "../assets/icons/menu_icon.svg";
+// import woLogo from "../assets/logos/wo_logo2.png";
 
-function Header() {
+interface HeaderProps {
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+}
+
+
+
+function Header({setEntries}: HeaderProps) {
 
     const [menuIconClicked, setMenuIconClicked] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState('/')
@@ -31,7 +39,8 @@ function Header() {
         id: 'profile'
     }];
 
-    const handleMenuClick = (option) => {
+    const handleMenuClick = (option: any) => {
+        console.log('OPTION', option)
         // This function is for mobile menu icon click
 
         // Need condition to determine screensize to allow for accurate dropdown menu open and close if screensize changes and menu icon shows vs doesn't show 
@@ -42,7 +51,9 @@ function Header() {
 
     return (
         <div className="header-container">
-            <div className='app-title'>Write On!</div>
+            {/* <img className='header-logo' src={woLogo} alt='app logo' /> */}
+            <WordTracker setEntries={setEntries}/>
+
             <div className='menu-items-container'>
                 {menuOptions.map((option) => (
                         <Link to={`${option.path}`} key={option.id}>
