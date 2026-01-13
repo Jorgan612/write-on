@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.scss';
 import {Entry} from './interfaces/interfaces';
 import Header from './header/header'
+import Calendar from './calendar/Calendar';
 import Dashboard from './dashboard/dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Warmup from './warm-up/Warmup';
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="main-app-container">
       <Header setEntries={setEntries}/>
+      <Calendar />
       <div className='dark1'>Dark 1</div>
       <div className='dark2'>Dark 2</div>
       <div className='dark3'>Dark 3</div>

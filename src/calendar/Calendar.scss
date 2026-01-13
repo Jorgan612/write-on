@@ -1,0 +1,7 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.calendar-container {
+    @include content(20%, 20%, null);
+    border: 1px solid red;
+}
