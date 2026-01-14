@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
 import './Calendar.scss';
-import {getDay, getMonth, getDaysInMonth, eachMonthOfInterval, startOfMonth, startOfYear, endOfYear, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format} from 'date-fns';
+import {getDay, getMonth, getYear, getDaysInMonth, eachMonthOfInterval, startOfMonth, startOfYear, endOfYear, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format} from 'date-fns';
 
 
 function Calendar() {
     const today = new Date();
+    const month = format(today, 'MMMM')
+    const year = getYear(today)
+    const arrowLeft = '<'
+    const arrowRight = '>'
+
+    console.log('year', year)
+
 
     const monthsInYear = eachMonthOfInterval({
         start: startOfYear(today),
@@ -18,7 +25,7 @@ function Calendar() {
         };
     });
 
-    // console.log('TEST', monthsInYear);
+    console.log('months', monthsInYear);
 
     // useEffect(() => {
         
@@ -26,6 +33,12 @@ function Calendar() {
 
     return (
         <div className="calendar-container">
+            <div>
+                <span>{month}</span>
+                <span>{year}</span>
+                <span>{arrowLeft}</span>
+                <span>{arrowRight}</span>
+            </div>
 
         </div>
     )
