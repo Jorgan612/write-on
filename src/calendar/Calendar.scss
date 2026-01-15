@@ -2,17 +2,14 @@
 @import '../mixins.scss';
 
 .calendar-container {
-    @include content(40%, 20%, null);
-    border: 1px solid red;
+    @include content(12%, 12%, null);
 
     .calendar-header {
-        @include flexbox(flex, row, null, center);
+        @include flexbox(flex, row, space-between, center);
         padding: .5rem;
 
-        span {
-            margin: 0rem .2rem; 
-            padding: .2rem;
-            // border: 1px solid orange;
+        .month {
+            @include content(null, 25%, null);
         }
 
         .previous {
@@ -29,19 +26,49 @@
         }
 
         .previous:hover {
-            background-color: $dark3;
+            background-color: $dark2;
             transition: .5s;
         }
         
         .next:hover {
-            background-color: $dark3;
+            background-color: $dark2;
             transition: .5s;
         }
 
     }
 
     .grid-container {
-        @include content(85%, 100%, null);
-        border: 1px solid yellow;
+
+        .weekdays-row, .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .weekdays-row {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .day-cube {
+            @include flexbox(flex, null, center, center);
+            aspect-ratio: 1 / 1;
+            color: $dark1;
+            background-color: $dark3;
+            margin: .2rem;
+            cursor: pointer;
+
+            &.empty {
+                border: none;
+            }
+
+            .day-number {
+                font-size: 0.8rem;
+                color: $dark1;
+            }
+        }
+
+        .day-cube:hover {
+            background-color: $dark2;
+        }
     }
 }

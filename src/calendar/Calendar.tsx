@@ -1,61 +1,102 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Entry } from '../interfaces/interfaces';
 import './Calendar.scss';
-import {getDay, getMonth, getYear, getDaysInMonth, eachMonthOfInterval, startOfMonth, startOfYear, endOfYear, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format} from 'date-fns';
+import {getDay, getMonth, getYear, getDaysInMonth, eachMonthOfInterval, startOfMonth, startOfYear, endOfYear, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format, subMonths, addMonths} from 'date-fns';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 /* 
-    [ ] Figure out how to render calendar grid so that...
-        -- The grid remains with an even amount of columns regardless of what day
-        the first day of the month falls on
-        -- The number denoting the day of the week shows on each day cube in the grid
-        -- Color indicating word count for each day changes based on how much was written
-        -- 
-    [ ] Style grid (grid size, base color values, layout, etc.)
-    [ ] Previous and Next buttons besides the month and year to allow  a user to switch between months
-    [ ] All months are accurate and reflect 2026
-    [ ] Select a date to see more details (in a tooltip? details = word count total that day for now) 
-    [ ]  
-    [ ]  
-    [ ]  
+    TO DO:
+    [ ] BG-Color indicating word count for each day changes based on how much was written
+    [ ] Select/Hover over a date to see more details (in a tooltip? details = word count total that day for now)  
 */
 
 interface CalendarProps {
     entries: Entry[];
 }
 
+interface monthInfo {
+    monthName: string;
+    daysInMonth: number;
+    startDayOfWeek: number;
+    year: string;
+}
+
 function Calendar({entries}: CalendarProps) {
-    const today = new Date();
-    const month = format(today, 'MMMM')
-    const year = getYear(today)
+    const [viewDate, setViewDate] = useState(new Date());
+    const [months, setmonths ] = useState<monthInfo[] | null>(null);
+    const currentMonth = format(viewDate, 'MMMM');
+    const currentMonthData = months?.find(m => m.monthName === currentMonth);
+    const currentYear = format(viewDate, 'yyyy');
 
+    useEffect(() => {
 
-    const monthsInYear = eachMonthOfInterval({
-        start: startOfYear(today),
-        end: endOfYear(today)
-    }).map(monthDate => {
-     return {
-        monthName: format(monthDate, 'MMMM'),
-        daysInMonth: getDaysInMonth(monthDate),
-        startDayOfWeek: getDay(startOfMonth(monthDate)), 
-        year: format(monthDate, 'yyyy')
-        };
-    });
-
-    console.log('months', monthsInYear);
-
-    // useEffect(() => {
+        if (!months) {
+            retrieveMonths();
+        }
         
-    // }, [])
+    }, []);
+
+    const changeMonth = (direction: 'previous' | 'next') => {
+        setViewDate( prevDate => {
+            return direction === 'previous'
+            ? subMonths(prevDate, 1)
+            : addMonths(prevDate, 1);
+        })
+    }
+
+    const retrieveMonths = () => {
+        const monthsInYear = eachMonthOfInterval({
+            start: startOfYear(viewDate),
+            end: endOfYear(viewDate)
+        }).map(monthDate => {
+        return {
+            monthName: format(monthDate, 'MMMM'),
+            daysInMonth: getDaysInMonth(monthDate),
+            startDayOfWeek: getDay(startOfMonth(monthDate)), 
+            year: format(monthDate, 'yyyy')
+            };
+        });
+
+        setmonths(monthsInYear);
+    }
+
+    const renderDays = () => {
+        const days = [];
+
+        if (!currentMonthData) {
+            return null;
+        }
+
+        for (let i = 0; i < currentMonthData.startDayOfWeek; i++) {
+            days.push(<div key={`empty-${i}`} className='day-cube empty'></div>);
+        }
+
+        for (let d = 1; d <= currentMonthData.daysInMonth; d++) {
+            days.push(
+                <div key={d} className='day-cube'>
+                    <span className='day-number'>{d}</span>
+                </div>
+            )
+        }
+
+        return days;
+    }
 
     return (
         <div className='calendar-container'>
             <div className='calendar-header'>
-                <span>{month}</span>
-                <span>{year}</span>
-                <FaChevronLeft className="previous" />
-                <FaChevronRight className="next" />
+                <FaChevronLeft className="previous" onClick={() => {changeMonth('previous')}} />
+                <span className='month'>{currentMonth}</span>
+                <span>{currentYear}</span>
+                <FaChevronRight className="next" onClick={() => {changeMonth('next')}} />
             </div>
             <div className='grid-container'>
+                <div className='weekdays-row'>
+                    <span>S</span><span>M</span><span>T</span><span>W</span>
+                    <span>T</span><span>F</span><span>S</span>
+                </div>
+                <div className='days-grid'>
+                    {renderDays()}
+                </div>
             </div>
 
         </div>

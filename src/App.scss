@@ -54,6 +54,7 @@ html, body, body > div {
     @include content(100px, 1000px, null);
     // border: 1px solid white;
     background-color: $dark1;
+    margin-top: 1rem;
   }
   
   .dark2 {
