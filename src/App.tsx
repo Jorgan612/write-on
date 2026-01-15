@@ -15,13 +15,13 @@ function App() {
   
 
   useEffect(() => {
-    console.log('entries', entries)
+    // console.log('entries', entries)
   }, [entries]);
 
   return (
     <div className="main-app-container">
       <Header setEntries={setEntries}/>
-      <Calendar />
+      <Calendar entries={entries}/>
       <div className='dark1'>Dark 1</div>
       <div className='dark2'>Dark 2</div>
       <div className='dark3'>Dark 3</div>
