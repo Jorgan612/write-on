@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Entry } from '../interfaces/interfaces';
 import './Calendar.scss';
-import {getDay, getMonth, getYear, getDaysInMonth, eachMonthOfInterval, startOfMonth, startOfYear, endOfYear, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format, subMonths, addMonths} from 'date-fns';
+import {
+    getDay,
+    getDaysInMonth,
+    eachMonthOfInterval,
+    startOfMonth, startOfYear,
+    endOfYear,
+    format,
+    subMonths,
+    addMonths
+} from 'date-fns';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-/* 
-    TO DO:
-    [ ] BG-Color indicating word count for each day changes based on how much was written
-    [ ] Select/Hover over a date to see more details (in a tooltip? details = word count total that day for now)  
-*/
 
 interface CalendarProps {
     entries: Entry[];
