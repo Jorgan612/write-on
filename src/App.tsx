@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './App.scss';
 import {Entry} from './interfaces/interfaces';
+import { entryData } from './datasets/datasets';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
 import Dashboard from './dashboard/dashboard';
@@ -11,11 +12,11 @@ import Profile from './profile/Profile';
 
 function App() {
 
-  const [entries, setEntries] = useState<Entry[]>([]);
+  const [entries, setEntries] = useState<Entry[]>(entryData);
   
 
   useEffect(() => {
-    // console.log('entries', entries)
+    console.log('entries', entries)
   }, [entries]);
 
   return (

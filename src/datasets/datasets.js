@@ -1,3 +1,47 @@
+export const entryData = [
+    {
+        id: 1,
+        total: 200,
+        date: '2026-01-17',
+    },
+    {
+        id: 2,
+        total: 100,
+        date: '2026-01-16',
+    },
+    {
+        id: 3,
+        total: 50,
+        date: '2026-01-15',
+    },
+    {
+        id: 4,
+        total: 200,
+        date: '2026-01-14',
+    },
+    {
+        id: 5,
+        total: 200,
+        date: '2026-01-13',
+    },
+    {
+        id: 6,
+        total: 500,
+        date: '2026-01-12',
+    },
+    {
+        id: 6,
+        total: 15,
+        date: '2026-01-12',
+    },
+    {
+        id: 6,
+        total: 1500,
+        date: '2026-01-12',
+    },
+]
+
+
 export const userGoals = [
     {
         name: 'Word Count',
