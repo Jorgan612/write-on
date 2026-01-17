@@ -3,41 +3,49 @@ export const entryData = [
         id: 1,
         total: 200,
         date: '2026-01-17',
+        time: '15:39:08 GMT-0700 (Mountain Standard Time)'
     },
     {
         id: 2,
         total: 100,
         date: '2026-01-16',
+        time: '15:39:08 GMT-0700 (Mountain Standard Time)'
     },
     {
         id: 3,
         total: 50,
         date: '2026-01-15',
+        time: '15:39:08 GMT-0700 (Mountain Standard Time)'
     },
     {
         id: 4,
         total: 200,
         date: '2026-01-14',
+        time: '15:39:08 GMT-0700 (Mountain Standard Time)'
     },
     {
         id: 5,
         total: 200,
         date: '2026-01-13',
+        time: '15:39:08 GMT-0700 (Mountain Standard Time)'
     },
     {
         id: 6,
         total: 500,
         date: '2026-01-12',
+        time: '15:29:08 GMT-0700 (Mountain Standard Time)'
     },
     {
-        id: 6,
+        id: 7,
         total: 15,
         date: '2026-01-12',
+        time: '15:50:08 GMT-0700 (Mountain Standard Time)'
     },
     {
-        id: 6,
+        id: 8,
         total: 1500,
         date: '2026-01-12',
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
     },
 ]
 
