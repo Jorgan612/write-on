@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.scss';
 import {Entry} from './interfaces/interfaces';
 import Header from './header/header'
+import Calendar from './calendar/Calendar';
 import Dashboard from './dashboard/dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Warmup from './warm-up/Warmup';
@@ -14,17 +15,13 @@ function App() {
   
 
   useEffect(() => {
-    console.log('entries', entries)
+    // console.log('entries', entries)
   }, [entries]);
 
   return (
     <div className="main-app-container">
       <Header setEntries={setEntries}/>
-      <div className='dark1'>Dark 1</div>
-      <div className='dark2'>Dark 2</div>
-      <div className='dark3'>Dark 3</div>
-      <div className='dark4'>Dark 4</div>
-      <div className='dark5'>Dark 5</div>
+      <Calendar entries={entries}/>
       <Routes>
         {/* <Route path="/" element={ <Dashboard /> } />
         <Route path="activeGoals" element={ <ActiveGoals /> } />

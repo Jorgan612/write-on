@@ -3,33 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 
-// fromt google fonts amaranth options
-/*
-.amaranth-regular {
-  font-family: "Amaranth", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.amaranth-bold {
-  font-family: "Amaranth", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.amaranth-regular-italic {
-  font-family: "Amaranth", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.amaranth-bold-italic {
-  font-family: "Amaranth", sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-*/
-
 html, body, body > div {
   font-family: 'amaranth-regular';
   color: $dark1;
@@ -47,38 +20,6 @@ html, body, body > div {
   cursor: default;
   background-color: $dark5;
   text-decoration: none;
-  // padding: 1rem;
-
-  //TESTING COLOR SCHEME
-  .dark1 {
-    @include content(100px, 1000px, null);
-    // border: 1px solid white;
-    background-color: $dark1;
-  }
-  
-  .dark2 {
-    @include content(100px, 1000px, null);
-    // border: 1px solid white;
-    background-color: $dark2;
-  }
-  
-  .dark3 {
-    @include content(100px, 1000px, null);
-    // border: 1px solid white;
-    background-color: $dark3;
-  }
-  
-  .dark4 {
-    @include content(100px, 1000px, null);
-    // border: 1px solid white;
-    background-color: $dark4;
-  }
-  
-  .dark5 {
-    @include content(100px, 1000px, null);
-    // border: 1px solid white;
-    background-color: $dark5;
-  }
 }
 
 a {
