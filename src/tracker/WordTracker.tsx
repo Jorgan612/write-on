@@ -30,9 +30,13 @@ function WordTracker({setEntries}: WordTrackerProps) {
       id: Date.now(),
       total: wordCount,
       date: dayjs().format('YYYY-MM-DD'),
+      year: dayjs().year(),
+      month: dayjs().month(),
+      day: dayjs().date(),
       time: new Date(Date.now()).toTimeString()
     }
 
+    console.log('newEntry', newEntry)
     
     setTotal(prev => prev + wordCount);
 
