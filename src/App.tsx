@@ -22,6 +22,7 @@ function App() {
 
   const [entries, setEntries] = useState<Entry[]>(entryData);
   const [combinedEntries, setCombinedEnries] = useState<any[]>([]);
+  const [months, setMonths] = useState([])
 
   
 
@@ -34,17 +35,12 @@ function App() {
     let splitDate;
     // need to compare entry dates and filter out different dates
     // then combine all entry word counts together into one day object
+    // get months from Calendar months array for monthNumber to compare month#
     // this gets passed down to calendar and then rendered (somehow)
     // console.log('updateCombinedEntries! -entries array -', entries)
+    
     entries.reduce((acc, entry) => {
-      let splitDate = entry.date.split('-');
-      let monthObj = {}
-      
-      // if (!monthObj[splitDate[0]]) {
-      //   console.log('splitDate[0]', splitDate[0])  
-      // }
-      // console.log('split', splitDate)
-      // console.log('entry', entry)
+      console.log('entry', entry)
 
       return acc;
     }, {})

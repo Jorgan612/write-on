@@ -36,7 +36,7 @@ function WordTracker({setEntries}: WordTrackerProps) {
       time: new Date(Date.now()).toTimeString()
     }
 
-    console.log('newEntry', newEntry)
+    // console.log('newEntry', newEntry)
     
     setTotal(prev => prev + wordCount);
 

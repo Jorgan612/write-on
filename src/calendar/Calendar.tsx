@@ -3,6 +3,7 @@ import { Entry } from '../interfaces/interfaces';
 import './Calendar.scss';
 import {
     getDay,
+    getMonth,
     getDaysInMonth,
     eachMonthOfInterval,
     startOfMonth, startOfYear,
@@ -19,6 +20,7 @@ interface CalendarProps {
 
 interface monthInfo {
     monthName: string;
+    monthNumber: number;
     daysInMonth: number;
     startDayOfWeek: number;
     year: string;
@@ -32,7 +34,6 @@ function Calendar({entries}: CalendarProps) {
     const currentYear = format(viewDate, 'yyyy');
 
     useEffect(() => {
-
         if (!months) {
             retrieveMonths();
         }
@@ -45,6 +46,7 @@ function Calendar({entries}: CalendarProps) {
             ? subMonths(prevDate, 1)
             : addMonths(prevDate, 1);
         })
+        console.log('months', months)
     }
 
     const retrieveMonths = () => {
@@ -54,6 +56,7 @@ function Calendar({entries}: CalendarProps) {
         }).map(monthDate => {
         return {
             monthName: format(monthDate, 'MMMM'),
+            monthNumber: getMonth(monthDate),
             daysInMonth: getDaysInMonth(monthDate),
             startDayOfWeek: getDay(startOfMonth(monthDate)), 
             year: format(monthDate, 'yyyy')
@@ -69,6 +72,8 @@ function Calendar({entries}: CalendarProps) {
         if (!currentMonthData) {
             return null;
         }
+
+        console.log('currentMonthData', currentMonthData)
 
         for (let i = 0; i < currentMonthData.startDayOfWeek; i++) {
             days.push(<div key={`empty-${i}`} className='day-cube empty'></div>);
