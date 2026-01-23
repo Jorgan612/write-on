@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import {Entry} from '../interfaces/interfaces';
+import { Entry, CombinedEntry } from '../interfaces/interfaces';
 import NavDropdown from '../dropdown/NavDropdown';
 import WordTracker from '../tracker/WordTracker';
 import './header.scss';
@@ -9,11 +9,12 @@ import './header.scss';
 
 interface HeaderProps {
     setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+    setCombinedEntries: React.Dispatch<React.SetStateAction<Record<string, number>>>;
 }
 
 
 
-function Header({setEntries}: HeaderProps) {
+function Header({setEntries, setCombinedEntries}: HeaderProps) {
 
     const [menuIconClicked, setMenuIconClicked] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState('/')
@@ -52,7 +53,7 @@ function Header({setEntries}: HeaderProps) {
     return (
         <div className="header-container">
             {/* <img className='header-logo' src={woLogo} alt='app logo' /> */}
-            <WordTracker setEntries={setEntries}/>
+            <WordTracker setEntries={setEntries} setCombinedEntries={setCombinedEntries} />
 
             <div className='menu-items-container'>
                 {menuOptions.map((option) => (

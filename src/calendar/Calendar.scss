@@ -50,11 +50,13 @@
             text-align: center;
         }
 
-        .day-cube {
+        .default-cube {
             @include flexbox(flex, null, center, center);
             aspect-ratio: 1 / 1;
+            font-weight: bolder;
             color: $dark1;
             background-color: $dark3;
+            border: 2px solid $dark3;
             margin: .2rem;
             cursor: pointer;
 
@@ -68,8 +70,26 @@
             }
         }
 
-        .day-cube:hover {
+        .default-cube:hover,
+        .words1:hover,
+        .words2:hover,
+        .words3:hover {
             border: 2px solid $dark2;
+        }
+
+        .words1 {
+            background-color: $highlight1;
+            border: 2px solid $highlight1;
+        }
+
+        .words2 {
+            background-color: $highlight2;
+            border: 2px solid $highlight2;
+        }
+
+        .words3 {
+            background-color: $highlight3;
+            border: 2px solid $highlight3;
         }
     }
 }

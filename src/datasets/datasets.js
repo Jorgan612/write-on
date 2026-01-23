@@ -28,7 +28,7 @@ export const entryData = [
     },
     {
         id: 4,
-        total: 200,
+        total: 450,
         date: '2026-01-14',
         year: 2026,
         month: 0,
@@ -69,6 +69,60 @@ export const entryData = [
         year: 2026,
         month: 0,
         day: 12,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 8,
+        total: 30,
+        date: '2026-02-10',
+        year: 2026,
+        month: 1,
+        day: 10,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 9,
+        total: 250,
+        date: '2026-01-10',
+        year: 2026,
+        month: 0,
+        day: 10,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 10,
+        total: 410,
+        date: '2026-01-9',
+        year: 2026,
+        month: 0,
+        day: 9,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 11,
+        total: 500,
+        date: '2026-01-11',
+        year: 2026,
+        month: 0,
+        day: 11,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 12,
+        total: 1500,
+        date: '2026-01-18',
+        year: 2026,
+        month: 0,
+        day: 18,
+        time: '15:59:08 GMT-0700 (Mountain Standard Time)'
+    },
+    {
+        id: 13,
+        total: 1500,
+        date: '2026-01-22',
+        year: 2026,
+        month: 0,
+        day: 22,
         time: '15:59:08 GMT-0700 (Mountain Standard Time)'
     },
 ]

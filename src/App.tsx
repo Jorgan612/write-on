@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect, use } from 'react';
 import './App.scss';
-import { Entry } from './interfaces/interfaces';
+import { Entry, CombinedEntry } from './interfaces/interfaces';
 import { entryData } from './datasets/datasets';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
@@ -11,45 +11,37 @@ import Warmup from './warm-up/Warmup';
 import Profile from './profile/Profile';
 
 
-interface combinedEntry {
-        id: number,
-        total: number,
-        date: string,
-        time: string
-}
-
 function App() {
 
   const [entries, setEntries] = useState<Entry[]>(entryData);
-  const [combinedEntries, setCombinedEnries] = useState<any[]>([]);
+  const [combinedEntries, setCombinedEntries] = useState<Record<string, number>>({});
   const [months, setMonths] = useState([])
 
   
 
   useEffect(() => {
-    // console.log('entries', entries)
     updateCombinedEntries();
   }, [entries]);
 
   const updateCombinedEntries = () => {
-    let splitDate;
-    // need to compare entry dates and filter out different dates
-    // then combine all entry word counts together into one day object
-    // get months from Calendar months array for monthNumber to compare month#
-    // this gets passed down to calendar and then rendered (somehow)
-    // console.log('updateCombinedEntries! -entries array -', entries)
     
-    entries.reduce((acc, entry) => {
-      console.log('entry', entry)
+    const dayTotal = entries.reduce((acc: Record<string, any>, entry) => {
+
+      if (!acc[entry.date]) {
+        acc[entry.date] = entry.total;
+      } else {
+        acc[entry.date] += entry.total;
+      }
 
       return acc;
     }, {})
+    setCombinedEntries(dayTotal)
   }
 
   return (
     <div className="main-app-container">
-      <Header setEntries={setEntries}/>
-      <Calendar entries={entries}/>
+      <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
+      <Calendar combinedEntries={combinedEntries}/>
       <Routes>
         {/* <Route path="/" element={ <Dashboard /> } />
         <Route path="activeGoals" element={ <ActiveGoals /> } />
