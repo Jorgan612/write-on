@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Entry } from '../interfaces/interfaces';
 import './Calendar.scss';
 import {
     getDay,
+    getMonth,
     getDaysInMonth,
     eachMonthOfInterval,
     startOfMonth, startOfYear,
@@ -14,17 +14,18 @@ import {
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface CalendarProps {
-    entries: Entry[];
+    combinedEntries: Record<string, number>;
 }
 
 interface monthInfo {
     monthName: string;
+    monthNumber: number;
     daysInMonth: number;
     startDayOfWeek: number;
     year: string;
 }
 
-function Calendar({entries}: CalendarProps) {
+function Calendar({combinedEntries}: CalendarProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const [months, setmonths ] = useState<monthInfo[] | null>(null);
     const currentMonth = format(viewDate, 'MMMM');
@@ -32,7 +33,6 @@ function Calendar({entries}: CalendarProps) {
     const currentYear = format(viewDate, 'yyyy');
 
     useEffect(() => {
-
         if (!months) {
             retrieveMonths();
         }
@@ -45,6 +45,7 @@ function Calendar({entries}: CalendarProps) {
             ? subMonths(prevDate, 1)
             : addMonths(prevDate, 1);
         })
+
     }
 
     const retrieveMonths = () => {
@@ -54,6 +55,7 @@ function Calendar({entries}: CalendarProps) {
         }).map(monthDate => {
         return {
             monthName: format(monthDate, 'MMMM'),
+            monthNumber: getMonth(monthDate),
             daysInMonth: getDaysInMonth(monthDate),
             startDayOfWeek: getDay(startOfMonth(monthDate)), 
             year: format(monthDate, 'yyyy')
@@ -71,12 +73,16 @@ function Calendar({entries}: CalendarProps) {
         }
 
         for (let i = 0; i < currentMonthData.startDayOfWeek; i++) {
-            days.push(<div key={`empty-${i}`} className='day-cube empty'></div>);
+            days.push(<div key={`empty-${i}`} className='default-cube empty'></div>);
         }
 
         for (let d = 1; d <= currentMonthData.daysInMonth; d++) {
+            const monthStr = String(currentMonthData.monthNumber + 1).padStart(2, '0'); 
+            const dayStr = String(d).padStart(2, '0');
+            const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
             days.push(
-                <div key={d} className='day-cube'>
+                <div key={d} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
+                title={`${combinedEntries[dateKey] ?? 0} words`}>
                     <span className='day-number'>{d}</span>
                 </div>
             )

@@ -3,7 +3,7 @@
 
 .word-tracker-container {
   @include flexbox(flex, column, center, null);
-  @include content(100%, 30%, null);
+  @include content(50%, 25%, null);
   color: $dark1;
   margin: .5rem 0rem 0rem 1rem;
 
@@ -13,13 +13,42 @@
     input {
       @include content(null, 15%, null);
       padding: .6rem;
+      background-color: $dark3;
+      color: $dark1;
+      border: none;
     }
+
+    input:focus {
+      outline: none;
+    }
+
+    /*
+     Hide the input field increment/decrement buttons for now
+    */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    /* */
   
     button {
+      color: $dark1;
       font-size: $font2;
+      background-color: $dark3;
+      border: 2px solid $dark4;
+      border-radius: 4px;
       padding: .5rem;
       margin-left: .5rem;
       cursor: pointer;
+    }
+
+    button:hover {
+      background-color: $dark2;
     }
   }
   
