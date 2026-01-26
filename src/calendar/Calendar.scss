@@ -2,8 +2,9 @@
 @import '../mixins.scss';
 
 .calendar-container {
-    @include content(12%, 12%, null);
+    @include content(20%, 20%, null);
     margin-left: 1rem;
+    border: 1px solid red;
 
     .calendar-header {
         @include flexbox(flex, row, space-between, center);
