@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.scss';
 import { Entry } from './interfaces/interfaces';
 import { entryData } from './datasets/datasets';
-import { format, subDays, parseISO } from 'date-fns';
+import { format, subDays } from 'date-fns';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
 import Dashboard from './dashboard/dashboard';
