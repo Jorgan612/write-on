@@ -1,11 +1,11 @@
 @import '../variables.scss';
+@import '../mixins.scss';
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    height: 20%;
+    @include flexbox(flex, row, flex-start, center);
+    @include content(20%, 80%, null);
     color: $dark1;
-    // padding: 0rem 2rem;
+    border: 1px solid yellow;
 
     .app-title {
         display: flex;
@@ -18,7 +18,6 @@
     }
 
     .header-logo {
-        // border: 1px solid red;
         height: 100%;
         width: 10rem;
     }
@@ -57,72 +56,72 @@
 
 /* FOR VERTICAL TABLET RESPONSIVENESS */
 
-@media only screen and (min-width: 601px) and (max-width: 1050px) { 
-    .header-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 15%;
-        padding: 1rem 2rem;
+// @media only screen and (min-width: 601px) and (max-width: 1050px) { 
+//     .header-container {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: space-between;
+//         height: 15%;
+//         padding: 1rem 2rem;
     
     
     
-        .app-title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-            color: $light1;
-            font-weight: 700;
-        }
+//         .app-title {
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             font-size: 3rem;
+//             color: $light1;
+//             font-weight: 700;
+//         }
 
-        .menu-items-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            color: $light1;
-            font-weight: 400;
-            font-size: 2rem;
-            box-sizing: border-box;
-        }
+//         .menu-items-container {
+//             display: flex;
+//             justify-content: space-around;
+//             align-items: center;
+//             width: 100%;
+//             color: $light1;
+//             font-weight: 400;
+//             font-size: 2rem;
+//             box-sizing: border-box;
+//         }
 
-        .dropdown-container { 
-            display: none;
-        }
-    }
-}
+//         .dropdown-container { 
+//             display: none;
+//         }
+//     }
+// }
 
 
-/*FOR MOBILE RESPONSIVENESS*/
+// /*FOR MOBILE RESPONSIVENESS*/
 
-@media only screen and (max-width: 600px) { 
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        height: 10%;
+// @media only screen and (max-width: 600px) { 
+//     .header-container {
+//         display: flex;
+//         justify-content: space-between;
+//         height: 10%;
     
-        .app-title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5rem;
-            color: $light1;
-            font-weight: 700;
-        }
+//         .app-title {
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             font-size: 2.5rem;
+//             color: $light1;
+//             font-weight: 700;
+//         }
 
-        .menu-items-container {
-            display: none;
-        }
+//         .menu-items-container {
+//             display: none;
+//         }
 
-        .dropdown-container {
-            display: block;
-            position: relative;
+//         .dropdown-container {
+//             display: block;
+//             position: relative;
 
-            .menu-icon {
-                display: flex;
-                justify-content: flex-end;
-            }
-        }
-    }
-}
+//             .menu-icon {
+//                 display: flex;
+//                 justify-content: flex-end;
+//             }
+//         }
+//     }
+// }

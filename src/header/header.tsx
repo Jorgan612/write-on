@@ -55,13 +55,13 @@ function Header({setEntries, setCombinedEntries}: HeaderProps) {
             {/* <img className='header-logo' src={woLogo} alt='app logo' /> */}
             <WordTracker setEntries={setEntries} setCombinedEntries={setCombinedEntries} />
 
-            <div className='menu-items-container'>
+            {/* <div className='menu-items-container'>
                 {menuOptions.map((option) => (
                         <Link to={`${option.path}`} key={option.id}>
                             <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' >{option.name}</div>
                         </Link>
                  ))}
-            </div>
+            </div> */}
             <div className='dropdown-container'>
                 <div className='menu-icon'>
                     <svg onClick={handleMenuClick} xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#D9D9D9"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
