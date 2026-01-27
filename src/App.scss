@@ -13,18 +13,22 @@ html, body, body > div {
 }
 
 .main-app-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  @include flexbox(flex, row, flex-start, flex-start);
   height: 100%;
   cursor: default;
   background-color: $dark5;
   text-decoration: none;
 
-  .graph-container {
-    @include content(auto, 20%, null);
-    border: 1px solid yellow;
+  .top {
+    @include flexbox(flex, row, flex-start, center);
+    @include content(auto, 80%, null);
+
+    .graph-container {
+      @include content(auto, 20%, null);
+      border: 1px solid yellow;
+    }
   }
+
 }
 
 a {

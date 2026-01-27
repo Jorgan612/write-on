@@ -3,7 +3,7 @@
 
 .word-tracker-container {
   @include flexbox(flex, column, center, null);
-  @include content(50%, 25%, null);
+  @include content(100%, 25%, null);
   color: $dark1;
   margin: .5rem 0rem 0rem 1rem;
 

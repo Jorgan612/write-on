@@ -59,15 +59,17 @@ const updateWordCountGraph = () => {
   return (
     <div className="main-app-container">
       <Calendar combinedEntries={combinedEntries}/>
-      <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
-    <div className='graph-container'>
-      {Object.keys(combinedEntries).length > 0 ? (
-        <Line data={updateWordCountGraph()} />
-      ) : (
-        <p>No data recorded yet. Start writing!</p>
-      )}
-    </div>
-    <div className='test'></div>
+      <div className='top'>
+        <div className='graph-container'>
+          {Object.keys(combinedEntries).length > 0 ? (
+            <Line data={updateWordCountGraph()} />
+          ) : (
+            <p>No data recorded yet. Start writing!</p>
+          )}
+        </div>
+        <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
+      </div>
+      <div className='test'></div>
       {/* <Routes>
         <Route path="/" element={ <Dashboard /> } />`
         <Route path="activeGoals" element={ <ActiveGoals /> } />
