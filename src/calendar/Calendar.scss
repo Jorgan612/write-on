@@ -2,8 +2,9 @@
 @import '../mixins.scss';
 
 .calendar-container {
-    @include content(20%, 20%, null);
-    margin-left: 1rem;
+    @include content(auto, 20%, null);
+    // margin-left: 1rem;
+    padding: 1rem;
     border: 1px solid red;
 
     .calendar-header {
@@ -40,6 +41,7 @@
     }
 
     .grid-container {
+        display: block;
 
         .weekdays-row, .days-grid {
             display: grid;

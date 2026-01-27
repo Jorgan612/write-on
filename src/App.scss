@@ -22,7 +22,7 @@ html, body, body > div {
   text-decoration: none;
 
   .graph-container {
-    @include content(20%, 20%, null);
+    @include content(auto, 20%, null);
     border: 1px solid yellow;
   }
 }
