@@ -3,28 +3,20 @@
 
 .word-tracker-container {
   @include flexbox(flex, column, center, null);
-  @include content(100%, 25%, null);
+  @include content(auto, auto, null);
   color: $dark1;
   margin: .5rem 0rem 0rem 1rem;
 
   form {
-    @include content(25%, 100%, null);
-  
-    input {
-      @include content(null, 15%, null);
-      padding: .6rem;
-      background-color: $dark3;
-      color: $dark1;
-      border: none;
-    }
+    @include flexbox(flex, row, flex-start, center);
+    position: relative;
+    display: inline-block;
 
     input:focus {
       outline: none;
     }
 
-    /*
-     Hide the input field increment/decrement buttons for now
-    */
+    /* Hide the input field increment/decrement buttons for now */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -34,22 +26,29 @@
     input[type=number] {
       -moz-appearance: textfield;
     }
-    /* */
-  
-    button {
-      color: $dark1;
-      font-size: $font2;
-      background-color: $dark3;
-      border: 2px solid $dark4;
-      border-radius: 4px;
-      padding: .5rem;
-      margin-left: .5rem;
-      cursor: pointer;
-    }
+  }
 
-    button:hover {
-      background-color: $dark2;
-    }
+  form input {
+    padding: .7rem;
+    background-color: $dark3;
+    color: $dark1;
+    border: none;
+  }
+
+  form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+    color: $dark1;
+    font-size: $font2;
+    padding: .6rem;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: $dark2;
   }
   
 }

@@ -60,6 +60,7 @@ const updateWordCountGraph = () => {
     <div className="main-app-container">
       <Calendar combinedEntries={combinedEntries}/>
       <div className='top'>
+        <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
         <div className='graph-container'>
           {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateWordCountGraph()} />
@@ -67,7 +68,6 @@ const updateWordCountGraph = () => {
             <p>No data recorded yet. Start writing!</p>
           )}
         </div>
-        <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
       </div>
       <div className='test'></div>
       {/* <Routes>

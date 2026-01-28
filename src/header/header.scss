@@ -3,9 +3,8 @@
 
 .header-container {
     @include flexbox(flex, row, flex-start, center);
-    @include content(20%, 80%, null);
+    @include content(auto, auto, null);
     color: $dark1;
-    border: 1px solid yellow;
 
     .app-title {
         display: flex;
