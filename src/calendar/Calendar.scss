@@ -2,16 +2,23 @@
 @import '../mixins.scss';
 
 .calendar-container {
-    @include content(20%, 20%, null);
-    margin-left: 1rem;
-    border: 1px solid red;
+    @include content(auto, auto, null);
+    padding: 1rem;
 
     .calendar-header {
         @include flexbox(flex, row, space-between, center);
-        padding: .5rem;
+        @include content(null, 100%, null);
+        gap: 0.5rem;
 
         .month {
-            @include content(null, 25%, null);
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap
+        }
+
+        .previous,
+        .next {
+            flex-shrink: 0;
         }
 
         .previous {
@@ -40,8 +47,11 @@
     }
 
     .grid-container {
+        display: block;
 
-        .weekdays-row, .days-grid {
+        .weekdays-row,
+        .days-grid,
+        .weekdays-row {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
         }
@@ -49,6 +59,15 @@
         .weekdays-row {
             font-weight: bold;
             text-align: center;
+
+            span {
+                @include flexbox(flex, null, center, center);
+                margin: 0rem .2rem;
+                font-size: 0.8rem;
+                border: 5px solid transparent;
+                border-bottom: none;
+                box-sizing: border-box;
+            }
         }
 
         .default-cube {
