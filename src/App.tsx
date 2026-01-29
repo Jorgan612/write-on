@@ -1,11 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './App.scss';
 import { Entry } from './interfaces/interfaces';
 import { entryData } from './datasets/datasets';
 import { format, subDays } from 'date-fns';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
+import Stats from './stats/Stats';
+import WordTracker from './tracker/WordTracker';
 import Dashboard from './dashboard/dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Warmup from './warm-up/Warmup';
@@ -58,9 +61,9 @@ const updateWordCountGraph = () => {
   
   return (
     <div className="main-app-container">
-      <Calendar combinedEntries={combinedEntries}/>
       <div className='top'>
-        <Header setEntries={setEntries} setCombinedEntries={setCombinedEntries}/>
+        <Calendar combinedEntries={combinedEntries}/>
+        <WordTracker setEntries={setEntries} setCombinedEntries={setCombinedEntries} />
         <div className='graph-container'>
           {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateWordCountGraph()} />
@@ -68,14 +71,19 @@ const updateWordCountGraph = () => {
             <p>No data recorded yet. Start writing!</p>
           )}
         </div>
+        <Header />
+        {/* <Link to={'/stats'} key={'stats'}>
+          <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' >{option.name}</div>
+        </Link> */}
       </div>
-      <div className='test'></div>
-      {/* <Routes>
-        <Route path="/" element={ <Dashboard /> } />`
+      {/* <div className='test'></div> */}
+      <Routes>
+        <Route path="/stats" element={ <Stats /> } />
+        {/* <Route path="/" element={ <Dashboard /> } />`
         <Route path="activeGoals" element={ <ActiveGoals /> } />
         <Route path="warmup" element={ <Warmup /> } />
-        <Route path="profile" element={ <Profile /> } />
-      </Routes> */}
+        <Route path="profile" element={ <Profile /> } /> */}
+      </Routes>
     </div>
   );
 }
