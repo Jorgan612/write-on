@@ -31,54 +31,17 @@ function App() {
     setCombinedEntries(dayTotal);
   }, [entries]);
 
-
-const updateWordCountGraph = () => {
-  const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
-    return subDays(new Date(), 6 - i);
-  });
-
-  const displayLabels = lastSevenDays.map(date => format(date, 'MMM d'));
-
-  const totals = lastSevenDays.map(date => {
-    const dateString = format(date, 'yyyy-MM-dd');
-    return combinedEntries[dateString] || 0;
-  });
-
-  return {
-    labels: displayLabels,
-    datasets: [
-      {
-        label: 'Words',
-        data: totals,
-        borderColor: '#527199',
-        backgroundColor: '#263b56',
-        tension: 0.3,
-        fill: true,
-      },
-    ],
-  };
-};
   
   return (
     <div className="main-app-container">
       <div className='top'>
         <Calendar combinedEntries={combinedEntries}/>
         <WordTracker setEntries={setEntries} setCombinedEntries={setCombinedEntries} />
-        <div className='graph-container'>
-          {Object.keys(combinedEntries).length > 0 ? (
-            <Line data={updateWordCountGraph()} />
-          ) : (
-            <p>No data recorded yet. Start writing!</p>
-          )}
-        </div>
         <Header />
-        {/* <Link to={'/stats'} key={'stats'}>
-          <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' >{option.name}</div>
-        </Link> */}
       </div>
       {/* <div className='test'></div> */}
       <Routes>
-        <Route path="/stats" element={ <Stats /> } />
+        <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
         {/* <Route path="/" element={ <Dashboard /> } />`
         <Route path="activeGoals" element={ <ActiveGoals /> } />
         <Route path="warmup" element={ <Warmup /> } />

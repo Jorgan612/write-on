@@ -23,11 +23,6 @@ html, body, body > div {
     @include flexbox(flex, column, flex-start, flex-start);
     @include content(100%, auto, null);
     box-shadow: 1px 0px 20px -10px #000;
-
-    .graph-container {
-      @include content(auto, 90%, null);
-      margin-left: 1rem;
-    }
   }
 
 }
