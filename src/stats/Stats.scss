@@ -2,10 +2,11 @@
 @import '../mixins.scss';
 
 .stats-container {
+    @include flexbox(flex, row, center, flex-start);
     @include content(100%, 100%, null);
 
     .graph-container {
-      @include content(25%, 100%, null);
+      @include content(25%, 50%, null);
       padding: 1rem;
     }
 }

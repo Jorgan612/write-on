@@ -8,8 +8,9 @@ interface StatsProps {
 }
 
 function Stats({combinedEntries}: StatsProps) {
+    console.log('combinedEntries', combinedEntries)
 
-const updateWordCountGraph = () => {
+const updateSevenDayWordCount = () => {
   const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
     return subDays(new Date(), 6 - i);
   });
@@ -36,11 +37,16 @@ const updateWordCountGraph = () => {
   };
 };
 
+const updateMonthWordCount = () => {
+    // logic for month graph
+}
+
 return (
     <div className="stats-container">
         <div className='graph-container'>
-          {Object.keys(combinedEntries).length > 0 ? (
-            <Line data={updateWordCountGraph()} />
+            <p>Previous seven days overview.</p>
+            {Object.keys(combinedEntries).length > 0 ? (
+            <Line data={updateSevenDayWordCount()} />
           ) : (
             <p>No data recorded yet. Start writing!</p>
           )}
