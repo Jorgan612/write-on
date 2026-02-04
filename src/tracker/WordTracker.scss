@@ -30,8 +30,10 @@
 
   form input {
     padding: .7rem;
+    margin-top: 5px;
     background-color: $dark3;
     color: $dark1;
+    border-radius: 5px;
     border: none;
   }
 
@@ -43,12 +45,15 @@
     background-color: transparent;
     color: $dark1;
     font-size: $font2;
+    font-weight: bolder;
     padding: .6rem;
+    margin-top: 5px;
     cursor: pointer;
   }
 
   button:hover {
     background-color: $dark2;
+    border-radius: 0px 5px 5px 0px;
   }
   
 }

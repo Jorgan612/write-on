@@ -28,30 +28,28 @@
     .menu-items-container {
         @include flexbox(flex, column, center, flex-start);
         @include content(auto, 100%, null);
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: center;
-        // align-items: flex-start;
-        // gap: 1rem;
         padding: 1rem;
         font-weight: 400;
         font-size: $font2;
         list-style: none;
 
         .menu-item {
+            @include content(auto, 100%, null);
             cursor: pointer;
             padding: .5rem;
             white-space: nowrap;
-            border-bottom: 4px solid $dark5;
             color: $dark1;
         }
 
         .menu-item:hover {
-        border-bottom: 4px solid $light4;
+            text-decoration: underline;
         }
 
         .selected-menu-item {
-            border-bottom: 4px solid $light3;
+            text-align: center;
+            background-color: $dark3;
+            border-radius: 5px;
+            border-radius: 10px;
         }
     }
 }

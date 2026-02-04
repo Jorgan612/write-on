@@ -14,14 +14,14 @@ function Header() {
 
     const menuOptions = [
     {
-        name: 'Stats',
-        path: '/stats',
-        id: 'stats'
-    },
-    {
         name: 'Dashboard',
         path: '/',
         id: 'dashboard'
+    },
+    {
+        name: 'Stats',
+        path: '/stats',
+        id: 'stats'
     },
     {
         name: 'Warm-up',
@@ -42,10 +42,6 @@ function Header() {
 ];
 
     const handleMenuClick = (option: any) => {
-        console.log('OPTION', option)
-        // This function is for mobile menu icon click
-
-        // Need condition to determine screensize to allow for accurate dropdown menu open and close if screensize changes and menu icon shows vs doesn't show 
         setMenuIconClicked( prev => !prev ); 
         setActiveMenuItem(option);
     }
@@ -59,7 +55,7 @@ function Header() {
             <div className='menu-items-container'>
                 {menuOptions.map((option) => (
                     <Link to={`${option.path}`} key={option.id}>
-                        <div onClick={() => {handleMenuClick(option.id)}} className='menu-item' >{option.name}</div>
+                        <div onClick={() => {handleMenuClick(option.id)}} className={activeMenuItem === option.id ? 'selected-menu-item menu-item' : 'menu-item'} >{option.name}</div>
                     </Link>
                  ))}
             </div>
