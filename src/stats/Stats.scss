@@ -3,7 +3,7 @@
 
 .stats-container {
     @include flexbox(flex, row, center, flex-start);
-    @include content(100%, 100%, null);
+    @include content(100%, 75%, null);
 
     .graph-container {
       @include content(25%, 50%, null);
