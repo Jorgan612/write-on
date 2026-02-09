@@ -4,9 +4,10 @@
 .stats-container {
     @include flexbox(flex, row, center, flex-start);
     @include content(100%, 75%, null);
+    flex-wrap: wrap;
 
     .graph-container {
-      @include content(25%, 50%, null);
+      @include content(25%, 45%, null);
       padding: 1rem;
     }
 }
