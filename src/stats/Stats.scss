@@ -2,12 +2,17 @@
 @import '../mixins.scss';
 
 .stats-container {
-    @include flexbox(flex, row, center, flex-start);
+    @include flexbox(flex, row, center, center);
     @include content(100%, 75%, null);
     flex-wrap: wrap;
+    padding: 1rem;
 
     .graph-container {
       @include content(25%, 45%, null);
       padding: 1rem;
+
+      .full-year {
+        width: 100%;
+      }
     }
 }

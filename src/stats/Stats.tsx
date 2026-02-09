@@ -39,13 +39,43 @@ const updateSevenDayWordCount = () => {
 
 const updateMonthWordCount = () => {
     // logic for month graph
-    const lastThirtynDays = Array.from({ length: 30 }).map((_, i) => {
+  const lastThirtyDays = Array.from({ length: 30 }).map((_, i) => {
     return subDays(new Date(), 30 - i);
   });
 
-  const displayLabels = lastThirtynDays.map(date => format(date, 'MMM d'));
+  const displayLabels = lastThirtyDays.map(date => format(date, 'MMM d'));
 
-  const totals = lastThirtynDays.map(date => {
+  const totals = lastThirtyDays.map(date => {
+    const dateString = format(date, 'yyyy-MM-dd');
+    return combinedEntries[dateString] || 0;
+  });
+
+  return {
+    labels: displayLabels,
+    datasets: [
+      {
+        label: 'Words',
+        data: totals,
+        borderColor: '#527199',
+        backgroundColor: '#263b56',
+        tension: 0.3,
+        fill: true,
+      },
+    ],
+  };
+}
+
+
+const updateYearWordCount = () => {
+  console.log('combinedEntries', combinedEntries)
+  // Should only be for current year 
+  const yearToDate = Array.from({ length: 365 }).map((_, i) => {
+    return subDays(new Date(), 365 - i);
+  });
+
+  const displayLabels = yearToDate.map(date => format(date, 'MMM d'));
+
+  const totals = yearToDate.map(date => {
     const dateString = format(date, 'yyyy-MM-dd');
     return combinedEntries[dateString] || 0;
   });
@@ -87,7 +117,7 @@ return (
         <div className='graph-container full-year'>
             <p>Year overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
-            <Line data={updateMonthWordCount()} />
+            <Line data={updateYearWordCount()} />
           ) : (
             <p>No data recorded yet. Start writing!</p>
           )}
