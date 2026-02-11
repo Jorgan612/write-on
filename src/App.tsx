@@ -36,7 +36,7 @@ function App() {
     <div className="main-app-container">
       <div className='top'>
         <Calendar combinedEntries={combinedEntries}/>
-        <WordTracker setEntries={setEntries} setCombinedEntries={setCombinedEntries} />
+        <WordTracker setEntries={setEntries} />
         <Header />
       </div>
       {/* <div className='test'></div> */}

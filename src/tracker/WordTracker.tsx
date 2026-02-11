@@ -6,7 +6,6 @@ import './WordTracker.scss';
 
 interface WordTrackerProps {
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-  setCombinedEntries: React.Dispatch<React.SetStateAction<Record<string, number>>>;
 }
 
 
