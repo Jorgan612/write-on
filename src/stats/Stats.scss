@@ -1,0 +1,23 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.stats-container {
+    @include flexbox(flex, row, flex-start, flex-start);
+    @include content(100%, 75%, null);
+    flex-wrap: wrap;
+    padding: 1rem;
+    overflow-y: auto;
+
+    .graph-container {
+      position: relative;
+      @include content(25%, 45%, null);
+      padding: 1rem;
+      margin-right: 1rem;
+
+      &.full-year {
+        position: relative;
+        @include content(25%, 100%, null);
+      }
+    }
+
+}

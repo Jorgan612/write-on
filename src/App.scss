@@ -20,13 +20,9 @@ html, body, body > div {
   text-decoration: none;
 
   .top {
-    @include flexbox(flex, row, flex-start, center);
-    @include content(auto, 90%, null);
-
-    .graph-container {
-      @include content(auto, auto, null);
-      margin-left: 1rem;
-    }
+    @include flexbox(flex, column, flex-start, flex-start);
+    @include content(100%, auto, null);
+    box-shadow: 1px 0px 20px -10px #000;
   }
 
 }
@@ -36,6 +32,6 @@ a {
 }
 
 
-.test { // using to see how this element lines up with calendar - need to fix overlap or calendar container dimensions to reflect calendar size correctly
-  border: 2px solid orange;
-}
+// .test { // using to see how this element lines up with calendar - need to fix overlap or calendar container dimensions to reflect calendar size correctly
+//   border: 2px solid orange;
+// }
