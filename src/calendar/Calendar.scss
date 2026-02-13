@@ -7,7 +7,7 @@
 
     .calendar-header {
         @include flexbox(flex, row, space-between, center);
-        @include content(null, 100%, null);
+        @include content(null, auto, null);
         gap: 0.5rem;
 
         .month {
@@ -113,4 +113,81 @@
             border: 2px solid $highlight3;
         }
     }
+
+    .update-date-container {
+        @include flexbox(flex, column, center, null);
+        @include content(auto, auto, null);
+        position: relative;
+        border: none;
+        background-color: $dark5;
+        padding: 0px 4px;
+        margin-top: 1rem;;
+        z-index: 1;
+
+        p {
+            @include content(auto, auto, null);
+            font-weight: 500;
+        }
+
+        
+
+        form {
+            @include flexbox(flex, column, space-between, flex-start);
+            @include content(auto, auto, null);
+
+            input:focus {
+                outline: none;
+            }
+        }
+
+        form input {
+            @include content(auto, 50%, null);
+            padding: .7rem;
+            margin-top: 5px;
+            background-color: $dark3;
+            color: $dark1;
+            border-radius: 5px;
+            border: none;
+        }
+
+        form button {
+            @include content(auto, auto, null);
+            border: none;
+            background-color: transparent;
+            color: $dark1;
+            font-size: $font2;
+            font-weight: bolder;
+            padding: .6rem;
+            margin-top: 5px;
+            cursor: pointer;
+            background-color: $dark3;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        button:hover {
+            background-color: $dark2;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        /* Hide the input field increment/decrement buttons for now */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        .caution-msg {
+            width: 55%;
+            text-wrap: wrap;
+        }
+    }
+}
+
+
+.hidden {
+    display: none;
 }

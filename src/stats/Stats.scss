@@ -14,6 +14,10 @@
       padding: 1rem;
       margin-right: 1rem;
 
+      p {
+        font-size: $font4;
+      }
+
       &.full-year {
         position: relative;
         @include content(25%, 100%, null);

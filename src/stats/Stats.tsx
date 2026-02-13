@@ -7,7 +7,6 @@ interface StatsProps {
     combinedEntries: Record<string, number>;
 }
 
-
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -100,7 +99,6 @@ const updateMonthWordCount = () => {
     ],
   };
 }
-
 
 const updateYearWordCount = () => {
   const totalDays = isLeapYear(new Date()) ? 366 : 365;

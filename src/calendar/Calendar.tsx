@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import './Calendar.scss';
 import {
     getDay,
@@ -28,6 +28,9 @@ interface monthInfo {
 function Calendar({combinedEntries}: CalendarProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const [months, setmonths ] = useState<monthInfo[] | null>(null);
+    const [updateDate, setUpdateDate] = useState(false);
+    const [selectedUpdateDate, setSelectedUpdateDate] = useState<string>('');
+    const [updatedWordCount, setUpdatedWordCount] = useState<number>(0);
     const currentMonth = format(viewDate, 'MMMM');
     const currentMonthData = months?.find(m => m.monthName === currentMonth);
     const currentYear = format(viewDate, 'yyyy');
@@ -45,7 +48,6 @@ function Calendar({combinedEntries}: CalendarProps) {
             ? subMonths(prevDate, 1)
             : addMonths(prevDate, 1);
         })
-
     }
 
     const retrieveMonths = () => {
@@ -81,8 +83,8 @@ function Calendar({combinedEntries}: CalendarProps) {
             const dayStr = String(d).padStart(2, '0');
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
             days.push(
-                <div key={d} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
-                title={`${combinedEntries[dateKey] ?? 0} words`}>
+                <div key={d} id={dateKey} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
+                title={`${combinedEntries[dateKey] ?? 0} words`} onClick={() => toggleDateUpdateBox(dateKey)}>
                     <span className='day-number'>{d}</span>
                 </div>
             )
@@ -91,8 +93,19 @@ function Calendar({combinedEntries}: CalendarProps) {
         return days;
     }
 
-    const updatePreviousDate = () => {
-        console.log('updatePreviousDate!')
+    const handleUpdatedWordCount = (e: ChangeEvent<HTMLInputElement>) => {
+        setUpdatedWordCount(Number(e.target.value));
+    }
+
+    const updatePreviousDate = (e: FormEvent) => {
+        e.preventDefault();
+        toggleDateUpdateBox('');
+        combinedEntries[selectedUpdateDate] = updatedWordCount;
+    }
+
+    const toggleDateUpdateBox = (dateKey: string) => {
+        setUpdateDate(prevupdateDate => ! prevupdateDate);
+        setSelectedUpdateDate(dateKey);
     }
 
     return (
@@ -111,6 +124,15 @@ function Calendar({combinedEntries}: CalendarProps) {
                 <div className='days-grid'>
                     {renderDays()}
                 </div>
+            </div>
+            <div className={updateDate ? 'update-date-container' : 'hidden'}>
+                <form onSubmit={updatePreviousDate}>
+                <p>Add a new total for {selectedUpdateDate}</p>
+                    <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
+                    <p className='caution-msg'>Updating will replace the current word count value for the selected day.</p>
+                    <button type='submit'>Update</button>
+                </form>
+
             </div>
 
         </div>

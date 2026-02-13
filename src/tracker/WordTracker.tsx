@@ -45,7 +45,7 @@ function WordTracker({setEntries}: WordTrackerProps) {
       <label>Update today's word count</label>
       <form onSubmit={updateWordCount}>
         <input placeholder='####' type='number' value={newWords} onChange={handleInputChange}/>
-        <button type='submit'>+</button>
+        <button type='submit'>+ Add</button>
       </form>
       <p>Today's total: {total}</p>
     </section>
