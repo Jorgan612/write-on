@@ -7,6 +7,7 @@ interface StatsProps {
     combinedEntries: Record<string, number>;
 }
 
+
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -17,11 +18,23 @@ const chartOptions = {
       },
       ticks: {
         autoSkip: true,
-        maxTicksLimit: 12
-      }
+        maxTicksLimit: 12,
+        font: {
+          size: 16,
+          weight: 400,
+        },
+        color: '#94a3b8',
+      },
     },
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      ticks: {
+        font: {
+          size: 14,
+          weight: 400
+        },
+        color: '#94a3b8',
+      }
     }
   },
   plugins: {
@@ -29,7 +42,8 @@ const chartOptions = {
       display: false
     }
   }
-};
+} as const;
+
 
 function Stats({combinedEntries}: StatsProps) {
   

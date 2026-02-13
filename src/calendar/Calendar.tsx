@@ -91,6 +91,10 @@ function Calendar({combinedEntries}: CalendarProps) {
         return days;
     }
 
+    const updatePreviousDate = () => {
+        console.log('updatePreviousDate!')
+    }
+
     return (
         <div className='calendar-container'>
             <div className='calendar-header'>
