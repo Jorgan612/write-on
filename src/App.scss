@@ -23,6 +23,14 @@ html, body, body > div {
     @include flexbox(flex, column, flex-start, flex-start);
     @include content(100%, auto, null);
     box-shadow: 1px 0px 20px -10px #000;
+
+    .app-title {
+      @include content(auto, 100%, null);
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      padding-top: .5rem;
+    }
   }
 
 }
