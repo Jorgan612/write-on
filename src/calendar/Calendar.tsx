@@ -84,7 +84,7 @@ function Calendar({combinedEntries}: CalendarProps) {
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
             days.push(
                 <div key={d} id={dateKey} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
-                title={`${combinedEntries[dateKey] ?? 0} words`} onClick={() => toggleDateUpdateBox(dateKey)}>
+                title={`${combinedEntries[dateKey] ?? 0} words`} onClick={() => openDateUpdateBox(dateKey)}>
                     <span className='day-number'>{d}</span>
                 </div>
             )
@@ -99,13 +99,19 @@ function Calendar({combinedEntries}: CalendarProps) {
 
     const updatePreviousDate = (e: FormEvent) => {
         e.preventDefault();
-        toggleDateUpdateBox('');
+        openDateUpdateBox('');
         combinedEntries[selectedUpdateDate] = updatedWordCount;
+        setUpdateDate(false);
+        setUpdatedWordCount(0);
     }
 
-    const toggleDateUpdateBox = (dateKey: string) => {
-        setUpdateDate(prevupdateDate => ! prevupdateDate);
+    const openDateUpdateBox = (dateKey: string) => {
+        setUpdateDate(true);
         setSelectedUpdateDate(dateKey);
+    }
+
+    const closeUpdateDateBox = () => {
+        setUpdateDate(false);
     }
 
     return (
@@ -125,12 +131,15 @@ function Calendar({combinedEntries}: CalendarProps) {
                     {renderDays()}
                 </div>
             </div>
-            <div className={updateDate ? 'update-date-container' : 'hidden'}>
+            <div className={`update-date-container  ${updateDate ? 'is-visible' : 'is-hidden'}`}>
                 <form onSubmit={updatePreviousDate}>
                 <p>Add a new total for {selectedUpdateDate}</p>
                     <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
                     <p className='caution-msg'>Updating will replace the current word count value for the selected day.</p>
-                    <button type='submit'>Update</button>
+                    <div>
+                        <button type='submit'>Update</button>
+                        <button onClick={closeUpdateDateBox}>Cancel</button>
+                    </div>
                 </form>
 
             </div>
