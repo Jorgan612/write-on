@@ -112,6 +112,8 @@ function Calendar({combinedEntries}: CalendarProps) {
 
     const closeUpdateDateBox = () => {
         setUpdateDate(false);
+        setSelectedUpdateDate('');
+        setUpdatedWordCount(0);
     }
 
     return (
@@ -138,7 +140,7 @@ function Calendar({combinedEntries}: CalendarProps) {
                     <p className='caution-msg'>Updating will replace the current word count value for the selected day.</p>
                     <div>
                         <button type='submit'>Update</button>
-                        <button onClick={closeUpdateDateBox}>Cancel</button>
+                        <button type='button' onClick={closeUpdateDateBox}>Cancel</button>
                     </div>
                 </form>
 
