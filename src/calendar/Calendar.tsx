@@ -159,7 +159,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
             </div>
             <div className={`update-date-container  ${updateDate ? 'is-visible' : 'is-hidden'}`}>
                 <form onSubmit={updatePreviousDate}>
-                <p>Add a new total for {selectedUpdateDate}</p>
+                <p>Add a new total for <span>{selectedUpdateDate}</span></p>
                     <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
                     <p className='caution-msg'>Update will replace the current word count for the selected day.</p>
                     <div>

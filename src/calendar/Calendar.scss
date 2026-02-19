@@ -145,6 +145,10 @@
         p {
             @include content(auto, auto, null);
             font-weight: 500;
+
+            span {
+                font-weight:900;
+            }
         }
 
         
