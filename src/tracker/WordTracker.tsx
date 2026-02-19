@@ -10,17 +10,17 @@ interface WordTrackerProps {
 
 
 function WordTracker({setEntries}: WordTrackerProps) {
-  const [newWords, setNewWords] = useState<string>('');
+  const [newWords, setNewWords] = useState<number>(0);
   let [total, setTotal] = useState<number>(0);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewWords(e.target.value);
+    setNewWords(Number(e.target.value));
   }
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
-    updateDailyTotal(Number(newWords));
-    setNewWords('');
+    updateDailyTotal(newWords);
+    setNewWords(0);
   }
 
   const updateDailyTotal = (newWords: number) => {
