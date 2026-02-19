@@ -19,16 +19,14 @@ function WordTracker({setEntries}: WordTrackerProps) {
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
-    updateDailyTotal(newWords);
+    updateDailyTotal(Number(newWords));
     setNewWords('');
   }
 
-  const updateDailyTotal = (newWords: string) => {
-    const wordCount = Number(newWords);
-
+  const updateDailyTotal = (newWords: number) => {
     const newEntry = {
       id: Date.now(),
-      total: wordCount,
+      total: newWords,
       date: dayjs().format('YYYY-MM-DD'),
       year: dayjs().year(),
       month: dayjs().month(),
@@ -36,7 +34,7 @@ function WordTracker({setEntries}: WordTrackerProps) {
       time: new Date(Date.now()).toTimeString()
     }
     
-    setTotal(prev => prev + wordCount);
+    setTotal(prev => prev + newWords);
     setEntries((prevEntries: Entry[]) => [...prevEntries, newEntry]);
   }
 
