@@ -15,7 +15,6 @@ import Warmup from './warm-up/Warmup';
 import Profile from './profile/Profile';
 
 import "chart.js/auto";
-import { Line } from "react-chartjs-2";
 
 
 function App() {
@@ -35,7 +34,8 @@ function App() {
   return (
     <div className="main-app-container">
       <div className='top'>
-        <Calendar combinedEntries={combinedEntries}/>
+        <div className='app-title'>Write On!</div>
+        <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
         <WordTracker setEntries={setEntries} />
         <Header />
       </div>

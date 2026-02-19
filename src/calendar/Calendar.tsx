@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import './Calendar.scss';
+import { Entry } from '../interfaces/interfaces';
 import {
     getDay,
     getMonth,
@@ -15,6 +16,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface CalendarProps {
     combinedEntries: Record<string, number>;
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
 interface monthInfo {
@@ -25,9 +27,12 @@ interface monthInfo {
     year: string;
 }
 
-function Calendar({combinedEntries}: CalendarProps) {
+function Calendar({combinedEntries, setEntries}: CalendarProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const [months, setmonths ] = useState<monthInfo[] | null>(null);
+    const [updateDate, setUpdateDate] = useState(false);
+    const [selectedUpdateDate, setSelectedUpdateDate] = useState<string>('');
+    const [updatedWordCount, setUpdatedWordCount] = useState<number>(0);
     const currentMonth = format(viewDate, 'MMMM');
     const currentMonthData = months?.find(m => m.monthName === currentMonth);
     const currentYear = format(viewDate, 'yyyy');
@@ -45,7 +50,6 @@ function Calendar({combinedEntries}: CalendarProps) {
             ? subMonths(prevDate, 1)
             : addMonths(prevDate, 1);
         })
-
     }
 
     const retrieveMonths = () => {
@@ -81,14 +85,59 @@ function Calendar({combinedEntries}: CalendarProps) {
             const dayStr = String(d).padStart(2, '0');
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
             days.push(
-                <div key={d} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
-                title={`${combinedEntries[dateKey] ?? 0} words`}>
+                <div key={d} id={dateKey} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
+                title={`${combinedEntries[dateKey] ?? 0} words`} onClick={() => openDateUpdateBox(dateKey)}>
                     <span className='day-number'>{d}</span>
                 </div>
             )
         }
 
         return days;
+    }
+
+    const handleUpdatedWordCount = (e: ChangeEvent<HTMLInputElement>) => {
+        setUpdatedWordCount(Number(e.target.value));
+    }
+
+    const updatePreviousDate = (e: FormEvent) => {
+        e.preventDefault();
+
+        if (!selectedUpdateDate || !selectedUpdateDate.includes('-')) {
+            closeUpdateDateBox();
+            return;
+        }
+
+        const [y, m, d] = selectedUpdateDate.split('-');
+
+        const overwrittenEntry = {
+            id: Date.now(),
+            total: updatedWordCount,
+            date: selectedUpdateDate,
+            year: parseInt(y ?? ''),
+            month: parseInt(m ?? '') - 1,
+            day: parseInt(d ?? ''),
+            time: new Date().toTimeString()
+        }
+
+        setEntries(prevEntries => {
+            const filtered = prevEntries.filter(entry => entry.date !== selectedUpdateDate);
+            return [...filtered, overwrittenEntry];
+        });
+
+        setUpdateDate(false);
+        setSelectedUpdateDate('');
+        setUpdatedWordCount(0);
+    }
+
+    const openDateUpdateBox = (dateKey: string) => {
+        setUpdateDate(true);
+        setSelectedUpdateDate(dateKey);
+    }
+
+    const closeUpdateDateBox = () => {
+        setUpdateDate(false);
+        setSelectedUpdateDate('');
+        setUpdatedWordCount(0);
     }
 
     return (
@@ -107,6 +156,18 @@ function Calendar({combinedEntries}: CalendarProps) {
                 <div className='days-grid'>
                     {renderDays()}
                 </div>
+            </div>
+            <div className={`update-date-container  ${updateDate ? 'is-visible' : 'is-hidden'}`}>
+                <form onSubmit={updatePreviousDate}>
+                <p>Add a new total for <span>{selectedUpdateDate}</span></p>
+                    <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
+                    <p className='caution-msg'>Update will replace the current word count for the selected day.</p>
+                    <div>
+                        <button type='submit'>Update</button>
+                        <button type='button' onClick={closeUpdateDateBox}>Cancel</button>
+                    </div>
+                </form>
+
             </div>
 
         </div>

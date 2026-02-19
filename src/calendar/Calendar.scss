@@ -7,7 +7,7 @@
 
     .calendar-header {
         @include flexbox(flex, row, space-between, center);
-        @include content(null, 100%, null);
+        @include content(null, auto, null);
         gap: 0.5rem;
 
         .month {
@@ -95,7 +95,7 @@
         .words1:hover,
         .words2:hover,
         .words3:hover {
-            border: 2px solid $dark2;
+            border: 1px solid $dark5;
         }
 
         .words1 {
@@ -111,6 +111,100 @@
         .words3 {
             background-color: $highlight3;
             border: 2px solid $highlight3;
+        }
+    }
+
+    .update-date-container {
+        @include flexbox(flex, column, center, null);
+        @include content(auto, auto, null);
+        position: relative;
+        border: none;
+        background-color: $dark5;
+        padding: 1rem .5rem;
+        margin-top: 1rem;
+        border-top: 2px solid $dark2;
+        border-bottom: 2px solid $dark2;
+        z-index: 1;
+        transition: max-height 0.5s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
+        overflow: hidden;
+
+        &.is-hidden {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            margin-top: 0;
+            transform: translateY(-10px);
+        }
+
+        &.is-visible {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        p {
+            @include content(auto, auto, null);
+            font-weight: 500;
+
+            span {
+                font-weight:900;
+            }
+        }
+
+        
+
+        form {
+            @include flexbox(flex, column, space-between, flex-start);
+            @include content(auto, auto, null);
+            padding-bottom: 1rem;
+
+            input:focus {
+                outline: none;
+            }
+        }
+
+        form input {
+            @include content(auto, 50%, null);
+            padding: .7rem;
+            margin-top: 5px;
+            background-color: $dark3;
+            color: $dark1;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            @include content(auto, auto, null);
+            border: none;
+            background-color: transparent;
+            color: $dark1;
+            font-size: $font2;
+            font-weight: bolder;
+            padding: .6rem;
+            margin: 5px;
+            cursor: pointer;
+            background-color: $dark3;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        button:hover {
+            background-color: $dark2;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        /* Hide the input field increment/decrement buttons for now */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
+        .caution-msg {
+            text-wrap: wrap;
         }
     }
 }

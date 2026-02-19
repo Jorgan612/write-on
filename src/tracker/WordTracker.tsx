@@ -10,25 +10,23 @@ interface WordTrackerProps {
 
 
 function WordTracker({setEntries}: WordTrackerProps) {
-  const [newWords, setNewWords] = useState<string>('');
+  const [newWords, setNewWords] = useState<number>(0);
   let [total, setTotal] = useState<number>(0);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewWords(e.target.value);
+    setNewWords(Number(e.target.value));
   }
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
     updateDailyTotal(newWords);
-    setNewWords('');
+    setNewWords(0);
   }
 
-  const updateDailyTotal = (newWords: string) => {
-    const wordCount = Number(newWords);
-
+  const updateDailyTotal = (newWords: number) => {
     const newEntry = {
       id: Date.now(),
-      total: wordCount,
+      total: newWords,
       date: dayjs().format('YYYY-MM-DD'),
       year: dayjs().year(),
       month: dayjs().month(),
@@ -36,16 +34,16 @@ function WordTracker({setEntries}: WordTrackerProps) {
       time: new Date(Date.now()).toTimeString()
     }
     
-    setTotal(prev => prev + wordCount);
+    setTotal(prev => prev + newWords);
     setEntries((prevEntries: Entry[]) => [...prevEntries, newEntry]);
   }
 
   return (
     <section className='word-tracker-container'>
-      <label>Update Word Count</label>
+      <label>Update today's word count</label>
       <form onSubmit={updateWordCount}>
         <input placeholder='####' type='number' value={newWords} onChange={handleInputChange}/>
-        <button type='submit'>+</button>
+        <button type='submit'>+ Add</button>
       </form>
       <p>Today's total: {total}</p>
     </section>

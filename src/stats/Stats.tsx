@@ -17,11 +17,23 @@ const chartOptions = {
       },
       ticks: {
         autoSkip: true,
-        maxTicksLimit: 12
-      }
+        maxTicksLimit: 12,
+        font: {
+          size: 16,
+          weight: 400,
+        },
+        color: '#94a3b8',
+      },
     },
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      ticks: {
+        font: {
+          size: 14,
+          weight: 400
+        },
+        color: '#94a3b8',
+      }
     }
   },
   plugins: {
@@ -29,7 +41,8 @@ const chartOptions = {
       display: false
     }
   }
-};
+} as const;
+
 
 function Stats({combinedEntries}: StatsProps) {
   
@@ -62,7 +75,7 @@ const updateSevenDayWordCount = () => {
 
 const updateMonthWordCount = () => {
   const lastThirtyDays = Array.from({ length: 30 }).map((_, i) => {
-    return subDays(new Date(), 30 - i);
+    return subDays(new Date(), 29 - i);
   });
 
   const displayLabels = lastThirtyDays.map(date => format(date, 'MMM d'));
@@ -86,7 +99,6 @@ const updateMonthWordCount = () => {
     ],
   };
 }
-
 
 const updateYearWordCount = () => {
   const totalDays = isLeapYear(new Date()) ? 366 : 365;
