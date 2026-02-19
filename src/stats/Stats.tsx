@@ -75,7 +75,7 @@ const updateSevenDayWordCount = () => {
 
 const updateMonthWordCount = () => {
   const lastThirtyDays = Array.from({ length: 30 }).map((_, i) => {
-    return subDays(new Date(), 30 - i);
+    return subDays(new Date(), 29 - i);
   });
 
   const displayLabels = lastThirtyDays.map(date => format(date, 'MMM d'));

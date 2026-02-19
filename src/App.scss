@@ -21,7 +21,8 @@ html, body, body > div {
 
   .top {
     @include flexbox(flex, column, flex-start, flex-start);
-    @include content(100%, auto, null);
+    height: 100%;
+    flex: 0 0 255px;
     box-shadow: 1px 0px 20px -10px #000;
 
     .app-title {

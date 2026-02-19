@@ -137,7 +137,7 @@ function Calendar({combinedEntries}: CalendarProps) {
                 <form onSubmit={updatePreviousDate}>
                 <p>Add a new total for {selectedUpdateDate}</p>
                     <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
-                    <p className='caution-msg'>Updating will replace the current word count value for the selected day.</p>
+                    <p className='caution-msg'>Update will replace the current word count for the selected day.</p>
                     <div>
                         <button type='submit'>Update</button>
                         <button type='button' onClick={closeUpdateDateBox}>Cancel</button>
