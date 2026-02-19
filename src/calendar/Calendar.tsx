@@ -1,5 +1,6 @@
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import './Calendar.scss';
+import { Entry } from '../interfaces/interfaces';
 import {
     getDay,
     getMonth,
@@ -15,6 +16,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface CalendarProps {
     combinedEntries: Record<string, number>;
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
 interface monthInfo {
@@ -25,7 +27,7 @@ interface monthInfo {
     year: string;
 }
 
-function Calendar({combinedEntries}: CalendarProps) {
+function Calendar({combinedEntries, setEntries}: CalendarProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const [months, setmonths ] = useState<monthInfo[] | null>(null);
     const [updateDate, setUpdateDate] = useState(false);
@@ -99,9 +101,31 @@ function Calendar({combinedEntries}: CalendarProps) {
 
     const updatePreviousDate = (e: FormEvent) => {
         e.preventDefault();
-        openDateUpdateBox('');
-        combinedEntries[selectedUpdateDate] = updatedWordCount;
+
+        if (!selectedUpdateDate || !selectedUpdateDate.includes('-')) {
+            closeUpdateDateBox();
+            return;
+        }
+
+        const [y, m, d] = selectedUpdateDate.split('-');
+
+        const overwrittenEntry = {
+            id: Date.now(),
+            total: updatedWordCount,
+            date: selectedUpdateDate,
+            year: parseInt(y ?? ''),
+            month: parseInt(m ?? '') - 1,
+            day: parseInt(d ?? ''),
+            time: new Date().toTimeString()
+        }
+
+        setEntries(prevEntries => {
+            const filtered = prevEntries.filter(entry => entry.date !== selectedUpdateDate);
+            return [...filtered, overwrittenEntry];
+        });
+
         setUpdateDate(false);
+        setSelectedUpdateDate('');
         setUpdatedWordCount(0);
     }
 

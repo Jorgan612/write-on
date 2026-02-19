@@ -35,7 +35,7 @@ function App() {
     <div className="main-app-container">
       <div className='top'>
         <div className='app-title'>Write On!</div>
-        <Calendar combinedEntries={combinedEntries}/>
+        <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
         <WordTracker setEntries={setEntries} />
         <Header />
       </div>
