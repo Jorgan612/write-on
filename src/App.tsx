@@ -15,7 +15,6 @@ import Warmup from './warm-up/Warmup';
 import Profile from './profile/Profile';
 
 import "chart.js/auto";
-import { Line } from "react-chartjs-2";
 
 
 function App() {
