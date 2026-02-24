@@ -60,6 +60,13 @@ button:hover {
     }
   }
 
+  .content-right {
+    @include flexbox(flex, column, null, null);
+    border: 1px solid red;
+    overflow: scroll;
+    overflow-y: auto;
+  }
+
   .header {
     @include content(auto, 100%, null);
     padding: 0.5rem;

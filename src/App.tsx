@@ -40,17 +40,19 @@ function App() {
         <WordTracker setEntries={setEntries} />
         <Header />
       </div>
-      <div className='header'>
-        <Timer />
+      <div className='content-right'>
+        <div className='header'>
+          <Timer />
+        </div>
+        {/* <div className='test'></div> */}
+        <Routes>
+          <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
+          {/* <Route path="/" element={ <Dashboard /> } />`
+          <Route path="activeGoals" element={ <ActiveGoals /> } />
+          <Route path="warmup" element={ <Warmup /> } />
+          <Route path="profile" element={ <Profile /> } /> */}
+        </Routes>
       </div>
-      {/* <div className='test'></div> */}
-      <Routes>
-        <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
-        {/* <Route path="/" element={ <Dashboard /> } />`
-        <Route path="activeGoals" element={ <ActiveGoals /> } />
-        <Route path="warmup" element={ <Warmup /> } />
-        <Route path="profile" element={ <Profile /> } /> */}
-      </Routes>
     </div>
   );
 }
