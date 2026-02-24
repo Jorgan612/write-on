@@ -6,11 +6,10 @@ function Timer() {
 
     return (
         <div className="timer-container">
+            <button>{!isStarted ? 'Start' : 'Pause'}</button>
             <p className='timer-text'>00:00</p>
-            <div>
-                <button>{!isStarted ? 'Start' : 'Pause'}</button>
-                <button>Stop</button>
-            </div>
+            <button>Stop</button>
+
         </div>
     )
 }

@@ -2,6 +2,7 @@
 @import '../mixins.scss';
 
 .timer-container {
+    @include flexbox(flex, row, center, center);
     @include content(auto, fit-content, null);
 
     .timer-text {
