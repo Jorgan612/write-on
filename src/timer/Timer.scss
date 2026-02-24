@@ -1,0 +1,14 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.timer-container {
+    @include content(auto, fit-content, null);
+
+    .timer-text {
+        @include flexbox(flex, row, center, center);
+        font-size: $font1;
+        font-weight: 900;
+        margin: 0;
+    }
+
+}

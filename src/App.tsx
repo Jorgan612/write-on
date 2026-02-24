@@ -40,6 +40,9 @@ function App() {
         <WordTracker setEntries={setEntries} />
         <Header />
       </div>
+      <div className='header'>
+        <Timer />
+      </div>
       {/* <div className='test'></div> */}
       <Routes>
         <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />

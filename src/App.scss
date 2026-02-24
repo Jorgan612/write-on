@@ -2,6 +2,7 @@
 @import './mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+/* Global Styling */
 
 html, body, body > div {
   font-family: 'amaranth-regular';
@@ -11,6 +12,31 @@ html, body, body > div {
   margin: 0;
   overflow: hidden;
 }
+
+a {
+  text-decoration: none;
+}
+
+button {
+    @include content(auto, auto, null);
+    border: none;
+    background-color: transparent;
+    color: $dark1;
+    font-size: $font2;
+    font-weight: bolder;
+    padding: .6rem;
+    margin: 5px;
+    cursor: pointer;
+    background-color: $dark3;
+    border-radius: 5px 5px 5px 5px;
+}
+
+button:hover {
+    background-color: $dark2;
+    border-radius: 5px 5px 5px 5px;
+}
+
+/* App specific selectors */
 
 .main-app-container {
   @include flexbox(flex, row, flex-start, flex-start);
@@ -34,11 +60,15 @@ html, body, body > div {
     }
   }
 
+  .header {
+    @include content(auto, 100%, null);
+    padding: 0.5rem;
+    border-bottom: 1px solid $dark2;
+  }
+
 }
 
-a {
-  text-decoration: none;
-}
+
 
 
 // .test { // using to see how this element lines up with calendar - need to fix overlap or calendar container dimensions to reflect calendar size correctly
