@@ -9,6 +9,7 @@ import Header from './header/header'
 import Calendar from './calendar/Calendar';
 import Stats from './stats/Stats';
 import WordTracker from './tracker/WordTracker';
+import Timer from './timer/Timer';
 import Dashboard from './dashboard/dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Warmup from './warm-up/Warmup';
@@ -33,7 +34,7 @@ function App() {
   
   return (
     <div className="main-app-container">
-      <div className='top'>
+      <div className='sidebar'>
         <div className='app-title'>Write On!</div>
         <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
         <WordTracker setEntries={setEntries} />

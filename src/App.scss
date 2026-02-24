@@ -19,7 +19,7 @@ html, body, body > div {
   background-color: $dark5;
   text-decoration: none;
 
-  .top {
+  .sidebar {
     @include flexbox(flex, column, flex-start, flex-start);
     height: 100%;
     flex: 0 0 255px;
