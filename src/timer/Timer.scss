@@ -1,15 +1,46 @@
 @import '../variables.scss';
 @import '../mixins.scss';
 
+
 .timer-container {
-    @include flexbox(flex, row, center, center);
+    @include flexbox(flex, column, center, center);
     @include content(auto, fit-content, null);
+    gap: 1.5rem;
+
+    .input-group {
+        @include flexbox(flex, row, center, center);
+        gap: 10px;
+
+        input {
+            border: 1px solid red;
+            padding: .7rem;
+            background-color: $dark3;
+            color: $dark1;
+            font-weight: 600;
+            border-radius: 5px;
+            border: none;
+            width: 30px;
+            text-align: center;
+            font-size: $font2;
+
+            // Remove spin buttons (arrows) for now
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+
+        input:focus {
+            outline: none;
+        }
+    }
 
     .timer-text {
         @include flexbox(flex, row, center, center);
         font-size: $font1;
         font-weight: 900;
-        margin: 0;
+        margin: 10px 0;
+        color: $dark1; 
     }
-
 }
