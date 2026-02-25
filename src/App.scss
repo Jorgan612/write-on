@@ -62,9 +62,7 @@ button:hover {
 
   .content-right {
     @include flexbox(flex, column, null, null);
-    border: 1px solid red;
-    overflow: scroll;
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .header {
