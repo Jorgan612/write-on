@@ -19,7 +19,7 @@ function Timer() {
 
     return (
         <div className="timer-container">
-            <button onClick={startTimer}>{true ? 'Start' : 'Pause'}</button>
+            <button onClick={startTimer}>{!timerStarted ? 'Start' : 'Pause'}</button>
             <p className='timer-text'>00:00</p>
             <button>Stop</button>
 
