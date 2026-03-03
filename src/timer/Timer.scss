@@ -52,4 +52,9 @@
         margin: 10px 0;
         color: $dark1; 
     }
+
+    .controls {
+        display: flex;
+        wrap: nowrap;
+    }
 }
