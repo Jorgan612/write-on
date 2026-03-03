@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaPenFancy } from 'react-icons/fa';
 import './App.scss';
 import { Entry } from './interfaces/interfaces';
 import { entryData } from './datasets/datasets';
@@ -16,7 +17,6 @@ import Warmup from './warm-up/Warmup';
 import Profile from './profile/Profile';
 
 import "chart.js/auto";
-
 
 function App() {
 
@@ -35,7 +35,10 @@ function App() {
   return (
     <div className="main-app-container">
       <div className='sidebar'>
-        <div className='app-title'>Write On!</div>
+        <div className='app-title'>
+          <FaPenFancy />
+          Write On!
+          </div>
         <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
         <WordTracker setEntries={setEntries} />
         <Header />
