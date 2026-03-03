@@ -8,8 +8,10 @@
     gap: 1.5rem;
 
     .timer-icon {
+        @include flexbox(flex, row, center, center);
         font-size: $font1;
         padding: .5rem;
+        border-right: 1px solid $dark2;
 
         &:hover {
             color: $highlight1;
