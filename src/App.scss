@@ -62,14 +62,17 @@ button:hover {
 
   .content-right {
     @include flexbox(flex, column, null, null);
+    @include content(auto, 100%, null);
     overflow: hidden;
+
+    .header {
+      @include flexbox(flex, row, null, null);
+      @include content(auto, 100%, null);
+      padding: 0.5rem;
+      border-bottom: 1px solid $dark2;
+    }
   }
 
-  .header {
-    @include content(auto, 100%, null);
-    padding: 0.5rem;
-    border-bottom: 1px solid $dark2;
-  }
 
 }
 

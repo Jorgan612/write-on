@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { FaStopwatch } from 'react-icons/fa';
 import './Timer.scss';
 
 const Timer = () => {
@@ -10,19 +11,19 @@ const Timer = () => {
     const [inputSeconds, setInputSeconds] = useState(0);
 
     const Ref = useRef<ReturnType<typeof setInterval> | null>(null);
-
+    
     const formatTime = (totalSeconds: number) => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-
+        
         return (
             (hours > 9 ? hours : "0" + hours) + ":" +
             (minutes > 9 ? minutes : "0" + minutes) + ":" +
             (seconds > 9 ? seconds : "0" + seconds)
         );
     };
-
+    
     useEffect(() => {
         if (!isPaused && secondsLeft > 0) {
             Ref.current = setInterval(() => {
@@ -32,7 +33,7 @@ const Timer = () => {
             setIsPaused(true);
             if (Ref.current) clearInterval(Ref.current);
         }
-
+        
         return () => {
             if (Ref.current) clearInterval(Ref.current);
         };
@@ -62,6 +63,9 @@ const Timer = () => {
 
     return (
         <div className="timer-container">
+            <div className="timer-icon">
+                <FaStopwatch />
+            </div>
             <div className="input-group">
                 <input type="number" placeholder="HH" onChange={(e) => setInputHours(parseInt(e.target.value) || 0)} />
                 <input type="number" placeholder="MM" onChange={(e) => setInputMinutes(parseInt(e.target.value) || 0)} />

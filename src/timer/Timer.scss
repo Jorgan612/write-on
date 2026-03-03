@@ -3,9 +3,19 @@
 
 
 .timer-container {
-    @include flexbox(flex, column, center, center);
+    @include flexbox(flex, row, center, center);
     @include content(auto, fit-content, null);
     gap: 1.5rem;
+
+    .timer-icon {
+        font-size: $font1;
+        padding: .5rem;
+
+        &:hover {
+            color: $highlight1;
+            cursor: pointer;
+        }
+    }
 
     .input-group {
         @include flexbox(flex, row, center, center);
