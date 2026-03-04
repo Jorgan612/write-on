@@ -63,8 +63,18 @@ const Timer = () => {
         setTimer("00:00:00");
     };
 
+    const clearTimerInputs = () => {
+        console.log('CLEAR!', Ref.current)
+        // logic to clear timer inputs and text go here
+        
+    }
+
     const showTimerInputs = () => {
         setShowInputs((prev) => !prev);
+
+        if (showInputs) {
+            clearTimerInputs();
+        }
     }
 
     return (
