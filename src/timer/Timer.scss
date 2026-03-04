@@ -11,11 +11,29 @@
         @include flexbox(flex, row, center, center);
         font-size: $font1;
         padding: .5rem;
-        border-right: 1px solid $dark2;
 
         &:hover {
             color: $highlight1;
             cursor: pointer;
+        }
+    }
+
+    .timer-details {
+        @include flexbox(flex, row, null, null);
+        transition: max-height 0.5s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
+
+        &.is-hidden {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            margin-top: 0;
+            transform: translateX(-10px);
+        }
+
+        &.is-visible {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateX(0);
         }
     }
 
@@ -51,7 +69,7 @@
         @include flexbox(flex, row, center, center);
         font-size: $font1;
         font-weight: 900;
-        margin: 10px 0;
+        margin: 10px 5px;
         color: $dark1; 
     }
 

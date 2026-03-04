@@ -72,17 +72,19 @@ const Timer = () => {
             <div className="timer-icon" onClick={showTimerInputs} >
                 {!showInputs ? <FaStopwatch /> : <FaTimes />}
             </div>
-            <div className="input-group">
-                <input type="number" placeholder="HH" onChange={(e) => setInputHours(parseInt(e.target.value) || 0)} />
-                <input type="number" placeholder="MM" onChange={(e) => setInputMinutes(parseInt(e.target.value) || 0)} />
-                <input type="number" placeholder="SS" onChange={(e) => setInputSeconds(parseInt(e.target.value) || 0)} />
-            </div>
+            <div className={`timer-details ${showInputs ? 'is-visible' : 'is-hidden'}`}>
+                <div className="input-group">
+                    <input type="number" placeholder="HH" onChange={(e) => setInputHours(parseInt(e.target.value) || 0)} />
+                    <input type="number" placeholder="MM" onChange={(e) => setInputMinutes(parseInt(e.target.value) || 0)} />
+                    <input type="number" placeholder="SS" onChange={(e) => setInputSeconds(parseInt(e.target.value) || 0)} />
+                </div>
 
-            <p className='timer-text'>{timer}</p>
-            
-            <div className="controls">
-                <button onClick={handleStartStop}>{isPaused ? 'Start' : 'Stop'}</button>
-                <button onClick={onReset}>Reset</button>
+                <p className='timer-text'>{timer}</p>
+                
+                <div className="controls">
+                    <button onClick={handleStartStop}>{isPaused ? 'Start' : 'Stop'}</button>
+                    <button onClick={onReset}>Reset</button>
+                </div>
             </div>
         </div>
     );
