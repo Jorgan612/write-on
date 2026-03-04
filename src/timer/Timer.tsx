@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaStopwatch } from 'react-icons/fa';
+import { FaStopwatch, FaTimes } from 'react-icons/fa';
 import './Timer.scss';
 
 const Timer = () => {
-    const [timer, setTimer] = useState("00:00:00");
-    const [secondsLeft, setSecondsLeft] = useState(0);
-    const [isPaused, setIsPaused] = useState(true);
-    const [inputHours, setInputHours] = useState(0);
-    const [inputMinutes, setInputMinutes] = useState(0);
-    const [inputSeconds, setInputSeconds] = useState(0);
+    const [timer, setTimer] = useState<string>("00:00:00");
+    const [secondsLeft, setSecondsLeft] = useState<number>(0);
+    const [isPaused, setIsPaused] = useState<boolean>(true);
+    const [inputHours, setInputHours] = useState<number>(0);
+    const [inputMinutes, setInputMinutes] = useState<number>(0);
+    const [inputSeconds, setInputSeconds] = useState<number>(0);
+
+    const [showInputs, setShowInputs] = useState<boolean>(false);
 
     const Ref = useRef<ReturnType<typeof setInterval> | null>(null);
     
@@ -61,10 +63,14 @@ const Timer = () => {
         setTimer("00:00:00");
     };
 
+    const showTimerInputs = () => {
+        setShowInputs((prev) => !prev);
+    }
+
     return (
         <div className="timer-container">
-            <div className="timer-icon">
-                <FaStopwatch />
+            <div className="timer-icon" onClick={showTimerInputs} >
+                {!showInputs ? <FaStopwatch /> : <FaTimes />}
             </div>
             <div className="input-group">
                 <input type="number" placeholder="HH" onChange={(e) => setInputHours(parseInt(e.target.value) || 0)} />
