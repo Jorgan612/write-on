@@ -69,8 +69,9 @@ const Timer = () => {
         setInputHours(0);
         setInputMinutes(0);
         setInputSeconds(0);
+        setSecondsLeft(0);
         setTimer("00:00:00");        
-    }
+    };
     
     const showTimerInputs = () => {
         setShowInputs(true);
@@ -78,7 +79,7 @@ const Timer = () => {
         if (showInputs) {
             clearTimerInputs();
         }
-    }
+    };
 
     return (
         <div className="timer-container">
