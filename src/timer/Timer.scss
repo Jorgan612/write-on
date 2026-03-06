@@ -10,7 +10,7 @@
     .timer-icon {
         @include flexbox(flex, row, center, center);
         font-size: $font1;
-        padding: .5rem;
+        padding: .5rem 0rem .5rem .5rem;
 
         &:hover {
             color: $highlight1;
@@ -31,9 +31,9 @@
         }
 
         &.is-visible {
-            max-height: 500px;
             opacity: 1;
             transform: translateX(0);
+            max-height: 500px;
         }
     }
 
@@ -80,6 +80,6 @@
 
     .controls {
         display: flex;
-        wrap: nowrap;
+        text-wrap: nowrap;
     }
 }

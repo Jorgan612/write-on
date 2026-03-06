@@ -69,7 +69,7 @@ button:hover {
 
     .header {
       @include flexbox(flex, row, null, null);
-      @include content(auto, 100%, null);
+      @include content(2.5rem, 100%, null);
       padding: 0.5rem;
       border-bottom: 1px solid $dark2;
     }

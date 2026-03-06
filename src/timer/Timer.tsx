@@ -65,7 +65,6 @@ const Timer = () => {
 
     const clearTimerInputs = () => {
         setShowInputs(false);
-
         setInputHours(0);
         setInputMinutes(0);
         setInputSeconds(0);
