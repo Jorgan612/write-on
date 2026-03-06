@@ -64,13 +64,16 @@ const Timer = () => {
     };
 
     const clearTimerInputs = () => {
-        console.log('CLEAR!', Ref.current)
-        // logic to clear timer inputs and text go here
-        
-    }
+        setShowInputs(false);
 
+        setInputHours(0);
+        setInputMinutes(0);
+        setInputSeconds(0);
+        setTimer("00:00:00");        
+    }
+    
     const showTimerInputs = () => {
-        setShowInputs((prev) => !prev);
+        setShowInputs(true);
 
         if (showInputs) {
             clearTimerInputs();
@@ -79,16 +82,25 @@ const Timer = () => {
 
     return (
         <div className="timer-container">
-            <div className="timer-icon" onClick={showTimerInputs} >
-                {!showInputs ? <FaStopwatch /> : <FaTimes />}
+            <div className="timer-icon" >
+                {!showInputs ? <FaStopwatch onClick={showTimerInputs} /> : <FaTimes onClick={clearTimerInputs} />}
             </div>
             <div className={`timer-details ${showInputs ? 'is-visible' : 'is-hidden'}`}>
                 <div className="input-group">
-                    <input type="number" placeholder="HH" onChange={(e) => setInputHours(parseInt(e.target.value) || 0)} />
+                    <input type="number" placeholder="HH" value={inputHours === 0 ? '' : inputHours} onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        setInputHours(isNaN(value) ? 0 : value);
+                    }} />
                     <span>:</span>
-                    <input type="number" placeholder="MM" onChange={(e) => setInputMinutes(parseInt(e.target.value) || 0)} />
+                    <input type="number" placeholder="MM" value={inputMinutes === 0 ? '' : inputMinutes} onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        setInputMinutes(isNaN(value) ? 0 : value);
+                    }} />
                     <span>:</span>
-                    <input type="number" placeholder="SS" onChange={(e) => setInputSeconds(parseInt(e.target.value) || 0)} />
+                    <input type="number" placeholder="SS" value={inputSeconds === 0 ? '' : inputSeconds} onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        setInputSeconds(isNaN(value) ? 0 : value);
+                    }} />
                 </div>
 
                 <p className='timer-text'>{timer}</p>
