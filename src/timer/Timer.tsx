@@ -42,7 +42,10 @@ const Timer = () => {
     }, [isPaused, secondsLeft]);
 
     useEffect(() => {
-        setTimer(formatTime(secondsLeft));
+        if (inputHours || inputMinutes || inputSeconds) {
+            setTimer(formatTime(secondsLeft));
+        }
+
     }, [secondsLeft]);
 
     const handleStartStop = () => {
