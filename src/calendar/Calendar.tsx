@@ -1,4 +1,6 @@
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
+/* Adding for future icon implementation */
+// import { FaTimes } from 'react-icons/fa'; 
 import './Calendar.scss';
 import { Entry } from '../interfaces/interfaces';
 import {
@@ -165,6 +167,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
                     <div>
                         <button type='submit'>Update</button>
                         <button type='button' onClick={closeUpdateDateBox}>Cancel</button>
+                        {/* <FaTimes /> */}
                     </div>
                 </form>
 

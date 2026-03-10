@@ -11,10 +11,10 @@ import Calendar from './calendar/Calendar';
 import Stats from './stats/Stats';
 import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
-import Dashboard from './dashboard/dashboard';
-import ActiveGoals from './goals/ActiveGoals';
-import Warmup from './warm-up/Warmup';
-import Profile from './profile/Profile';
+// import Dashboard from './dashboard/dashboard';
+// import ActiveGoals from './goals/ActiveGoals';
+// import Warmup from './warm-up/Warmup';
+// import Profile from './profile/Profile';
 
 import "chart.js/auto";
 
