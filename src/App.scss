@@ -36,6 +36,48 @@ button:hover {
     border-radius: 5px 5px 5px 5px;
 }
 
+/*scrollbar styling*/
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: $dark5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $highlight2;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $highlight1;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-button {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: $dark4;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px; 
+}
+
+::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23527199'><polygon points='70,20 70,80 30,50'/></svg>");
+}
+
+::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23527199'><polygon points='30,20 30,80 70,50'/></svg>");
+}
+
+::-webkit-scrollbar-button:hover {
+  background-color: $highlight3;
+  cursor: pointer;
+}
+
 /* App specific selectors */
 
 .main-app-container {

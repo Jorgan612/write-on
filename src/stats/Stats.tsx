@@ -3,6 +3,41 @@ import { format, subDays, getMonth, startOfYear, addDays, isLeapYear } from 'dat
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
+const todayLinePlugin = {
+  id: 'todayLine',
+  afterDraw: (chart: any) => {
+    if (!chart.data.datasets[0] || !chart.data.datasets[0].tooltipLabels) return;
+
+    const { ctx, chartArea: { top, bottom }, scales: { x } } = chart;
+    const todayStr = format(new Date(), 'MMM d');
+    const labels = chart.data.datasets[0].tooltipLabels;
+    
+    const index = labels.indexOf(todayStr);
+
+    if (index !== -1) {
+      const xPos = x.getPixelForValue(index);
+      
+      ctx.save();
+      ctx.beginPath();
+      ctx.strokeStyle = '#5ea758';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([5, 5]);
+      ctx.moveTo(xPos, top - 40);
+      ctx.lineTo(xPos, bottom);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#5ea758';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'left';
+
+      ctx.fillText('Today', xPos + 5, top - 18);
+
+      ctx.restore();
+    }
+  }
+};
+
 interface StatsProps {
     combinedEntries: Record<string, number>;
 }
@@ -10,6 +45,12 @@ interface StatsProps {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 30,
+      bottom: 10
+    }
+  },
   scales: {
     x: {
       grid: {
@@ -39,6 +80,20 @@ const chartOptions = {
   plugins: {
     legend: {
       display: false
+    },
+    tooltip: {
+      callbacks: {
+        title: function(context: any) {
+          const item = context[0];
+          const dataSet = item.dataset;
+
+          if (dataSet.tooltipLabels) {
+            return dataSet.tooltipLabels[item.dataIndex];
+          }
+
+          return item.label;
+        }
+      }
     }
   }
 } as const;
@@ -111,6 +166,8 @@ const updateYearWordCount = () => {
 
   const displayLabels = calendarYear.map(date => format(date, 'MMM'));
 
+  const tooltipLabels = calendarYear.map(date => format(date, 'MMM d'));
+
   const totals = calendarYear.map(date => {
     const dateString = format(date, 'yyyy-MM-dd');
     return combinedEntries[dateString] || 0;
@@ -122,11 +179,13 @@ const updateYearWordCount = () => {
       {
         label: 'Words',
         data: totals,
+        tooltipLabels: tooltipLabels,
         borderColor: '#527199',
         backgroundColor: '#263b56',
-        width: '100%',
         tension: 0.3,
         fill: true,
+        pointRadius: 4,
+        hitRadius: 10,
       },
     ],
   };
@@ -159,7 +218,9 @@ return (
         <div className='line-graph full-year'>
             <p>Year overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
-            <Line data={updateYearWordCount()} options={chartOptions} />
+              <div className='chart-wrapper'> 
+                <Line data={updateYearWordCount()} options={chartOptions} plugins={[todayLinePlugin]} />
+              </div>
           ) : (
             <p>No data recorded yet. Start writing!</p>
           )}
