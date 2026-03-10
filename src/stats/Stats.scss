@@ -2,26 +2,38 @@
 @import '../mixins.scss';
 
 .stats-container {
-    @include flexbox(flex, row, flex-start, flex-start);
-    @include content(100%, 75%, null);
-    flex-wrap: wrap;
-    padding: 1rem;
+    @include flexbox(flex, column, flex-start, flex-start);
+    @include content(91vh, 98%, null);
+    padding: .5rem;
+    overflow-x: hidden;
     overflow-y: auto;
+    
+    .other-stats-container {
+      @include content(30%, auto, null);
+      padding: 0.5rem;
+    }
 
     .graph-container {
-      position: relative;
-      @include content(25%, 45%, null);
-      padding: 1rem;
-      margin-right: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      @include content(80vh, 100%, null);
 
-      p {
-        font-size: $font4;
-      }
-
-      &.full-year {
+      .line-graph {
         position: relative;
-        @include content(25%, 100%, null);
+        @include content(25%, 45%, null);
+        padding: 1rem;
+        margin-right: 1rem;
+  
+        p {
+          font-size: $font4;
+        }
+  
+        &.full-year {
+          position: relative;
+          @include content(25%, 100%, null);
+        }
       }
     }
+
 
 }

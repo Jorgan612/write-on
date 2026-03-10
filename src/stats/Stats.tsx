@@ -135,7 +135,12 @@ const updateYearWordCount = () => {
 
 return (
     <div className="stats-container">
-        <div className='graph-container'>
+      <div className='other-stats-container'>
+        <div>Avg WPD</div>
+
+      </div>
+      <div className='graph-container'>
+        <div className='line-graph'>
             <p>7 day overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateSevenDayWordCount()} options={chartOptions} />
@@ -143,7 +148,7 @@ return (
             <p>No data recorded yet. Start writing!</p>
           )}
         </div>
-        <div className='graph-container'>
+        <div className='line-graph'>
             <p>30 day overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateMonthWordCount()} options={chartOptions} />
@@ -151,7 +156,7 @@ return (
             <p>No data recorded yet. Start writing!</p>
           )}
         </div>
-        <div className='graph-container full-year'>
+        <div className='line-graph full-year'>
             <p>Year overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateYearWordCount()} options={chartOptions} />
@@ -159,6 +164,7 @@ return (
             <p>No data recorded yet. Start writing!</p>
           )}
         </div>
+      </div>
     </div>
     )
 }
