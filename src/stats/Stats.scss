@@ -21,7 +21,7 @@
       .line-graph {
         position: relative;
         @include content(25%, 45%, null);
-        padding: 1rem;
+        padding: 0rem 1rem;
         margin-right: 1rem;
   
         p {
@@ -30,7 +30,14 @@
   
         &.full-year {
           position: relative;
-          @include content(25%, 100%, null);
+          @include content(35%, 100%, null);
+          overflow-x: auto;
+          overflow-y: hidden;
+
+          .chart-wrapper {
+            min-width: 15000px;
+            height: calc(100% - 70px);
+          }
         }
       }
     }
