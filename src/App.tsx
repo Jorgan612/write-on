@@ -11,9 +11,9 @@ import Calendar from './calendar/Calendar';
 import Stats from './stats/Stats';
 import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
+import Warmup from './warm-up/Warmup';
 // import Dashboard from './dashboard/dashboard';
 // import ActiveGoals from './goals/ActiveGoals';
-// import Warmup from './warm-up/Warmup';
 // import Profile from './profile/Profile';
 
 import "chart.js/auto";
@@ -50,9 +50,9 @@ function App() {
         {/* <div className='test'></div> */}
         <Routes>
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
+          <Route path="warmup" element={ <Warmup /> } />
           {/* <Route path="/" element={ <Dashboard /> } />`
           <Route path="activeGoals" element={ <ActiveGoals /> } />
-          <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile /> } /> */}
         </Routes>
       </div>

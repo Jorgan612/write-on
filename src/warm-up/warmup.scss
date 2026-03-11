@@ -1,35 +1,23 @@
 @import '../variables.scss';
+@import '../mixins.scss';
 
 
 .warm-up-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 75%;
+    @include flexbox(flex, column, flex-start, flex-start);
+    @include content(87vh, 100%, null);
     padding: 2rem;
+    border: 1px solid red;
 
-
-    .warm-up-contents {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 100%;
-        border: 2px solid $light2;
-        background-color: $light2;
-        border-radius: .5rem;
-        padding: 1rem;
-
-        .left-side {
-            width: 50%;
-            border-radius: .5rem;
-            background-color: $light1;
-        }
-
-        .right-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 45%;
-        }
+    .add-prompt-label {
+        color: $dark1;
+        padding: 1rem 0rem;
     }
+
+    textarea {
+        @include content(10rem, 40rem, null);
+        resize: vertical;
+        max-height: 10rem;
+        min-height: 3rem;
+    }
+
 }
