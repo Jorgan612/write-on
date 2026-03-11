@@ -3,7 +3,7 @@
 
 
 .warm-up-container {
-    @include flexbox(flex, column, flex-start, flex-start);
+    @include flexbox(flex, column, flex-start, center);
     @include content(87vh, 100%, null);
     padding: 2rem;
     border: 1px solid red;
@@ -18,6 +18,11 @@
         resize: vertical;
         max-height: 10rem;
         min-height: 3rem;
+        padding: 1rem;
+    }
+
+    button {
+        margin-top: 1rem;
     }
 
 }
