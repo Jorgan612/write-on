@@ -2,9 +2,16 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import './warmup.scss';
 import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
 
+interface Prompt {
+    id: number;
+    prompt: string;
+    completed: number;
+    discarded: number;
+}
+
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
-    const [promptList, setPromptList] = useState(() => {
+    const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts
     });
