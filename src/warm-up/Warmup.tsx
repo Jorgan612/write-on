@@ -18,6 +18,7 @@ function Warmup() {
         }
 
         prompts.push(newPrompt);
+        setUserInput("");
     })
 
     return (
@@ -25,7 +26,7 @@ function Warmup() {
             <label className='add-prompt-label'>
                 Type out a new prompt then click Add!
             </label>
-            <textarea id="prompt" name="prompt" onChange={handleNewPrompt}></textarea>
+            <textarea id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
             <button onClick={addNewPrompt}>Add</button>
         </div>
     );
