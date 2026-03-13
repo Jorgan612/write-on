@@ -11,6 +11,7 @@ interface Prompt {
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
+    const [selectedPrompt, setSelectedPrompt] = useState<string>("Test Prompt");
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts
@@ -55,9 +56,9 @@ function Warmup() {
     return (
         <div className="warm-up-container">
             <label className='add-prompt-label'>
-                Type out a new prompt then click Add!
+                New Prompt
             </label>
-            <textarea id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
+            <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
             <button onClick={addNewPrompt}>Add</button>
             <ul>
                 {promptList.map((p: Prompt) => (

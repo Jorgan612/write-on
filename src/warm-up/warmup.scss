@@ -12,14 +12,29 @@
     .add-prompt-label {
         color: $dark1;
         padding: 1rem 0rem;
+        font-size: $font1;
     }
 
     textarea {
         @include content(10rem, 40rem, null);
-        resize: vertical;
+        resize: none;
         max-height: 10rem;
         min-height: 3rem;
         padding: 1rem;
+        background-color: $dark3;
+        border: 1px solid $dark3;
+        overflow: auto;
+        color: $dark1;
+
+        scrollbar-width: thin;
+        scrollbar-color: $dark1 $dark3;
+    }
+
+    textarea:focus {
+        outline: 1px solid $dark2;
+        caret-color: $dark1;
+        color: $dark1;
+        font-weight: bold;
     }
 
     button {
