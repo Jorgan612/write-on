@@ -16,13 +16,14 @@ function Warmup() {
         return saved ? JSON.parse(saved) : InitialPrompts
     });
     const [discardList, setDiscardList] = useState<Prompt[]>(() => {
-        const discarded = localStorage.getItem('user_discards');
-        return discarded ? JSON.parse(discarded) : []
+        const discarded = localStorage.getItem("user_discards");
+        return discarded ? JSON.parse(discarded) : [];
     });
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
-    }, [promptList]);
+        localStorage.setItem("user_discards", JSON.stringify(discardList));
+    }, [promptList, discardList]);
     
     const handleNewPrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUserInput(e.target.value);
@@ -46,6 +47,11 @@ function Warmup() {
         setUserInput("");
     }
 
+    const discardPrompt = (prompt: Prompt) => {
+        setDiscardList([...discardList, prompt]);
+        setPromptList(promptList.filter(p => p.id !== prompt.id));
+    };
+
     return (
         <div className="warm-up-container">
             <label className='add-prompt-label'>
@@ -54,16 +60,16 @@ function Warmup() {
             <textarea id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
             <button onClick={addNewPrompt}>Add</button>
             <ul>
-                {promptList.map((p: any) => (
-                    <div>
-                        <button>X</button>
-                        <li key={p.id}>{p.prompt}</li>
+                {promptList.map((p: Prompt) => (
+                    <div key={p.id}>
+                        <button onClick={() => discardPrompt(p)}>X</button>
+                        <li>{p.prompt}</li>
                     </div>
                 ))}
             </ul>
             <p>Discards</p>
             <ul>
-                {discardList.map((p: any) => (
+                {discardList.map((p: Prompt) => (
                     <li key={p.id}>{p.prompt}</li>
                 ))}
             </ul>
