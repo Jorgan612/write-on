@@ -4,9 +4,10 @@
 
 .warm-up-container {
     @include flexbox(flex, column, flex-start, center);
-    @include content(87vh, 100%, null);
+    @include content(87vh, 96%, null);
     padding: 2rem;
-    border: 1px solid red;
+    overflow-y: auto;
+    // border: 1px solid red;
 
     .add-prompt-label {
         color: $dark1;
@@ -23,6 +24,29 @@
 
     button {
         margin-top: 1rem;
+    }
+
+    ul div {
+        @include flexbox(flex, row, flex-start, center);
+        gap: 1;
+
+        button {
+            margin: .5rem;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+        
+
+        li {
+            list-style-type: none;
+            margin-left: 1rem;
+        }
+
+        label {
+            margin-right: 1rem;
+        }
     }
 
 }

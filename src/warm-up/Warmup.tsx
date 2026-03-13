@@ -15,6 +15,10 @@ function Warmup() {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts
     });
+    const [discardList, setDiscardList] = useState<Prompt[]>(() => {
+        const discarded = localStorage.getItem('user_discards');
+        return discarded ? JSON.parse(discarded) : []
+    });
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
@@ -51,6 +55,15 @@ function Warmup() {
             <button onClick={addNewPrompt}>Add</button>
             <ul>
                 {promptList.map((p: any) => (
+                    <div>
+                        <button>X</button>
+                        <li key={p.id}>{p.prompt}</li>
+                    </div>
+                ))}
+            </ul>
+            <p>Discards</p>
+            <ul>
+                {discardList.map((p: any) => (
                     <li key={p.id}>{p.prompt}</li>
                 ))}
             </ul>
