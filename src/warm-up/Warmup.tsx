@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import './warmup.scss';
 import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
+import { IconType } from "react-icons";
+import { FaPenFancy, FaClipboardCheck, FaClipboardList, FaNotesMedical, FaTrashAlt } from "react-icons/fa";
 
 interface Prompt {
     id: number;
@@ -8,10 +10,24 @@ interface Prompt {
     completed: number;
     discarded: number;
 }
+interface Tool {
+    icon: IconType,
+    id: string,
+    toolTip: string
+}
+
+const tools: Tool[] = [
+    {icon: FaPenFancy, id: 'write', toolTip: 'Writing Space'},
+    {icon: FaNotesMedical, id: 'add', toolTip: 'Add Prompt'},
+    {icon: FaClipboardList, id: 'incomplete', toolTip: 'Prompt List'},
+    {icon: FaClipboardCheck, id: 'complete', toolTip: 'Completed Prompts'},
+    {icon: FaTrashAlt, id: 'discard', toolTip: 'Discarded Prompts'},
+];
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
     const [selectedPrompt, setSelectedPrompt] = useState<string>("Test Prompt");
+    const [currentTool, setCurrentTool] = useState<string>("");
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts
@@ -46,15 +62,30 @@ function Warmup() {
         setPromptList([...promptList, newPrompt]);
 
         setUserInput("");
-    }
+    };
 
     const discardPrompt = (prompt: Prompt) => {
         setDiscardList([...discardList, prompt]);
         setPromptList(promptList.filter(p => p.id !== prompt.id));
     };
 
+    const selectTool = (tool: any) => {
+        console.log('test', tool)
+        setCurrentTool(tool.id);
+    }
+
     return (
         <div className="warm-up-container">
+            <div className='Toolbar-container'>
+                {tools.map((tool: Tool) => {
+                    const IconComponent = tool.icon;
+                    return (
+                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected': 'tool'}`} title={tool.toolTip}>
+                            <IconComponent className='icon' id={tool.id} onClick={() => selectTool(tool)} />
+                        </div>
+                    )
+                })}
+            </div>
             <label className='add-prompt-label'>
                 New Prompt
             </label>

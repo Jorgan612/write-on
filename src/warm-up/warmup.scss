@@ -9,6 +9,34 @@
     overflow-y: auto;
     // border: 1px solid red;
 
+    .Toolbar-container {
+        @include flexbox(flex, row, null, null);
+        @include content (fit-content, fit-content, null);
+        // border: 1px solid blue;
+        border-bottom: 2px solid $dark4;
+
+        .tool {
+            @include content(fit-content, fit-content, null);
+            // border: 1px solid white;
+            background-color: $dark4;
+            padding: .5rem;
+            margin: .5rem;
+
+            .icon {
+                @include content(24px, 24px, null);
+            }
+        }
+
+        .tool:hover {
+            cursor: pointer;
+            background-color: $dark3;
+        }
+    }
+
+    .selected {
+        border: 1px solid $dark1;
+    }
+
     .add-prompt-label {
         color: $dark1;
         padding: 1rem 0rem;
