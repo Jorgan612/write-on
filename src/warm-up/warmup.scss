@@ -1,35 +1,92 @@
 @import '../variables.scss';
+@import '../mixins.scss';
 
 
 .warm-up-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 75%;
+    @include flexbox(flex, column, flex-start, center);
+    @include content(87vh, 96%, null);
     padding: 2rem;
+    overflow-y: auto;
 
+    .Toolbar-container {
+        @include flexbox(flex, row, null, null);
+        @include content (fit-content, fit-content, null);
+        border-bottom: 2px solid $dark4;
 
-    .warm-up-contents {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 100%;
-        border: 2px solid $light2;
-        background-color: $light2;
-        border-radius: .5rem;
-        padding: 1rem;
+        .tool {
+            @include content(fit-content, fit-content, null);
+            background-color: $dark4;
+            padding: .5rem;
+            margin: .5rem;
 
-        .left-side {
-            width: 50%;
-            border-radius: .5rem;
-            background-color: $light1;
+            .icon {
+                @include content(24px, 24px, null);
+            }
         }
 
-        .right-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 45%;
+        .tool:hover {
+            cursor: pointer;
+            background-color: $dark3;
         }
     }
+
+    .selected {
+        border: 1px solid $dark1;
+    }
+
+    .add-prompt-label {
+        color: $dark1;
+        padding: 1rem 0rem;
+        font-size: $font1;
+    }
+
+    textarea {
+        @include content(10rem, 40rem, null);
+        resize: none;
+        max-height: 10rem;
+        min-height: 3rem;
+        padding: 1rem;
+        background-color: $dark3;
+        border: 1px solid $dark3;
+        overflow: auto;
+        color: $dark1;
+
+        scrollbar-width: thin;
+        scrollbar-color: $dark1 $dark3;
+    }
+
+    textarea:focus {
+        outline: 1px solid $dark2;
+        caret-color: $dark1;
+        color: $dark1;
+        font-weight: bold;
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+
+    ul div {
+        @include flexbox(flex, row, flex-start, center);
+        gap: 1;
+
+        button {
+            margin: .5rem;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+        
+
+        li {
+            list-style-type: none;
+            margin-left: 1rem;
+        }
+
+        label {
+            margin-right: 1rem;
+        }
+    }
+
 }
