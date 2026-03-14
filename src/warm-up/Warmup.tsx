@@ -28,6 +28,7 @@ function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
     const [currentTool, setCurrentTool] = useState<string>("write");
     const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+    const [showMsg, setShowMsg] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts;
@@ -57,11 +58,17 @@ function Warmup() {
             prompt: userInput,
             completed: 0,
             discarded: 0
-        }
+        };
 
         setPromptList([...promptList, newPrompt]);
 
         setUserInput("");
+        setShowMsg(true);
+
+        setTimeout(() => {
+            setShowMsg(false);
+        }, 1000);
+
     };
 
     const discardPrompt = (prompt: Prompt) => {
@@ -85,27 +92,43 @@ function Warmup() {
                     )
                 })}
             </div>
-            <label className='add-prompt-label'>
-                New Prompt
-            </label>
-            <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
-            <button onClick={addNewPrompt}>Add</button>
-            <ul>
-                {promptList.map((p: Prompt) => (
-                    <div key={p.id}>
-                        <button onClick={() => discardPrompt(p)}>X</button>
-                        <li>{p.prompt}</li>
-                    </div>
-                ))}
-            </ul>
-            <p>Discards</p>
-            <ul>
-                {discardList.map((p: Prompt) => (
-                    <li key={p.id}>{p.prompt}</li>
-                ))}
-            </ul>
+            <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
+                WRITING SPACE
+            </div>
+            <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
+                <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
+                    Prompt added!
+                </p>
+                <label className='add-prompt-label'>
+                    New Prompt
+                </label>
+                <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
+                <button onClick={addNewPrompt}>+ Add</button>
+            </div>
+            <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
+                <ul>
+                    {promptList.map((p: Prompt) => (
+                        <div key={p.id}>
+                            <button onClick={() => discardPrompt(p)}>X</button>
+                            <li>{p.prompt}</li>
+                        </div>
+                    ))}
+                </ul>
+
+            </div>
+            <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
+                COMPLETED PROMPTS
+            </div>
+            <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
+                <p>Discards</p>
+                <ul>
+                    {discardList.map((p: Prompt) => (
+                        <li key={p.id}>{p.prompt}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
-}
+};
 
 export default Warmup;
