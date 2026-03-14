@@ -7,17 +7,14 @@
     @include content(87vh, 96%, null);
     padding: 2rem;
     overflow-y: auto;
-    // border: 1px solid red;
 
     .Toolbar-container {
         @include flexbox(flex, row, null, null);
         @include content (fit-content, fit-content, null);
-        // border: 1px solid blue;
         border-bottom: 2px solid $dark4;
 
         .tool {
             @include content(fit-content, fit-content, null);
-            // border: 1px solid white;
             background-color: $dark4;
             padding: .5rem;
             margin: .5rem;

@@ -11,9 +11,9 @@ interface Prompt {
     discarded: number;
 }
 interface Tool {
-    icon: IconType,
-    id: string,
-    toolTip: string
+    icon: IconType;
+    id: string;
+    toolTip: string;
 }
 
 const tools: Tool[] = [
@@ -30,7 +30,7 @@ function Warmup() {
     const [selectedPrompt, setSelectedPrompt] = useState<string>("");
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
-        return saved ? JSON.parse(saved) : InitialPrompts
+        return saved ? JSON.parse(saved) : InitialPrompts;
     });
     const [discardList, setDiscardList] = useState<Prompt[]>(() => {
         const discarded = localStorage.getItem("user_discards");
@@ -70,9 +70,8 @@ function Warmup() {
     };
 
     const selectTool = (tool: any) => {
-        console.log('test', tool)
         setCurrentTool(tool.id);
-    }
+    };
 
     return (
         <div className="warm-up-container">
