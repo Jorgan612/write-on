@@ -57,7 +57,7 @@ function Warmup() {
             prompt: userInput,
             completed: 0,
             discarded: 0
-        }
+        };
 
         setPromptList([...promptList, newPrompt]);
 
@@ -85,27 +85,40 @@ function Warmup() {
                     )
                 })}
             </div>
-            <label className='add-prompt-label'>
-                New Prompt
-            </label>
-            <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
-            <button onClick={addNewPrompt}>Add</button>
-            <ul>
-                {promptList.map((p: Prompt) => (
-                    <div key={p.id}>
-                        <button onClick={() => discardPrompt(p)}>X</button>
-                        <li>{p.prompt}</li>
-                    </div>
-                ))}
-            </ul>
-            <p>Discards</p>
-            <ul>
-                {discardList.map((p: Prompt) => (
-                    <li key={p.id}>{p.prompt}</li>
-                ))}
-            </ul>
+            <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
+                WRITING SPACE
+            </div>
+            <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
+                <label className='add-prompt-label'>
+                    New Prompt
+                </label>
+                <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
+                <button onClick={addNewPrompt}>Add</button>
+            </div>
+            <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
+                <ul>
+                    {promptList.map((p: Prompt) => (
+                        <div key={p.id}>
+                            <button onClick={() => discardPrompt(p)}>X</button>
+                            <li>{p.prompt}</li>
+                        </div>
+                    ))}
+                </ul>
+
+            </div>
+            <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
+                COMPLETED PROMPTS
+            </div>
+            <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
+                <p>Discards</p>
+                <ul>
+                    {discardList.map((p: Prompt) => (
+                        <li key={p.id}>{p.prompt}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
-}
+};
 
 export default Warmup;

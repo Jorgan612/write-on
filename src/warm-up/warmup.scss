@@ -4,9 +4,9 @@
 
 .warm-up-container {
     @include flexbox(flex, column, flex-start, center);
-    @include content(87vh, 96%, null);
-    padding: 2rem;
-    overflow-y: auto;
+    @include content(94vh, 96%, null);
+    padding: .5rem 2rem;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
 
     .Toolbar-container {
         @include flexbox(flex, row, null, null);
@@ -28,6 +28,35 @@
             cursor: pointer;
             background-color: $dark3;
         }
+    }
+
+    // fix vertical scroll arrow styling to match horizontal scroll styling in Stats year overview
+    .writing-view {
+        @include flexbox(flex, column, center, center);
+        @include content (100vh, 100%, null);
+        border: 1px solid blue;
+        overflow-y: auto;
+    }
+
+    .add-view {
+        @include flexbox(flex, column, center, center);
+        @include content (100vh, 100%, null);
+        border: 1px solid red;
+        overflow-y: auto;
+    }
+
+    .incomplete-view {
+        @include flexbox(flex, column, center, center);
+        @include content (100vh, 100%, null);
+        border: 1px solid yellow;
+        overflow-y: auto;
+    }
+
+    .discard-view {
+        @include flexbox(flex, column, center, center);
+        @include content (100vh, 100%, null);
+        border: 1px solid orange;
+        overflow-y: auto;
     }
 
     .selected {
@@ -87,6 +116,20 @@
         label {
             margin-right: 1rem;
         }
+    }
+
+    .hide-view {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-top: 0;
+        transform: translateY(-50px);
+    }
+
+    .show-view {
+        opacity: 1;
+        transform: translateY(0);
+        // max-height: 500px; // will need to change
     }
 
 }
