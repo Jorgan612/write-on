@@ -78,7 +78,7 @@
         transform: translateX(-20px);
     }
 
-    &.is-visible {
+    .is-visible {
         opacity: 1;
         transform: translateX(0);
         max-height: 500px;
