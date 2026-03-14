@@ -26,8 +26,8 @@ const tools: Tool[] = [
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
-    const [selectedPrompt, setSelectedPrompt] = useState<string>("Test Prompt");
-    const [currentTool, setCurrentTool] = useState<string>("");
+    const [currentTool, setCurrentTool] = useState<string>("write");
+    const [selectedPrompt, setSelectedPrompt] = useState<string>("");
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts
