@@ -41,7 +41,6 @@
     .add-view {
         @include flexbox(flex, column, center, center);
         @include content (100vh, 100%, null);
-        border: 1px solid red;
         overflow-y: auto;
     }
 
@@ -49,6 +48,13 @@
         @include flexbox(flex, column, center, center);
         @include content (100vh, 100%, null);
         border: 1px solid yellow;
+        overflow-y: auto;
+    }
+    
+    .complete-view {
+        @include flexbox(flex, column, center, center);
+        @include content (100vh, 100%, null);
+        border: 1px solid pink;
         overflow-y: auto;
     }
 
@@ -67,28 +73,44 @@
         color: $dark1;
         padding: 1rem 0rem;
         font-size: $font1;
+        font-weight: bold;
+    }
+
+    .message {
+        position: absolute;
+        top: center;
+        font-size: $font1;
+    }
+
+    .show-msg {
+        opacity: 1;
+    }
+
+    .hide-msg {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-top: 0;
     }
 
     textarea {
-        @include content(10rem, 40rem, null);
+        @include content(50%, 50%, null);
         resize: none;
-        max-height: 10rem;
-        min-height: 3rem;
         padding: 1rem;
         background-color: $dark3;
         border: 1px solid $dark3;
         overflow: auto;
         color: $dark1;
-
+        font-size: $font4;
+        font-weight: bold;
         scrollbar-width: thin;
         scrollbar-color: $dark1 $dark3;
     }
 
     textarea:focus {
-        outline: 1px solid $dark2;
+        outline: 2px solid $dark2;
         caret-color: $dark1;
         color: $dark1;
-        font-weight: bold;
     }
 
     button {
@@ -123,13 +145,10 @@
         opacity: 0;
         pointer-events: none;
         margin-top: 0;
-        transform: translateY(-50px);
     }
 
     .show-view {
         opacity: 1;
-        transform: translateY(0);
-        // max-height: 500px; // will need to change
     }
 
 }

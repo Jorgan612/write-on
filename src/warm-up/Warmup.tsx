@@ -28,6 +28,7 @@ function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
     const [currentTool, setCurrentTool] = useState<string>("write");
     const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+    const [showMsg, setShowMsg] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : InitialPrompts;
@@ -62,6 +63,12 @@ function Warmup() {
         setPromptList([...promptList, newPrompt]);
 
         setUserInput("");
+        setShowMsg(true);
+
+        setTimeout(() => {
+            setShowMsg(false);
+        }, 1000);
+
     };
 
     const discardPrompt = (prompt: Prompt) => {
@@ -89,11 +96,14 @@ function Warmup() {
                 WRITING SPACE
             </div>
             <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
+                <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
+                    Prompt added!
+                </p>
                 <label className='add-prompt-label'>
                     New Prompt
                 </label>
                 <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
-                <button onClick={addNewPrompt}>Add</button>
+                <button onClick={addNewPrompt}>+ Add</button>
             </div>
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul>
