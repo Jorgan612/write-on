@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import './warmup.scss';
 import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
 import { IconType } from "react-icons";
-import { FaPenFancy, FaClipboardCheck, FaClipboardList, FaNotesMedical, FaTrashAlt } from "react-icons/fa";
+import { FaPenFancy, FaClipboardCheck, FaClipboardList, FaNotesMedical, FaTrashAlt, FaFileDownload, FaFileExcel, FaFileExport, FaFileSignature } from "react-icons/fa";
 
 interface Prompt {
     id: number;
@@ -10,19 +10,27 @@ interface Prompt {
     completed: number;
     discarded: number;
 }
-interface Tool {
+interface Icon {
     icon: IconType;
     id: string;
     toolTip: string;
 }
 
-const tools: Tool[] = [
+const tools: Icon[] = [
     {icon: FaPenFancy, id: 'write', toolTip: 'Writing Space'},
     {icon: FaNotesMedical, id: 'add', toolTip: 'Add Prompt'},
     {icon: FaClipboardList, id: 'incomplete', toolTip: 'Prompt List'},
     {icon: FaClipboardCheck, id: 'complete', toolTip: 'Completed Prompts'},
     {icon: FaTrashAlt, id: 'discard', toolTip: 'Discarded Prompts'},
 ];
+
+const options: Icon[] = [
+    {icon: FaFileDownload, id: 'download', toolTip: 'Download'},
+    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
+    {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
+    {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
+];
+// Need a new component for item cards - pass options that that so that the item card component can be reused for each view's list.
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
@@ -83,7 +91,7 @@ function Warmup() {
     return (
         <div className="warm-up-container">
             <div className='Toolbar-container'>
-                {tools.map((tool: Tool) => {
+                {tools.map((tool: Icon) => {
                     const IconComponent = tool.icon;
                     return (
                         <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected': 'tool'}`} title={tool.toolTip}>
@@ -109,7 +117,7 @@ function Warmup() {
                 <ul>
                     {promptList.map((p: Prompt) => (
                         <div key={p.id}>
-                            <button onClick={() => discardPrompt(p)}>X</button>
+                            <button onClick={() => discardPrompt(p)} title='Move to Discard List'>X</button>
                             <li>{p.prompt}</li>
                         </div>
                     ))}
