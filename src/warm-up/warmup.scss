@@ -30,39 +30,24 @@
         }
     }
 
-    // fix vertical scroll arrow styling to match horizontal scroll styling in Stats year overview
-    .writing-view {
-        @include flexbox(flex, column, center, center);
-        @include content (100vh, 100%, null);
-        border: 1px solid blue;
-        overflow-y: auto;
-    }
-
-    .add-view {
-        @include flexbox(flex, column, center, center);
-        @include content (100vh, 100%, null);
-        overflow-y: auto;
-    }
-
-    .incomplete-view {
-        @include flexbox(flex, column, center, center);
-        @include content (100vh, 100%, null);
-        border: 1px solid yellow;
-        overflow-y: auto;
-    }
-    
-    .complete-view {
-        @include flexbox(flex, column, center, center);
-        @include content (100vh, 100%, null);
-        border: 1px solid pink;
-        overflow-y: auto;
-    }
-
+    .writing-view,
+    .add-view,
+    .incomplete-view,
+    .complete-view,
     .discard-view {
-        @include flexbox(flex, column, center, center);
-        @include content (100vh, 100%, null);
-        border: 1px solid orange;
-        overflow-y: auto;
+        @include flexbox(flex, column, flex-start, center);
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .list-container {
+        @include flexbox(flex, column, flex-start, center);
+        width: calc(100% - 3.5rem);
+        max-height: 100%;
+        overflow: auto;
+        overflow-x: hidden;
     }
 
     .selected {
@@ -80,6 +65,7 @@
         position: absolute;
         top: center;
         font-size: $font1;
+        background-color: $dark3;
     }
 
     .show-msg {
@@ -117,8 +103,8 @@
         margin-top: 1rem;
     }
 
-    ul div {
-        @include flexbox(flex, row, flex-start, center);
+    ul {
+        @include flexbox(flex, column, flex-start, flex-start);
         gap: 1;
 
         button {
@@ -141,13 +127,11 @@
     }
 
     .hide-view {
-        max-height: 0;
-        opacity: 0;
-        pointer-events: none;
-        margin-top: 0;
+        display: none;
     }
 
     .show-view {
+        display: flex;
         opacity: 1;
     }
 

@@ -1,3 +1,53 @@
-.card-container {
-    border: 1px solid yellow;
+@import '../mixins.scss';
+@import '../variables.scss';
+
+
+.list-item { 
+    @include flexbox(flex, row, null, null);
+    @include content(fit-content, 75%, null);
+    margin: .5rem 0rem;
+    flex-shrink: 0;
+    font-size: $font4;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.25), 
+        0 1px 3px rgba(0, 0, 0, 0.2);
+
+    .options-container {
+        @include content(100%, fit-content, null);
+        @include flexbox(flex, column, center, null);
+        background-color: $dark4;
+    }
+
+    .prompt-text {
+        @include flexbox(flex, row, center, center);
+        width: 100%;
+        padding: .5rem;
+        text-wrap: wrap;
+    }
+
+    .exerpt-text {
+        border: 1px solid red;
+    }
+
+    .option {
+        padding: .5rem;
+        text-align: center;
+
+        .icon {
+            @include content(24px, 24px, null);
+        }
+    }
+
+    .option:hover {
+        cursor: pointer;
+        background-color: $dark3;
+    }
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 
+            0 6px 16px rgba(0, 0, 0, 0.35), 
+            0 2px 4px rgba(0, 0, 0, 0.25);
+    }
 }

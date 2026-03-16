@@ -36,9 +36,3 @@ export interface CombinedEntry {
     day: number;
     time: string;
 }
-
-
-
-
-// not sure if this export default is needed. VERIFY
-// export default Entry;

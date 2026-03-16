@@ -1,20 +1,20 @@
 import { useState, ChangeEvent, useEffect } from 'react';
+import { Prompt, Icon } from '../interfaces/interfaces';
+import Card  from '../card/Card';
 import './warmup.scss';
 import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
-import { IconType } from "react-icons";
-import { FaPenFancy, FaClipboardCheck, FaClipboardList, FaNotesMedical, FaTrashAlt, FaFileDownload, FaFileExcel, FaFileExport, FaFileSignature } from "react-icons/fa";
+import { 
+    FaPenFancy, 
+    FaClipboardCheck, 
+    FaClipboardList, 
+    FaNotesMedical, 
+    FaTrashAlt, 
+    FaFileDownload, 
+    FaFileExcel, 
+    FaFileExport, 
+    FaFileSignature 
+} from "react-icons/fa";
 
-interface Prompt {
-    id: number;
-    prompt: string;
-    completed: number;
-    discarded: number;
-}
-interface Icon {
-    icon: IconType;
-    id: string;
-    toolTip: string;
-}
 
 const tools: Icon[] = [
     {icon: FaPenFancy, id: 'write', toolTip: 'Writing Space'},
@@ -26,7 +26,7 @@ const tools: Icon[] = [
 
 const options: Icon[] = [
     {icon: FaFileDownload, id: 'download', toolTip: 'Download'},
-    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
+    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete Permanently'},
     {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
 ];
@@ -45,6 +45,13 @@ function Warmup() {
         const discarded = localStorage.getItem("user_discards");
         return discarded ? JSON.parse(discarded) : [];
     });
+
+    const [completedList, setCompletedList] = useState<Prompt[]>([{
+        id: 1,
+        prompt: 'Childhood memory from the perspective of some else who was present',
+        completed: 1,
+        discarded: 0,
+    }]);
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
@@ -110,28 +117,27 @@ function Warmup() {
                 <label className='add-prompt-label'>
                     New Prompt
                 </label>
-                <textarea placeholder="Type out a new prompt here then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt}></textarea>
+                <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
                 <button onClick={addNewPrompt}>+ Add</button>
             </div>
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
-                <ul>
+                <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <div key={p.id}>
-                            <button onClick={() => discardPrompt(p)} title='Move to Discard List'>X</button>
-                            <li>{p.prompt}</li>
-                        </div>
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt}/>
                     ))}
                 </ul>
-
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
-                COMPLETED PROMPTS
+                <ul className='list-container'>
+                    {completedList.map((p:Prompt) => (
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt}/>
+                    ))}
+                </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
-                <p>Discards</p>
-                <ul>
+                <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <li key={p.id}>{p.prompt}</li>
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} />
                     ))}
                 </ul>
             </div>
