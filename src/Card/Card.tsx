@@ -6,9 +6,10 @@ interface CardProps {
     p: Prompt;         
     options: Icon[];   
     discardPrompt: (prompt: Prompt) => void;
+    currentTool: string;
 }
 
-function Card({p, options, discardPrompt}: CardProps) {
+function Card({p, options, discardPrompt, currentTool}: CardProps) {
     return (
         <li className="list-item">
             <div className='options-container'>
@@ -25,10 +26,15 @@ function Card({p, options, discardPrompt}: CardProps) {
                 </button> */}
             </div>
             <div className='prompt-text'>
-                {p.prompt}
-            </div>
-            <div className={p.completed ? `exerpt-text` : 'hide-view'}>
-
+                <p>
+                    {p.prompt}
+                </p>
+                <div className={p.completed && currentTool === 'complete' ? `exerpt-text` : 'hide-view'}>
+                    <label> Excerpt </label>
+                    <p>
+                        {p.excerpt}
+                    </p>
+                </div>
             </div>
         </li>  
     )

@@ -51,6 +51,14 @@ function Warmup() {
         prompt: 'Childhood memory from the perspective of some else who was present',
         completed: 1,
         discarded: 0,
+        excerpt: 'This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! '
+    },
+    {
+        id: 2,
+        prompt: 'You’re possessed by a demon, you quick realize he’s never done this before',
+        completed: 1,
+        discarded: 0,
+        excerpt: "This is a reallyshort excerpt to test styling and see what it looks like without a wall of text written."
     }]);
 
     useEffect(() => {
@@ -72,8 +80,11 @@ function Warmup() {
             id: Date.now(),
             prompt: userInput,
             completed: 0,
-            discarded: 0
+            discarded: 0,
+            excerpt: ''
         };
+
+        console.log('test how input shows with line breaks?', newPrompt)
 
         setPromptList([...promptList, newPrompt]);
 
@@ -123,21 +134,21 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt}/>
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool}/>
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt}/>
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} />
+                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>

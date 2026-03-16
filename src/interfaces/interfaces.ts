@@ -6,6 +6,7 @@ export interface Prompt {
     prompt: string;
     completed: number;
     discarded: number;
+    excerpt: string;
 }
 
 export interface Icon {
