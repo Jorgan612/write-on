@@ -1,3 +1,21 @@
+import { IconType } from "react-icons";
+
+/* Warmup Prompts */
+export interface Prompt {
+    id: number;
+    prompt: string;
+    completed: number;
+    discarded: number;
+}
+
+export interface Icon {
+    icon: IconType;
+    id: string;
+    toolTip: string;
+}
+
+
+/* Word Count */
 export interface Entry {
     id: number;
     total: number;
@@ -19,4 +37,8 @@ export interface CombinedEntry {
     time: string;
 }
 
-export default Entry;
+
+
+
+// not sure if this export default is needed. VERIFY
+// export default Entry;
