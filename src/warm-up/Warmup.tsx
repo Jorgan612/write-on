@@ -71,7 +71,6 @@ function Warmup() {
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
         localStorage.setItem("user_discards", JSON.stringify(discardList));
-        console.log('prompt list', promptList)
     }, [promptList, discardList]);
     
     const handleNewPrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
