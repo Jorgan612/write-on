@@ -20,16 +20,18 @@
     }
 
     .prompt-text {
-        @include flexbox(flex, column, center, center);
+        @include flexbox(flex, column, center, null);
         width: 100%;
         padding: .5rem;
         text-wrap: wrap;
+        white-space: pre-line
     }
 
     .exerpt-text {
         @include flexbox(flex, column, flex-start   , center);
         padding: .5rem;
         background-color: $dark3;
+        white-space: pre-line
     }
 
     .option {

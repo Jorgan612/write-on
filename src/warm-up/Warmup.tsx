@@ -59,11 +59,19 @@ function Warmup() {
         completed: 1,
         discarded: 0,
         excerpt: "This is a reallyshort excerpt to test styling and see what it looks like without a wall of text written."
+    },
+    {
+        id: 3,
+        prompt: '',
+        completed: 1,
+        discarded: 0,
+        excerpt: "This is an example of a free writing exercise in which the user does not use a prompt, but instead, uses the writing space textarea to just free write whatever comes to mind."
     }]);
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
         localStorage.setItem("user_discards", JSON.stringify(discardList));
+        console.log('prompt list', promptList)
     }, [promptList, discardList]);
     
     const handleNewPrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -83,8 +91,6 @@ function Warmup() {
             discarded: 0,
             excerpt: ''
         };
-
-        console.log('test how input shows with line breaks?', newPrompt)
 
         setPromptList([...promptList, newPrompt]);
 

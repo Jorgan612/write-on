@@ -30,7 +30,7 @@ function Card({p, options, discardPrompt, currentTool}: CardProps) {
                     {p.prompt}
                 </p>
                 <div className={p.completed && currentTool === 'complete' ? `exerpt-text` : 'hide-view'}>
-                    <label> Excerpt </label>
+                    <label> {p.prompt ? 'Prompt Response' : 'Free Write'} </label>
                     <p>
                         {p.excerpt}
                     </p>
