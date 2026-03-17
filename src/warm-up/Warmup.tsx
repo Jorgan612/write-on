@@ -111,6 +111,27 @@ function Warmup() {
         setCurrentTool(tool.id);
     };
 
+    const updatePrompt =  () => {
+        console.log('Updated!')
+        // will need to update existing prompt if prompt generated and save is clicked
+        //or
+        // create a new prompt with empty string prompt property if user decides to free write.
+        // also need to 
+    }
+
+    const handleUpdatePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // capture user input
+        setUserInput(e.target.value);
+        console.log('handleUpdatePrompt', userInput)
+    }
+
+    const getRandomPrompt =() => {
+        // add logic to select a random prompt from the prompt list.
+        // Once obtained, display prompt in button position with an icon to cancel if prompt does not spark joy.
+        // When save is clicked, this prompt obj should be updated within the prompt list.
+        // If no prompt selected and save is clicked, entry should be saved as a new entry with empty string prompt
+    }
+
     return (
         <div className="warm-up-container">
             <div className='Toolbar-container'>
@@ -123,9 +144,25 @@ function Warmup() {
                     )
                 })}
             </div>
+
+
+
             <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
-                WRITING SPACE
+                <p>Welcome to the writing space. Happy writing!</p>
+                <div className='random-container'>
+                    <button onClick={getRandomPrompt}>Reveal Prompt</button>
+                </div>
+                <div className='writing-space'>
+                    <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleUpdatePrompt} maxLength={1500}></textarea>
+                    <button onClick={updatePrompt}>Save</button>
+                </div>
             </div>
+
+
+
+
+
+
             <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!

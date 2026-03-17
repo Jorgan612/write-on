@@ -42,6 +42,23 @@
         overflow: hidden;
     }
 
+    .writing-view {
+        @include flexbox(flex, column, flex-start, center);
+        // border: 1px solid red;
+
+        .random-container {
+            @include flexbox(flex, row, space-around, center);
+            @include content(fit-content, 25%, null);
+            padding: 1rem;
+        }
+
+        .writing-space {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(85%, 100%, null);
+            border: 1px solid purple;
+        }
+    }
+
     .list-container {
         @include flexbox(flex, column, flex-start, center);
         width: calc(100% - 3.5rem);
