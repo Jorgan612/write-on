@@ -30,12 +30,11 @@ const options: Icon[] = [
     {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
 ];
-// Need a new component for item cards - pass options that that so that the item card component can be reused for each view's list.
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
     const [currentTool, setCurrentTool] = useState<string>("write");
-    const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+    const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
     const [showMsg, setShowMsg] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
@@ -126,6 +125,19 @@ function Warmup() {
     }
 
     const getRandomPrompt =() => {
+
+        if (promptList.length === 0) {
+            throw new Error("Oops! You don't have any prompts. Add prompts in order to use this feature.")
+        }
+
+        const index = Math.floor(Math.random() * promptList.length);
+        
+        const randomPrompt = promptList[index]!;
+
+        setSelectedPrompt(randomPrompt);
+
+        console.log('test')
+
         // add logic to select a random prompt from the prompt list.
         // Once obtained, display prompt in button position with an icon to cancel if prompt does not spark joy.
         // When save is clicked, this prompt obj should be updated within the prompt list.
@@ -150,7 +162,12 @@ function Warmup() {
             <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
                 <p>Welcome to the writing space. Happy writing!</p>
                 <div className='random-container'>
-                    <button onClick={getRandomPrompt}>Reveal Prompt</button>
+                    {!selectedPrompt && <button onClick={getRandomPrompt}>Reveal Prompt</button>}
+                    {selectedPrompt &&
+                        <div className='random-prompt'>
+                             {selectedPrompt.prompt}
+                        </div>
+                    }
                 </div>
                 <div className='writing-space'>
                     <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleUpdatePrompt} maxLength={1500}></textarea>

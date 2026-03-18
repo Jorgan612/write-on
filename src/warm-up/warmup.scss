@@ -48,8 +48,14 @@
 
         .random-container {
             @include flexbox(flex, row, space-around, center);
-            @include content(fit-content, 25%, null);
+            @include content(fit-content, 100%, null);
             padding: 1rem;
+
+            .random-prompt {
+                @include content(fit-content, 100%, null);
+                border: 1px solid yellow;
+                text-align: center;
+            }
         }
 
         .writing-space {
