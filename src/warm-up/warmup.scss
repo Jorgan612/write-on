@@ -48,13 +48,14 @@
         .random-container {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.3s ease-in-out;
+            transition: grid-template-rows 0.5s ease-in-out;
             width: 100%;
 
             &.has-prompt {
                 grid-template-rows: 1fr;
                 padding: 1rem;
             }
+
             
             .random-prompt {
                 min-height: 0;
@@ -64,6 +65,17 @@
 
             .random-prompt-long {
                 text-align: left;
+            }
+
+            .random-prompt,
+            .random-prompt-long {
+                opacity: 0;
+                animation: fadeIn 0.4s forwards;
+                animation-delay: 0.2s;
+            }
+
+            @keyframes fadeIn {
+                to {opacity: 1;}
             }
         }
 
