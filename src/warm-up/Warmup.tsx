@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import { Prompt, Icon } from '../interfaces/interfaces';
 import Card  from '../card/Card';
 import './warmup.scss';
-import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
+import { prompts as InitialPrompts } from '../datasets/prompts';
 import { 
     FaPenFancy, 
     FaClipboardCheck, 
@@ -12,7 +12,8 @@ import {
     FaFileDownload, 
     FaFileExcel, 
     FaFileExport, 
-    FaFileSignature 
+    FaFileSignature,
+    FaBackspace 
 } from "react-icons/fa";
 
 
@@ -30,12 +31,11 @@ const options: Icon[] = [
     {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
 ];
-// Need a new component for item cards - pass options that that so that the item card component can be reused for each view's list.
 
 function Warmup() {
     const [userInput, setUserInput] = useState<string>("");
     const [currentTool, setCurrentTool] = useState<string>("write");
-    const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+    const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
     const [showMsg, setShowMsg] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
@@ -45,33 +45,16 @@ function Warmup() {
         const discarded = localStorage.getItem("user_discards");
         return discarded ? JSON.parse(discarded) : [];
     });
-
-    const [completedList, setCompletedList] = useState<Prompt[]>([{
-        id: 1,
-        prompt: 'Childhood memory from the perspective of some else who was present',
-        completed: 1,
-        discarded: 0,
-        excerpt: 'This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! '
-    },
-    {
-        id: 2,
-        prompt: 'You’re possessed by a demon, you quick realize he’s never done this before',
-        completed: 1,
-        discarded: 0,
-        excerpt: "This is a reallyshort excerpt to test styling and see what it looks like without a wall of text written."
-    },
-    {
-        id: 3,
-        prompt: '',
-        completed: 1,
-        discarded: 0,
-        excerpt: "This is an example of a free writing exercise in which the user does not use a prompt, but instead, uses the writing space textarea to just free write whatever comes to mind."
-    }]);
+    const [completedList, setCompletedList] = useState<Prompt[]>(() =>  {
+        const completed = localStorage.getItem("user_completed");
+        return completed ? JSON.parse(completed) : [];
+    });
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
         localStorage.setItem("user_discards", JSON.stringify(discardList));
-    }, [promptList, discardList]);
+        localStorage.setItem("user_completed", JSON.stringify(completedList));
+    }, [promptList, discardList, completedList]);
     
     const handleNewPrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUserInput(e.target.value);
@@ -91,7 +74,7 @@ function Warmup() {
             excerpt: ''
         };
 
-        setPromptList([...promptList, newPrompt]);
+        setPromptList(prevList => [newPrompt, ...prevList]);
 
         setUserInput("");
         setShowMsg(true);
@@ -103,12 +86,61 @@ function Warmup() {
     };
 
     const discardPrompt = (prompt: Prompt) => {
-        setDiscardList([...discardList, prompt]);
-        setPromptList(promptList.filter(p => p.id !== prompt.id));
+        setDiscardList(prevList => [prompt, ...prevList]);
+        setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
     };
 
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);
+    };
+
+    const savePrompt =  () => {
+        if (selectedPrompt) {
+            const updatedPrompt = {
+                ...selectedPrompt,
+                completed: 1,
+                excerpt: userInput
+            };
+
+            setCompletedList(prevList => [updatedPrompt, ...prevList]);
+            setPromptList(prevList => prevList.filter((prompt) => prompt.id !== selectedPrompt.id));
+            setSelectedPrompt(null);
+        } else {
+            if (userInput) {
+                let newPrompt = {
+                    id: Date.now(),
+                    prompt: '',
+                    completed: 1,
+                    discarded: 0,
+                    excerpt: userInput
+                };
+
+                setCompletedList([newPrompt, ...completedList]);
+            }
+        }
+        setUserInput('');
+    };
+
+    const cancelAction = () => {
+        setSelectedPrompt(null);
+        setUserInput('');
+    };
+
+    const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setUserInput(e.target.value);
+    };
+
+    const getRandomPrompt =() => {
+
+        if (promptList.length === 0) {
+            throw new Error("Oops! You don't have any prompts. Add prompts in order to use this feature.");
+        }
+
+        const index = Math.floor(Math.random() * promptList.length);
+        
+        const randomPrompt = promptList[index]!;
+
+        setSelectedPrompt(randomPrompt);
     };
 
     return (
@@ -117,24 +149,42 @@ function Warmup() {
                 {tools.map((tool: Icon) => {
                     const IconComponent = tool.icon;
                     return (
-                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected': 'tool'}`} title={tool.toolTip}>
+                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip}>
                             <IconComponent className='icon' id={tool.id} onClick={() => selectTool(tool)} />
                         </div>
                     )
                 })}
             </div>
             <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
-                WRITING SPACE
+                <div className={`random-container ${selectedPrompt ? 'has-prompt' : ''}`}>
+                    {!selectedPrompt ? (
+                        <button onClick={getRandomPrompt}>Reveal Prompt</button>
+                    ) : (
+                        <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>
+                        <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
+                            <FaBackspace className='icon back' onClick={cancelAction}  title='Cancel' />
+                        </div>
+                            {selectedPrompt.prompt}
+                        </div>
+                    )}
+                </div>
+                <div className='writing-space'>
+                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
+                    <div>
+                        <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
+                        <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
+                    </div>
+                </div>
             </div>
             <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!
                 </p>
-                <label className='add-prompt-label'>
-                    New Prompt
-                </label>
                 <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
-                <button onClick={addNewPrompt}>+ Add</button>
+                <div>
+                    <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
+                    <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
+                </div>
             </div>
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>

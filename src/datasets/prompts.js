@@ -1,3 +1,5 @@
+// export const prompts = []; //Test empty array
+
 export const prompts = [
     {
         id: 1,
