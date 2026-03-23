@@ -99,7 +99,7 @@ function Warmup() {
             const updatedPrompt = {
                 ...selectedPrompt,
                 completed: 1,
-                exerpt: userInput
+                excerpt: userInput
             };
 
             setCompletedList(prevList => [updatedPrompt, ...prevList]);
