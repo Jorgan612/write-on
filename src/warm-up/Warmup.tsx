@@ -100,7 +100,7 @@ function Warmup() {
                 ...selectedPrompt,
                 completed: 1,
                 exerpt: userInput
-            }
+            };
 
             setCompletedList(prevList => [updatedPrompt, ...prevList]);
             setPromptList(prevList => prevList.filter((prompt) => prompt.id !== selectedPrompt.id));
@@ -115,7 +115,7 @@ function Warmup() {
                     excerpt: userInput
                 };
 
-                setCompletedList([newPrompt, ...completedList])
+                setCompletedList([newPrompt, ...completedList]);
             }
         }
         setUserInput('');
@@ -128,7 +128,7 @@ function Warmup() {
     const getRandomPrompt =() => {
 
         if (promptList.length === 0) {
-            throw new Error("Oops! You don't have any prompts. Add prompts in order to use this feature.")
+            throw new Error("Oops! You don't have any prompts. Add prompts in order to use this feature.");
         }
 
         const index = Math.floor(Math.random() * promptList.length);
@@ -136,7 +136,6 @@ function Warmup() {
         const randomPrompt = promptList[index]!;
 
         setSelectedPrompt(randomPrompt);
-        // Once obtained, display prompt in button position with an icon to cancel if prompt does not spark joy.
     }
 
     return (
@@ -145,15 +144,12 @@ function Warmup() {
                 {tools.map((tool: Icon) => {
                     const IconComponent = tool.icon;
                     return (
-                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected': 'tool'}`} title={tool.toolTip}>
+                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip}>
                             <IconComponent className='icon' id={tool.id} onClick={() => selectTool(tool)} />
                         </div>
                     )
                 })}
             </div>
-
-
-
             <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
                 <p>Welcome to the writing space. Happy writing!</p>
                 <div className='random-container'>
@@ -162,15 +158,9 @@ function Warmup() {
                 </div>
                 <div className='writing-space'>
                     <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} maxLength={1500}></textarea>
-                    <button onClick={savePrompt}>Save</button>
+                    <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
                 </div>
             </div>
-
-
-
-
-
-
             <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!
@@ -179,7 +169,7 @@ function Warmup() {
                     New Prompt
                 </label>
                 <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
-                <button onClick={addNewPrompt}>+ Add</button>
+                <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
             </div>
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>

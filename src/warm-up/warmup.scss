@@ -158,4 +158,7 @@
         opacity: 1;
     }
 
+    button:disabled {
+        cursor:  not-allowed;
+    }
 }
