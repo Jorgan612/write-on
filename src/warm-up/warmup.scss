@@ -124,6 +124,7 @@
 
     textarea {
         @include content(50%, 50%, null);
+        min-height: 300px;
         resize: none;
         padding: 1rem;
         background-color: $dark3;
