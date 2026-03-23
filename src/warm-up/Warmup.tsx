@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import { Prompt, Icon } from '../interfaces/interfaces';
 import Card  from '../card/Card';
 import './warmup.scss';
-import { prompts as InitialPrompts, excerpts } from '../datasets/prompts';
+import { prompts as InitialPrompts } from '../datasets/prompts';
 import { 
     FaPenFancy, 
     FaClipboardCheck, 
@@ -45,32 +45,16 @@ function Warmup() {
         return discarded ? JSON.parse(discarded) : [];
     });
 
-    const [completedList, setCompletedList] = useState<Prompt[]>([{
-        id: 1,
-        prompt: 'Childhood memory from the perspective of some else who was present',
-        completed: 1,
-        discarded: 0,
-        excerpt: 'This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt!This is an example of a completed writing prompt excerpt! This is an example of a completed writing prompt excerpt! '
-    },
-    {
-        id: 2,
-        prompt: 'You’re possessed by a demon, you quick realize he’s never done this before',
-        completed: 1,
-        discarded: 0,
-        excerpt: "This is a reallyshort excerpt to test styling and see what it looks like without a wall of text written."
-    },
-    {
-        id: 3,
-        prompt: '',
-        completed: 1,
-        discarded: 0,
-        excerpt: "This is an example of a free writing exercise in which the user does not use a prompt, but instead, uses the writing space textarea to just free write whatever comes to mind."
-    }]);
+    const [completedList, setCompletedList] = useState<Prompt[]>(() =>  {
+        const completed = localStorage.getItem("user_completed");
+        return completed ? JSON.parse(completed) : [];
+    });
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
         localStorage.setItem("user_discards", JSON.stringify(discardList));
-    }, [promptList, discardList]);
+        localStorage.setItem("user_completed", JSON.stringify(completedList));
+    }, [promptList, discardList, completedList]);
     
     const handleNewPrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUserInput(e.target.value);
@@ -90,7 +74,7 @@ function Warmup() {
             excerpt: ''
         };
 
-        setPromptList([...promptList, newPrompt]);
+        setPromptList(prevList => [newPrompt, ...prevList]);
 
         setUserInput("");
         setShowMsg(true);
@@ -102,26 +86,43 @@ function Warmup() {
     };
 
     const discardPrompt = (prompt: Prompt) => {
-        setDiscardList([...discardList, prompt]);
-        setPromptList(promptList.filter(p => p.id !== prompt.id));
+        setDiscardList(prevList => [prompt, ...prevList]);
+        setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
     };
 
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);
     };
 
-    const updatePrompt =  () => {
-        console.log('Updated!')
-        // will need to update existing prompt if prompt generated and save is clicked
-        //or
-        // create a new prompt with empty string prompt property if user decides to free write.
-        // also need to 
+    const savePrompt =  () => {
+        if (selectedPrompt) {
+            const updatedPrompt = {
+                ...selectedPrompt,
+                completed: 1,
+                exerpt: userInput
+            }
+
+            setCompletedList(prevList => [updatedPrompt, ...prevList]);
+            setPromptList(prevList => prevList.filter((prompt) => prompt.id !== selectedPrompt.id));
+            setSelectedPrompt(null);
+        } else {
+            if (userInput) {
+                let newPrompt = {
+                    id: Date.now(),
+                    prompt: '',
+                    completed: 1,
+                    discarded: 0,
+                    excerpt: userInput
+                };
+
+                setCompletedList([newPrompt, ...completedList])
+            }
+        }
+        setUserInput('');
     }
 
-    const handleUpdatePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // capture user input
+    const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUserInput(e.target.value);
-        console.log('handleUpdatePrompt', userInput)
     }
 
     const getRandomPrompt =() => {
@@ -135,13 +136,7 @@ function Warmup() {
         const randomPrompt = promptList[index]!;
 
         setSelectedPrompt(randomPrompt);
-
-        console.log('test')
-
-        // add logic to select a random prompt from the prompt list.
         // Once obtained, display prompt in button position with an icon to cancel if prompt does not spark joy.
-        // When save is clicked, this prompt obj should be updated within the prompt list.
-        // If no prompt selected and save is clicked, entry should be saved as a new entry with empty string prompt
     }
 
     return (
@@ -166,8 +161,8 @@ function Warmup() {
                     {selectedPrompt && <div className='random-prompt'>{selectedPrompt.prompt}</div>}
                 </div>
                 <div className='writing-space'>
-                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleUpdatePrompt} maxLength={1500}></textarea>
-                    <button onClick={updatePrompt}>Save</button>
+                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} maxLength={1500}></textarea>
+                    <button onClick={savePrompt}>Save</button>
                 </div>
             </div>
 
