@@ -12,7 +12,8 @@ import {
     FaFileDownload, 
     FaFileExcel, 
     FaFileExport, 
-    FaFileSignature 
+    FaFileSignature,
+    FaBackspace 
 } from "react-icons/fa";
 
 
@@ -44,7 +45,6 @@ function Warmup() {
         const discarded = localStorage.getItem("user_discards");
         return discarded ? JSON.parse(discarded) : [];
     });
-
     const [completedList, setCompletedList] = useState<Prompt[]>(() =>  {
         const completed = localStorage.getItem("user_completed");
         return completed ? JSON.parse(completed) : [];
@@ -119,11 +119,16 @@ function Warmup() {
             }
         }
         setUserInput('');
-    }
+    };
+
+    const cancelAction = () => {
+        setSelectedPrompt(null);
+        setUserInput('');
+    };
 
     const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUserInput(e.target.value);
-    }
+    };
 
     const getRandomPrompt =() => {
 
@@ -136,7 +141,7 @@ function Warmup() {
         const randomPrompt = promptList[index]!;
 
         setSelectedPrompt(randomPrompt);
-    }
+    };
 
     return (
         <div className="warm-up-container">
@@ -155,23 +160,31 @@ function Warmup() {
                     {!selectedPrompt ? (
                         <button onClick={getRandomPrompt}>Reveal Prompt</button>
                     ) : (
-                        <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>{selectedPrompt.prompt}</div>
+                        <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>
+                        <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
+                            <FaBackspace className='icon back' onClick={cancelAction}  title='Cancel' />
+                        </div>
+                            {selectedPrompt.prompt}
+                        </div>
                     )}
                 </div>
                 <div className='writing-space'>
                     <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
-                    <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
+                    <div>
+                        <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
+                        <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
+                    </div>
                 </div>
             </div>
             <div className={`add-view ${currentTool === 'add' ? 'show-view' : 'hide-view'}`}>
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!
                 </p>
-                <label className='add-prompt-label'>
-                    New Prompt
-                </label>
                 <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
-                <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
+                <div>
+                    <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
+                    <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
+                </div>
             </div>
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
