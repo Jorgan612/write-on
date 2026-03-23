@@ -151,13 +151,15 @@ function Warmup() {
                 })}
             </div>
             <div className={`writing-view ${currentTool === 'write' ? 'show-view' : 'hide-view'}`}>
-                <p>Welcome to the writing space. Happy writing!</p>
-                <div className='random-container'>
-                    {!selectedPrompt && <button onClick={getRandomPrompt}>Reveal Prompt</button>}
-                    {selectedPrompt && <div className='random-prompt'>{selectedPrompt.prompt}</div>}
+                <div className={`random-container ${selectedPrompt ? 'has-prompt' : ''}`}>
+                    {!selectedPrompt ? (
+                        <button onClick={getRandomPrompt}>Reveal Prompt</button>
+                    ) : (
+                        <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>{selectedPrompt.prompt}</div>
+                    )}
                 </div>
                 <div className='writing-space'>
-                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} maxLength={1500}></textarea>
+                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
                     <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
                 </div>
             </div>
