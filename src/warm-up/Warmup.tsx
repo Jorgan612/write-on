@@ -166,7 +166,7 @@ function Warmup() {
                     {selectedPrompt && <div className='random-prompt'>{selectedPrompt.prompt}</div>}
                 </div>
                 <div className='writing-space'>
-                    <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleUpdatePrompt} maxLength={1500}></textarea>
+                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleUpdatePrompt} maxLength={1500}></textarea>
                     <button onClick={updatePrompt}>Save</button>
                 </div>
             </div>
