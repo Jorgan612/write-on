@@ -199,8 +199,8 @@ function Warmup() {
                 {tools.map((tool: Icon) => {
                     const IconComponent = tool.icon;
                     return (
-                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip}>
-                            <IconComponent className='icon' id={tool.id} onClick={() => selectTool(tool)} />
+                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip} onClick={() => selectTool(tool)}>
+                            <IconComponent className='icon' id={tool.id} />
                         </div>
                     )
                 })}
