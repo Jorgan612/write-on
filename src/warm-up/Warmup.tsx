@@ -219,7 +219,7 @@ function Warmup() {
                     )}
                 </div>
                 <div className='writing-space'>
-                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
+                    <textarea placeholder="Happy writing!" id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
                     <div>
                         <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
                         <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
