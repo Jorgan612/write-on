@@ -18,7 +18,7 @@ function Card({p, options, movePrompt, deletePrompt, selectPrompt, editPrompt, c
             case 'select':
                 selectPrompt(prompt);
                 break;
-            case 'download':
+            case 'copy':
                 break;
             case 'delete':
                 deletePrompt(prompt);
@@ -39,7 +39,7 @@ function Card({p, options, movePrompt, deletePrompt, selectPrompt, editPrompt, c
                     const IconComponent = option.icon;
                     return (
                         <div key={option.id} className='option' title={ (option.id !== 'move') ? option.toolTip : currentTool === 'incomplete' ? 'Move to Discard' : currentTool === 'discard' ? 'Move to Prompt List' : ''} onClick={() => selectOption(option.id, p)}>
-                            <IconComponent className={`icon ${currentTool === 'complete' && (option.id === 'move' || option.id === 'select')  ? 'hide-option': ''}`} id={option.id} />
+                            <IconComponent className={`icon ${currentTool === 'complete' && (option.id === 'move' || option.id === 'select' || option.id === 'edit')  ? 'hide-option': ''}`} id={option.id} />
                         </div>
                     )
                 })}

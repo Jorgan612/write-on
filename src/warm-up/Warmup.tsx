@@ -8,7 +8,7 @@ import {
     FaClipboardList, 
     FaNotesMedical, 
     FaTrashAlt, 
-    FaFileDownload, 
+    FaCopy, 
     FaFileExcel, 
     FaFileExport, 
     FaFileSignature,
@@ -27,10 +27,10 @@ const tools: Icon[] = [
 
 const options: Icon[] = [
     {icon: FaFeather, id: 'select', toolTip: 'Select Prompt'},
-    {icon: FaFileDownload, id: 'download', toolTip: 'Download'},
-    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
-    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
+    {icon: FaCopy, id: 'copy', toolTip: 'Copy'},
+    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
+    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
 ];
 
 function Warmup() {
@@ -114,32 +114,9 @@ function Warmup() {
     };
 
     const editPrompt = (prompt: Prompt) => {
-        console.log('editing', editing)
+        setUserInput(prompt.prompt);
         setEditing(true);
-        setCurrentTool('edit');
         setSelectedPrompt(prompt);
-        console.log('editing', editing)
-
-        if (currentTool === 'incomplete') {
-            // setPromptList(prevList => prevList.filter(p => p.id !== prompt.id));
-            // setEditing(false);
-        } 
-        
-        if (currentTool === 'discard') {
-            // setDiscardList(prevList => prevList.filter(p => p.id !== prompt.id));
-            // setEditing(false);
-        }
-        
-        if (currentTool === 'complete') {
-            //
-            // setCompletedList(prevList => prevList.filter(p => p.id !== prompt.id));
-            // setEditing(false);
-        }
-        
-        // setEditing(false); // maybe can leave outside condition blocks but test to see if
-        
-        console.log('currentTool', currentTool)
-        console.log('edit!', prompt);
     };
 
     const selectPrompt = (prompt: Prompt) => {
@@ -152,7 +129,7 @@ function Warmup() {
     };
 
     const savePrompt =  () => {
-        if (selectedPrompt) {
+        if (selectedPrompt && !editing) {
             const updatedPrompt = {
                 ...selectedPrompt,
                 completed: 1,
@@ -161,7 +138,18 @@ function Warmup() {
 
             setCompletedList(prevList => [updatedPrompt, ...prevList]);
             setPromptList(prevList => prevList.filter((prompt) => prompt.id !== selectedPrompt.id));
-            setSelectedPrompt(null);
+        } else if (editing) {
+            if (currentTool === 'incomplete') {
+                setPromptList(prevList => prevList.map(p => p.id === selectedPrompt?.id ? {...p, prompt: userInput} : p));
+                setEditing(false);
+            };
+            
+        
+            if (currentTool === 'discard') {
+                setDiscardList(prevList => prevList.map(p => p.id === selectedPrompt?.id ? {...p, prompt: userInput} : p));
+                setEditing(false);
+            };
+
         } else {
             if (userInput) {
                 let newPrompt = {
@@ -176,6 +164,7 @@ function Warmup() {
             }
         }
         setUserInput('');
+        setSelectedPrompt(null);
     };
 
     const cancelAction = () => {
@@ -188,7 +177,6 @@ function Warmup() {
     };
 
     const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log('e.target.value--', e.target.value)
         setUserInput(e.target.value);
     };
 
@@ -271,7 +259,7 @@ function Warmup() {
             </div>
             <div className={`editing-view ${editing ? 'show-view' : 'hide-view'}`}>
                 <label>Editing Prompt</label>
-                <textarea value={selectedPrompt ? selectedPrompt.prompt : ''} onChange={handleSavePrompt}>
+                <textarea value={userInput} onChange={handleSavePrompt}>
                 </textarea>
                     <div>
                         <button onClick={savePrompt} disabled={!userInput ? true : false} title='Save'>Save</button>
