@@ -26,6 +26,7 @@ function Card({p, options, discardPrompt, currentTool}: CardProps) {
                 </button> */}
             </div>
             <div className='prompt-text'>
+                <label> {p.prompt && 'Prompt'} </label>
                 <p>
                     {p.prompt}
                 </p>
