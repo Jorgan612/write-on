@@ -28,7 +28,7 @@ const tools: Icon[] = [
 const options: Icon[] = [
     {icon: FaFileDownload, id: 'download', toolTip: 'Download'},
     {icon: FaFileExcel, id: 'delete', toolTip: 'Delete Permanently'},
-    {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
+    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
 ];
 
@@ -85,9 +85,14 @@ function Warmup() {
 
     };
 
-    const discardPrompt = (prompt: Prompt) => {
-        setDiscardList(prevList => [prompt, ...prevList]);
-        setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+    const movePrompt = (prompt: Prompt) => {
+        if (currentTool === 'discard') {
+            setPromptList(prevList => [prompt, ...prevList]);
+            setDiscardList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+        } else {
+            setDiscardList(prevList => [prompt, ...prevList]);
+            setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+        }
     };
 
     const selectTool = (tool: any) => {
@@ -189,21 +194,21 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool}/>
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
