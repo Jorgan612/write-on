@@ -2,7 +2,6 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import { Prompt, Icon } from '../interfaces/interfaces';
 import Card  from '../card/Card';
 import './warmup.scss';
-import { prompts as InitialPrompts } from '../datasets/prompts';
 import { 
     FaPenFancy, 
     FaClipboardCheck, 
@@ -39,7 +38,7 @@ function Warmup() {
     const [showMsg, setShowMsg] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
-        return saved ? JSON.parse(saved) : InitialPrompts;
+        return saved ? JSON.parse(saved) : [];
     });
     const [discardList, setDiscardList] = useState<Prompt[]>(() => {
         const discarded = localStorage.getItem("user_discards");
@@ -94,6 +93,20 @@ function Warmup() {
             setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
         }
     };
+
+    const deletePrompt = (prompt: Prompt) => {
+        if (currentTool === 'incomplete') {
+            setPromptList(prevList => prevList.filter(p => p.id !== prompt.id));
+        } 
+        
+        if (currentTool === 'discard') {
+            setDiscardList(prevList => prevList.filter(p => p.id !== prompt.id));
+        }
+        
+        if (currentTool === 'complete') {
+            setCompletedList(prevList => prevList.filter(p => p.id !== prompt.id));
+        }
+    }
 
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);
@@ -194,21 +207,21 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} currentTool={currentTool}/>
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>

@@ -5,19 +5,21 @@ interface CardProps {
     p: Prompt;         
     options: Icon[];   
     movePrompt: (prompt: Prompt) => void;
+    deletePrompt: (promt: Prompt) => void;
     currentTool: string;
 }
 
-function Card({p, options, movePrompt, currentTool}: CardProps) {
+function Card({p, options, movePrompt, deletePrompt, currentTool}: CardProps) {
 
     const selectOption = (id: string, prompt: Prompt) =>  {
         switch (id) {
             case 'download':
                 break;
             case 'delete':
+                deletePrompt(prompt);
                 break;
             case 'move':
-                    movePrompt(prompt);
+                movePrompt(prompt);
                 break;
             case 'edit':
                 break;
@@ -30,7 +32,7 @@ function Card({p, options, movePrompt, currentTool}: CardProps) {
                 {options.map((option: Icon) => {
                     const IconComponent = option.icon;
                     return (
-                        <div key={option.id} className='option' title={currentTool === 'incomplete' ? 'Move to Discard' : currentTool === 'discard' ? 'Move to Prompt List' : option.toolTip} onClick={() => selectOption(option.id, p)}>
+                        <div key={option.id} className='option' title={ (option.id !== 'move') ? option.toolTip : currentTool === 'incomplete' ? 'Move to Discard' : currentTool === 'discard' ? 'Move to Prompt List' : ''} onClick={() => selectOption(option.id, p)}>
                             <IconComponent className={`icon ${currentTool === 'complete' && option.id === 'move' ? 'hide-option': ''}`} id={option.id} />
                         </div>
                     )
