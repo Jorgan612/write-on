@@ -7,10 +7,11 @@ interface CardProps {
     movePrompt: (prompt: Prompt) => void;
     deletePrompt: (prompt: Prompt) => void;
     selectPrompt: (prompt: Prompt) => void;
+    editPrompt: (prompt: Prompt) =>  void;
     currentTool: string;
 }
 
-function Card({p, options, movePrompt, deletePrompt, selectPrompt, currentTool}: CardProps) {
+function Card({p, options, movePrompt, deletePrompt, selectPrompt, editPrompt, currentTool}: CardProps) {
 
     const selectOption = (id: string, prompt: Prompt) =>  {
         switch (id) {
@@ -26,6 +27,7 @@ function Card({p, options, movePrompt, deletePrompt, selectPrompt, currentTool}:
                 movePrompt(prompt);
                 break;
             case 'edit':
+                editPrompt(prompt);
                 break;
         }
     }

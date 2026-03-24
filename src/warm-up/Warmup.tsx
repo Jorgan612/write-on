@@ -38,6 +38,7 @@ function Warmup() {
     const [currentTool, setCurrentTool] = useState<string>("write");
     const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
     const [showMsg, setShowMsg] = useState<boolean>(false);
+    const [editing, setEditing] = useState<boolean>(false);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : [];
@@ -50,6 +51,8 @@ function Warmup() {
         const completed = localStorage.getItem("user_completed");
         return completed ? JSON.parse(completed) : [];
     });
+
+    
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
@@ -110,6 +113,35 @@ function Warmup() {
         }
     };
 
+    const editPrompt = (prompt: Prompt) => {
+        console.log('editing', editing)
+        setEditing(true);
+        setCurrentTool('edit');
+        setSelectedPrompt(prompt);
+        console.log('editing', editing)
+
+        if (currentTool === 'incomplete') {
+            // setPromptList(prevList => prevList.filter(p => p.id !== prompt.id));
+            // setEditing(false);
+        } 
+        
+        if (currentTool === 'discard') {
+            // setDiscardList(prevList => prevList.filter(p => p.id !== prompt.id));
+            // setEditing(false);
+        }
+        
+        if (currentTool === 'complete') {
+            //
+            // setCompletedList(prevList => prevList.filter(p => p.id !== prompt.id));
+            // setEditing(false);
+        }
+        
+        // setEditing(false); // maybe can leave outside condition blocks but test to see if
+        
+        console.log('currentTool', currentTool)
+        console.log('edit!', prompt);
+    };
+
     const selectPrompt = (prompt: Prompt) => {
         setSelectedPrompt(prompt);
         setCurrentTool('write');
@@ -149,9 +181,14 @@ function Warmup() {
     const cancelAction = () => {
         setSelectedPrompt(null);
         setUserInput('');
+
+        if (editing) {
+            setEditing(false);
+        }
     };
 
     const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        console.log('e.target.value--', e.target.value)
         setUserInput(e.target.value);
     };
 
@@ -214,23 +251,32 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool}/>
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool} />
                     ))}
                 </ul>
+            </div>
+            <div className={`editing-view ${editing ? 'show-view' : 'hide-view'}`}>
+                <label>Editing Prompt</label>
+                <textarea value={selectedPrompt ? selectedPrompt.prompt : ''} onChange={handleSavePrompt}>
+                </textarea>
+                    <div>
+                        <button onClick={savePrompt} disabled={!userInput ? true : false} title='Save'>Save</button>
+                        <button onClick={cancelAction} title='Cancel'>Cancel</button>
+                    </div>
             </div>
         </div>
     );

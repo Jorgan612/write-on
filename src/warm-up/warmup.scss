@@ -5,6 +5,7 @@
 .warm-up-container {
     @include flexbox(flex, column, flex-start, center);
     @include content(94vh, 96%, null);
+    position: relative;
     padding: .5rem 2rem;
     transition: max-height 0.5s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
 
@@ -81,6 +82,18 @@
         }
     }
 
+    .editing-view {
+        @include flexbox(flex, column, center, center);
+        @include content(100%, 100%, null);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border: 2px solid $dark4;
+        transform: translate(-50%, -50%);
+        background-color: $dark5;
+        z-index: 1;
+    }
+
     .list-container {
         @include flexbox(flex, column, flex-start, center);
         width: calc(100% - 3.5rem);
@@ -102,7 +115,9 @@
 
     .message {
         position: absolute;
-        top: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         font-size: $font1;
         background-color: $dark3;
     }
