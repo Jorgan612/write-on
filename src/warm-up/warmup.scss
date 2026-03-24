@@ -92,6 +92,10 @@
         transform: translate(-50%, -50%);
         background-color: $dark5;
         z-index: 1;
+
+        label {
+            font-size: $font1;
+        }
     }
 
     .list-container {

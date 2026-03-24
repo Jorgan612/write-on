@@ -258,7 +258,7 @@ function Warmup() {
                 </ul>
             </div>
             <div className={`editing-view ${editing ? 'show-view' : 'hide-view'}`}>
-                <label>Editing Prompt</label>
+                <label>Edit Prompt</label>
                 <textarea value={userInput} onChange={handleSavePrompt}>
                 </textarea>
                     <div>
