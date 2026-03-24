@@ -230,7 +230,7 @@ function Warmup() {
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!
                 </p>
-                <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
+                <textarea placeholder="Write a new prompt here, then click Add." id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
                 <div>
                     <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
                     <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
