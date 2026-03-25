@@ -124,8 +124,38 @@ function Warmup() {
         setCurrentTool('write');
     };
 
+    const copyPrompt = (text: string) => {
+        navigator.clipboard.writeText(text);
+    }
+
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);
+    };
+
+    const selectOption = (id: string, prompt: Prompt) =>  {
+        switch (id) {
+            case 'select':
+                selectPrompt(prompt);
+                break;
+            case 'copy':
+                formatText(prompt);
+                break;
+            case 'delete':
+                deletePrompt(prompt);
+                break;
+            case 'move':
+                movePrompt(prompt);
+                break;
+            case 'edit':
+                editPrompt(prompt);
+                break;
+        }
+    };
+
+    const formatText = (prompt: any) => {
+        let formatedText = `${prompt.prompt ? 'Prompt:' : ''} ${prompt.prompt}${(prompt.excerpt ? "\nPrompt Response: " : '')} ${prompt?.excerpt}`;
+
+        copyPrompt(formatedText);
     };
 
     const savePrompt =  () => {
@@ -239,21 +269,21 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool}/>
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} movePrompt={movePrompt} deletePrompt={deletePrompt} selectPrompt={selectPrompt} editPrompt={editPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} />
                     ))}
                 </ul>
             </div>

@@ -2,35 +2,13 @@ import './Card.scss';
 import { Prompt, Icon } from '../interfaces/interfaces';
 
 interface CardProps {
-    p: Prompt;         
-    options: Icon[];   
-    movePrompt: (prompt: Prompt) => void;
-    deletePrompt: (prompt: Prompt) => void;
-    selectPrompt: (prompt: Prompt) => void;
-    editPrompt: (prompt: Prompt) =>  void;
+    p: Prompt;
+    options: Icon[];
+    selectOption: (id: string, prompt:Prompt) => void;
     currentTool: string;
 }
 
-function Card({p, options, movePrompt, deletePrompt, selectPrompt, editPrompt, currentTool}: CardProps) {
-
-    const selectOption = (id: string, prompt: Prompt) =>  {
-        switch (id) {
-            case 'select':
-                selectPrompt(prompt);
-                break;
-            case 'copy':
-                break;
-            case 'delete':
-                deletePrompt(prompt);
-                break;
-            case 'move':
-                movePrompt(prompt);
-                break;
-            case 'edit':
-                editPrompt(prompt);
-                break;
-        }
-    }
+function Card({p, options, selectOption, currentTool}: CardProps) {
 
     return (
         <li className="list-item">
