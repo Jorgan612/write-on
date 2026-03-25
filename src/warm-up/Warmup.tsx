@@ -252,9 +252,9 @@ function Warmup() {
                         <button onClick={getRandomPrompt}>Reveal Prompt</button>
                     ) : (
                         <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>
-                        <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
-                            <FaBackspace className='icon back' onClick={cancelAction}  title='Cancel' />
-                        </div>
+                            <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
+                                <FaBackspace className='icon' onClick={cancelAction}  title='Cancel' />
+                            </div>
                             {selectedPrompt.prompt}
                         </div>
                     )}

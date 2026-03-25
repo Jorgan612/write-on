@@ -55,6 +55,7 @@
 
             
             .random-prompt {
+                position: relative;
                 min-height: 0;
                 text-align: center;
                 width: 100%;
@@ -144,6 +145,9 @@
 
     .back-icon {
         @include content (fit-content, fit-content, null);
+        position: absolute;
+        left: 0px;
+        top: -20px;
         margin-right: 1rem;
         cursor: pointer;
 
