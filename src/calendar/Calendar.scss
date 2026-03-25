@@ -85,6 +85,10 @@
                 border: none;
             }
 
+            &.future {
+                cursor: not-allowed;
+            }
+
             .day-number {
                 font-size: 0.8rem;
                 color: $dark1;
