@@ -39,6 +39,7 @@ function Warmup() {
     const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
     const [showMsg, setShowMsg] = useState<boolean>(false);
     const [editing, setEditing] = useState<boolean>(false);
+    const [selectedCard, setSelectedCard] = useState<Prompt | null>(null);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
         return saved ? JSON.parse(saved) : [];
@@ -223,6 +224,16 @@ function Warmup() {
         setSelectedPrompt(randomPrompt);
     };
 
+    const selectCard = (prompt: Prompt) => {
+        setSelectedCard(prompt);
+    };
+
+    const closeCard = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        setSelectedCard(null);
+    };
+
     return (
         <div className="warm-up-container">
             <div className='Toolbar-container'>
@@ -269,21 +280,21 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard}  />
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard} />
                     ))}
                 </ul>
             </div>

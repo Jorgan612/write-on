@@ -1,18 +1,22 @@
 import './Card.scss';
 import { Prompt, Icon } from '../interfaces/interfaces';
+import { FaChevronLeft } from "react-icons/fa";
 
 interface CardProps {
     p: Prompt;
     options: Icon[];
-    selectOption: (id: string, prompt:Prompt) => void;
+    selectOption: (id: string, prompt: Prompt) => void;
     currentTool: string;
+    selectedCard: Prompt | null;
+    selectCard: (prompt: Prompt) => void;
+    closeCard: (e: React.MouseEvent) => void;
 }
 
-function Card({p, options, selectOption, currentTool}: CardProps) {
+function Card({p, options, selectOption, currentTool, selectedCard, selectCard, closeCard}: CardProps) {
 
     return (
-        <li className="list-item">
-            <div className='options-container'>
+        <li className={`list-item ${selectedCard?.id === p.id ? 'selected-item' : ''}`} onClick={() => selectCard(p)}>
+            <div className={`options-container ${selectedCard?.id === p.id ? 'is-visible'  : 'is-hidden'}`}>
                 {options.map((option: Icon) => {
                     const IconComponent = option.icon;
                     return (
@@ -23,7 +27,7 @@ function Card({p, options, selectOption, currentTool}: CardProps) {
                 })}
             </div>
             <div className='prompt-text'>
-                <label> {p.prompt && 'Prompt'} </label>
+                <label> {(p.prompt && currentTool === 'complete') && 'Prompt'} </label>
                 <p>
                     {p.prompt}
                 </p>
@@ -33,8 +37,11 @@ function Card({p, options, selectOption, currentTool}: CardProps) {
                         {p.excerpt}
                     </p>
                 </div>
+                <div className={`close ${selectedCard?.id === p.id ? 'is-visible' : 'is-hidden'}`} onClick={closeCard}>
+                    <FaChevronLeft />
+                </div>
             </div>
-        </li>  
+        </li>
     )
 }
 

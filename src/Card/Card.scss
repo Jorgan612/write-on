@@ -5,24 +5,31 @@
 .list-item { 
     @include flexbox(flex, row, null, null);
     @include content(fit-content, 75%, null);
+    position: relative;
+    overflow: hidden;
     margin: .5rem 0rem;
     flex-shrink: 0;
     font-size: $font2;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.25), 
         0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease-in-out;
 
     .options-container {
-        @include content(100%, fit-content, null);
         @include flexbox(flex, column, center, null);
+        @include content(100%, 40px, null);
         background-color: $dark4;
+        transition: max-width 0.4s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
+        overflow: hidden;
     }
 
     .prompt-text {
-        @include flexbox(flex, column, center, null);
+        @include flexbox(flex, column, center, center);
+        position: relative;
         width: 100%;
-        padding: .5rem;
+        padding: .5rem .5rem 1rem .5rem;
         text-wrap: wrap;
         white-space: pre-line;
 
@@ -54,6 +61,8 @@
 
     .option {
         text-align: center;
+        flex-shrink: 0;
+        width: 40px;
 
         .icon {
             @include content(24px, 24px, null);
@@ -76,4 +85,41 @@
     .hide-option {
         display: none;
     }
+
+    .is-hidden {
+        max-width: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-top: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+    }   
+
+    .is-visible {
+        opacity: 1;
+        transform: scaleX(1);
+        max-width: 40px;
+    }
+
+    .close {
+        @include flexbox(flex, row, center, center);
+        @include content(fit-content, fit-content, null);
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        cursor: pointer;
+        background-color: $highlight3;
+        padding: 0.5rem .2rem .5rem 0;
+        z-index: 5;
+    }
+
+    .close:hover {
+        color: $highlight1;
+        background-color: $highlight3;
+    }
+}
+
+.selected-item {
+    border: 1px solid $dark1;
+    transition: all 0.4s ease-in-out, opacity 1s ease, transform 0.4s ease;
 }
