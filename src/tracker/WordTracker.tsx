@@ -1,17 +1,19 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import dayjs from 'dayjs';
-import { Entry } from '../interfaces/interfaces';
+import { CombinedEntry, Entry } from '../interfaces/interfaces';
 import './WordTracker.scss';
 
 
 interface WordTrackerProps {
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+  combinedEntries: Record<string, number>;
 }
 
 
-function WordTracker({setEntries}: WordTrackerProps) {
+function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
   const [newWords, setNewWords] = useState<number>(0);
-  let [total, setTotal] = useState<number>(0);
+  let currentDay = dayjs().format('YYYY-MM-DD');
+
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewWords(Number(e.target.value));
@@ -32,9 +34,8 @@ function WordTracker({setEntries}: WordTrackerProps) {
       month: dayjs().month(),
       day: dayjs().date(),
       time: new Date(Date.now()).toTimeString()
-    }
+    };
     
-    setTotal(prev => prev + newWords);
     setEntries((prevEntries: Entry[]) => [...prevEntries, newEntry]);
   }
 
@@ -45,7 +46,7 @@ function WordTracker({setEntries}: WordTrackerProps) {
         <input placeholder='####' type='number' value={newWords} onChange={handleInputChange}/>
         <button type='submit'>+ Add</button>
       </form>
-      <p>Today's total: {total}</p>
+      <p>Today's total: {combinedEntries[currentDay]}</p>
     </section>
   )
 
