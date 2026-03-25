@@ -73,6 +73,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
 
     const renderDays = () => {
         const days = [];
+        const todayKey = format(new Date(), 'yyyy-MM-dd');
 
         if (!currentMonthData) {
             return null;
@@ -86,9 +87,16 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
             const monthStr = String(currentMonthData.monthNumber + 1).padStart(2, '0'); 
             const dayStr = String(d).padStart(2, '0');
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
+            const isFuture = dateKey > todayKey;
+
             days.push(
-                <div key={d} id={dateKey} className={!combinedEntries[dateKey] ? 'default-cube' : combinedEntries[dateKey] > 1000 ? 'default-cube words1' : combinedEntries[dateKey] > 400  ? 'default-cube words2' : combinedEntries[dateKey] > 1 ? 'default-cube words3' : 'default-cube'}
-                title={`${combinedEntries[dateKey] ?? 0} words`} onClick={() => openDateUpdateBox(dateKey)}>
+                <div key={d} 
+                    id={dateKey} 
+                    className={`default-cube ${isFuture ? 'future' : ''} ${!combinedEntries[dateKey] ? '' : 
+                        combinedEntries[dateKey] > 1000 ? 'words1' : 
+                        combinedEntries[dateKey] > 400 ? 'words2' : 'words3'}`}
+                    title={isFuture ? "Cannot edit future dates" : `${combinedEntries[dateKey] ?? 0} words`} 
+                    onClick={() => !isFuture && openDateUpdateBox(dateKey)}>
                     <span className='day-number'>{d}</span>
                 </div>
             )
