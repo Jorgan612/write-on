@@ -107,6 +107,7 @@ button:hover {
     height: 100%;
     flex: 0 0 255px;
     box-shadow: 1px 0px 20px -10px #000;
+    z-index: 5;
 
     .app-title {
       @include flexbox(flex, row, center, center);

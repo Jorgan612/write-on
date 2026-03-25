@@ -2,18 +2,18 @@ import { useState, ChangeEvent, useEffect } from 'react';
 import { Prompt, Icon } from '../interfaces/interfaces';
 import Card  from '../card/Card';
 import './warmup.scss';
-import { prompts as InitialPrompts } from '../datasets/prompts';
 import { 
     FaPenFancy, 
     FaClipboardCheck, 
     FaClipboardList, 
     FaNotesMedical, 
     FaTrashAlt, 
-    FaFileDownload, 
+    FaCopy, 
     FaFileExcel, 
     FaFileExport, 
     FaFileSignature,
-    FaBackspace 
+    FaBackspace,
+    FaFeather
 } from "react-icons/fa";
 
 
@@ -26,10 +26,11 @@ const tools: Icon[] = [
 ];
 
 const options: Icon[] = [
-    {icon: FaFileDownload, id: 'download', toolTip: 'Download'},
-    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete Permanently'},
-    {icon: FaFileExport, id: 'MOVE', toolTip: 'Move'},
+    {icon: FaFeather, id: 'select', toolTip: 'Select Prompt'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
+    {icon: FaCopy, id: 'copy', toolTip: 'Copy'},
+    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
+    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
 ];
 
 function Warmup() {
@@ -37,9 +38,11 @@ function Warmup() {
     const [currentTool, setCurrentTool] = useState<string>("write");
     const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
     const [showMsg, setShowMsg] = useState<boolean>(false);
+    const [editing, setEditing] = useState<boolean>(false);
+    const [selectedCard, setSelectedCard] = useState<Prompt | null>(null);
     const [promptList, setPromptList] = useState<Prompt[]>(() => {
         const saved = localStorage.getItem("user_prompts");
-        return saved ? JSON.parse(saved) : InitialPrompts;
+        return saved ? JSON.parse(saved) : [];
     });
     const [discardList, setDiscardList] = useState<Prompt[]>(() => {
         const discarded = localStorage.getItem("user_discards");
@@ -49,6 +52,8 @@ function Warmup() {
         const completed = localStorage.getItem("user_completed");
         return completed ? JSON.parse(completed) : [];
     });
+
+    
 
     useEffect(() => {
         localStorage.setItem("user_prompts", JSON.stringify(promptList));
@@ -85,17 +90,77 @@ function Warmup() {
 
     };
 
-    const discardPrompt = (prompt: Prompt) => {
-        setDiscardList(prevList => [prompt, ...prevList]);
-        setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+    const movePrompt = (prompt: Prompt) => {
+        if (currentTool === 'discard') {
+            setPromptList(prevList => [prompt, ...prevList]);
+            setDiscardList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+        } else {
+            setDiscardList(prevList => [prompt, ...prevList]);
+            setPromptList(prevList =>  prevList.filter(p => p.id !== prompt.id));
+        }
     };
+
+    const deletePrompt = (prompt: Prompt) => {
+        if (currentTool === 'incomplete') {
+            setPromptList(prevList => prevList.filter(p => p.id !== prompt.id));
+        } 
+        
+        if (currentTool === 'discard') {
+            setDiscardList(prevList => prevList.filter(p => p.id !== prompt.id));
+        }
+        
+        if (currentTool === 'complete') {
+            setCompletedList(prevList => prevList.filter(p => p.id !== prompt.id));
+        }
+    };
+
+    const editPrompt = (prompt: Prompt) => {
+        setUserInput(prompt.prompt);
+        setEditing(true);
+        setSelectedPrompt(prompt);
+    };
+
+    const selectPrompt = (prompt: Prompt) => {
+        setSelectedPrompt(prompt);
+        setCurrentTool('write');
+    };
+
+    const copyPrompt = (text: string) => {
+        navigator.clipboard.writeText(text);
+    }
 
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);
     };
 
+    const selectOption = (id: string, prompt: Prompt) =>  {
+        switch (id) {
+            case 'select':
+                selectPrompt(prompt);
+                break;
+            case 'copy':
+                formatText(prompt);
+                break;
+            case 'delete':
+                deletePrompt(prompt);
+                break;
+            case 'move':
+                movePrompt(prompt);
+                break;
+            case 'edit':
+                editPrompt(prompt);
+                break;
+        }
+    };
+
+    const formatText = (prompt: any) => {
+        let formatedText = `${prompt.prompt ? 'Prompt:' : ''} ${prompt.prompt}${(prompt.excerpt ? "\nPrompt Response: " : '')} ${prompt?.excerpt}`;
+
+        copyPrompt(formatedText);
+    };
+
     const savePrompt =  () => {
-        if (selectedPrompt) {
+        if (selectedPrompt && !editing) {
             const updatedPrompt = {
                 ...selectedPrompt,
                 completed: 1,
@@ -104,7 +169,18 @@ function Warmup() {
 
             setCompletedList(prevList => [updatedPrompt, ...prevList]);
             setPromptList(prevList => prevList.filter((prompt) => prompt.id !== selectedPrompt.id));
-            setSelectedPrompt(null);
+        } else if (editing) {
+            if (currentTool === 'incomplete') {
+                setPromptList(prevList => prevList.map(p => p.id === selectedPrompt?.id ? {...p, prompt: userInput} : p));
+                setEditing(false);
+            };
+            
+        
+            if (currentTool === 'discard') {
+                setDiscardList(prevList => prevList.map(p => p.id === selectedPrompt?.id ? {...p, prompt: userInput} : p));
+                setEditing(false);
+            };
+
         } else {
             if (userInput) {
                 let newPrompt = {
@@ -119,11 +195,16 @@ function Warmup() {
             }
         }
         setUserInput('');
+        setSelectedPrompt(null);
     };
 
     const cancelAction = () => {
         setSelectedPrompt(null);
         setUserInput('');
+
+        if (editing) {
+            setEditing(false);
+        }
     };
 
     const handleSavePrompt = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -143,14 +224,24 @@ function Warmup() {
         setSelectedPrompt(randomPrompt);
     };
 
+    const selectCard = (prompt: Prompt) => {
+        setSelectedCard(prompt);
+    };
+
+    const closeCard = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        setSelectedCard(null);
+    };
+
     return (
         <div className="warm-up-container">
             <div className='Toolbar-container'>
                 {tools.map((tool: Icon) => {
                     const IconComponent = tool.icon;
                     return (
-                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip}>
-                            <IconComponent className='icon' id={tool.id} onClick={() => selectTool(tool)} />
+                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip} onClick={() => selectTool(tool)}>
+                            <IconComponent className='icon' id={tool.id} />
                         </div>
                     )
                 })}
@@ -161,15 +252,15 @@ function Warmup() {
                         <button onClick={getRandomPrompt}>Reveal Prompt</button>
                     ) : (
                         <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>
-                        <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
-                            <FaBackspace className='icon back' onClick={cancelAction}  title='Cancel' />
-                        </div>
+                            <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
+                                <FaBackspace className='icon' onClick={cancelAction}  title='Cancel' />
+                            </div>
                             {selectedPrompt.prompt}
                         </div>
                     )}
                 </div>
                 <div className='writing-space'>
-                    <textarea placeholder="Start writing to begin a free write exercise, or click Reveal Prompt to write a prompt response." id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
+                    <textarea placeholder="Happy writing!" id="prompt" name="prompt" value={userInput} onChange={handleSavePrompt} ></textarea>
                     <div>
                         <button onClick={savePrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write something to save' : 'Save'}>Save</button>
                         <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
@@ -180,7 +271,7 @@ function Warmup() {
                 <p className={`message ${showMsg ? 'show-msg': 'hide-msg'}`}>
                     Prompt added!
                 </p>
-                <textarea placeholder="Write a new prompt here, then click Add!" id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
+                <textarea placeholder="Write a new prompt here, then click Add." id="prompt" name="prompt" value={userInput} onChange={handleNewPrompt} maxLength={1500}></textarea>
                 <div>
                     <button onClick={addNewPrompt} disabled={!userInput ? true : false} title={!userInput ? 'Write a prompt to add' : 'Add'}>+ Add</button>
                     <button onClick={cancelAction} disabled={!userInput ? true : false} title={userInput ? 'Cancel' : ''}>Cancel</button>
@@ -189,23 +280,32 @@ function Warmup() {
             <div className={`incomplete-view ${currentTool === 'incomplete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {promptList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool}/>
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard}  />
                     ))}
                 </ul>
             </div>
             <div className={`complete-view ${currentTool === 'complete' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {completedList.map((p:Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard} />
                     ))}
                 </ul>
             </div>
             <div className={`discard-view ${currentTool === 'discard' ? 'show-view' : 'hide-view'}`}>
                 <ul className='list-container'>
                     {discardList.map((p: Prompt) => (
-                        <Card key={p.id} p={p} options={options} discardPrompt={discardPrompt} currentTool={currentTool} />
+                        <Card key={p.id} p={p} options={options} selectOption={selectOption} currentTool={currentTool} selectedCard={selectedCard} selectCard={selectCard} closeCard={closeCard} />
                     ))}
                 </ul>
+            </div>
+            <div className={`editing-view ${editing ? 'show-view' : 'hide-view'}`}>
+                <label>Edit Prompt</label>
+                <textarea value={userInput} onChange={handleSavePrompt}>
+                </textarea>
+                    <div>
+                        <button onClick={savePrompt} disabled={!userInput ? true : false} title='Save'>Save</button>
+                        <button onClick={cancelAction} title='Cancel'>Cancel</button>
+                    </div>
             </div>
         </div>
     );
