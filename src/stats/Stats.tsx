@@ -2,6 +2,7 @@ import './Stats.scss';
 import { format, subDays, startOfYear, addDays, isLeapYear } from 'date-fns';
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { getYear } from "date-fns";
 
 const todayLinePlugin = {
   id: 'todayLine',
@@ -217,18 +218,23 @@ function Stats({combinedEntries}: StatsProps) {
   const getBestWritingDay  = () => {
     
     return;
-  }
+  };
 
-  const getTotalDaysLogged  = () => {
+  const getTotalDaysLoggedThisYear  = () => {
+    const currentYear = getYear(new Date());
     const totalDays = Object.keys(combinedEntries);
-    const testMap = totalDays.map((day) => {
-      console.log('combinedEntries[day]', combinedEntries[day])
-      return combinedEntries[day]
-    })
-    console.log('total days', totalDays)
+    const totalDaysWrittenInCurrentYear = totalDays.reduce((acc, day) => {
+      let dayYear = day.split('-');
+      
+      if (combinedEntries[day] && Number(dayYear[0]) === currentYear) {
+        acc += 1;
+      }
 
-    return 0;
-  }
+      return acc;
+    }, 0);
+
+    return totalDaysWrittenInCurrentYear;
+  };
 
 
   return (
@@ -254,9 +260,9 @@ function Stats({combinedEntries}: StatsProps) {
         </div>
         <div className='stats-basic'>
           <div className='stat'>
-            {getTotalDaysLogged()}
+            {getTotalDaysLoggedThisYear()}
           </div>
-          <p>Days of writing</p>
+          <p>Days Written This Year</p>
         </div>
 
       </div>

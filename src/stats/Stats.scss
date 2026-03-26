@@ -13,7 +13,7 @@
 
       .stats-basic {
         @include flexbox(flex, column, center, center);
-        @include content(100%, 10%, null);
+        @include content(100%, 20%, null);
 
         p {
           font-size: $font4;
