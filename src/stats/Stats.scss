@@ -8,20 +8,20 @@
     overflow-y: auto;
     
     .other-stats-container {
-      @include flexbox(flex, row, flex-start, center);
+      @include flexbox(flex, row, space-around, center);
       @include content(30%, 100%, null);
 
       .stats-basic {
         @include flexbox(flex, column, center, center);
         @include content(100%, 20%, null);
-
+        white-space: nowrap;
+        min-width: 195px;
+        
         p {
           font-size: $font4;
         }
 
         .stat {
-          // background-color: $dark4;
-          // border-radius: 50%;
           padding: .2rem 1rem;
           border-bottom: 2px solid $dark3;
           font-size: $font1;
@@ -34,28 +34,40 @@
     }
 
     .graph-container {
-      display: flex;
-      flex-wrap: wrap;
       @include content(100vh, 100%, null);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
 
       .line-graph {
+        @include content(50%, 45%, null);
+        display: flex;
+        flex-direction: column;
         position: relative;
-        @include content(25%, 45%, null);
         padding: 0rem 1rem;
         margin-right: 1rem;
+        min-width: 400px;
+        overflow: hidden;
   
         p {
           font-size: $font4;
+          flex: 0 0 auto;
+        }
+
+        canvas, .chart-wrapper {
+          flex: 1 1 auto;
+          width: 100%;
+          min-height: 0;
         }
   
         &.full-year {
           position: relative;
-          @include content(35%, 100%, null);
+          @include content(40%, 100%, null);
           overflow-x: auto;
           overflow-y: hidden;
 
           .chart-wrapper {
-            min-width: 15000px;
+            min-width: 3650px;
             height: calc(100% - 70px);
           }
         }

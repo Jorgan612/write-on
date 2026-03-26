@@ -1,5 +1,5 @@
 import './Stats.scss';
-import { format, subDays, startOfYear, addDays, isLeapYear } from 'date-fns';
+import { format, subDays, startOfYear, addDays, isLeapYear, eachDayOfInterval } from 'date-fns';
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { getYear } from "date-fns";
@@ -46,6 +46,14 @@ interface StatsProps {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
+  hover: {
+    mode: 'index',
+    intersect: false,
+  },
   layout: {
     padding: {
       top: 30,
@@ -243,6 +251,31 @@ function Stats({combinedEntries}: StatsProps) {
     return totalDaysWrittenInCurrentYear;
   };
 
+  const getLongestStreak = () => {
+    const today = new Date();
+    const yesterday = subDays(today, 1);
+    const currentYear = getYear(new Date());
+    const todayFormatted = format(today, 'yyyy-MM-dd')
+    const daysPassedThisYear = eachDayOfInterval({
+      start: startOfYear(today),
+      end: combinedEntries[todayFormatted] ? today : yesterday
+    }).map(date => format(date, 'yyyy-MM-dd'));
+
+    const totalDaysWrittenConsecutively = daysPassedThisYear.reduce((acc, day) => {
+      let dayYear = day.split('-');
+      
+      if (combinedEntries[day] && Number(dayYear[0]) === currentYear) {
+        acc += 1;
+      } else {
+        acc = 0;
+      }
+
+      return acc;
+    }, 0);
+
+    return totalDaysWrittenConsecutively;
+  };
+
 
   return (
     <div className="stats-container">
@@ -275,7 +308,13 @@ function Stats({combinedEntries}: StatsProps) {
           </div>
           <p>Days Written This Year</p>
         </div>
-
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getLongestStreak()}
+            <span> {getLongestStreak() === 1 ? 'day' : 'days'}</span>
+          </div>
+          <p>Longest Streak</p>
+        </div>
       </div>
       <div className='graph-container'>
         <div className='line-graph'>
