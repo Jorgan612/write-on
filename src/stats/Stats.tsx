@@ -216,8 +216,15 @@ function Stats({combinedEntries}: StatsProps) {
   };
 
   const getBestWritingDay  = () => {
+    const totalDays = Object.keys(combinedEntries);
+    const bestDay = totalDays.reduce((acc, day) => {
+      if (acc < combinedEntries[day]!) {
+        acc = combinedEntries[day]!;
+      }
+      return acc;
+    }, 0);
     
-    return;
+    return bestDay;
   };
 
   const getTotalDaysLoggedThisYear  = () => {
@@ -243,24 +250,28 @@ function Stats({combinedEntries}: StatsProps) {
         <div className='stats-basic'>
           <div className='stat'>
             {getDailyWordCountAverage()}
+            <span> {getDailyWordCountAverage() === 1 ? 'word' : 'words'}</span>
           </div>
           <p>Daily Average</p>
         </div>
         <div className='stats-basic'>
           <div className='stat'>
             {getSustainableWordCountAverage()}
+            <span> {getSustainableWordCountAverage() === 1 ? 'word' : 'words'}</span>
           </div>
           <p>Sustainable Average</p>
         </div>
         <div className='stats-basic'>
           <div className='stat'>
-            {/* {getSustainableWordCountAverage()} */}
+            {getBestWritingDay() || 0}
+            <span> {getBestWritingDay() === 1 ? 'word' : 'words'}</span>
           </div>
           <p>Best Writing Day</p>
         </div>
         <div className='stats-basic'>
           <div className='stat'>
             {getTotalDaysLoggedThisYear()}
+            <span> {getTotalDaysLoggedThisYear() === 1 ? 'day' : 'days'}</span>
           </div>
           <p>Days Written This Year</p>
         </div>

@@ -20,10 +20,15 @@
         }
 
         .stat {
-          background-color: $dark4;
-          border-radius: 50%;
-          padding: 2rem;
+          // background-color: $dark4;
+          // border-radius: 50%;
+          padding: .2rem 1rem;
+          border-bottom: 2px solid $dark3;
           font-size: $font1;
+
+          span {
+            font-size: $font2;
+          }
         }
       }
     }
