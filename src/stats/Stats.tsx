@@ -224,9 +224,11 @@ function Stats({combinedEntries}: StatsProps) {
   };
 
   const getBestWritingDay  = () => {
+    const currentYear = getYear(new Date());
     const totalDays = Object.keys(combinedEntries);
     const bestDay = totalDays.reduce((acc, day) => {
-      if (acc < combinedEntries[day]!) {
+      let dayYear = day.split('-');
+      if (acc < combinedEntries[day]! && Number(dayYear[0]) === currentYear) {
         acc = combinedEntries[day]!;
       }
       return acc;
