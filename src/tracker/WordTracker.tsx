@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { CombinedEntry, Entry } from '../interfaces/interfaces';
 import './WordTracker.scss';
@@ -14,16 +14,20 @@ function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
   const [newWords, setNewWords] = useState<number>(0);
   let currentDay = dayjs().format('YYYY-MM-DD');
 
+  useEffect(() => {
+    setInitialEntry();
+  }, []);
+
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewWords(Number(e.target.value));
-  }
+  };
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
     updateDailyTotal(newWords);
     setNewWords(0);
-  }
+  };
 
   const updateDailyTotal = (newWords: number) => {
     const newEntry = {
@@ -37,7 +41,21 @@ function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
     };
     
     setEntries((prevEntries: Entry[]) => [...prevEntries, newEntry]);
-  }
+  };
+
+  const setInitialEntry = () => {
+    const firstEntry = {
+      id: Date.now(),
+      total: 0,
+      date: dayjs().format('YYYY-MM-DD'),
+      year: dayjs().year(),
+      month: dayjs().month(),
+      day: dayjs().date(),
+      time: new Date(Date.now()).toTimeString()
+    };
+
+    setEntries((prevEntries: Entry[]) => [...prevEntries, firstEntry]);
+  };
 
   return (
     <section className='word-tracker-container'>

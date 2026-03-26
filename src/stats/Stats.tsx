@@ -1,7 +1,8 @@
 import './Stats.scss';
-import { format, subDays, getMonth, startOfYear, addDays, isLeapYear } from 'date-fns';
+import { format, subDays, startOfYear, addDays, isLeapYear, eachDayOfInterval } from 'date-fns';
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { getYear } from "date-fns";
 
 const todayLinePlugin = {
   id: 'todayLine',
@@ -45,6 +46,15 @@ interface StatsProps {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  resizeDelay: 0,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
+  hover: {
+    mode: 'index',
+    intersect: false,
+  },
   layout: {
     padding: {
       top: 30,
@@ -101,102 +111,213 @@ const chartOptions = {
 
 function Stats({combinedEntries}: StatsProps) {
   
-const updateSevenDayWordCount = () => {
-  const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
-    return subDays(new Date(), 6 - i);
-  });
+  const updateSevenDayWordCount = () => {
+    const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
+      return subDays(new Date(), 6 - i);
+    });
 
-  const displayLabels = lastSevenDays.map(date => format(date, 'MMM d'));
+    const displayLabels = lastSevenDays.map(date => format(date, 'MMM d'));
 
-  const totals = lastSevenDays.map(date => {
-    const dateString = format(date, 'yyyy-MM-dd');
-    return combinedEntries[dateString] || 0;
-  });
+    const totals = lastSevenDays.map(date => {
+      const dateString = format(date, 'yyyy-MM-dd');
+      return combinedEntries[dateString] || 0;
+    });
 
-  return {
-    labels: displayLabels,
-    datasets: [
-      {
-        label: 'Words',
-        data: totals,
-        borderColor: '#527199',
-        backgroundColor: '#263b56',
-        tension: 0.3,
-        fill: true,
-      },
-    ],
+    return {
+      labels: displayLabels,
+      datasets: [
+        {
+          label: 'Words',
+          data: totals,
+          borderColor: '#527199',
+          backgroundColor: '#263b56',
+          tension: 0.3,
+          fill: true,
+        },
+      ],
+    };
   };
-};
 
-const updateMonthWordCount = () => {
-  const lastThirtyDays = Array.from({ length: 30 }).map((_, i) => {
-    return subDays(new Date(), 29 - i);
-  });
+  const updateMonthWordCount = () => {
+    const lastThirtyDays = Array.from({ length: 30 }).map((_, i) => {
+      return subDays(new Date(), 29 - i);
+    });
 
-  const displayLabels = lastThirtyDays.map(date => format(date, 'MMM d'));
+    const displayLabels = lastThirtyDays.map(date => format(date, 'MMM d'));
 
-  const totals = lastThirtyDays.map(date => {
-    const dateString = format(date, 'yyyy-MM-dd');
-    return combinedEntries[dateString] || 0;
-  });
+    const totals = lastThirtyDays.map(date => {
+      const dateString = format(date, 'yyyy-MM-dd');
+      return combinedEntries[dateString] || 0;
+    });
 
-  return {
-    labels: displayLabels,
-    datasets: [
-      {
-        label: 'Words',
-        data: totals,
-        borderColor: '#527199',
-        backgroundColor: '#263b56',
-        tension: 0.3,
-        fill: true,
-      },
-    ],
+    return {
+      labels: displayLabels,
+      datasets: [
+        {
+          label: 'Words',
+          data: totals,
+          borderColor: '#527199',
+          backgroundColor: '#263b56',
+          tension: 0.3,
+          fill: true,
+        },
+      ],
+    };
   };
-}
 
-const updateYearWordCount = () => {
-  const totalDays = isLeapYear(new Date()) ? 366 : 365;
-  const startDate = startOfYear(new Date());
+  const updateYearWordCount = () => {
+    const totalDays = isLeapYear(new Date()) ? 366 : 365;
+    const startDate = startOfYear(new Date());
 
 
-  const calendarYear = Array.from({ length: totalDays }).map((_, i) => {
-    return addDays(startDate, i);
-  });
+    const calendarYear = Array.from({ length: totalDays }).map((_, i) => {
+      return addDays(startDate, i);
+    });
 
-  const displayLabels = calendarYear.map(date => format(date, 'MMM'));
+    const displayLabels = calendarYear.map(date => format(date, 'MMM'));
 
-  const tooltipLabels = calendarYear.map(date => format(date, 'MMM d'));
+    const tooltipLabels = calendarYear.map(date => format(date, 'MMM d'));
 
-  const totals = calendarYear.map(date => {
-    const dateString = format(date, 'yyyy-MM-dd');
-    return combinedEntries[dateString] || 0;
-  });
+    const totals = calendarYear.map(date => {
+      const dateString = format(date, 'yyyy-MM-dd');
+      return combinedEntries[dateString] || 0;
+    });
 
-  return {
-    labels: displayLabels,
-    datasets: [
-      {
-        label: 'Words',
-        data: totals,
-        tooltipLabels: tooltipLabels,
-        borderColor: '#527199',
-        backgroundColor: '#263b56',
-        tension: 0.3,
-        fill: true,
-        pointRadius: 4,
-        hitRadius: 10,
-      },
-    ],
+    return {
+      labels: displayLabels,
+      datasets: [
+        {
+          label: 'Words',
+          data: totals,
+          tooltipLabels: tooltipLabels,
+          borderColor: '#527199',
+          backgroundColor: '#263b56',
+          tension: 0.3,
+          fill: true,
+          pointRadius: 4,
+          hitRadius: 10,
+        },
+      ],
+    };
   };
-}
+
+  const getDailyWordCountAverage = () => {
+    const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
+      return subDays(new Date(), 6 - i);
+    });
+
+    const formattedDays = lastSevenDays.map(date => format(date, 'yyyy-MM-dd'));
+    
+    let totalWords = formattedDays.reduce((acc, day) => {
+      if (combinedEntries[day]) {
+        acc += combinedEntries[day]!;
+      } else {
+        acc += 0;
+      }
+      return acc;
+    }, 0);
+
+    return Math.ceil(totalWords / 7);
+  };
+
+  const getSustainableWordCountAverage = () => {
+    return Math.floor(getDailyWordCountAverage() - (getDailyWordCountAverage() * .20));
+  };
+
+  const getBestWritingDay  = () => {
+    const currentYear = getYear(new Date());
+    const totalDays = Object.keys(combinedEntries);
+    const bestDay = totalDays.reduce((acc, day) => {
+      let dayYear = day.split('-');
+      if (acc < combinedEntries[day]! && Number(dayYear[0]) === currentYear) {
+        acc = combinedEntries[day]!;
+      }
+      return acc;
+    }, 0);
+    
+    return bestDay;
+  };
+
+  const getTotalDaysLoggedThisYear  = () => {
+    const currentYear = getYear(new Date());
+    const totalDays = Object.keys(combinedEntries);
+    const totalDaysWrittenInCurrentYear = totalDays.reduce((acc, day) => {
+      let dayYear = day.split('-');
+      
+      if (combinedEntries[day] && Number(dayYear[0]) === currentYear) {
+        acc += 1;
+      }
+
+      return acc;
+    }, 0);
+
+    return totalDaysWrittenInCurrentYear;
+  };
+
+  const getLongestStreak = () => {
+    const today = new Date();
+    const yesterday = subDays(today, 1);
+    const currentYear = getYear(new Date());
+    const todayFormatted = format(today, 'yyyy-MM-dd')
+    const daysPassedThisYear = eachDayOfInterval({
+      start: startOfYear(today),
+      end: combinedEntries[todayFormatted] ? today : yesterday
+    }).map(date => format(date, 'yyyy-MM-dd'));
+
+    const totalDaysWrittenConsecutively = daysPassedThisYear.reduce((acc, day) => {
+      let dayYear = day.split('-');
+      
+      if (combinedEntries[day] && Number(dayYear[0]) === currentYear) {
+        acc += 1;
+      } else {
+        acc = 0;
+      }
+
+      return acc;
+    }, 0);
+
+    return totalDaysWrittenConsecutively;
+  };
 
 
-return (
+  return (
     <div className="stats-container">
       <div className='other-stats-container'>
-        <div>Avg WPD</div>
-
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getDailyWordCountAverage()}
+            <span> {getDailyWordCountAverage() === 1 ? 'word' : 'words'}</span>
+          </div>
+          <p>Daily Average</p>
+        </div>
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getSustainableWordCountAverage()}
+            <span> {getSustainableWordCountAverage() === 1 ? 'word' : 'words'}</span>
+          </div>
+          <p>Sustainable Average</p>
+        </div>
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getBestWritingDay() || 0}
+            <span> {getBestWritingDay() === 1 ? 'word' : 'words'}</span>
+          </div>
+          <p>Best Writing Day</p>
+        </div>
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getTotalDaysLoggedThisYear()}
+            <span> {getTotalDaysLoggedThisYear() === 1 ? 'day' : 'days'}</span>
+          </div>
+          <p>Days Written This Year</p>
+        </div>
+        <div className='stats-basic'>
+          <div className='stat'>
+            {getLongestStreak()}
+            <span> {getLongestStreak() === 1 ? 'day' : 'days'}</span>
+          </div>
+          <p>Longest Streak</p>
+        </div>
       </div>
       <div className='graph-container'>
         <div className='line-graph'>
@@ -227,7 +348,7 @@ return (
         </div>
       </div>
     </div>
-    )
+  )
 }
 
 

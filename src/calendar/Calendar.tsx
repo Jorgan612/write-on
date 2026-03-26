@@ -52,7 +52,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
             ? subMonths(prevDate, 1)
             : addMonths(prevDate, 1);
         })
-    }
+    };
 
     const retrieveMonths = () => {
         const monthsInYear = eachMonthOfInterval({
@@ -69,7 +69,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
         });
 
         setmonths(monthsInYear);
-    }
+    };
 
     const renderDays = () => {
         const days = [];
@@ -103,11 +103,11 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
         }
 
         return days;
-    }
+    };
 
     const handleUpdatedWordCount = (e: ChangeEvent<HTMLInputElement>) => {
         setUpdatedWordCount(Number(e.target.value));
-    }
+    };
 
     const updatePreviousDate = (e: FormEvent) => {
         e.preventDefault();
@@ -137,18 +137,18 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
         setUpdateDate(false);
         setSelectedUpdateDate('');
         setUpdatedWordCount(0);
-    }
+    };
 
     const openDateUpdateBox = (dateKey: string) => {
         setUpdateDate(true);
         setSelectedUpdateDate(dateKey);
-    }
+    };
 
     const closeUpdateDateBox = () => {
         setUpdateDate(false);
         setSelectedUpdateDate('');
         setUpdatedWordCount(0);
-    }
+    };
 
     return (
         <div className='calendar-container'>

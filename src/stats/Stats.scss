@@ -3,39 +3,71 @@
 
 .stats-container {
     @include flexbox(flex, column, flex-start, flex-start);
-    @include content(91vh, 98%, null);
-    padding: .5rem;
+    height: calc(95vh - 2.5rem);
     overflow-x: hidden;
     overflow-y: auto;
     
     .other-stats-container {
-      @include content(30%, auto, null);
-      padding: 0.5rem;
+      @include flexbox(flex, row, space-around, center);
+      @include content(20%, 100%, null);
+
+      .stats-basic {
+        @include flexbox(flex, column, center, center);
+        @include content(100%, 20%, null);
+        white-space: nowrap;
+        min-width: 195px;
+        
+        p {
+          font-size: $font4;
+        }
+
+        .stat {
+          padding: .2rem 1rem;
+          border-bottom: 2px solid $dark3;
+          font-size: $font1;
+
+          span {
+            font-size: $font2;
+          }
+        }
+      }
     }
 
     .graph-container {
+      @include content(90%, 100%, null);
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
-      @include content(80vh, 100%, null);
 
       .line-graph {
+        @include content(270px, 45%, null);
+        display: flex;
+        flex-direction: column;
         position: relative;
-        @include content(25%, 45%, null);
         padding: 0rem 1rem;
         margin-right: 1rem;
+        min-width: 400px;
+        overflow: hidden;
   
         p {
           font-size: $font4;
+          flex: 0 0 auto;
+        }
+
+        canvas, .chart-wrapper {
+          flex: 1 1 auto;
+          width: 100%;
+          min-height: 0;
         }
   
         &.full-year {
           position: relative;
-          @include content(35%, 100%, null);
+          @include content(240px, 100%, null);
           overflow-x: auto;
           overflow-y: hidden;
 
           .chart-wrapper {
-            min-width: 15000px;
+            min-width: 3650px;
             height: calc(100% - 70px);
           }
         }
