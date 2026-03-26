@@ -3,13 +3,13 @@
 
 .stats-container {
     @include flexbox(flex, column, flex-start, flex-start);
-    @include content(91vh, 98%, null);
+    height: calc(95vh - 2.5rem);
     overflow-x: hidden;
     overflow-y: auto;
     
     .other-stats-container {
       @include flexbox(flex, row, space-around, center);
-      @include content(30%, 100%, null);
+      @include content(20%, 100%, null);
 
       .stats-basic {
         @include flexbox(flex, column, center, center);
@@ -34,13 +34,13 @@
     }
 
     .graph-container {
-      @include content(100vh, 100%, null);
+      @include content(90%, 100%, null);
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
 
       .line-graph {
-        @include content(50%, 45%, null);
+        @include content(270px, 45%, null);
         display: flex;
         flex-direction: column;
         position: relative;
@@ -62,7 +62,7 @@
   
         &.full-year {
           position: relative;
-          @include content(40%, 100%, null);
+          @include content(240px, 100%, null);
           overflow-x: auto;
           overflow-y: hidden;
 
