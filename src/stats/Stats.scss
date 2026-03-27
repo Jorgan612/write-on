@@ -19,11 +19,13 @@
         
         p {
           font-size: $font4;
+          border-bottom: 2px solid $dark3;
+          padding: 0rem 1rem;
+          margin: 0;
         }
 
         .stat {
-          padding: .2rem 1rem;
-          border-bottom: 2px solid $dark3;
+          padding: 1rem;
           font-size: $font1;
 
           span {
