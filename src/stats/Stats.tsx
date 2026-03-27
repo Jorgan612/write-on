@@ -284,39 +284,39 @@ function Stats({combinedEntries}: StatsProps) {
     <div className="stats-container">
       <div className='other-stats-container'>
         <div className='stats-basic'>
+          <p>Daily Average</p>
           <div className='stat'>
             {getDailyWordCountAverage()}
             <span> {getDailyWordCountAverage() === 1 ? 'word' : 'words'}</span>
           </div>
-          <p>Daily Average</p>
         </div>
         <div className='stats-basic'>
+          <p>Sustainable Average</p>
           <div className='stat'>
             {getSustainableWordCountAverage()}
             <span> {getSustainableWordCountAverage() === 1 ? 'word' : 'words'}</span>
           </div>
-          <p>Sustainable Average</p>
         </div>
         <div className='stats-basic'>
+          <p>Best Writing Day</p>
           <div className='stat'>
             {getBestWritingDay() || 0}
             <span> {getBestWritingDay() === 1 ? 'word' : 'words'}</span>
           </div>
-          <p>Best Writing Day</p>
         </div>
         <div className='stats-basic'>
+          <p>Days Written This Year</p>
           <div className='stat'>
             {getTotalDaysLoggedThisYear()}
             <span> {getTotalDaysLoggedThisYear() === 1 ? 'day' : 'days'}</span>
           </div>
-          <p>Days Written This Year</p>
         </div>
         <div className='stats-basic'>
+          <p>Longest Streak</p>
           <div className='stat'>
             {getLongestStreak()}
             <span> {getLongestStreak() === 1 ? 'day' : 'days'}</span>
           </div>
-          <p>Longest Streak</p>
         </div>
       </div>
       <div className='graph-container'>
