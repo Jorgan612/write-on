@@ -1,5 +1,22 @@
 import { IconType } from "react-icons";
 
+/* User Data */
+export interface User {
+    id: number;
+    name: string;
+    pronouns: string;
+    bio: string;
+    joined: string;
+    website: {
+        name: string;
+        url: string;
+    };
+    socials: {
+        name: string;
+        url: string;
+    };
+}
+
 /* Warmup Prompts */
 export interface Prompt {
     id: number;

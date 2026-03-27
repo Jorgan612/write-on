@@ -121,7 +121,7 @@ button:hover {
   }
 
   .content-right {
-    @include flexbox(flex, column, null, null);
+    @include flexbox(flex, column, flex-start, flex-start);
     @include content(auto, 100%, null);
     overflow: hidden;
 
