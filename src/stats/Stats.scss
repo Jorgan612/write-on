@@ -4,6 +4,7 @@
 .stats-container {
     @include flexbox(flex, column, flex-start, flex-start);
     height: calc(95vh - 2.5rem);
+    width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     
