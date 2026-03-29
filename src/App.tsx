@@ -27,6 +27,7 @@ const user: User = {
         url: 'https://jess-o-portfolio.vercel.app/',
     },
     socials: [{
+        id: 1,
         handle: '@jessowrites.bsky.social',
         url: 'https://bsky.app/profile/jessowrites.bsky.social'
     }]
@@ -71,7 +72,7 @@ function App() {
         <Routes>
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
           <Route path="warmup" element={ <Warmup /> } />
-          <Route path="profile" element={ <Profile currentUser={currentUser} /> } />
+          <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
           {/* <Route path="/" element={ <Dashboard /> } />`
           <Route path="activeGoals" element={ <ActiveGoals /> } />
           */}

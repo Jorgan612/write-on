@@ -12,6 +12,7 @@ export interface User {
         url: string;
     };
     socials: [{
+        id: number;
         handle: string;
         url: string;
     }];

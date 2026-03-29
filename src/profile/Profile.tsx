@@ -4,23 +4,40 @@ import { FaRegUserCircle, FaUsers, FaEdit, FaUpload } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
 
 interface ProfileProps {
-    currentUser: User
+    currentUser: User;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
 
-function Profile({currentUser}: ProfileProps) {
+function Profile({currentUser, setCurrentUser}: ProfileProps) {
     const [editing, setEditing] = useState<boolean>(false);
-    // const [userName, setUserName] = useState<string>(currentUser);
+    const [newUserName, setNewUserName] = useState<string>('');
+    const [newPronouns, setNewPronouns] = useState<string>('');
+    const [newBio, setNewBio] = useState<string>('');
+
+    const [newWebsite, setNewWebsite] = useState<object>({});
+    const [newSocial, setNewSocial] = useState<object>({});
+
+    // combine two hooks into one for new web or social objects?
+    const [newWebUrl, setNewWebUrl] = useState<string>('');
+    const [newWebName, setNewWebName] = useState<string>('');
+    const [newHandle, setNewHandle] = useState<string>('');
+    const [newSocialUrl, setNewSocialUrl] = useState<string>('');
 
     /*
-    [ ] set update-details container contents up to be inputs to update user information
     [ ] Store updated information and then replace current information with new info
     [ ] Continued style of profile page - inputs need to have default input styling possiblye update App.scss with global input styling (bg-color, :focus styling, etc) 
     */
 
     useEffect(() => {
-        console.log('currentUser', currentUser)
-    }, [editing]);
+        getUserDetails();
+        console.log('currentUser useEffect', currentUser)
+    }, [editing, currentUser]);
+
+    const getUserDetails = () => {
+        setNewUserName(currentUser.name);
+        console.log('getUserDetails newUserName', newUserName)
+    }
 
 
     const activeEditing = () => {
@@ -31,9 +48,59 @@ function Profile({currentUser}: ProfileProps) {
         setEditing(false);
     }
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement> ) => {
-        console.log('e.target', e.target.id)
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement> = ) => {
+        e.preventDefault();
+        // console.log('e.target', e.target.id)
+        if (e.target.id === 'userName') {
+            console.log('IF')
+            setNewUserName(e.target.value);
+        }
 
+        if (e.target.id === 'pronouns') {
+            setNewPronouns(e.target.value);
+        }
+
+        if (e.target.id === 'bio') {
+            // issue between HTMLInputElement and HTMLTextAreaElement with type matching in parameters can we use a single funciton to update all inputs? Research
+        }
+
+        if (e.target.value === 'handle' || e.target.value === 'socialUrl') {
+            if (e.target.value === 'handle') {
+                setNewHandle(e.target.value);
+            } else {
+                setNewSocialUrl(e.target.value);
+            }
+            // console.log('newSocialUrl', newSocialUrl, 'newHandle', newHandle)
+        }
+
+        // console.log('newUserName', newUserName)
+
+    }
+
+    const updateUserProfile = (e: any) => { //change the any type to correct event type
+        e.preventDefault();
+
+        const updatedUser = {
+            ...currentUser,
+            name: newUserName,
+            pronouns: newPronouns,
+            bio: newBio,
+        //     website: {
+        //         name: newWebName,
+        //         url: newWebUrl
+        //     },
+            // socials: [{
+            //     id: ,
+            //     handle: string,
+            //     url: string
+            // }]
+        }
+
+        console.log('updatedUser', updatedUser)
+
+        setCurrentUser(updatedUser);
+        console.log('currentUser', currentUser)
+        
     }
 
     return (
@@ -67,10 +134,10 @@ function Profile({currentUser}: ProfileProps) {
                         <FaUsers />
                         Socials
                     </span>
-                    {currentUser.socials.map((user) => (
-                        <div>
-                            <a href={user.url} target='_blank' rel='noopener noreferrer'>
-                            {user.handle}
+                    {currentUser.socials.map((social) => (
+                        <div key={social.id}>
+                            <a href={social.url} target='_blank' rel='noopener noreferrer'>
+                            {social.handle}
                             </a>
                         </div>
                     ))}
@@ -89,21 +156,21 @@ function Profile({currentUser}: ProfileProps) {
                     <div className='user-identity'>
                         <span>Name</span>
                         <div className='user-name'>
-                            <input id='userName' value={currentUser.name} onChange={handleInputChange} />
+                            <input id='userName' placeholder={currentUser.name} onChange={handleInputChange} />
                         </div>
                         <span>Pronouns</span>
                         <div className='user-pronouns'>
-                            <input id='pronouns' value={currentUser.pronouns} />
+                            <input id='pronouns' placeholder={currentUser.pronouns} onChange={handleInputChange} />
                         </div>
                     </div>
                     <span>Bio</span>
                     <div className='user-bio'>
-                        <textarea id='bio'value={currentUser.bio} rows={4} maxLength={250} />
+                        <textarea id='bio'value={currentUser.bio} onChange={handleInputChange} rows={4} maxLength={250} />
                     </div>
                     <span>Website</span>
                     <div className='user-website'>
                         <span>URL</span>
-                        <input id='url' value={currentUser.website.url}/>
+                        <input id='webUrl' value={currentUser.website.url}/>
                         <span>Website Name</span>
                         <input id='webName' value={currentUser.website.name} />
                     </div>
@@ -112,16 +179,16 @@ function Profile({currentUser}: ProfileProps) {
                         Socials
                     </span>
                     <div className='user-socials'>
-                        {currentUser.socials.map((user) => (
-                            <div className='update-socials'>
+                        {currentUser.socials.map((social) => (
+                            <div className='update-socials' key={social.id}>
                                 <span>Handle</span>
-                                <input value={user.handle}/>
+                                <input id='handle' value={social.handle}/>
                                 <span>URL</span>
-                                <input value={user.url}/>
+                                <input id='socialUrl' value={social.url}/>
                             </div>
                         ))}
                     </div>
-                    <button>Save</button>
+                    <button onClick={updateUserProfile}>Save</button>
                     <button onClick={cancelEdit}>Cancel</button>
                 </form>
 
