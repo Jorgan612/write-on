@@ -26,10 +26,10 @@ const user: User = {
         name: 'jessoportfolio',
         url: 'https://jess-o-portfolio.vercel.app/',
     },
-    socials: {
-        name: '@jessowrites.bsky.social',
+    socials: [{
+        handle: '@jessowrites.bsky.social',
         url: 'https://bsky.app/profile/jessowrites.bsky.social'
-    }
+    }]
 };
 
 function App() {
