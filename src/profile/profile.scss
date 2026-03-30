@@ -57,14 +57,13 @@
     .display-details {
         @include content(100%, 100%, null);
 
-
         .user-name,
         .user-bio,
         .user-join-date,
         .user-website,
         .user-socials {
-            @include flexbox(flex, column, flex-end, flex-start);
-            @include content(fit-content, fit-content, null);
+            @include flexbox(flex, column, flex-start, flex-start);
+            @include content(fit-content, 25%, null);
             padding: .5rem;
 
             a {
