@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import './Profile.scss';
-import { FaRegUserCircle, FaUsers, FaEdit, FaUpload } from 'react-icons/fa';
+import { FaRegUserCircle, FaUsers, FaEdit, FaUpload, FaExternalLinkAlt } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
 
 interface ProfileProps {
@@ -81,6 +81,9 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     <span>Website</span>
                     <a href={currentUser.website.url} target="_blank" rel="noopener noreferrer">
                         {currentUser.website.name}
+                        <span className='external-link'>
+                            <FaExternalLinkAlt />
+                        </span>
                     </a>
                 </div>
                 <div className="user-socials">
@@ -91,6 +94,9 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         <div key={social.id}>
                             <a href={social.url} target="_blank" rel="noopener noreferrer">
                                 {social.handle}
+                                <span className='external-link'>
+                                    <FaExternalLinkAlt />
+                                </span>
                             </a>
                         </div>
                     ))}
