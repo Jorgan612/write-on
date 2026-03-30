@@ -11,11 +11,11 @@ export interface User {
         name: string;
         url: string;
     };
-    socials: [{
+    socials: {
         id: number;
         handle: string;
         url: string;
-    }];
+    }[];
 }
 
 /* Warmup Prompts */

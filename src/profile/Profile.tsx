@@ -1,5 +1,5 @@
-import { useState, useEffect, ChangeEvent } from 'react';
-import './Profile.scss'
+import { useState, ChangeEvent, FormEvent } from 'react';
+import './Profile.scss';
 import { FaRegUserCircle, FaUsers, FaEdit, FaUpload } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
 
@@ -8,194 +8,177 @@ interface ProfileProps {
     setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-
-function Profile({currentUser, setCurrentUser}: ProfileProps) {
+function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [editing, setEditing] = useState<boolean>(false);
-    const [newUserName, setNewUserName] = useState<string>('');
-    const [newPronouns, setNewPronouns] = useState<string>('');
-    const [newBio, setNewBio] = useState<string>('');
-
-    const [newWebsite, setNewWebsite] = useState<object>({});
-    const [newSocial, setNewSocial] = useState<object>({});
-
-    // combine two hooks into one for new web or social objects?
-    const [newWebUrl, setNewWebUrl] = useState<string>('');
-    const [newWebName, setNewWebName] = useState<string>('');
-    const [newHandle, setNewHandle] = useState<string>('');
-    const [newSocialUrl, setNewSocialUrl] = useState<string>('');
-
-    /*
-    [ ] Store updated information and then replace current information with new info
-    [ ] Continued style of profile page - inputs need to have default input styling possiblye update App.scss with global input styling (bg-color, :focus styling, etc) 
-    */
-
-    useEffect(() => {
-        getUserDetails();
-        console.log('currentUser useEffect', currentUser)
-    }, [editing, currentUser]);
-
-    const getUserDetails = () => {
-        setNewUserName(currentUser.name);
-        console.log('getUserDetails newUserName', newUserName)
-    }
+    const [formData, setFormData] = useState<User>(currentUser);
 
 
     const activeEditing = () => {
+        setFormData(currentUser);
         setEditing(true);
     };
 
     const cancelEdit = () => {
         setEditing(false);
-    }
+    };
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement> = ) => {
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
+    const handleWebsiteChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            website: {
+                ...prev.website,
+                [name]: value,
+            },
+        }));
+    };
+
+    const handleSocialChange = (index: number, field: 'handle' | 'url', value: string) => {
+    setFormData((prev) => ({
+        ...prev,
+        socials: prev.socials.map((social, i) => 
+            i === index ? { ...social, [field]: value } : social
+        )}));
+    };
+
+    const updateUserProfile = (e: FormEvent) => {
         e.preventDefault();
-        // console.log('e.target', e.target.id)
-        if (e.target.id === 'userName') {
-            console.log('IF')
-            setNewUserName(e.target.value);
-        }
-
-        if (e.target.id === 'pronouns') {
-            setNewPronouns(e.target.value);
-        }
-
-        if (e.target.id === 'bio') {
-            // issue between HTMLInputElement and HTMLTextAreaElement with type matching in parameters can we use a single funciton to update all inputs? Research
-        }
-
-        if (e.target.value === 'handle' || e.target.value === 'socialUrl') {
-            if (e.target.value === 'handle') {
-                setNewHandle(e.target.value);
-            } else {
-                setNewSocialUrl(e.target.value);
-            }
-            // console.log('newSocialUrl', newSocialUrl, 'newHandle', newHandle)
-        }
-
-        // console.log('newUserName', newUserName)
-
-    }
-
-    const updateUserProfile = (e: any) => { //change the any type to correct event type
-        e.preventDefault();
-
-        const updatedUser = {
-            ...currentUser,
-            name: newUserName,
-            pronouns: newPronouns,
-            bio: newBio,
-        //     website: {
-        //         name: newWebName,
-        //         url: newWebUrl
-        //     },
-            // socials: [{
-            //     id: ,
-            //     handle: string,
-            //     url: string
-            // }]
-        }
-
-        console.log('updatedUser', updatedUser)
-
-        setCurrentUser(updatedUser);
-        console.log('currentUser', currentUser)
-        
-    }
+        setCurrentUser(formData);
+        setEditing(false);
+        console.log('User Updated:', formData);
+    };
 
     return (
         <div className="profile-container">
+            {/* --- Read-Only View --- */}
             <div className={`display-details ${editing ? 'hide' : 'show'}`}>
-                <FaRegUserCircle className='user-img' />
-                <div className='user-identity'>
-                    <div className='user-name'>
+                <FaRegUserCircle className="user-img" />
+                <div className="user-identity">
+                    <div className="user-name">
                         {currentUser.name}
                         <span>
-                            <FaEdit className='icon' onClick={activeEditing} />
+                            <FaEdit className="icon" onClick={activeEditing} />
                         </span>
                     </div>
-                    <div className='user-pronouns'>
-                        {currentUser.pronouns}
-                    </div>
+                    <div className="user-pronouns">{currentUser.pronouns}</div>
                 </div>
-                <div className='user-bio'>
-                    {currentUser.bio}
+                <div className="user-bio">{currentUser.bio}</div>
+                <div className="user-join-date">
+                    <span>Joined</span> {currentUser.joined}
                 </div>
-                <div className='user-join-date'>
-                    <span>Joined</span>
-                    {currentUser.joined}
-                </div>
-                <div className='user-website'>
+                <div className="user-website">
                     <span>Website</span>
-                    <a href={currentUser.website.url} target='_blank' rel='noopener noreferrer'>{currentUser.website.name}</a>
+                    <a href={currentUser.website.url} target="_blank" rel="noopener noreferrer">
+                        {currentUser.website.name}
+                    </a>
                 </div>
-                <div className='user-socials'>
+                <div className="user-socials">
                     <span>
-                        <FaUsers />
-                        Socials
+                        <FaUsers /> Socials
                     </span>
                     {currentUser.socials.map((social) => (
                         <div key={social.id}>
-                            <a href={social.url} target='_blank' rel='noopener noreferrer'>
-                            {social.handle}
+                            <a href={social.url} target="_blank" rel="noopener noreferrer">
+                                {social.handle}
                             </a>
                         </div>
                     ))}
                 </div>
             </div>
 
-
+            {/* --- Edit Mode View --- */}
             <div className={`update-details ${!editing ? 'hide' : 'show'}`}>
-                <form>
-                    <div className='img-container'>
-                        <FaRegUserCircle className='user-img' /> 
+                <form onSubmit={updateUserProfile}>
+                    <div className="img-container">
+                        <FaRegUserCircle className="user-img" />
                         <span>
-                            <FaUpload className='upload-icon' />
+                            <FaUpload className="upload-icon" />
                         </span>
                     </div>
-                    <div className='user-identity'>
+
+                    <div className="user-identity">
                         <span>Name</span>
-                        <div className='user-name'>
-                            <input id='userName' placeholder={currentUser.name} onChange={handleInputChange} />
+                        <div className="user-name">
+                            <input 
+                                id="name" 
+                                value={formData.name} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         <span>Pronouns</span>
-                        <div className='user-pronouns'>
-                            <input id='pronouns' placeholder={currentUser.pronouns} onChange={handleInputChange} />
+                        <div className="user-pronouns">
+                            <input 
+                                id="pronouns" 
+                                value={formData.pronouns} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                     </div>
+
                     <span>Bio</span>
-                    <div className='user-bio'>
-                        <textarea id='bio'value={currentUser.bio} onChange={handleInputChange} rows={4} maxLength={250} />
+                    <div className="user-bio">
+                        <textarea 
+                            id="bio" 
+                            value={formData.bio} 
+                            onChange={handleInputChange} 
+                            rows={4} 
+                            maxLength={250} 
+                        />
                     </div>
+
                     <span>Website</span>
-                    <div className='user-website'>
+                    <div className="user-website">
                         <span>URL</span>
-                        <input id='webUrl' value={currentUser.website.url}/>
-                        <span>Website Name</span>
-                        <input id='webName' value={currentUser.website.name} />
+                        <input 
+                            name="url" 
+                            value={formData.website.url} 
+                            onChange={handleWebsiteChange} 
+                        />
+                        <span>Name</span>
+                        <input 
+                            name="name" 
+                            value={formData.website.name} 
+                            onChange={handleWebsiteChange} 
+                        />
                     </div>
+
                     <span>
-                        <FaUsers />
-                        Socials
+                        <FaUsers /> Socials
                     </span>
-                    <div className='user-socials'>
-                        {currentUser.socials.map((social) => (
-                            <div className='update-socials' key={social.id}>
+                    <div className="user-socials">
+                        {formData.socials.map((social, index) => (
+                            <div className="update-socials" key={social.id}>
                                 <span>Handle</span>
-                                <input id='handle' value={social.handle}/>
+                                <input 
+                                    value={social.handle} 
+                                    onChange={(e) => handleSocialChange(index, 'handle', e.target.value)} 
+                                />
                                 <span>URL</span>
-                                <input id='socialUrl' value={social.url}/>
+                                <input 
+                                    value={social.url} 
+                                    onChange={(e) => handleSocialChange(index, 'url', e.target.value)} 
+                                />
                             </div>
                         ))}
                     </div>
-                    <button onClick={updateUserProfile}>Save</button>
-                    <button onClick={cancelEdit}>Cancel</button>
+
+                    <div className="form-actions">
+                        <button type="submit">Save</button>
+                        <button type="button" onClick={cancelEdit}>Cancel</button>
+                    </div>
                 </form>
-
             </div>
-
         </div>
     );
 }
 
-export default Profile
+export default Profile;
