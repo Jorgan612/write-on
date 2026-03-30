@@ -8,13 +8,55 @@
     width: 96%;
     padding: 1rem 1rem;
 
+    .image-container  {
+        @include content(150px, 150px, null);
+        position: relative;
+        margin-bottom: 1rem;
+        flex-shrink: 0;
+        
+        .user-img {
+            @include content (100%, 100%, null);
+            color: $dark3;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: $dark3;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: $highlight1;
+            }
+
+            .upload-icon {
+                font-size: 18px;
+            }
+        }
+
+        .upload-icon:hover {
+            color: $highlight1;
+            cursor: pointer;
+        }
+    }
+
+    .display-details, .update-details {
+        @include content(100%, 100%, null);
+    }
+
     .display-details {
         @include content(100%, 100%, null);
 
-        .user-img {
-            @include content (30%, 20%, null);
-            color: $dark3;
-        }
 
         .user-name,
         .user-bio,
@@ -80,7 +122,7 @@
         }
         
         input:focus {
-            outline: none;
+            outline: 2px solid $dark2;
         }
 
         textarea {
@@ -92,7 +134,6 @@
             overflow: auto;
             color: $dark1;
             font-size: $font2;
-            font-weight: bold;
             scrollbar-width: thin;
             scrollbar-color: $dark1 $dark3;
         }
@@ -102,34 +143,6 @@
             caret-color: $dark1;
             color: $dark1;
         }
-
-        .img-container {
-            @include content (30%, 20%, null);
-            position: relative;
-
-            .user-img {
-                @include content (100%, 100%, null);
-                color: $dark3;
-            }
-
-            .upload-icon {
-                @include content(24px, 24px, null);
-                position: absolute;
-                bottom: 0px;
-                right: 0px;
-                padding: .5rem;
-                background-color: $dark3;
-                border-radius: 50%;
-            }
-
-            .upload-icon:hover {
-                color: $highlight1;
-                cursor: pointer;
-            }
-
-
-        }
-
 
         .user-name,
         .user-bio,
@@ -188,6 +201,10 @@
                 margin-right: .5rem;
                 padding: .5rem;
             }
+        }
+
+        .user-bio {
+            @include content(fit-content, 50%, null);
         }
 
     }

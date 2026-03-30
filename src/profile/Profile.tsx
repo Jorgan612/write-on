@@ -61,7 +61,9 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         <div className="profile-container">
             {/* --- Read-Only View --- */}
             <div className={`display-details ${editing ? 'hide' : 'show'}`}>
-                <FaRegUserCircle className="user-img" />
+                <div className='image-container'>
+                    <FaRegUserCircle className="user-img" />
+                </div>
                 <div className="user-identity">
                     <div className="user-name">
                         {currentUser.name}
@@ -98,11 +100,11 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
             {/* --- Edit Mode View --- */}
             <div className={`update-details ${!editing ? 'hide' : 'show'}`}>
                 <form onSubmit={updateUserProfile}>
-                    <div className="img-container">
+                    <div className="image-container">
                         <FaRegUserCircle className="user-img" />
-                        <span>
+                        <div className="upload-overlay">
                             <FaUpload className="upload-icon" />
-                        </span>
+                        </div>
                     </div>
 
                     <div className="user-identity">
@@ -137,13 +139,13 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
 
                     <span>Website</span>
                     <div className="user-website">
-                        <span>URL</span>
+                        <span>URL:</span>
                         <input 
                             name="url" 
                             value={formData.website.url} 
                             onChange={handleWebsiteChange} 
                         />
-                        <span>Name</span>
+                        <span>Name:</span>
                         <input 
                             name="name" 
                             value={formData.website.name} 
@@ -157,12 +159,12 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     <div className="user-socials">
                         {formData.socials.map((social, index) => (
                             <div className="update-socials" key={social.id}>
-                                <span>Handle</span>
+                                <span>Handle:</span>
                                 <input 
                                     value={social.handle} 
                                     onChange={(e) => handleSocialChange(index, 'handle', e.target.value)} 
                                 />
-                                <span>URL</span>
+                                <span>URL:</span>
                                 <input 
                                     value={social.url} 
                                     onChange={(e) => handleSocialChange(index, 'url', e.target.value)} 
