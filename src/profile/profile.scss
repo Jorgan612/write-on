@@ -112,7 +112,7 @@
 
     .update-details {
         @include content(100%, 100%, null);
-        overflow-y: hidden;
+        overflow-y: auto;
 
         span {
             margin-top: .5rem;
