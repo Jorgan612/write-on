@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FaPenFancy } from 'react-icons/fa';
+import { FaPenFancy, FaCoffee } from 'react-icons/fa';
 import './App.scss';
 import { Entry, User } from './interfaces/interfaces';
 import Header from './header/header'
@@ -22,6 +22,7 @@ const user: User = {
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',
+    userIcon: {icon: FaCoffee, id: 'coffee'},
     website: {
         name: 'jessoportfolio',
         url: 'https://jess-o-portfolio.vercel.app/',

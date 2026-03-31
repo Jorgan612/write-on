@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import './Profile.scss';
 import { FaRegUserCircle, FaUsers, FaEdit, FaUpload, FaExternalLinkAlt } from 'react-icons/fa';
-import { User } from '../interfaces/interfaces';
+import { User, UserIcon } from '../interfaces/interfaces';
+import { userIcons, userIconColor } from '../assets/icons/userIcons/userIcons';
 
 interface ProfileProps {
     currentUser: User;
@@ -11,6 +12,10 @@ interface ProfileProps {
 function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [formData, setFormData] = useState<User>(currentUser);
+    const [updateProfileIcon, setUpdateProfileIcon] = useState<boolean>(false);
+    const [selectedIcon, setSelectedIcon] = useState<string>('');
+
+    const ProfileIcon = currentUser.userIcon.icon || FaRegUserCircle;
 
 
     const activeEditing = () => {
@@ -57,12 +62,27 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         console.log('User Updated:', formData);
     };
 
+    const updateUserProfileIcon = () => {
+        setUpdateProfileIcon(!updateProfileIcon);
+    }
+
+    const selectUserIcon = (icon: UserIcon) => {
+        setSelectedIcon(icon.id);
+        console.log('icon', icon)
+    }
+
+    const cancelIconSelection = () => {
+        setSelectedIcon('');
+        setUpdateProfileIcon(false);
+        console.log('CANCEL')
+    }
+
     return (
         <div className="profile-container">
             {/* --- Read-Only View --- */}
             <div className={`display-details ${editing ? 'hide' : 'show'}`}>
                 <div className='image-container'>
-                    <FaRegUserCircle className="user-img" />
+                  <ProfileIcon className="user-img" />
                 </div>
                 <div className="user-identity">
                     <div className="user-name">
@@ -108,7 +128,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                 <form onSubmit={updateUserProfile}>
                     <div className="image-container">
                         <FaRegUserCircle className="user-img" />
-                        <div className="upload-overlay">
+                        <div className="upload-overlay" onClick={updateUserProfileIcon}>
                             <FaUpload className="upload-icon" />
                         </div>
                     </div>
@@ -183,7 +203,29 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         <button type="submit">Save</button>
                         <button type="button" onClick={cancelEdit}>Cancel</button>
                     </div>
+
+                    {/* Profile Icon Selection Container */}
+                    <div className={`select-profile-icon ${updateProfileIcon ? 'show' : 'hide'}`}>
+                        {userIcons.map((icon: UserIcon) => {
+                            const IconComponent = icon.icon;
+                            return (
+                                <div key={icon.id} className={`user-icon ${icon.id === selectedIcon ? 'selected' : 'icon'}`} onClick={() => selectUserIcon(icon)}>
+                                    <IconComponent className='icon' id={icon.id} />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </form>
+                <div className={`select-profile-icon-color ${updateProfileIcon ? 'show' : 'hide'}`}>
+                    {userIconColor.map((color) => (
+                        <div className='color' key={color.id} style={{backgroundColor: color.hexcode}}></div>
+                    ))}
+
+                </div>
+                <div className={`select-profile-icon-buttons ${updateProfileIcon ? 'show' : 'hide'}`}>
+                    <button>Save</button>
+                    <button type="button" onClick={cancelIconSelection}>Cancel</button>
+                </div>
             </div>
         </div>
     );

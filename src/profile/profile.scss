@@ -112,7 +112,7 @@
 
     .update-details {
         @include content(100%, 100%, null);
-        overflow-y: auto;
+        overflow-y: hidden;
 
         span {
             margin-top: .5rem;
@@ -216,6 +216,53 @@
 
     }
 
+    form {
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: hidden;
+
+        .select-profile-icon {
+            @include flexbox(flex, row, flex-start, flex-start);
+            @include content(100%, 100%, null);
+            flex-wrap: wrap;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            overflow-y: auto;
+            background-color: $dark5;
+            z-index: 10;
+
+            .user-icon {
+                @include content(8%, 8%, null);
+                padding: .5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $dark3;
+                    border-radius: 4px;
+                }
+
+                .icon {
+                    @include content(100%, 100%, null);
+                }
+            }
+        }        
+    }
+
+    .select-profile-icon-color {
+        @include flexbox(flex, row, center, flex-start);
+
+        .color {
+            @include content(60px, 60px, null);
+            cursor: pointer;
+        }
+    }
+
+    .select-profile-icon-buttons {
+        @include flexbox(flex, row, center, center);
+        padding: 1rem;
+    }
+
     .hide {
         max-height: 0;
         opacity: 0;
@@ -225,6 +272,11 @@
 
     .show {
         opacity: 1;
+    }
+
+    .selected {
+        background-color: $dark2;
+        border-radius: 4px;
     }
 
 }

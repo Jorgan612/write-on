@@ -7,6 +7,10 @@ export interface User {
     pronouns: string;
     bio: string;
     joined: string;
+    userIcon: {
+        icon: IconType,
+        id: string
+    };
     website: {
         name: string;
         url: string;
@@ -16,6 +20,11 @@ export interface User {
         handle: string;
         url: string;
     }[];
+}
+
+export interface UserIcon {
+    icon: IconType;
+    id: string;
 }
 
 /* Warmup Prompts */
