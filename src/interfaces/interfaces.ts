@@ -8,8 +8,9 @@ export interface User {
     bio: string;
     joined: string;
     userIcon: {
-        icon: IconType,
-        id: string
+        icon: IconType;
+        id: string;
+        color: string;
     };
     website: {
         name: string;

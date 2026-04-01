@@ -9,9 +9,10 @@
     padding: 1rem 1rem;
 
     .image-container  {
-        @include content(150px, 150px, null);
+        @include content(5rem, 5rem, null);
         position: relative;
-        margin-bottom: 1rem;
+        margin: 1rem;
+        padding-left: .5rem;
         flex-shrink: 0;
         
         .user-img {
@@ -21,8 +22,8 @@
 
         .upload-overlay {
             position: absolute;
-            bottom: 5px;
-            right: 5px;
+            bottom: -5px;
+            right: -5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -54,6 +55,12 @@
         @include content(100%, 100%, null);
     }
 
+    .top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
     .display-details {
         @include content(100%, 100%, null);
 
@@ -63,7 +70,7 @@
         .user-website,
         .user-socials {
             @include flexbox(flex, column, flex-start, flex-start);
-            @include content(fit-content, 25%, null);
+            @include content(fit-content, 50%, null);
             padding: .5rem;
 
             a {
@@ -112,7 +119,8 @@
 
     .update-details {
         @include content(100%, 100%, null);
-        overflow-y: auto;
+        overflow: visible;
+        // overflow-y: auto;
 
         span {
             margin-top: .5rem;
@@ -151,6 +159,7 @@
             color: $dark1;
         }
 
+        .top,
         .user-name,
         .user-bio,
         .user-join-date,
@@ -233,8 +242,9 @@
             z-index: 10;
 
             .user-icon {
-                @include content(8%, 8%, null);
-                padding: .5rem;
+                @include flexbox(flex, row, center, center);
+                @include content(12%, 8%, null);
+                position: relative;
                 cursor: pointer;
 
                 &:hover {
@@ -245,17 +255,24 @@
                 .icon {
                     @include content(100%, 100%, null);
                 }
+
+                .select-profile-icon-color {
+                    @include flexbox(flex, row, flex-start, flex-start);
+                    @include content(100%, 100%, null);
+                    flex-wrap: wrap;
+                    position: absolute;
+                    top: 0px;
+                    left: 5px;
+                    z-index: 2;
+
+                    .color {
+                        @include content(25px, 25px, null);
+                        border: 2px solid $dark5;
+                        cursor: pointer;
+                    }
+                }
             }
         }        
-    }
-
-    .select-profile-icon-color {
-        @include flexbox(flex, row, center, flex-start);
-
-        .color {
-            @include content(60px, 60px, null);
-            cursor: pointer;
-        }
     }
 
     .select-profile-icon-buttons {

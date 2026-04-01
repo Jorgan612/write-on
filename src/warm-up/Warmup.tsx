@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { Prompt, Icon } from '../interfaces/interfaces';
-import Card  from '../card/Card';
+import Card  from '../Card/Card';
 import './warmup.scss';
 import { 
     FaPenFancy, 

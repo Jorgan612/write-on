@@ -13,7 +13,9 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [formData, setFormData] = useState<User>(currentUser);
     const [updateProfileIcon, setUpdateProfileIcon] = useState<boolean>(false);
+    const [colorSelected, setColorSelected] = useState<boolean>(false);
     const [selectedIcon, setSelectedIcon] = useState<string>('');
+    const [selectIconColor, setSelectIconColor] =useState<{}>('');
 
     const ProfileIcon = currentUser.userIcon.icon || FaRegUserCircle;
 
@@ -55,6 +57,28 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         )}));
     };
 
+    const handleIconChange = (icon: UserIcon, color: any | null) => {
+        if (!selectedIcon) {
+            setSelectedIcon(icon.id);
+            setColorSelected(true);
+        }
+
+        if (color) {
+            setSelectIconColor(color);
+            
+            const newIcon = {
+            icon: icon.icon,
+            id: icon.id,
+            color: color.hexcode
+            };
+
+            setFormData(prev => ({
+                ...prev, 
+                userIcon: newIcon
+            }));
+        }
+    };
+
     const updateUserProfile = (e: FormEvent) => {
         e.preventDefault();
         setCurrentUser(formData);
@@ -66,10 +90,15 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         setUpdateProfileIcon(!updateProfileIcon);
     }
 
-    const selectUserIcon = (icon: UserIcon) => {
-        setSelectedIcon(icon.id);
-        console.log('icon', icon)
-    }
+    // const selectUserIcon = (icon: UserIcon) => {
+    //     setSelectedIcon(icon.id);
+    //     console.log('icon', icon)
+    // }
+
+    // const selectUserIconColor = (color: object) => {
+    //     console.log('color', color)
+    //     setSelectIconColor(color)
+    // }
 
     const cancelIconSelection = () => {
         setSelectedIcon('');
@@ -81,17 +110,20 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         <div className="profile-container">
             {/* --- Read-Only View --- */}
             <div className={`display-details ${editing ? 'hide' : 'show'}`}>
-                <div className='image-container'>
-                  <ProfileIcon className="user-img" />
-                </div>
-                <div className="user-identity">
-                    <div className="user-name">
-                        {currentUser.name}
-                        <span>
-                            <FaEdit className="icon" onClick={activeEditing} />
-                        </span>
+                <div className='top'>
+                    <div className='image-container'>
+                        <ProfileIcon className="user-img" />
+                    </div>
+                    <div className="user-identity">
+                        <div className="user-name">
+                            {currentUser.name}
+                            <span>
+                                <FaEdit className="icon" onClick={activeEditing} />
+                            </span>
                     </div>
                     <div className="user-pronouns">{currentUser.pronouns}</div>
+                </div>
+
                 </div>
                 <div className="user-bio">{currentUser.bio}</div>
                 <div className="user-join-date">
@@ -126,29 +158,31 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
             {/* --- Edit Mode View --- */}
             <div className={`update-details ${!editing ? 'hide' : 'show'}`}>
                 <form onSubmit={updateUserProfile}>
-                    <div className="image-container">
-                        <FaRegUserCircle className="user-img" />
-                        <div className="upload-overlay" onClick={updateUserProfileIcon}>
-                            <FaUpload className="upload-icon" />
+                    <div className='top'>
+                        <div className="image-container">
+                            <FaRegUserCircle className="user-img" />
+                            <div className="upload-overlay" onClick={updateUserProfileIcon}>
+                                <FaUpload className="upload-icon" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="user-identity">
-                        <span>Name</span>
-                        <div className="user-name">
-                            <input 
-                                id="name" 
-                                value={formData.name} 
-                                onChange={handleInputChange} 
-                            />
-                        </div>
-                        <span>Pronouns</span>
-                        <div className="user-pronouns">
-                            <input 
-                                id="pronouns" 
-                                value={formData.pronouns} 
-                                onChange={handleInputChange} 
-                            />
+                        <div className="user-identity">
+                            <span>Name</span>
+                            <div className="user-name">
+                                <input 
+                                    id="name" 
+                                    value={formData.name} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                            <span>Pronouns</span>
+                            <div className="user-pronouns">
+                                <input 
+                                    id="pronouns" 
+                                    value={formData.pronouns} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -209,19 +243,20 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         {userIcons.map((icon: UserIcon) => {
                             const IconComponent = icon.icon;
                             return (
-                                <div key={icon.id} className={`user-icon ${icon.id === selectedIcon ? 'selected' : 'icon'}`} onClick={() => selectUserIcon(icon)}>
+                                <div key={icon.id} className={`user-icon ${icon.id === selectedIcon ? 'selected' : 'icon'}`} onClick={() => handleIconChange(icon, null)}>
                                     <IconComponent className='icon' id={icon.id} />
+                                    <div className={`select-profile-icon-color ${updateProfileIcon && selectedIcon === icon.id ? 'show' : 'hide'}`}>
+                                        {userIconColor.map((color) => (
+                                            <div className='color' key={color.id} style={{backgroundColor: color.hexcode}} onClick={() => handleIconChange(icon, color)}></div>
+                                        ))}
+
+                                    </div>
                                 </div>
                             )
                         })}
                     </div>
                 </form>
-                <div className={`select-profile-icon-color ${updateProfileIcon ? 'show' : 'hide'}`}>
-                    {userIconColor.map((color) => (
-                        <div className='color' key={color.id} style={{backgroundColor: color.hexcode}}></div>
-                    ))}
 
-                </div>
                 <div className={`select-profile-icon-buttons ${updateProfileIcon ? 'show' : 'hide'}`}>
                     <button>Save</button>
                     <button type="button" onClick={cancelIconSelection}>Cancel</button>
