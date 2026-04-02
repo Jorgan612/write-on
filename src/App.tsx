@@ -31,6 +31,11 @@ const user: User = {
         id: 1,
         handle: '@jessowrites.bsky.social',
         url: 'https://bsky.app/profile/jessowrites.bsky.social'
+    },
+    {
+        id: 2,
+        handle: '@jess.o.writes',
+        url: 'https://instagram.com'
     }]
 };
 

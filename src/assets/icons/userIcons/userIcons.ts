@@ -151,6 +151,7 @@ export const userIcons = [
 ];
 
 export const userIconColor = [
+    {hexcode: '#f5f5f5', id:'#f5f5f5'},
     {hexcode: '#aec78d', id:'#aec78d'},
     {hexcode: '#74c3b0', id:'#74c3b0'},
     {hexcode: '#b9e3d7', id:'#b9e3d7'},

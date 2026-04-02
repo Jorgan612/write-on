@@ -119,15 +119,15 @@
 
     .update-details {
         @include content(100%, 100%, null);
+        position: relative;
         overflow: visible;
-        // overflow-y: auto;
 
         span {
             margin-top: .5rem;
             padding-left: .5rem;
         }
-
-       form input {
+        
+        form input {
             padding: .7rem;
             margin-top: 5px;
             background-color: $dark3;
@@ -223,61 +223,89 @@
             @include content(fit-content, 50%, null);
         }
 
-    }
-
-    form {
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: hidden;
-
         .select-profile-icon {
-            @include flexbox(flex, row, flex-start, flex-start);
+            @include flexbox(flex, column, stretch, flex-start);
             @include content(100%, 100%, null);
             flex-wrap: wrap;
             position: absolute;
-            top: 0px;
-            left: 0px;
-            overflow-y: auto;
+            top: 0;
+            left: 0;
             background-color: $dark5;
-            z-index: 10;
+            z-index: 20;
+            
+            &.show {
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .icon-grid-scroll {
+                @include flexbox(flex, row, center, flex-start);
+                align-content: flex-start;
+                flex-wrap: wrap;
+                flex: 1;
+                padding: 1rem;
+                overflow-y: auto;
 
-            .user-icon {
-                @include flexbox(flex, row, center, center);
-                @include content(12%, 8%, null);
-                position: relative;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: $dark3;
-                    border-radius: 4px;
-                }
-
-                .icon {
-                    @include content(100%, 100%, null);
-                }
-
-                .select-profile-icon-color {
-                    @include flexbox(flex, row, flex-start, flex-start);
-                    @include content(100%, 100%, null);
-                    flex-wrap: wrap;
-                    position: absolute;
-                    top: 0px;
-                    left: 5px;
-                    z-index: 2;
-
-                    .color {
-                        @include content(25px, 25px, null);
-                        border: 2px solid $dark5;
+                .icon-selection-wrapper {
+                    position: relative;
+                    width: 50px;
+                    height: 50px;
+                    margin: 10px;
+    
+                    .user-icon {
+                        @include flexbox(flex, row, center, center);
+                        width: 100%;
+                        height: 100%;
                         cursor: pointer;
+                        transition: background 0.2s;
+    
+                        &:hover {
+                            background-color: $dark3;
+                            border-radius: 4px;
+                        }
+    
+                        .icon {
+                            font-size: 2.5rem;
+                        }
+                    }
+    
+                    .select-profile-icon-color {
+                        @include flexbox(flex, row, center, center);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $dark5;
+                        flex-wrap: wrap;
+                        z-index: 30;
+                        gap: 2px;
+    
+                        .color {
+                            width: 12px;
+                            height: 12px;
+                            border: 1px solid $dark1;
+                            cursor: pointer;
+    
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
                     }
                 }
             }
-        }        
-    }
+        }
 
-    .select-profile-icon-buttons {
-        @include flexbox(flex, row, center, center);
-        padding: 1rem;
+        .select-profile-icon-buttons {
+            @include flexbox(flex, row, center, center);
+            width: 100%;
+            padding: 1.5rem;
+            background-color: $dark5;
+            border-top: 1px solid $dark3;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
     }
 
     .hide {

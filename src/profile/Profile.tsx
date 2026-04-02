@@ -13,12 +13,10 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [formData, setFormData] = useState<User>(currentUser);
     const [updateProfileIcon, setUpdateProfileIcon] = useState<boolean>(false);
-    const [colorSelected, setColorSelected] = useState<boolean>(false);
     const [selectedIcon, setSelectedIcon] = useState<string>('');
-    const [selectIconColor, setSelectIconColor] =useState<{}>('');
-
-    const ProfileIcon = currentUser.userIcon.icon || FaRegUserCircle;
-
+    
+    const PreviewIcon = formData.userIcon.icon || FaRegUserCircle;
+    const previewColor = formData.userIcon.color || 'inherit';
 
     const activeEditing = () => {
         setFormData(currentUser);
@@ -28,7 +26,6 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const cancelEdit = () => {
         setEditing(false);
     };
-
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -58,53 +55,43 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     };
 
     const handleIconChange = (icon: UserIcon, color: any | null) => {
-        if (!selectedIcon) {
+
+        if (!color) {
             setSelectedIcon(icon.id);
-            setColorSelected(true);
+            return;
         }
 
-        if (color) {
-            setSelectIconColor(color);
-            
-            const newIcon = {
-            icon: icon.icon,
-            id: icon.id,
-            color: color.hexcode
-            };
+        setFormData(prev => ({
+            ...prev, 
+            userIcon: {
+                icon: icon.icon,
+                id: icon.id,
+                color: color.hexcode
+            }
+        }));
 
-            setFormData(prev => ({
-                ...prev, 
-                userIcon: newIcon
-            }));
-        }
+        setSelectedIcon('');
+    };
+
+    const saveIconSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setUpdateProfileIcon(false);
+        setSelectedIcon('');
     };
 
     const updateUserProfile = (e: FormEvent) => {
         e.preventDefault();
         setCurrentUser(formData);
         setEditing(false);
-        console.log('User Updated:', formData);
     };
 
     const updateUserProfileIcon = () => {
         setUpdateProfileIcon(!updateProfileIcon);
-    }
-
-    // const selectUserIcon = (icon: UserIcon) => {
-    //     setSelectedIcon(icon.id);
-    //     console.log('icon', icon)
-    // }
-
-    // const selectUserIconColor = (color: object) => {
-    //     console.log('color', color)
-    //     setSelectIconColor(color)
-    // }
+    };
 
     const cancelIconSelection = () => {
-        setSelectedIcon('');
         setUpdateProfileIcon(false);
-        console.log('CANCEL')
-    }
+    };
 
     return (
         <div className="profile-container">
@@ -112,7 +99,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
             <div className={`display-details ${editing ? 'hide' : 'show'}`}>
                 <div className='top'>
                     <div className='image-container'>
-                        <ProfileIcon className="user-img" />
+                        <PreviewIcon className="user-img" style={{color: previewColor}} />
                     </div>
                     <div className="user-identity">
                         <div className="user-name">
@@ -160,7 +147,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                 <form onSubmit={updateUserProfile}>
                     <div className='top'>
                         <div className="image-container">
-                            <FaRegUserCircle className="user-img" />
+                            <PreviewIcon className="user-img" style={{color: previewColor}} />
                             <div className="upload-overlay" onClick={updateUserProfileIcon}>
                                 <FaUpload className="upload-icon" />
                             </div>
@@ -240,27 +227,30 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
 
                     {/* Profile Icon Selection Container */}
                     <div className={`select-profile-icon ${updateProfileIcon ? 'show' : 'hide'}`}>
-                        {userIcons.map((icon: UserIcon) => {
-                            const IconComponent = icon.icon;
-                            return (
-                                <div key={icon.id} className={`user-icon ${icon.id === selectedIcon ? 'selected' : 'icon'}`} onClick={() => handleIconChange(icon, null)}>
-                                    <IconComponent className='icon' id={icon.id} />
-                                    <div className={`select-profile-icon-color ${updateProfileIcon && selectedIcon === icon.id ? 'show' : 'hide'}`}>
-                                        {userIconColor.map((color) => (
-                                            <div className='color' key={color.id} style={{backgroundColor: color.hexcode}} onClick={() => handleIconChange(icon, color)}></div>
-                                        ))}
-
+                        <div className='icon-grid-scroll'>
+                            {userIcons.map((icon: UserIcon) => {
+                                const IconComponent = icon.icon;
+                                const isIconActive = selectedIcon === icon.id;
+                                return (
+                                    <div key={icon.id} className='icon-selection-wrapper'>
+                                        <div className={`user-icon ${isIconActive ? 'selected' : ''}`} onClick={() => handleIconChange(icon, null)}>
+                                            <IconComponent className='icon' id={icon.id} />
+                                        </div>
+                                        <div className={`select-profile-icon-color ${isIconActive ? 'show' : 'hide'}`}>
+                                            {userIconColor.map((color) => (
+                                                <div className='color' key={color.id} style={{backgroundColor: color.hexcode}} onClick={() => handleIconChange(icon, color)}></div>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
+                        <div className={`select-profile-icon-buttons ${updateProfileIcon ? 'show' : 'hide'}`}>
+                            <button type='button' onClick={saveIconSelection}>Save</button>
+                            <button type="button" onClick={cancelIconSelection}>Cancel</button>
+                        </div>
                     </div>
                 </form>
-
-                <div className={`select-profile-icon-buttons ${updateProfileIcon ? 'show' : 'hide'}`}>
-                    <button>Save</button>
-                    <button type="button" onClick={cancelIconSelection}>Cancel</button>
-                </div>
             </div>
         </div>
     );
