@@ -16,7 +16,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [selectedIcon, setSelectedIcon] = useState<string>('');
     
     const PreviewIcon = formData.userIcon.icon || FaRegUserCircle;
-    const previewColor = formData.userIcon.color || 'inherit';
+    const previewColor = formData.userIcon.color || '#313b4b';
 
     const activeEditing = () => {
         setFormData(currentUser);
@@ -132,7 +132,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     {currentUser.socials.map((social) => (
                         <div key={social.id}>
                             <a href={social.url} target="_blank" rel="noopener noreferrer">
-                                {social.handle}
+                                @{social.handle}
                                 <span className='external-link'>
                                     <FaExternalLinkAlt />
                                 </span>
@@ -192,7 +192,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                             value={formData.website.url} 
                             onChange={handleWebsiteChange} 
                         />
-                        <span>Name:</span>
+                        <span>Site Name:</span>
                         <input 
                             name="name" 
                             value={formData.website.name} 
@@ -206,16 +206,20 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     <div className="user-socials">
                         {formData.socials.map((social, index) => (
                             <div className="update-socials" key={social.id}>
-                                <span>Handle:</span>
-                                <input 
-                                    value={social.handle} 
-                                    onChange={(e) => handleSocialChange(index, 'handle', e.target.value)} 
-                                />
-                                <span>URL:</span>
-                                <input 
-                                    value={social.url} 
-                                    onChange={(e) => handleSocialChange(index, 'url', e.target.value)} 
-                                />
+                                <div>
+                                    <span>Handle:</span>
+                                    <input 
+                                        value={social.handle} 
+                                        onChange={(e) => handleSocialChange(index, 'handle', e.target.value)} 
+                                        />
+                                </div>
+                                <div>
+                                    <span>URL:</span>
+                                    <input 
+                                        value={social.url} 
+                                        onChange={(e) => handleSocialChange(index, 'url', e.target.value)} 
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>

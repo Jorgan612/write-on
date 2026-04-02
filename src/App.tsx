@@ -22,19 +22,19 @@ const user: User = {
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',
-    userIcon: {icon: FaCoffee, id: 'coffee', color: '#212529'},
+    userIcon: {icon: FaCoffee, id: 'coffee', color: '#313b4b'},
     website: {
         name: 'jessoportfolio',
         url: 'https://jess-o-portfolio.vercel.app/',
     },
     socials: [{
         id: 1,
-        handle: '@jessowrites.bsky.social',
+        handle: 'jessowrites.bsky.social',
         url: 'https://bsky.app/profile/jessowrites.bsky.social'
     },
     {
         id: 2,
-        handle: '@jess.o.writes',
+        handle: 'jess.o.writes',
         url: 'https://instagram.com'
     }]
 };
