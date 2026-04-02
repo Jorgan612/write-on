@@ -61,6 +61,7 @@
         align-items: center;
     }
 
+    /* --- Read-Only View --- */
     .display-details {
         @include content(100%, 100%, null);
 
@@ -124,6 +125,7 @@
         }
     }
 
+    /* --- Edit Mode View --- */
     .update-details {
         @include content(100%, 100%, null);
         position: relative;
@@ -251,6 +253,7 @@
             @include content(fit-content, 50%, null);
         }
 
+        /* Profile Icon Selection Container */
         .select-profile-icon {
             @include flexbox(flex, column, stretch, flex-start);
             @include content(100%, 100%, null);

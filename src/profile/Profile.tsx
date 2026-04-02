@@ -16,7 +16,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [selectedIcon, setSelectedIcon] = useState<string>('');
     
     const PreviewIcon = formData.userIcon.icon || FaRegUserCircle;
-    const previewColor = formData.userIcon.color || '#313b4b';
+    const previewColor = formData.userIcon.color || '#94a3b8';
 
     const activeEditing = () => {
         setFormData(currentUser);
@@ -55,12 +55,12 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     };
 
     const handleIconChange = (icon: UserIcon, color: any | null) => {
-
+        
         if (!color) {
             setSelectedIcon(icon.id);
             return;
         }
-
+        
         setFormData(prev => ({
             ...prev, 
             userIcon: {
@@ -69,7 +69,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                 color: color.hexcode
             }
         }));
-
+        
         setSelectedIcon('');
     };
 
@@ -91,6 +91,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
 
     const cancelIconSelection = () => {
         setUpdateProfileIcon(false);
+        setSelectedIcon('');
     };
 
     return (
@@ -234,13 +235,12 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         <div className='icon-grid-scroll'>
                             {userIcons.map((icon: UserIcon) => {
                                 const IconComponent = icon.icon;
-                                const isIconActive = selectedIcon === icon.id;
                                 return (
                                     <div key={icon.id} className='icon-selection-wrapper'>
-                                        <div className={`user-icon ${isIconActive ? 'selected' : ''}`} onClick={() => handleIconChange(icon, null)}>
-                                            <IconComponent className='icon' id={icon.id} />
+                                        <div className={`user-icon ${selectedIcon === icon.id || formData.userIcon.id ===icon.id ? 'selected' : ''}`} onClick={() => handleIconChange(icon, null)}>
+                                            <IconComponent className='icon' id={icon.id} style={{color: formData.userIcon.id === icon.id ? formData.userIcon.color : 'inherit'}}  />
                                         </div>
-                                        <div className={`select-profile-icon-color ${isIconActive ? 'show' : 'hide'}`}>
+                                        <div className={`select-profile-icon-color ${selectedIcon === icon.id ? 'show' : 'hide'}`}>
                                             {userIconColor.map((color) => (
                                                 <div className='color' key={color.id} style={{backgroundColor: color.hexcode}} onClick={() => handleIconChange(icon, color)}></div>
                                             ))}
