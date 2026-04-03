@@ -56,6 +56,13 @@
             grid-template-columns: repeat(7, 1fr);
         }
 
+        .days-grid {
+
+            .selected { 
+                border: 1px solid #c6c6c6;
+            }
+        }
+
         .weekdays-row {
             font-weight: bold;
             text-align: center;

@@ -94,7 +94,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
                     id={dateKey} 
                     className={`default-cube ${isFuture ? 'future' : ''} ${!combinedEntries[dateKey] ? '' : 
                         combinedEntries[dateKey] > 1000 ? 'words1' : 
-                        combinedEntries[dateKey] > 400 ? 'words2' : 'words3'}`}
+                        combinedEntries[dateKey] > 400 ? 'words2' : 'words3'} ${dateKey === selectedUpdateDate ? 'selected' : ''}`}
                     title={isFuture ? "Cannot edit future dates" : `${combinedEntries[dateKey] ?? 0} words`} 
                     onClick={() => !isFuture && openDateUpdateBox(dateKey)}>
                     <span className='day-number'>{d}</span>
