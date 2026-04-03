@@ -29,8 +29,8 @@ const options: Icon[] = [
     {icon: FaFeather, id: 'select', toolTip: 'Select Prompt'},
     {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
     {icon: FaCopy, id: 'copy', toolTip: 'Copy'},
-    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
     {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
+    {icon: FaFileExport, id: 'move', toolTip: 'Move'},
 ];
 
 function Warmup() {
