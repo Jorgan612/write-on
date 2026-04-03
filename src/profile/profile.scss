@@ -65,6 +65,11 @@
     .display-details {
         @include content(100%, 100%, null);
 
+        span {
+            font-size: $font4;
+            font-weight: bolder;
+        }
+
         .user-name,
         .user-bio,
         .user-join-date,
@@ -100,7 +105,7 @@
         
                 .icon {
                     font-size: 20px;
-                    color: $dark2;
+                    color: $dark1;
                     margin: 0rem .5rem; 
                 }
         
@@ -135,6 +140,8 @@
         span {
             margin-top: .5rem;
             padding-left: .5rem;
+            font-size: $font4;
+            font-weight: bolder;
         }
         
         form input {
@@ -188,14 +195,13 @@
         .user-identity {
             @include  flexbox(flex, column, null, null);
 
-
             .user-name {
                 @include flexbox(flex, row, null, null);
                 font-size: $font5;
                 margin: 0;
                 padding: 0rem .5rem;
+            }
 
-        
                 .icon {
                     font-size: 20px;
                     color: $dark2;
@@ -206,8 +212,6 @@
                     color: $highlight1;
                     cursor: pointer;
                 }
-
-            }
 
             .user-pronouns {
                 font-size: $font2;
@@ -253,6 +257,11 @@
             @include content(fit-content, 50%, null);
         }
 
+        .user-bio,
+        .user-website {
+            margin-bottom: 1rem;
+        }
+
         /* Profile Icon Selection Container */
         .select-profile-icon {
             @include flexbox(flex, column, stretch, flex-start);
@@ -263,6 +272,7 @@
             left: 0;
             background-color: $dark5;
             z-index: 20;
+            overflow: visible;
             
             &.show {
                 opacity: 1;
@@ -271,11 +281,12 @@
             
             .icon-grid-scroll {
                 @include flexbox(flex, row, center, flex-start);
+                @include content(fit-content, 90%, null);
                 align-content: flex-start;
                 flex-wrap: wrap;
                 flex: 1;
                 padding: 1rem;
-                overflow-y: auto;
+
 
                 .icon-selection-wrapper {
                     position: relative;
@@ -350,9 +361,8 @@
         opacity: 1;
     }
 
-    .selected {
-        background-color: $dark2;
-        border-radius: 4px;
+    .disabled {
+        cursor: not-allowed;
     }
 
 }

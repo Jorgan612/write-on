@@ -29,6 +29,12 @@ export interface UserIcon {
     color?: string;
 }
 
+export interface UserSelection {
+    icon: IconType;
+    id: string;
+    color: string;
+}
+
 /* Warmup Prompts */
 export interface Prompt {
     id: number;
