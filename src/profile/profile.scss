@@ -1,35 +1,368 @@
 @import '../variables.scss';
+@import '../mixins.scss';
 
 
 .profile-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 75%;
-    padding: 2rem;
+    @include flexbox(flex, column, flex-start, flex-start);
+    height: calc(90vh - 2.5rem);
+    width: 96%;
+    padding: 1rem 1rem;
 
-
-    .profile-contents {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 100%;
-        border: 2px solid $light2;
-        background-color: $light2;
-        border-radius: .5rem;
-        padding: 1rem;
-
-        .left-side {
-            width: 50%;
-            border-radius: .5rem;
-            background-color: $light1;
+    .image-container  {
+        @include content(5rem, 5rem, null);
+        position: relative;
+        margin: 1rem;
+        padding-left: .5rem;
+        flex-shrink: 0;
+        
+        .user-img {
+            @include content (100%, 100%, null);
+            color: $dark3;
         }
 
-        .right-side {
+        .upload-overlay {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 45%;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: $dark3;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: $highlight1;
+            }
+
+            .upload-icon {
+                font-size: 18px;
+            }
+        }
+
+        .upload-icon:hover {
+            color: $highlight1;
+            cursor: pointer;
         }
     }
+
+    .display-details, .update-details {
+        @include content(100%, 100%, null);
+    }
+
+    .top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* --- Read-Only View --- */
+    .display-details {
+        @include content(100%, 100%, null);
+
+        span {
+            font-size: $font4;
+            font-weight: bolder;
+        }
+
+        .user-name,
+        .user-bio,
+        .user-join-date,
+        .user-website,
+        .user-socials {
+            @include flexbox(flex, column, flex-start, flex-start);
+            @include content(fit-content, 50%, null);
+            padding: .5rem;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+
+                .external-link {
+                    margin-left: .5rem;
+                }
+            }
+
+            a:hover  {
+                color: $highlight1;
+            }
+        }
+
+        .user-identity {
+            @include  flexbox(flex, column, null, null);
+
+
+            .user-name {
+                @include flexbox(flex, row, null, null);
+                font-size: $font5;
+                margin: 0;
+                padding: 0rem .5rem;
+        
+                .icon {
+                    font-size: 20px;
+                    color: $dark1;
+                    margin: 0rem .5rem; 
+                }
+        
+                .icon:hover {
+                    color: $highlight1;
+                    cursor: pointer;
+                }
+
+            }
+
+            .user-pronouns {
+                font-size: $font2;
+                padding: 0rem .5rem .5rem .5rem !important;
+            }
+        }
+
+        .user-socials {
+
+            div {
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    /* --- Edit Mode View --- */
+    .update-details {
+        @include content(100%, 100%, null);
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: Auto;
+
+        span {
+            margin-top: .5rem;
+            padding-left: .5rem;
+            font-size: $font4;
+            font-weight: bolder;
+        }
+        
+        form input {
+            padding: .7rem;
+            margin-top: 5px;
+            background-color: $dark3;
+            color: $dark1;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        input:focus {
+            outline: 2px solid $dark2;
+        }
+
+        textarea {
+            @include content(50%, 100%, null);
+            resize: none;
+            padding: 1rem;
+            background-color: $dark3;
+            border: 1px solid $dark3;
+            overflow: auto;
+            color: $dark1;
+            font-size: $font2;
+            scrollbar-width: thin;
+            scrollbar-color: $dark1 $dark3;
+        }
+
+        textarea:focus {
+            outline: 2px solid $dark2;
+            caret-color: $dark1;
+            color: $dark1;
+        }
+
+        .top,
+        .user-name,
+        .user-bio,
+        .user-join-date,
+        .user-website,
+        .user-socials {
+            @include flexbox(flex, row, flex-end, flex-start);
+            @include content(fit-content, fit-content, null);
+            padding: .5rem;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+
+        .user-identity {
+            @include  flexbox(flex, column, null, null);
+
+            .user-name {
+                @include flexbox(flex, row, null, null);
+                font-size: $font5;
+                margin: 0;
+                padding: 0rem .5rem;
+            }
+
+                .icon {
+                    font-size: 20px;
+                    color: $dark2;
+                    margin: 0rem .5rem; 
+                }
+        
+                .icon:hover {
+                    color: $highlight1;
+                    cursor: pointer;
+                }
+
+            .user-pronouns {
+                font-size: $font2;
+                padding: 0rem .5rem .5rem .5rem !important;
+            }
+        }
+
+        .user-socials {
+            @include flexbox(flex, column, flex-end, flex-start);
+            @include content(fit-content, fit-content, null);
+            padding: .5rem;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .update-socials {
+                @include flexbox(flex, column, null, null);
+                border: 1px solid $dark3;
+                padding: .5rem .5rem;
+                margin: .5rem 0;
+                border-radius: 5px;
+    
+                div {
+                    @include flexbox(flex, row, space-between, center);
+                }
+            }
+        }
+
+
+        .user-website,
+        .update-socials {
+
+            span {
+                text-align: center;
+                margin-right: .5rem;
+                padding: .5rem;
+            }
+        }
+
+        .user-bio {
+            @include content(fit-content, 50%, null);
+        }
+
+        .user-bio,
+        .user-website {
+            margin-bottom: 1rem;
+        }
+
+        /* Profile Icon Selection Container */
+        .select-profile-icon {
+            @include flexbox(flex, column, stretch, flex-start);
+            @include content(100%, 100%, null);
+            flex-wrap: wrap;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: $dark5;
+            z-index: 20;
+            overflow: visible;
+            
+            &.show {
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .icon-grid-scroll {
+                @include flexbox(flex, row, center, flex-start);
+                @include content(fit-content, 90%, null);
+                align-content: flex-start;
+                flex-wrap: wrap;
+                flex: 1;
+                padding: 1rem;
+
+
+                .icon-selection-wrapper {
+                    position: relative;
+                    width: 50px;
+                    height: 50px;
+                    margin: 10px;
+    
+                    .user-icon {
+                        @include flexbox(flex, row, center, center);
+                        width: 100%;
+                        height: 100%;
+                        cursor: pointer;
+                        transition: background 0.2s;
+    
+                        &:hover {
+                            background-color: $dark3;
+                            border-radius: 4px;
+                        }
+    
+                        .icon {
+                            font-size: 2.5rem;
+                        }
+                    }
+    
+                    .select-profile-icon-color {
+                        @include flexbox(flex, row, center, center);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $dark5;
+                        flex-wrap: wrap;
+                        z-index: 30;
+                        gap: 2px;
+    
+                        .color {
+                            width: 12px;
+                            height: 12px;
+                            border: 1px solid $dark1;
+                            cursor: pointer;
+    
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .select-profile-icon-buttons {
+            @include flexbox(flex, row, center, center);
+            width: 100%;
+            padding: 1.5rem;
+            background-color: $dark5;
+            border-top: 1px solid $dark3;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+    }
+
+    .hide {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-top: 0;
+    }
+
+    .show {
+        opacity: 1;
+    }
+
+    .disabled {
+        cursor: not-allowed;
+    }
+
 }

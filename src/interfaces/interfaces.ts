@@ -1,5 +1,40 @@
 import { IconType } from "react-icons";
 
+/* User Data */
+export interface User {
+    id: number;
+    name: string;
+    pronouns: string;
+    bio: string;
+    joined: string;
+    userIcon: {
+        icon: IconType;
+        id: string;
+        color: string;
+    };
+    website: {
+        name: string;
+        url: string;
+    };
+    socials: {
+        id: number;
+        handle: string;
+        url: string;
+    }[];
+}
+
+export interface UserIcon {
+    icon: IconType;
+    id: string;
+    color?: string;
+}
+
+export interface UserSelection {
+    icon: IconType;
+    id: string;
+    color: string;
+}
+
 /* Warmup Prompts */
 export interface Prompt {
     id: number;
