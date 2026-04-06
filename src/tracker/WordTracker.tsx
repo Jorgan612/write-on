@@ -1,6 +1,7 @@
 import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { CombinedEntry, Entry } from '../interfaces/interfaces';
+import { Entry } from '../interfaces/interfaces';
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import './WordTracker.scss';
 
 
@@ -22,6 +23,14 @@ function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewWords(Number(e.target.value));
   };
+
+  const increment = () => {
+    setNewWords(prev => prev + 1);
+  }
+
+  const decrement = () => {
+    setNewWords(prev => (prev > 0 ? prev - 1 : 0));
+  }
 
   const updateWordCount = (e: FormEvent) => {
     e.preventDefault();
@@ -62,6 +71,14 @@ function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
       <label>Update today's word count</label>
       <form onSubmit={updateWordCount}>
         <input placeholder='####' type='number' value={newWords} onChange={handleInputChange}/>
+        <div className="custom-buttons">
+          <button type="button" onClick={increment} className="spin-btn">
+            <FaCaretUp />
+          </button>
+          <button type="button" onClick={decrement} className="spin-btn">
+            <FaCaretDown />
+          </button>
+        </div>
         <button type='submit'>+ Add</button>
       </form>
       <p>Today's total: {combinedEntries[currentDay]}</p>
