@@ -126,12 +126,30 @@ button:hover {
     overflow: hidden;
 
     .header {
-      @include flexbox(flex, row, null, null);
+      @include flexbox(flex, row, space-between, null);
       @include content(2.5rem, 100%, null);
       padding: 0.5rem;
       border-bottom: 1px solid $dark2;
+
+      .top-right-corner {
+        @include flexbox(flex, row, center, center);
+        padding: 0 .5rem;
+
+        span {
+          font-size: $font1;
+          font-weight: bolder;
+        }
+
+        .icon {
+          @include content(24px, 24px, null);
+          padding: 0 .5rem 0 0;
+
+          &:hover {
+            cursor: pointer;
+            color: $highlight1;
+          }
+        }
+      }
     }
   }
-
-
 }
