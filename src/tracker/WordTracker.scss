@@ -43,6 +43,8 @@
       width: 24px;
       opacity: 0;
       transition: opacity 0.2s ease;
+      border-right: 1px solid $dark5;
+      border-left: 1px solid $dark5;
       z-index: 5;
     }
 
