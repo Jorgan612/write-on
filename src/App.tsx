@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FaPenFancy, FaCoffee } from 'react-icons/fa';
+import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import './App.scss';
 import { Entry, User } from './interfaces/interfaces';
 import Header from './header/header'
@@ -41,6 +41,7 @@ const user: User = {
 
 function App() {
 
+  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User>(user);
   const [entries, setEntries] = useState<Entry[]>(() => {
     const entry = localStorage.getItem("user_entry");
@@ -58,6 +59,10 @@ function App() {
     setCombinedEntries(dayTotal);
   }, [entries]);
 
+  const handleLogInLogOut = () => {
+    setSignedIn(prev => !prev);
+  };
+
   
   return (
     <div className="main-app-container">
@@ -73,6 +78,12 @@ function App() {
       <div className='content-right'>
         <div className='header'>
           <Timer />
+          <div className='top-right-corner'>
+            <button onClick={handleLogInLogOut}>{!signedIn ? 'Log In' : 'Log Out'}</button>
+            <span>/</span>
+            <button>Sign Up</button>
+            <FaCog className='icon' />
+          </div>
         </div>
         {/* <div className='test'></div> */}
         <Routes>
