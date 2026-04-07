@@ -9,7 +9,7 @@ import Stats from './stats/Stats';
 import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
-// import Dashboard from './dashboard/dashboard';
+import Dashboard from './dashboard/dashboard';
 // import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 
@@ -90,7 +90,8 @@ function App() {
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
           <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-          {/* <Route path="/" element={ <Dashboard /> } />`
+          <Route path="/dashboard" element={ <Dashboard /> } />
+          {/*
           <Route path="activeGoals" element={ <ActiveGoals /> } />
           */}
         </Routes>
