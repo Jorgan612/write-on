@@ -68,8 +68,8 @@ function App() {
     <div className="main-app-container">
       <div className='sidebar'>
         <div className='app-title'>
+          Write On
           <FaPenFancy />
-          Write On!
           </div>
         <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
         <WordTracker setEntries={setEntries} combinedEntries={combinedEntries} />
