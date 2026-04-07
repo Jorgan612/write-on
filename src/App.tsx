@@ -9,7 +9,7 @@ import Stats from './stats/Stats';
 import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
-import Dashboard from './dashboard/dashboard';
+import Dashboard from './dashboard/Dashboard';
 // import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 
