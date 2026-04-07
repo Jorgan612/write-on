@@ -10,7 +10,7 @@ import './header.scss';
 function Header() {
 
     const [menuIconClicked, setMenuIconClicked] = useState(false);
-    const [activeMenuItem, setActiveMenuItem] = useState('/')
+    const [activeMenuItem, setActiveMenuItem] = useState('dashboard')
 
     const menuOptions = [
     {
