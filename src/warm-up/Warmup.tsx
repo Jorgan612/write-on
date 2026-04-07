@@ -12,8 +12,9 @@ import {
     FaFileExcel, 
     FaFileExport, 
     FaFileSignature,
-    FaBackspace,
-    FaFeather
+    FaFeather,
+    FaArrowAltCircleRight,
+    FaTimesCircle,
 } from "react-icons/fa";
 
 
@@ -252,8 +253,9 @@ function Warmup() {
                         <button onClick={getRandomPrompt}>Reveal Prompt</button>
                     ) : (
                         <div className={`random-prompt ${selectedPrompt.prompt.length > 1000 ? 'random-prompt-long' : 'random-prompt'}`}>
-                            <div className={`back-icon ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
-                                <FaBackspace className='icon' onClick={cancelAction}  title='Cancel' />
+                            <div className={`back-next-icons ${selectedPrompt ? 'show-msg' : 'hide-msg'}`}>
+                                <FaTimesCircle className='icon' onClick={cancelAction}  title='Cancel' />
+                                <FaArrowAltCircleRight className='icon' onClick={getRandomPrompt}  title='Skip' />
                             </div>
                             {selectedPrompt.prompt}
                         </div>

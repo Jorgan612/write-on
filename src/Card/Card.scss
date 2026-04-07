@@ -46,7 +46,8 @@
     }
 
     .exerpt-text {
-        @include flexbox(flex, column, flex-start   , center);
+        @include flexbox(flex, column, flex-start, center);
+        width: 99%;
         padding: .5rem;
         background-color: $dark3;
         white-space: pre-line;
