@@ -59,6 +59,7 @@
                 min-height: 0;
                 text-align: center;
                 width: 100%;
+                padding-top: 1rem;
             }
 
             .random-prompt-long {
@@ -142,16 +143,20 @@
         @include content(24px, 24px, null);
     }
 
-    .back-icon {
+    .back-next-icons {
         @include content (fit-content, fit-content, null);
         position: absolute;
         left: 0px;
-        top: -20px;
+        top: -15px;
         margin-right: 1rem;
         cursor: pointer;
 
-        &:hover {
-            color: $highlight1;
+        .icon {
+            margin: 0 4px;
+
+            &:hover {
+                color: $highlight1;
+            }
         }
     }
 
