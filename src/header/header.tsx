@@ -15,7 +15,7 @@ function Header() {
     const menuOptions = [
     {
         name: 'Dashboard',
-        path: '/',
+        path: '/dashboard',
         id: 'dashboard'
     },
     {

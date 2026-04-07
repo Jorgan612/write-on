@@ -36,6 +36,17 @@ button:hover {
     border-radius: 5px 5px 5px 5px;
 }
 
+.hide {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    margin-top: 0;
+}
+
+.show {
+    opacity: 1;
+}
+
 /*Scrollbar Global Styling*/
 ::-webkit-scrollbar {
     width: 16px;

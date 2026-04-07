@@ -2,29 +2,101 @@
 @import '../mixins.scss';
 
 .dashboard-contents {
-    @include flexbox(flex, row, space-around, null);
-    @include content(95%, 95%, $light1);
-    border-radius: .5rem;
-    padding: 1rem;
+    @include flexbox(flex, column, flex-start, null);
+    @include content(calc(95vh - 3rem), 97.5%, null);
+    
+    .dash-header {
+        @include flexbox(flex, row, flex-start, center);
+        @include content(55px, 100%, null);
+        position: relative;
+        transition: transform 0.3s ease;
 
-    .left-side {
-        @include content(98%, 50%, $light2);
-        border-radius: .5rem;
-        background-color: $light2;
+        .personal,
+        .group {
+            width: 120px;
+            height: 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.2s;
+            border-radius: none;
+        }
+
+        .top {
+            z-index: 10;
+            transform: translate(0, 0);
+        }
+
+        .bottom {
+            z-index: 0;
+            transform: translate(0, 0);
+        }
+
+        &:hover {
+            .bottom {
+                transform: translate(95%, 0);
+                transition: transform 0.3s ease;
+            }
+        }
     }
 
-    .right-side {
-        @include flexbox(flex, column, space-around, null);
-        @include content(98%, 45%, $light1);
-        border-radius: .5rem;
+    .user-dash,
+    .group-dash {
+        @include content(100%, 100%, null);
+        transition: opacity 0.3s ease;
 
-        .dashboard-section {
-            @include content(48%, 100%, $light2);
-            border-radius: .5rem;
+        &.hide {
+            display: none;
+            opacity: 0;
+        }
+
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    .user-dash {
+        margin: 5px;
+
+        .goals-list {
+            @include content(25%, 100%, null);
+            border: 1px solid white;
+        }
+        
+        .bottom-lists {
+            @include flexbox(flex, row, space-between, flex-start);
+            @include content(75%, 100%, null);
+
+            .milestones-list {
+                @include content(100%, 50%, null);
+                border: 1px solid white;
+            }
+            
+            .achievements-list {
+                @include content(100%, 50%, null);
+                border: 1px solid white;
+            }
+        }
+
+    }
+
+    .group-dash {
+        @include flexbox(flex, row, space-between, flex-start);
+        @include content(100%, 100%, null);
+        margin: 5px;
+        border: 1px solid yellow;
+
+        .sign-up {
+            @include content(100%, 75%, null);
+            border: 1px solid white;
+        }
+
+        .members-list {
+            @include content(100%, 25%, null);
+            border: 1px solid white;
         }
     }
 }
-
 
 /* FOR VERTICAL TABLET RESPONSIVENESS */
 
