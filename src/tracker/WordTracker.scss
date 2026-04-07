@@ -22,7 +22,7 @@
       -moz-appearance: textfield;
 
       &:focus {
-        outline: none;
+        outline: 2px solid $dark2;
       }
 
       &::-webkit-outer-spin-button,
