@@ -7,7 +7,7 @@
     
     .dash-header {
         @include flexbox(flex, row, flex-start, center);
-        @include content(55px, 100%, null);
+        @include content(55px, 130px, null);
         position: relative;
         transition: transform 0.3s ease;
 
