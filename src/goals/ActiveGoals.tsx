@@ -66,7 +66,7 @@ function ActiveGoals() {
                     )
                 })}
             </div>
-            
+
             <div className={`add-view ${formOpened ? 'show' : 'hide'}`}> 
                     
                 { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
@@ -80,7 +80,9 @@ function ActiveGoals() {
             <div className={`goals-list-view ${currentTool === 'incomplete' ? 'show' : 'hide'}`}>
                 {userGoals.map((goal) => (
                     <div className='item' key={goal.id}>
-                        <FaCheckCircle />
+                        <span>
+                            <FaCheckCircle />
+                        </span>
                         <div>{ goal.name } : {goal.value}</div>
                     </div>
                 ))}
