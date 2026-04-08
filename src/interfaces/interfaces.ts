@@ -72,3 +72,13 @@ export interface CombinedEntry {
     day: number;
     time: string;
 }
+
+/* Goals */
+
+export interface Goal {
+        name: string;
+        id: string;
+        value: number;
+        current: number
+        type: string
+}

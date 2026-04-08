@@ -3,72 +3,66 @@
 
 
 .active-goals-container {
-    @include flexbox(flex, column, null, null);
-    @include content(75%, 98%, $light1);
+    @include flexbox(flex, column, flex-start, center);
+    @include content(75%, 98%, null);
     border-radius: .5rem;
     padding: 1rem;
+    border: 1px solid yellow;
 
-    .goal-header {
-        color: $light5;
-        padding: 1rem .5rem;
-        font-size: $font1;
-        font-weight: 500;
-        text-decoration: underline;
-    }
+    .Toolbar-container {
+        @include flexbox(flex, row, null, null);
+        @include content (fit-content, fit-content, null);
+        border-bottom: 2px solid $dark4;
 
-    .list {
-        @include flexbox(flex, row, flex-start, null);
-        @include content(100%, 100%, $light1);
-
-        .goals-list-container {
-            @include flexbox(flex, column, flex-start, null);
-            @include content(100%, 50%, $light1);
-            gap: 24px;
-            color: $light5;
-            font-size: $font1;
-
-            .item {
-                @include flexbox(flex, row, null, center);    
-                padding: 1rem .5rem;
-
-                svg {
-                    padding: .5rem;
-                }
-            }
+        .tool {
+            @include content(fit-content, fit-content, null);
+            background-color: $dark4;
+            padding: .5rem;
+            margin: .5rem;
         }
 
-        .add-goal-container {
-            @include flexbox(flex, column, flex-start, center);
-            @include content(95%, 50%, null);
-            padding: 1rem;
-            border-radius: .5rem;
-
-
-            .add-goal-form {
-                @include content(100%, 50%, $light2);
-                padding: .5rem;
-            }
-
-            button {
-                padding: .5rem;
-            }
+        .tool:hover {
+            cursor: pointer;
+            background-color: $dark3;
         }
     }
+
+    .add-view,
+    .goals-list-view,
+    .completed-goals-view {
+        @include flexbox(flex, column, flex-start, center);
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+
+    }
+
+    .selected {
+        border: 1px solid $dark1;
+    }
+
+
+
+
+
+
 
     .footer-container {
         @include flexbox(flex, row, center, center);
         width: 100%;
         padding: 1rem;
+        border: 1px solid red;
 
         .new-goal-button {
-            border: 2px solid $light4;
-            border-radius: 2rem;
-            background-color: $light5;
-            color: $light1;
-            font-size: $font1;
-            padding: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
+            // border: 2px solid $light4;
+            // border-radius: 2rem;
+            // background-color: $light5;
+            // color: $light1;
+            // font-size: $font1;
+            // padding: 1rem;
+            // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            // cursor: pointer;
         }
 
         .new-goal-button:hover {

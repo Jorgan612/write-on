@@ -30,4 +30,4 @@ export const goalOptions = [
 ]
 
 
-// export default {userGoals, goalOptions};
+export default {userGoals, goalOptions};

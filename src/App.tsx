@@ -10,7 +10,7 @@ import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
 import Dashboard from './dashboard/Dashboard';
-// import ActiveGoals from './goals/ActiveGoals';
+import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 
 import "chart.js/auto";
@@ -91,9 +91,7 @@ function App() {
           <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
           <Route path="/dashboard" element={ <Dashboard /> } />
-          {/*
           <Route path="activeGoals" element={ <ActiveGoals /> } />
-          */}
         </Routes>
       </div>
     </div>
