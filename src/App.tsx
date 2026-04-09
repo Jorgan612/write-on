@@ -36,7 +36,28 @@ const user: User = {
         id: 2,
         handle: 'jess.o.writes',
         url: 'https://instagram.com'
-    }]
+    }],
+    goals: [{
+        name: 'Weekly Word Count',
+        id: 1,
+        total: 3000,
+        current: 566,
+        type: 'word(s)'
+      },
+      {
+        name: 'Weekly Session Frequency ',
+        id: 2,
+        total: 3,
+        current: 1,
+        type: 'day(s)'
+      },
+      {
+        name: 'Overall Word Count',
+        id: 3,
+        total: 100000,
+        current: 60000,
+        type: 'word(s)'
+      }]
 };
 
 function App() {
@@ -90,8 +111,7 @@ function App() {
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
           <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-          <Route path="/dashboard" element={ <Dashboard /> } />
-          <Route path="activeGoals" element={ <ActiveGoals /> } />
+          <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
         </Routes>
       </div>
     </div>

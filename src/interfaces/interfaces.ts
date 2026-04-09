@@ -21,6 +21,18 @@ export interface User {
         handle: string;
         url: string;
     }[];
+    goals: {
+        name: string;
+        id: number;
+        total: number;
+        current: number
+        type: string
+    }[];
+}
+
+export interface UserProps {
+  currentUser: User;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
 export interface UserIcon {

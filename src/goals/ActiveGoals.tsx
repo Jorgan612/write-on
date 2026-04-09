@@ -1,107 +1,90 @@
 import '../goals/activeGoals.scss';
-import { FaCheckCircle, FaNotesMedical, FaClipboardList, FaClipboardCheck, FaFileSignature, FaFileExcel } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { User, UserProps } from '../interfaces/interfaces';
 import {userGoals, goalOptions} from '../datasets/datasets';
 import { useState, useEffect } from 'react';
 import { Goal, Icon } from '../interfaces/interfaces';
 import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
 
-const tools: Icon[] = [
-    {icon: FaNotesMedical, id: 'add', toolTip: 'Add Goal'},
-    {icon: FaClipboardList, id: 'incomplete', toolTip: 'Goal List'},
-    {icon: FaClipboardCheck, id: 'complete', toolTip: 'Completed Goals'},
-    // {icon: FaTrashAlt, id: 'discard', toolTip: 'Discarded Goals'},
-];
-
-const options: Icon[] = [
-    {icon: FaFileSignature, id: 'edit', toolTip: 'Edit'},
-    {icon: FaFileExcel, id: 'delete', toolTip: 'Delete'},
-];
-
-function ActiveGoals() {
-    const [currentTool, setCurrentTool] = useState<string>("add");
-
-
+function ActiveGoals({currentUser, setCurrentUser}: UserProps) {
     const [formOpened, setFormOpened] = useState(false);
     const [formComplete, setFormComplete] = useState(false);
-    const [newGoal, setNewGoal] = useState('')
+    const [newGoal, setNewGoal] = useState('');
 
-    const [goals, setGoals] = useState<Goal[]>(() => {
-        const goal = localStorage.getItem('user_goal');
-        return goal ? JSON.parse(goal) : [];
+    const [overall, setOverall] = useState<Goal>(() => {
+        const overall = localStorage.getItem('user_overall');
+        return overall ? JSON.parse(overall) : {};
       });
 
+    const [weekly, setWeekly] = useState<Goal>(() => {
+    const weekly = localStorage.getItem('user_weekly');
+    return weekly ? JSON.parse(weekly)  : {};
+    });
+
+    const [frequency, setFrequency] = useState<Goal>(() => {
+        const frequency = localStorage.getItem('user_frequency');
+        return frequency ? JSON.parse(frequency) : {};
+    });
+
     useEffect(() => { 
-        localStorage.setItem("user_goal", JSON.stringify(goals));
-
-    }, [newGoal, goals]);
-
-    const selectTool = (tool: any) => {
-        setCurrentTool(tool.id);
-    };
-
+        localStorage.setItem("user_overall", JSON.stringify(overall));
+        localStorage.setItem("user_weekly", JSON.stringify(weekly));
+        localStorage.setItem("user_frequency", JSON.stringify(frequency));
+    }, [overall, weekly, frequency]);
 
     const openNewGoalForm = () => {
         setFormOpened( prev => !prev );
         if (formOpened && formComplete) {
-            console.log('formOpened && formComplete')
-            // If the menu is true meaning, the form is open AND form is complete (will need to add logic once inputs added and/or also disable Add Goal button to avoid edge case) then addGoal() to user's goal list
             addGoal();
         }
-    }
+    };
 
     const addGoal = () => {
         console.log('added goal!')
-    }
+    };
 
     return (
-        <div className="active-goals-container">
-            <div className='Toolbar-container'>
-                {tools.map((tool: Icon) => {
-                    const IconComponent = tool.icon;
-                    return (
-                        <div key={tool.id} className={`tool ${tool.id === currentTool ? 'selected' : 'tool'}`} title={tool.toolTip} onClick={() => selectTool(tool)}>
-                            <IconComponent className='icon' id={tool.id} />
-                        </div>
-                    )
-                })}
-            </div>
+        <div className="goals-container">
+            {currentUser.goals.map((goal) => (
+                <div className='goal' key={goal.id}>
+                    <p className='goal-title'>{goal.name}</p>
+                    <div>
+                        <span className='goal-value'>{goal.current}</span>
+                        <span> / </span>
+                        <span className='goal-total'>{goal.total}</span>
+                        <span>{goal.type}</span>
+                        <span className='edit-icon'><FaEdit  /></span>
+                    </div>
+                </div>
+            ))}
 
-            <div className={`add-view ${formOpened ? 'show' : 'hide'}`}> 
-                    
-                { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
 
-                { newGoal && <Form newGoal={newGoal} /> }
+
+{/* 
+            <div className='goal'>
+                <p className='goal-title'>Weekly Sessions</p>
+                <div>
+                    <span className='goal-value'>1</span>
+                    <span> / </span>
+                    <span className='goal-total'>3</span>
+                    <span>day(s)</span>
+                    <span className='edit-icon'><FaEdit  /></span>
+                </div>
             </div>
-            {/* <div className='footer-container'>
-                <button className='new-goal-button' onClick={openNewGoalForm}>{ !formOpened ? 'New Goal' : 'Add Goal'}</button>
+            <div className='goal'>
+                <p className='goal-title'>Overall Word Count</p>
+                <div>
+                    <span className='goal-value'>60,000</span>
+                    <span> / </span>
+                    <span className='goal-total'>100,000</span>
+                    <span> word(s)</span>
+                    <span className='edit-icon'><FaEdit  /></span>
+                </div>
             </div> */}
 
-            <div className={`goals-list-view ${currentTool === 'incomplete' ? 'show' : 'hide'}`}>
-                {userGoals.map((goal) => (
-                    <div className='item' key={goal.id}>
-                        <span>
-                            <FaCheckCircle />
-                        </span>
-                        <div>{ goal.name } : {goal.value}</div>
-                    </div>
-                ))}
-            </div>
-            
-
-            <div className={`completed-goals-view ${currentTool === 'completed'? 'show' : 'hide'}`}>
-
-            </div>
-
-            
         </div>
     );
 }
 
 export default ActiveGoals;
-    // { formOpened && <div className='add-view'> 
-            
-    //     { formOpened && <MenuDropdown options={goalOptions} newGoal={setNewGoal} goal={newGoal} /> }
-
-    //     { newGoal && <Form newGoal={newGoal} /> }
-    // </div> }

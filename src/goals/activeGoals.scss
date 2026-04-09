@@ -2,102 +2,43 @@
 @import '../mixins.scss';
 
 
-.active-goals-container {
-    @include flexbox(flex, column, flex-start, center);
-    @include content(94vh, 99%, null);
+.goals-container {
+    @include flexbox(flex, row, space-around, center);
+    @include content(fit-content, 99%, null);
     border-radius: .5rem;
     padding: .5rem;
-    border: 1px solid yellow;
+    // border: 1px solid yellow;
 
-    .Toolbar-container {
-        @include flexbox(flex, row, null, null);
-        @include content (fit-content, fit-content, null);
-        border-bottom: 2px solid $dark4;
-
-        .tool {
-            @include content(fit-content, fit-content, null);
-            background-color: $dark4;
-            padding: .5rem;
-            margin: .5rem;
-        }
-
-        .tool:hover {
-            cursor: pointer;
-            background-color: $dark3;
-        }
-    }
-
-    .add-view,
-    .goals-list-view,
-    .completed-goals-view {
-        @include flexbox(flex, row, flex-start,flex-start);
-        flex: 1;
-        min-height: 0;
-        overflow: hidden;
-
-    }
-
-    .goals-list-view {
-        @include content(100%, 100%, null);
-        // border: 1px solid red;
-        
-        .item {
-            @include flexbox(flex, row, flex-start, center);
-            @include content(25%, 25%, null);
-            position: relative;
-            overflow: hidden;
-            margin: .5rem .5rem;
-            padding: 1rem;
-            flex-shrink: 0;
-            font-size: $font2;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            box-shadow: 
-                0 4px 12px rgba(0, 0, 0, 0.25), 
-                0 1px 3px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease-in-out;
-
-            span {
-                // border: 1px solid red;
-                margin-right: .5rem;
-            }
-
-        }
-    }
-
-    .selected {
-        border: 1px solid $dark1;
-    }
-
-    .icon {
-        @include content(24px, 24px, null);
-    }
-
-
-
-
-
-
-
-    .footer-container {
-        @include flexbox(flex, row, center, center);
-        width: 100%;
+    .goal {
+        @include flexbox(flex, column, center, center);
+        @include content(fit-content, fit-content, null);
         padding: 1rem;
-        border: 1px solid red;
+        // border: 1px solid blue;
 
-        .new-goal-button {
-            // border: 2px solid $light4;
-            // border-radius: 2rem;
-            // background-color: $light5;
-            // color: $light1;
-            // font-size: $font1;
-            // padding: 1rem;
-            // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            // cursor: pointer;
+        span {
+            padding: .2rem;
+        }
+        
+        .goal-title {
+            @include content(fit-content, fit-content, null);
+            text-align: center;
+            padding: 0 .5rem;
+            border-bottom: 2px solid $dark2;
         }
 
-        .new-goal-button:hover {
-            background-color: $light4;
+        .goal-value,
+        .goal-total {
+            padding: 0 1rem;
+            border-bottom: 1px solid $dark2;
+        }
+
+        .edit-icon {
+            cursor: pointer;
+
+            &:hover {
+                color: $highlight1;
+            }
         }
     }
+
 }
