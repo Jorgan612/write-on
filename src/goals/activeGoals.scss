@@ -13,6 +13,7 @@
         @include flexbox(flex, column, center, center);
         @include content(fit-content, fit-content, null);
         padding: 1rem;
+        font-size: $font4;
         // border: 1px solid blue;
 
         span {
