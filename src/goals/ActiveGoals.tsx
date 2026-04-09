@@ -50,39 +50,14 @@ function ActiveGoals({currentUser, setCurrentUser}: UserProps) {
                 <div className='goal' key={goal.id}>
                     <p className='goal-title'>{goal.name}</p>
                     <div>
-                        <span className='goal-value'>{goal.current}</span>
+                        <span className='goal-value'>{goal.current ? goal.current : '0'}</span>
                         <span> / </span>
-                        <span className='goal-total'>{goal.total}</span>
+                        <span className='goal-total'>{goal.total ? goal.total : '0'}</span>
                         <span>{goal.type}</span>
                         <span className='edit-icon'><FaEdit  /></span>
                     </div>
                 </div>
             ))}
-
-
-
-{/* 
-            <div className='goal'>
-                <p className='goal-title'>Weekly Sessions</p>
-                <div>
-                    <span className='goal-value'>1</span>
-                    <span> / </span>
-                    <span className='goal-total'>3</span>
-                    <span>day(s)</span>
-                    <span className='edit-icon'><FaEdit  /></span>
-                </div>
-            </div>
-            <div className='goal'>
-                <p className='goal-title'>Overall Word Count</p>
-                <div>
-                    <span className='goal-value'>60,000</span>
-                    <span> / </span>
-                    <span className='goal-total'>100,000</span>
-                    <span> word(s)</span>
-                    <span className='edit-icon'><FaEdit  /></span>
-                </div>
-            </div> */}
-
         </div>
     );
 }
