@@ -7,14 +7,13 @@
     @include content(fit-content, 99%, null);
     border-radius: .5rem;
     padding: .5rem;
-    // border: 1px solid yellow;
-
+    
     .goal {
         @include flexbox(flex, column, center, center);
         @include content(fit-content, fit-content, null);
         padding: 1rem;
         font-size: $font4;
-        // border: 1px solid blue;
+        text-wrap: nowrap;
 
         span {
             padding: .2rem;
@@ -31,6 +30,30 @@
         .goal-total {
             padding: 0 1rem;
             border-bottom: 1px solid $dark2;
+        }
+
+        .goal-total {
+            @include content(fit-content, 45px, null);
+            padding: .5rem 1rem .5rem .5rem;
+            background-color: $dark3;
+            color: $dark1;
+            border-radius: 5px;
+            border: 2px solid $dark3;
+            text-align: center;
+
+            &:hover {
+                border: 2px solid $dark2;
+            }
+
+            &:focus {
+                outline: 2px solid $dark2;
+            }
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
         }
 
         .edit-icon {

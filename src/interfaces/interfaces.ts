@@ -23,7 +23,7 @@ export interface User {
     }[];
     goals: {
         name: string;
-        id: number;
+        id: string;
         total: number;
         current: number
         type: string

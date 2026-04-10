@@ -39,23 +39,23 @@ const user: User = {
     }],
     goals: [{
         name: 'Weekly Word Count',
-        id: 1,
+        id: '1',
         total: 3000,
-        current: 566,
+        current: 0,
         type: 'word(s)'
       },
       {
         name: 'Weekly Session Frequency ',
-        id: 2,
-        total: 3,
-        current: 1,
+        id: '2',
+        total: 4,
+        current: 0,
         type: 'day(s)'
       },
       {
         name: 'Overall Word Count',
-        id: 3,
-        total: 100000,
-        current: 60000,
+        id: '3',
+        total: 90000,
+        current: 0,
         type: 'word(s)'
       }]
 };
@@ -63,7 +63,11 @@ const user: User = {
 function App() {
 
   const [signedIn, setSignedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<User>(user);
+  const [currentUser, setCurrentUser] = useState<User>(() => {
+    const user  = localStorage.getItem("user_info");
+    return user ? JSON.parse(user) : {}
+  });
+
   const [entries, setEntries] = useState<Entry[]>(() => {
     const entry = localStorage.getItem("user_entry");
     return entry ? JSON.parse(entry) : [];
@@ -72,13 +76,14 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("user_entry", JSON.stringify(entries));
+    localStorage.setItem("user_info", JSON.stringify(currentUser));
 
     const dayTotal = entries.reduce((acc: Record<string, any>, entry) => {
       acc[entry.date] = (acc[entry.date] || 0) + entry.total;
       return acc;
     }, {});
     setCombinedEntries(dayTotal);
-  }, [entries]);
+  }, [entries, currentUser]);
 
   const handleLogInLogOut = () => {
     setSignedIn(prev => !prev);

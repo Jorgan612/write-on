@@ -17,8 +17,8 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [selectedIcon, setSelectedIcon] = useState<string>('');
     const [updatedUserIcon, setUpdatedUserIcon] = useState<UserSelection | null>(null);
     
-    const PreviewIcon = formData.userIcon.icon || FaRegUserCircle;
-    const previewColor = formData.userIcon.color || '#94a3b8';
+    const PreviewIcon = formData.userIcon?.icon || FaRegUserCircle;
+    const previewColor = formData.userIcon?.color || '#94a3b8';
 
     const activateEditing = () => {
         setFormData(currentUser);
@@ -138,8 +138,8 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                 </div>
                 <div className="user-website">
                     <span>Website</span>
-                    <a href={currentUser.website.url} target="_blank" rel="noopener noreferrer">
-                        {currentUser.website.name}
+                    <a href={currentUser.website?.url} target="_blank" rel="noopener noreferrer">
+                        {currentUser.website?.name}
                         <span className='external-link'>
                             <FaExternalLinkAlt />
                         </span>
@@ -149,10 +149,10 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     <span>
                         <FaUsers /> Socials
                     </span>
-                    {currentUser.socials.map((social) => (
+                    {currentUser.socials?.map((social) => (
                         <div key={social.id}>
-                            <a href={social.url} target="_blank" rel="noopener noreferrer">
-                                @{social.handle}
+                            <a href={social?.url} target="_blank" rel="noopener noreferrer">
+                                @{social?.handle}
                                 <span className='external-link'>
                                     <FaExternalLinkAlt />
                                 </span>
@@ -210,13 +210,13 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                             <span>URL:</span>
                             <input 
                                 name="url" 
-                                value={formData.website.url} 
+                                value={formData.website?.url} 
                                 onChange={handleWebsiteChange} 
                             />
                             <span>Site Name:</span>
                             <input 
                                 name="name" 
-                                value={formData.website.name} 
+                                value={formData.website?.name} 
                                 onChange={handleWebsiteChange} 
                             />
                         </div>
@@ -225,7 +225,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                             <FaUsers /> Socials
                         </span>
                         <div className="user-socials">
-                            {formData.socials.map((social, index) => (
+                            {formData.socials?.map((social, index) => (
                                 <div className="update-socials" key={social.id}>
                                     <div>
                                         <span>Handle:</span>

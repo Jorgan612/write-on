@@ -1,4 +1,5 @@
 import '../goals/activeGoals.scss';
+import { ChangeEvent } from 'react';
 import { FaEdit } from "react-icons/fa";
 import { User, UserProps } from '../interfaces/interfaces';
 import {userGoals, goalOptions} from '../datasets/datasets';
@@ -8,56 +9,102 @@ import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
 
 function ActiveGoals({currentUser, setCurrentUser}: UserProps) {
-    const [formOpened, setFormOpened] = useState(false);
-    const [formComplete, setFormComplete] = useState(false);
-    const [newGoal, setNewGoal] = useState('');
 
-    const [overall, setOverall] = useState<Goal>(() => {
-        const overall = localStorage.getItem('user_overall');
-        return overall ? JSON.parse(overall) : {};
-      });
+    const [weeklyTotal, setWeeklyTotal] =  useState<number | ''>(currentUser.goals[0]?.total || '');
+    const [frequencyTotal, setFrequencyTotal] =  useState<number | ''>(currentUser.goals[1]?.total || '');
+    const [overallTotal, setOverallTotal] =  useState<number | ''>(currentUser.goals[2]?.total || '');
 
-    const [weekly, setWeekly] = useState<Goal>(() => {
-    const weekly = localStorage.getItem('user_weekly');
-    return weekly ? JSON.parse(weekly)  : {};
-    });
+    const defaultGoals = [{
+        name: 'Weekly Word Count',
+        id: '1',
+        total: 0,
+        current: 0,
+        type: 'word(s)'
+      },
+      {
+        name: 'Weekly Session Frequency ',
+        id: '2',
+        total: 0,
+        current: 0,
+        type: 'day(s)'
+      },
+      {
+        name: 'Overall Word Count',
+        id: '3',
+        total: 0,
+        current: 0,
+        type: 'word(s)'
+      }];
 
-    const [frequency, setFrequency] = useState<Goal>(() => {
-        const frequency = localStorage.getItem('user_frequency');
-        return frequency ? JSON.parse(frequency) : {};
-    });
+    
+    useEffect(() => {
 
-    useEffect(() => { 
-        localStorage.setItem("user_overall", JSON.stringify(overall));
-        localStorage.setItem("user_weekly", JSON.stringify(weekly));
-        localStorage.setItem("user_frequency", JSON.stringify(frequency));
-    }, [overall, weekly, frequency]);
-
-    const openNewGoalForm = () => {
-        setFormOpened( prev => !prev );
-        if (formOpened && formComplete) {
-            addGoal();
+        if (!currentUser.goals || currentUser.goals.length === 0) {
+            setCurrentUser(prev => ({
+                ...prev,
+                goals: defaultGoals
+            }));
+            return;
         }
-    };
 
-    const addGoal = () => {
-        console.log('added goal!')
+        setWeeklyTotal(currentUser.goals[0]?.total ?? '');
+        setFrequencyTotal(currentUser.goals[1]?.total ?? '');
+        setOverallTotal(currentUser.goals[2]?.total ?? '');
+        
+    }, [currentUser]);
+
+    const handleInputChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
+        let newTotal = Number(e.target.value)
+
+        setCurrentUser((prevUser) => {
+            if (!prevUser || !prevUser.goals) return prevUser;
+            return {
+            ...prevUser,
+            goals: prevUser.goals.map((goal) =>
+                goal.id === id ? {...goal, total: newTotal} : goal
+            ),
+        }});
+
+        if (id === '1') {
+            setWeeklyTotal(newTotal);
+        }
+
+        if (id === '2') {
+            setFrequencyTotal(newTotal);
+        }
+
+        if (id === '3') {
+            setOverallTotal(newTotal);
+        }
     };
 
     return (
         <div className="goals-container">
-            {currentUser.goals.map((goal) => (
-                <div className='goal' key={goal.id}>
-                    <p className='goal-title'>{goal.name}</p>
-                    <div>
-                        <span className='goal-value'>{goal.current ? goal.current : '0'}</span>
-                        <span> / </span>
-                        <span className='goal-total'>{goal.total ? goal.total : '0'}</span>
-                        <span>{goal.type}</span>
-                        <span className='edit-icon'><FaEdit  /></span>
+            {!currentUser || !currentUser.goals ? (
+                <p>Loading goals...</p>
+            ) : (
+                defaultGoals.map((goal) => (
+                    <div className='goal' key={goal.id}>
+                        <p className='goal-title'>{goal.name}</p>
+                        <div>
+                            <span className='goal-value'>{goal.current || '0'}</span>
+                            <span> / </span>
+                            <input 
+                                className='goal-total' 
+                                id={goal.id} 
+                                type='number' 
+                                value={
+                                    goal.id === '1' ? weeklyTotal : 
+                                    goal.id === '2' ? frequencyTotal : 
+                                    goal.id === '3' ? overallTotal : ''
+                                } 
+                                onChange={(e) => handleInputChange(goal.id, e)}
+                            />
+                            <span>{goal.type}</span>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))
+            )}
         </div>
     );
 }
