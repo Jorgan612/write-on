@@ -5,7 +5,7 @@ import './Dashboard.scss';
 import '../App.scss';
 
 
-function Dashboard({currentUser, setCurrentUser}: UserProps) {
+function Dashboard({currentUser, setCurrentUser, combinedEntries}: UserProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
 
     return (
@@ -17,7 +17,7 @@ function Dashboard({currentUser, setCurrentUser}: UserProps) {
 
             <div className={`user-dash ${activeDash === 'personal' ? 'show' : 'hide'}`}>
                 <div className='goals-list'>
-                    <ActiveGoals currentUser={currentUser} setCurrentUser={setCurrentUser} />
+                    <ActiveGoals currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} />
                 </div>
                 <div className='bottom-lists'>
                     <div className='milestones-list'>

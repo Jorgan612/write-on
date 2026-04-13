@@ -6,7 +6,7 @@ import './WordTracker.scss';
 
 
 interface WordTrackerProps {
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+  setEntries: (updateFn: (prev: Entry[]) => Entry[]) => void;
   combinedEntries: Record<string, number>;
 }
 
@@ -60,10 +60,13 @@ function WordTracker({setEntries, combinedEntries}: WordTrackerProps) {
       year: dayjs().year(),
       month: dayjs().month(),
       day: dayjs().date(),
-      time: new Date(Date.now()).toTimeString()
+      time: new Date().toTimeString()
     };
 
-    setEntries((prevEntries: Entry[]) => [...prevEntries, firstEntry]);
+    setEntries((prevEntries: Entry[]) => {
+      const exists = prevEntries.some(e => e.date === currentDay);
+      return exists ? prevEntries : [...prevEntries, firstEntry];
+    });
   };
 
   return (

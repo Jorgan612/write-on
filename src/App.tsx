@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import './App.scss';
 import { Entry, User } from './interfaces/interfaces';
@@ -57,38 +57,48 @@ const user: User = {
         total: 90000,
         current: 0,
         type: 'word(s)'
-      }]
+      }],
+    entries: [],
 };
 
 function App() {
 
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User>(() => {
-    const user  = localStorage.getItem("user_info");
-    return user ? JSON.parse(user) : {}
+    const savedUser  = localStorage.getItem(`user_info`);
+    return savedUser ? JSON.parse(savedUser) : user;
   });
 
-  const [entries, setEntries] = useState<Entry[]>(() => {
-    const entry = localStorage.getItem("user_entry");
-    return entry ? JSON.parse(entry) : [];
-  });
-  const [combinedEntries, setCombinedEntries] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    localStorage.setItem("user_entry", JSON.stringify(entries));
-    localStorage.setItem("user_info", JSON.stringify(currentUser));
-
-    const dayTotal = entries.reduce((acc: Record<string, any>, entry) => {
+  const combinedEntries = useMemo(() => {
+    if (!currentUser?.entries) return {};
+    return currentUser.entries.reduce((acc: Record<string, number>, entry) => {
       acc[entry.date] = (acc[entry.date] || 0) + entry.total;
       return acc;
-    }, {});
-    setCombinedEntries(dayTotal);
-  }, [entries, currentUser]);
+    }, {})
+  }, [currentUser?.entries]);
+
+  if (!currentUser) {
+    console.log('No user data!');
+  };
+  
+  useEffect(() => {
+      localStorage.setItem("user_info", JSON.stringify(currentUser));
+      localStorage.setItem(`user_${currentUser.id}`, JSON.stringify(currentUser));
+  }, [currentUser]);
+
+  const handleSetEntries = (updateFn: (prev: Entry[]) => Entry[]) => {
+    setCurrentUser(prevUser => {
+      const updatedEntries = updateFn(prevUser.entries || []);
+      return {
+        ...prevUser,
+        entries: updatedEntries
+      };
+    });
+  };
 
   const handleLogInLogOut = () => {
     setSignedIn(prev => !prev);
   };
-
   
   return (
     <div className="main-app-container">
@@ -97,8 +107,8 @@ function App() {
           Write On
           <FaPenFancy />
           </div>
-        <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
-        <WordTracker setEntries={setEntries} combinedEntries={combinedEntries} />
+        <Calendar combinedEntries={combinedEntries} setEntries={handleSetEntries}/>
+        <WordTracker setEntries={handleSetEntries} combinedEntries={combinedEntries} />
         <Header />
       </div>
       <div className='content-right'>
@@ -116,7 +126,7 @@ function App() {
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
           <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-          <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+          <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries}/> } />
         </Routes>
       </div>
     </div>

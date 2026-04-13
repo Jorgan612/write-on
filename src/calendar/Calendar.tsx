@@ -18,7 +18,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface CalendarProps {
     combinedEntries: Record<string, number>;
-    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
+    setEntries: (updateFn: (prev: Entry[]) => Entry[]) => void;
 }
 
 interface monthInfo {

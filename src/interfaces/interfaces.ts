@@ -25,14 +25,24 @@ export interface User {
         name: string;
         id: string;
         total: number;
-        current: number
-        type: string
+        current: number;
+        type: string;
+    }[];
+    entries: {
+        date: string;
+        day: number;
+        id: number;
+        month: number;
+        time: string;
+        total: number;
+        year: number;
     }[];
 }
 
 export interface UserProps {
   currentUser: User;
   setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
+  combinedEntries:  Record<string, number>;
 }
 
 export interface UserIcon {

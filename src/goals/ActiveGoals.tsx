@@ -1,5 +1,6 @@
 import '../goals/activeGoals.scss';
 import { ChangeEvent } from 'react';
+import { isSunday, nextSaturday } from 'date-fns';
 import { FaEdit } from "react-icons/fa";
 import { User, UserProps } from '../interfaces/interfaces';
 import { useState, useEffect } from 'react';
@@ -7,11 +8,13 @@ import { Goal, Icon } from '../interfaces/interfaces';
 import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
 
-function ActiveGoals({currentUser, setCurrentUser}: UserProps) {
+function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) {
 
     const [weeklyTotal, setWeeklyTotal] =  useState<number | ''>(currentUser.goals[0]?.total || '');
     const [frequencyTotal, setFrequencyTotal] =  useState<number | ''>(currentUser.goals[1]?.total || '');
     const [overallTotal, setOverallTotal] =  useState<number | ''>(currentUser.goals[2]?.total || '');
+
+    const [weekRange, setWeekRange] = useState<[]>([]);
 
     const defaultGoals = [{
         name: 'Weekly Word Count',
