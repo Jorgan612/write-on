@@ -2,7 +2,6 @@ import '../goals/activeGoals.scss';
 import { ChangeEvent } from 'react';
 import { FaEdit } from "react-icons/fa";
 import { User, UserProps } from '../interfaces/interfaces';
-import {userGoals, goalOptions} from '../datasets/datasets';
 import { useState, useEffect } from 'react';
 import { Goal, Icon } from '../interfaces/interfaces';
 import MenuDropdown from '../dropdown/MenuDropdown';
