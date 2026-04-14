@@ -1,0 +1,200 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.landing-page-container {
+  @include flexbox(flex, column, flex-start, center);
+  height: 100%;
+  cursor: default;
+  background-color: $dark5;
+//   padding: 1rem;
+  text-decoration: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  h1 {
+    text-align: center;
+    padding: 1rem;
+    font-size: $font5;
+  }
+
+
+  .top-section {
+    @include flexbox(flex, row, center, center);
+    @include content(70vh, 100%, null);
+    padding-left: 2rem;
+
+        .welcome-section {
+            @include flexbox(flex, row, space-around, center);
+            @include content(fit-content, 40%, null);
+            padding: 4rem;
+            text-wrap: wrap;
+            font-size: $font1;
+
+            h2 {
+                border-right: 2px solid $highlight2;
+                 padding: 6rem 1rem 6rem 0;
+                @include content(100%, fit-content, null);
+                text-wrap: nowrap;
+                margin-right: 2rem;
+
+            }
+
+            p {
+                @include content(fit-content, 100%, null);
+                text-align: center;
+                color: $highlight1;
+                font-weight: 900;
+                margin-right: 2rem;
+                text-wrap: wrap;
+            }
+        }
+
+        .login-signup-section {
+            @include flexbox(flex, row, center, center);
+            @include content(100%, 40%, $highlight3);
+            border-radius: 5px;
+            padding: 1rem;
+
+            h3 {
+                padding: 1rem;
+                margin-right: 1rem;
+            }
+
+            .sign-up-button {
+                background-color: $highlight2;
+                color: $dark1;
+
+                &:hover {
+                    background-color: $highlight1;
+                }
+            }
+
+            .login-link {
+                padding: 0 .5rem;
+                text-decoration: underline;
+
+                &:hover {
+                    cursor: pointer;
+                    color: $highlight1;
+                }
+            }
+        }
+    }
+
+    .write-on-quote {
+        padding: 6rem 1rem 6rem 1rem;
+        font-size: $font1;
+
+    }
+
+    .feature-preview-section {
+        @include flexbox(flex, column, center, center);
+        @include content(fit-content, 100%, null);
+
+        .feature {
+            @include flexbox(flex, row, space-around, null);
+            @include content(40vh, 100%, null);
+            padding: 1rem;
+            
+            .item {
+                @include content(100%, 40%, null);
+                // border: 1px solid white;
+            }
+            
+        }
+        
+        .feature-long {
+            @include flexbox(flex, column, center, center);
+            @include content(fit-content, 100%, null);
+            // border: 1px solid red;
+
+            
+            .item {
+                @include flexbox(flex, row, center, center);
+                @include content(100%, 100%, null);
+                // padding: 1rem;
+                // border: 1px solid orange;
+
+                img {
+                    width: 75%;
+                    height: 75%;
+                    object-fit: cover;
+                }
+            }
+
+            .highlight {
+                @include flexbox(flex, column, center, center);
+                @include content(fit-content, 100%, null);
+                // border: 1px solid $highlight1;
+                // border: 1px solid red;
+            }
+
+        }
+
+        .img {
+            @include flexbox(flex, row, center, center);
+            height: 20%;
+        }
+
+        .highlight {
+            @include flexbox(flex, column, center, flex-start);
+            background-color: $highlight3;
+            border-radius: 5px;
+            font-size: $font4;
+
+            p {
+                // width: 100%;
+                padding: 0 2rem;
+                text-align: center;
+                // border: 1px solid red;
+            }
+            text-align: center;
+        }
+
+    }
+
+    .frequently-asked-questions-section {
+        @include flexbox(flex, column, flex-start, center);
+        @include content(fit-content, 100%, null);
+        // background-color: $highlight3;
+        font-weight: bolder;
+        padding: 1rem;
+        
+        .q-and-a {
+            @include content(fit-content, 50%, null);
+            
+            h3 {
+                color: $highlight1;
+                font-size: $font1;
+            }
+
+            p {
+                margin-bottom: 3rem;
+                color: $dark1;
+                font-size: $font2;
+            }
+        }
+
+        h4 {
+            a {
+                color: $highlight1;
+            }
+        }
+    }
+
+    .icon {
+        @include content(20px, 20px, null);
+        padding: 0 .5rem;
+    }
+
+    footer {
+        @include flexbox(flex, row, center, center);
+        @include content(fit-content, 100%, null);
+        background-color: $highlight3;
+        padding: 1rem;
+
+        a {
+            margin: 1rem;
+        }
+    }
+}

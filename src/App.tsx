@@ -12,6 +12,7 @@ import Warmup from './warm-up/Warmup';
 import Dashboard from './dashboard/Dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
+import LandingPage from './landingPage/LandingPage';
 
 import "chart.js/auto";
 
@@ -131,9 +132,7 @@ function App() {
           </Routes>
         </div>
       </div>) : (
-      <div className="main-app-container">
-        LANDING PAGE
-      </div>
+        <LandingPage />
     )
   );
 }
