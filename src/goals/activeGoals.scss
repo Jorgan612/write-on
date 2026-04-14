@@ -38,15 +38,16 @@
             background-color: $dark3;
             color: $dark1;
             border-radius: 5px;
-            border: 2px solid $dark3;
+            border: none;
             text-align: center;
 
             &:hover {
-                border: 2px solid $dark2;
+                background-color: $dark2;
             }
-
+            
             &:focus {
-                outline: 2px solid $dark2;
+                outline: none;
+                background-color: $dark2;
             }
 
             &::-webkit-outer-spin-button,
