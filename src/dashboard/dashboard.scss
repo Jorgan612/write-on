@@ -60,6 +60,11 @@
 
         .goals-list {
             @include content(25%, 100%, null);
+            border-bottom: 1px solid $dark3;
+
+            p {
+                padding-left: .5rem;
+            }
         }
         
         .bottom-lists {
@@ -68,12 +73,12 @@
 
             .milestones-list {
                 @include content(100%, 50%, null);
-                border: 1px solid white;
+                // border: 1px solid white;
             }
             
             .achievements-list {
                 @include content(100%, 50%, null);
-                border: 1px solid white;
+                // border: 1px solid white;
             }
         }
 

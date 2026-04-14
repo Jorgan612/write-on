@@ -10,21 +10,14 @@ import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
 
 function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) {
-    const currentDay = dayjs().format('YYYY-MM-DD').split('-');
-    const currentWeek = getWeek(new Date(Number(currentDay[0]), Number(currentDay[1]), Number(currentDay[2])))
-    const isCurrentWeek = isThisWeek(new Date(Number(currentDay[0]), (Number(currentDay[1]) - 1), Number(currentDay[2])))
 
     const [weeklyTotal, setWeeklyTotal] =  useState<number | ''>(currentUser.goals[0]?.total || '');
     const [frequencyTotal, setFrequencyTotal] =  useState<number | ''>(currentUser.goals[1]?.total || '');
     const [overallTotal, setOverallTotal] =  useState<number | ''>(currentUser.goals[2]?.total || '');
 
-    const [weekRange, setWeekRange] = useState<[]>([]);
-    // console.log('at 0', currentDay[0])
-    // console.log('at 1', (Number(currentDay[1]) - 1))
-    // console.log('at 2', currentDay[2])
-
-    console.log('currentWeek', currentWeek)
-    console.log('isCurrentWeek', isCurrentWeek)
+    const [currentWeekly, setCurrentWeekly] = useState<number | 0 >(0);
+    const [currentFrequency, setCurrentFrequency] = useState<number | 0 >(0);
+    const [currentOverall, setCurrentOverall] = useState<number | 0 >(0);
 
     const defaultGoals = [{
         name: 'Weekly Word Count',
@@ -50,7 +43,6 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
 
     
     useEffect(() => {
-        console.log('currentDay', currentDay)
 
         if (!currentUser.goals || currentUser.goals.length === 0) {
             setCurrentUser(prev => ({
@@ -63,6 +55,8 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         setWeeklyTotal(currentUser.goals[0]?.total ?? '');
         setFrequencyTotal(currentUser.goals[1]?.total ?? '');
         setOverallTotal(currentUser.goals[2]?.total ?? '');
+
+        determineCurrentValues();
         
     }, [currentUser]);
 
@@ -91,9 +85,39 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         }
     };
 
-    // weekly word count:
-    //what about just using getWeek and checking current date against isSameweek? while iterating over combinedEntries?
-    // save dates in combinedEntries (based on isThisWeek boolean to a new array to get total word count for week?
+    const determineCurrentValues = () => {
+        calculateWeeklyWordCount();
+        calculateWeeklyFrequency();
+        calculateOverallWordCount();
+    };
+
+    const calculateWeeklyWordCount = () => {
+        const totalDays = Object.keys(combinedEntries);
+
+        let totalWords = totalDays.reduce((acc: number, day: string) => {
+            let currentDay = day.split('-');
+            const isCurrentWeek = isThisWeek(new Date(Number(currentDay[0]), (Number(currentDay[1]) - 1), Number(currentDay[2])), { weekStartsOn: 1 });
+
+            if (isCurrentWeek) {
+                acc += combinedEntries[day]!;
+            } else {
+                acc += 0;
+            }
+            return acc;
+        }, 0);
+
+        setCurrentWeekly(totalWords);
+    };  
+    
+    const calculateWeeklyFrequency = () => {
+        // console.log('frequency')
+        
+    };
+    
+    const calculateOverallWordCount = () => {
+        // console.log('overall')
+
+    };
 
 
     return (
@@ -105,7 +129,11 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
                     <div className='goal' key={goal.id}>
                         <p className='goal-title'>{goal.name}</p>
                         <div>
-                            <span className='goal-value'>{goal.current || '0'}</span>
+                            <span className='goal-value'>{
+                                goal.id === '1' ? currentWeekly : 
+                                goal.id === '2' ? currentFrequency : 
+                                goal.id === '3' ? currentOverall : '0'
+                            }</span>
                             <span> / </span>
                             <input 
                                 className='goal-total' 
