@@ -18,7 +18,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: UserProps) {
             <div className={`user-dash ${activeDash === 'personal' ? 'show' : 'hide'}`}>
                 <div className='goals-list'>
                     <ActiveGoals currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} />
-                    <p>Note: Weekly counts reset on Monday.</p>
+                    <p>Note: Weekly goals reset on Monday.</p>
                 </div>
                 <div className='bottom-lists'>
                     <div className='milestones-list'>
