@@ -107,10 +107,24 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         }, 0);
 
         setCurrentWeekly(totalWords);
-    };  
-    
+    };
+        
     const calculateWeeklyFrequency = () => {
-        // console.log('frequency')
+        const dayKeys = Object.keys(combinedEntries);
+
+        let totalDays = dayKeys.reduce((acc: number, day: string) => {
+            let currentDay = day.split('-');
+            const isCurrentWeek = isThisWeek(new Date(Number(currentDay[0]), (Number(currentDay[1]) - 1), Number(currentDay[2])), { weekStartsOn: 1 });
+
+            if (isCurrentWeek && combinedEntries[day] !== 0) {
+                acc += 1;
+            } else {
+                acc += 0;
+            }
+            return acc;
+        }, 0);
+
+        setCurrentFrequency(totalDays);
         
     };
     
