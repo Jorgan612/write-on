@@ -21,6 +21,28 @@ export interface User {
         handle: string;
         url: string;
     }[];
+    goals: {
+        name: string;
+        id: string;
+        total: number;
+        current: number;
+        type: string;
+    }[];
+    entries: {
+        date: string;
+        day: number;
+        id: number;
+        month: number;
+        time: string;
+        total: number;
+        year: number;
+    }[];
+}
+
+export interface UserProps {
+  currentUser: User;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
+  combinedEntries:  Record<string, number>;
 }
 
 export interface UserIcon {
@@ -71,4 +93,14 @@ export interface CombinedEntry {
     month: number;
     day: number;
     time: string;
+}
+
+/* Goals */
+
+export interface Goal {
+        name: string;
+        id: string;
+        value: number;
+        current: number
+        type: string
 }

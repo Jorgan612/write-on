@@ -29,11 +29,6 @@ function Header() {
         id: 'warmup'
     },
     {
-        name: 'Goals',
-        path: '/activeGoals',
-        id: 'activeGoals'
-    },
-    {
         name: 'Profile',
         path: '/profile',
         id: 'profile'

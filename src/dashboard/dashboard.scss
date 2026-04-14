@@ -7,7 +7,7 @@
     
     .dash-header {
         @include flexbox(flex, row, flex-start, center);
-        @include content(55px, 100%, null);
+        @include content(55px, 130px, null);
         position: relative;
         transition: transform 0.3s ease;
 
@@ -60,7 +60,11 @@
 
         .goals-list {
             @include content(25%, 100%, null);
-            border: 1px solid white;
+            border-bottom: 1px solid $dark3;
+
+            p {
+                padding-left: .5rem;
+            }
         }
         
         .bottom-lists {
@@ -69,12 +73,12 @@
 
             .milestones-list {
                 @include content(100%, 50%, null);
-                border: 1px solid white;
+                // border: 1px solid white;
             }
             
             .achievements-list {
                 @include content(100%, 50%, null);
-                border: 1px solid white;
+                // border: 1px solid white;
             }
         }
 

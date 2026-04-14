@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import './App.scss';
 import { Entry, User } from './interfaces/interfaces';
@@ -10,7 +10,7 @@ import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
 import Dashboard from './dashboard/Dashboard';
-// import ActiveGoals from './goals/ActiveGoals';
+import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 
 import "chart.js/auto";
@@ -36,33 +36,69 @@ const user: User = {
         id: 2,
         handle: 'jess.o.writes',
         url: 'https://instagram.com'
-    }]
+    }],
+    goals: [{
+        name: 'Weekly Word Count',
+        id: '1',
+        total: 3000,
+        current: 0,
+        type: 'word(s)'
+      },
+      {
+        name: 'Weekly Session Frequency ',
+        id: '2',
+        total: 4,
+        current: 0,
+        type: 'day(s)'
+      },
+      {
+        name: 'Overall Word Count',
+        id: '3',
+        total: 90000,
+        current: 0,
+        type: 'word(s)'
+      }],
+    entries: [],
 };
 
 function App() {
 
   const [signedIn, setSignedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<User>(user);
-  const [entries, setEntries] = useState<Entry[]>(() => {
-    const entry = localStorage.getItem("user_entry");
-    return entry ? JSON.parse(entry) : [];
+  const [currentUser, setCurrentUser] = useState<User>(() => {
+    const savedUser  = localStorage.getItem(`user_info`);
+    return savedUser ? JSON.parse(savedUser) : user;
   });
-  const [combinedEntries, setCombinedEntries] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    localStorage.setItem("user_entry", JSON.stringify(entries));
-
-    const dayTotal = entries.reduce((acc: Record<string, any>, entry) => {
+  const combinedEntries = useMemo(() => {
+    if (!currentUser?.entries) return {};
+    return currentUser.entries.reduce((acc: Record<string, number>, entry) => {
       acc[entry.date] = (acc[entry.date] || 0) + entry.total;
       return acc;
-    }, {});
-    setCombinedEntries(dayTotal);
-  }, [entries]);
+    }, {})
+  }, [currentUser?.entries]);
+
+  if (!currentUser) {
+    console.log('No user data!');
+  };
+  
+  useEffect(() => {
+      localStorage.setItem("user_info", JSON.stringify(currentUser));
+      localStorage.setItem(`user_${currentUser.id}`, JSON.stringify(currentUser));
+  }, [currentUser]);
+
+  const handleSetEntries = (updateFn: (prev: Entry[]) => Entry[]) => {
+    setCurrentUser(prevUser => {
+      const updatedEntries = updateFn(prevUser.entries || []);
+      return {
+        ...prevUser,
+        entries: updatedEntries
+      };
+    });
+  };
 
   const handleLogInLogOut = () => {
     setSignedIn(prev => !prev);
   };
-
   
   return (
     <div className="main-app-container">
@@ -71,8 +107,8 @@ function App() {
           Write On
           <FaPenFancy />
           </div>
-        <Calendar combinedEntries={combinedEntries} setEntries={setEntries}/>
-        <WordTracker setEntries={setEntries} combinedEntries={combinedEntries} />
+        <Calendar combinedEntries={combinedEntries} setEntries={handleSetEntries}/>
+        <WordTracker setEntries={handleSetEntries} combinedEntries={combinedEntries} />
         <Header />
       </div>
       <div className='content-right'>
@@ -90,10 +126,7 @@ function App() {
           <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
           <Route path="warmup" element={ <Warmup /> } />
           <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-          <Route path="/dashboard" element={ <Dashboard /> } />
-          {/*
-          <Route path="activeGoals" element={ <ActiveGoals /> } />
-          */}
+          <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries}/> } />
         </Routes>
       </div>
     </div>

@@ -145,6 +145,7 @@
         }
         
         form input {
+            @include content(fit-content, fit-content, null);
             padding: .7rem;
             margin-top: 5px;
             background-color: $dark3;

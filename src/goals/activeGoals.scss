@@ -2,77 +2,67 @@
 @import '../mixins.scss';
 
 
-.active-goals-container {
-    @include flexbox(flex, column, null, null);
-    @include content(75%, 98%, $light1);
+.goals-container {
+    @include flexbox(flex, row, space-around, center);
+    @include content(fit-content, 99%, null);
     border-radius: .5rem;
-    padding: 1rem;
-
-    .goal-header {
-        color: $light5;
-        padding: 1rem .5rem;
-        font-size: $font1;
-        font-weight: 500;
-        text-decoration: underline;
-    }
-
-    .list {
-        @include flexbox(flex, row, flex-start, null);
-        @include content(100%, 100%, $light1);
-
-        .goals-list-container {
-            @include flexbox(flex, column, flex-start, null);
-            @include content(100%, 50%, $light1);
-            gap: 24px;
-            color: $light5;
-            font-size: $font1;
-
-            .item {
-                @include flexbox(flex, row, null, center);    
-                padding: 1rem .5rem;
-
-                svg {
-                    padding: .5rem;
-                }
-            }
-        }
-
-        .add-goal-container {
-            @include flexbox(flex, column, flex-start, center);
-            @include content(95%, 50%, null);
-            padding: 1rem;
-            border-radius: .5rem;
-
-
-            .add-goal-form {
-                @include content(100%, 50%, $light2);
-                padding: .5rem;
-            }
-
-            button {
-                padding: .5rem;
-            }
-        }
-    }
-
-    .footer-container {
-        @include flexbox(flex, row, center, center);
-        width: 100%;
+    padding: .5rem;
+    
+    .goal {
+        @include flexbox(flex, column, center, center);
+        @include content(fit-content, fit-content, null);
         padding: 1rem;
-
-        .new-goal-button {
-            border: 2px solid $light4;
-            border-radius: 2rem;
-            background-color: $light5;
-            color: $light1;
-            font-size: $font1;
-            padding: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
+        font-size: $font4;
+        text-wrap: nowrap;
+        
+        span {
+            padding: .2rem;
+        }
+        
+        .goal-title {
+            @include content(fit-content, fit-content, null);
+            text-align: center;
+            padding: 0 .5rem;
+            border-bottom: 2px solid $dark2;
+        }
+        
+        .goal-value,
+        .goal-total {
+            color: $dark1;
+            font-weight: bold;
         }
 
-        .new-goal-button:hover {
-            background-color: $light4;
+        .goal-total {
+            @include content(fit-content, 45px, null);
+            padding: .5rem;
+            background-color: $dark3;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+
+            &:hover {
+                background-color: $dark2;
+            }
+            
+            &:focus {
+                outline: none;
+                background-color: $dark2;
+            }
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+
+        .edit-icon {
+            cursor: pointer;
+
+            &:hover {
+                color: $highlight1;
+            }
         }
     }
+
 }
