@@ -108,7 +108,7 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
 
         setCurrentWeekly(totalWords);
     };
-        
+
     const calculateWeeklyFrequency = () => {
         const dayKeys = Object.keys(combinedEntries);
 
@@ -129,8 +129,17 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
     };
     
     const calculateOverallWordCount = () => {
-        // console.log('overall')
+        const dayKeys = Object.keys(combinedEntries);
+        let totalOverallWords = dayKeys.reduce((acc, day) => {
+            if (combinedEntries[day]) {
+                acc += combinedEntries[day]!;
+            } else {
+                acc += 0;
+            }
+            return acc;
+        }, 0);
 
+        setCurrentOverall(totalOverallWords);
     };
 
 
