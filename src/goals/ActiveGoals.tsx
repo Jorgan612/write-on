@@ -122,7 +122,6 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         }, 0);
 
         setCurrentFrequency(totalDays);
-        
     };
     
     const calculateOverallWordCount = () => {
