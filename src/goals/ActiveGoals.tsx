@@ -1,11 +1,8 @@
 import '../goals/activeGoals.scss';
 import { ChangeEvent } from 'react';
-import { isSunday, nextSaturday, isSameWeek, isThisWeek, startOfWeek, endOfWeek, getWeek } from 'date-fns';
-import dayjs from 'dayjs';
-import { FaEdit } from "react-icons/fa";
-import { User, UserProps } from '../interfaces/interfaces';
+import { isThisWeek } from 'date-fns';
+import { UserProps } from '../interfaces/interfaces';
 import { useState, useEffect } from 'react';
-import { Goal, Icon } from '../interfaces/interfaces';
 import MenuDropdown from '../dropdown/MenuDropdown';
 import Form from '../forms/Form';
 
