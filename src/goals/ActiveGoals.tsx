@@ -142,7 +142,6 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         setCurrentOverall(totalOverallWords);
     };
 
-
     return (
         <div className="goals-container">
             {!currentUser || !currentUser.goals ? (
