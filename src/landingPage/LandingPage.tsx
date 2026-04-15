@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+import { Link } from 'react-router-dom';
 import './LandingPage.scss';
 import { FaEnvelope, FaPenFancy, FaArrowAltCircleDown } from 'react-icons/fa';
 import calendarImg from '../assets/images/calendar.png';
@@ -32,7 +34,7 @@ function LandingPage() {
                 <div>
                     <button className='sign-up-button'>Sign Up</button>
                     <span>or</span>
-                    <span className='login-link'>Login</span>
+                    <Link title='login' to="/login" className='login-link'>Login</Link>
                 </div>
 
             </section>
