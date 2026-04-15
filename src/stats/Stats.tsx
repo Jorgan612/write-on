@@ -321,7 +321,7 @@ function Stats({combinedEntries}: StatsProps) {
       </div>
       <div className='graph-container'>
         <div className='line-graph'>
-            <p>7 day overview.</p>
+            <p>7-day overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateSevenDayWordCount()} options={chartOptions} />
           ) : (
@@ -329,7 +329,7 @@ function Stats({combinedEntries}: StatsProps) {
           )}
         </div>
         <div className='line-graph'>
-            <p>30 day overview.</p>
+            <p>30-day overview.</p>
             {Object.keys(combinedEntries).length > 0 ? (
             <Line data={updateMonthWordCount()} options={chartOptions} />
           ) : (
