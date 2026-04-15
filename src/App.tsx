@@ -64,7 +64,7 @@ const user: User = {
 
 function App() {
 
-  const [signedIn, setSignedIn] = useState<boolean>(false);
+  const [signedIn, setSignedIn] = useState<boolean>(true);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
     return savedUser ? JSON.parse(savedUser) : user;

@@ -1,81 +1,116 @@
 import './LandingPage.scss';
-import { FaEnvelope, FaPenFancy } from 'react-icons/fa';
+import { FaEnvelope, FaPenFancy, FaArrowAltCircleDown } from 'react-icons/fa';
 import calendarImg from '../assets/images/calendar.png';
+import calendarWCUpdate from '../assets/images/WCUpdate.png';
 import goalsImg from '../assets/images/goals.png';
 import wordtrackerImg from '../assets/images/wordtracker.png';
 import stasImg from '../assets/images/stats.png';
+import warmupImg from '../assets/images/warmup.png';
+import trackerTwo from '../assets/images/trackerTwo.png';
 
 
 function LandingPage() {
 
     return (
         <div className="landing-page-container">
-            <h1>Write On <FaPenFancy /></h1>
+            <h1>Write On  <FaPenFancy /></h1>
             <div className='top-section'>
                 <section className='welcome-section'>
-                    <h2>Welcome, writers!</h2> 
-                    <p>[Write On catchy Phrase here!]</p>
+                    <div>
+                        <p>Visualize your progress.</p>
+                        <p>Build your habit.</p>
+                        <p>Finish your book.</p>
+                    </div>
                 </section>
-                <section className='login-signup-section'>
-                    <h3>
-                        Don't have an account? 
-                    </h3>
+            </div>
+
+            <p className='write-on-quote'>Built for every writer and every story, Write On empowers writers at every stage to track, visualize, and complete their manuscripts, one word at a time.</p>
+            <section className='login-signup-section'>
+                <p>
+                    Don't have an account? 
+                </p>
+                <div>
                     <button className='sign-up-button'>Sign Up</button>
                     <span>or</span>
                     <span className='login-link'>Login</span>
+                </div>
 
-                </section>
+            </section>
+            <div className='divider'>
+                <FaArrowAltCircleDown className='icon' />
             </div>
-            <p className='write-on-quote'>Whether you're a new writer or a published author, Write On is designed to help you make progress with your manuscript.</p>
+
             <section className='feature-preview-section'>
-                <section className='feature'>
-                    <div className='item highlight'>
-                        <p>
-                            The built in calendar provides a pleasant visual display of your writing productivity.
-                        </p>
-                        <p>
-                            The days highlighted in blue indicate days with logged words.
-                        </p>
-                        <p>
-                            The brigher the color, the more words were logged.
-                        </p>
-                    </div>
+                <h1>Features</h1>
+                <section className='feature-multi'>
+                    <h2>Calendar</h2>
                     <div className='item img'>
                         <img src={calendarImg} alt='image of a calendar' />
+                        <img src={calendarWCUpdate} alt='image of a calendar update feature' />
+                    </div>
+                    <div className='item highlight'>
+                        <p>
+                            Monitor your output with the color-coded productivity calendar. Peak writing days shine brighter, giving you an instant view of your writing habits.
+                            <br/>
+                            Forgot to log a day? Modify a past date by simply clicking the date on the calendar and entering a new word count total.
+                        </p>
+
                     </div>
                 </section>
-                <section className='feature'>
-                    {/* goals */}
-                    <div className='item'>
-                        <img src={wordtrackerImg} />
+                <section className='feature-multi'>
+                    <h2>Word Count Tracker</h2>
+                    <div className='item img'>
+                        <img src={wordtrackerImg} alt='word tracker image one'/>
+                        <img src={trackerTwo} alt='word tracker image two' />
                     </div>
-                    <div className='item highlight'></div>
+                    <div className='item highlight'>
+                        <p>
+                           Effortlessly log your progress throughout the day. Whether you write in sprints or steady sessions, every word counts toward your goal.
+                        </p>
+                    </div>
                 </section>
 
                 <section className='feature-long'>
+                    <h2>Goals</h2>
                     <div className='item'>
                         <img src={goalsImg} />
                     </div>
                     <div className='highlight'>
-                        <p>Goals can be set on your personal dashboard and are intended to help you remain accountable on your writing journey.</p>
-                        <p>Remember! These are just tools to assist you and we recommend setting sustainable goals to see you through your writing journey.</p>
+                        <p>
+                            Take control of your journey by setting personal writing goals. Write On is designed to assist, not pressure; we encourage setting manageable targets that keep you inspired and writing day after day.
+                            However, your goals are a guide, not a ceiling; you can always log more than your set target whenever the inspiration strikes.
+                        </p>
                     </div>
                 </section>
 
-{/* need to keep working on styling, left off here. fix so that there is more consistency with long feature containers if possible */}
+                    {/* need to keep working on styling, left off here. fix so that there is more consistency with long feature containers if possible */}
                 <section className='feature-long'>
+                    <h2>Stats</h2>
                     <div className='item'>
                         <img src={stasImg} />
                     </div>
-                    <div className='highlight'></div>
+                    <div className='highlight'>
+                        <p>
+                            Gain insights into your writing habits with our Stats page. Track your progress across 7-day, 30-day, and year-long overviews designed to show you the big picture. Beyond the charts, features like <strong>Daily Average</strong> and <strong>Sustainable Word Count</strong> help you maintain a healthy consistency, reducing the risk of burnout. Celebrate your wins with highlights for your <strong>Best Writing Day</strong>, <strong>Total Days Written</strong>, and your <strong>Longest Streak</strong>.
+                        </p>
+                    </div>
                     {/* Stats */}
                 </section>
-                <section className='feature'>
-                    <div className='item'></div>
-                    <div className='item highlight'></div>
+                <section className='feature-long'>
+                    <h2>Warm-up Page</h2>
+                    <div className='item'>
+                        <img src={warmupImg} />
+                    </div>
+                    <div className='item highlight'>
+                        <p>
+                            The warm-up page is designed to get your words flowing. Use it for unstructured freewriting or tap into your personal prompt list. You can select a specific prompt or reveal a random prompt to beat writer's block. Completed responses can be saved along with the selected prompt for future review, while prompts that no longer resonate can be moved to a discard list or permanently deleted. The warm-up page is your personalized toolkit for daily creative maintenance.
+                        </p>
+                    </div>
                     {/* Warmup */}
                 </section>
             </section>
+
+
             <section className='frequently-asked-questions-section'>
                 <h2>
                     Frequently asked questons
