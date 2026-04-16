@@ -67,6 +67,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
             </div>
             <span className='msg1'>Optional Details</span>
+            <span className='goal-msg'>(These details will be displayed on your user profile.)</span>
             <div className='website'>
                 <label htmlFor='website-name'>Website</label>
                 <div>
@@ -78,6 +79,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
             </div>
             <span className='msg1'>Let's set a few goals...</span>
+            <span className='goal-msg'>(Your goals are only visible to you.)</span>
             <div className='goals'>
                 <label htmlFor='weekly-wc'>Weekly Word Count:</label>
                 <div>
@@ -92,7 +94,6 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                     <input type="text" id='overall' placeholder="What is your target word count?" />
                 </div>
             </div>
-            <span className='goal-msg'>Need a moment to think? </span>
             <span className='goal-msg'>You can update goals at any time from your personal dashboard.</span>
             <button type="submit">Sign up</button>
             <span className='stuck'>
