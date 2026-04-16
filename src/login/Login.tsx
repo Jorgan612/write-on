@@ -23,14 +23,18 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         navigate('/dashboard');
     };
 
+    const returnToLandingPage = () => {
+        navigate('/');
+    };
+
     const toggleVisibility = () => {
         setIsVisible(prev  => !prev);
-    }
+    };
     
     return (
         <form className='login-form' onSubmit={handleLoginSubmit}>
             <div className='app-title'>
-                <h1>Write On <FaPenFancy /></h1>
+                <h1 onClick={returnToLandingPage}>Write On <FaPenFancy /></h1>
             </div>
             <div className='username'>
                 <input type="text" placeholder="Username" />

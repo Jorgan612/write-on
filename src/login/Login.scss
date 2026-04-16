@@ -27,6 +27,13 @@
         @include content(20%, 100%, null);
         font-size: 4rem;
         margin: 4rem 0;
+
+        h1 {
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
     
     .password,

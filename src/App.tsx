@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import './App.scss';
@@ -64,6 +64,7 @@ const user: User = {
 };
 
 function App() {
+  const navigate = useNavigate();
 
   const [signedIn, setSignedIn] = useState<boolean>(true);
   const [currentUser, setCurrentUser] = useState<User>(() => {
@@ -98,8 +99,9 @@ function App() {
     });
   };
 
-  const handleLogInLogOut = () => {
-    setSignedIn(prev => !prev);
+  const handleLogOut = () => {
+    setSignedIn(false);
+    navigate('/login');
   };
 
   if (!signedIn) {
@@ -127,9 +129,7 @@ function App() {
         <div className='header'>
           <Timer />
           <div className='top-right-corner'>
-            <button onClick={handleLogInLogOut}>{!signedIn ? 'Log In' : 'Log Out'}</button>
-            <span>/</span>
-            <button>Sign Up</button>
+            <button onClick={handleLogOut}>Logout</button>
             <FaCog className='icon' />
           </div>
         </div>
