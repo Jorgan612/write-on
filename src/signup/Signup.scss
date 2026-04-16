@@ -3,8 +3,10 @@
 
 .signup-form {
     @include flexbox(flex, column, flex-start, center);
-    @include content(100%, 100%, $dark5);
+    @include content(100%, 99%, $dark5);
     padding: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     input {
         @include content(fit-content, 100%, null);
@@ -37,20 +39,38 @@
         }
     }
     
+    .email,
     .password,
-    .username {
+    .username,
+    .goals {
         @include flexbox(flex, column, flex-start, flex-start);
         @include content(fit-content, 20%, null );
         margin: 0 0 2rem 0;
 
         label {
-            padding: .5rem 0;
+            padding: 1rem 0 .5rem 0;
         }
 
         div {
             @include flexbox(flex, row, center, center);
             @include content(fit-content, 100%, null);
         }
+    }
+
+    .goal-msg,
+    .goal-msg1 {
+        @include content(fit-content, 20%, null);
+        text-wrap: wrap;
+        text-align: center;
+    }
+
+    .goal-msg1 {
+        font-size: $font1;
+        padding: 1rem;
+    }
+
+    .goal-msg {
+        padding: 1rem;
     }
     
     .visibility-icon {
@@ -71,7 +91,7 @@
     }
 
     .stuck {
-        margin: 2rem;
+        margin: 2rem 0 4rem 0;
 
         .forgot-password,
         .no-account {
