@@ -126,7 +126,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
           {signedIn ? (
             <>
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
