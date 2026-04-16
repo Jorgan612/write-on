@@ -11,6 +11,13 @@
         position: relative;
         transition: transform 0.3s ease;
 
+        .dashboard-swap-icon {
+            position: absolute;
+            top: 12px;
+            left: 100px;
+            z-index: 10;
+        }
+
         .personal,
         .group {
             width: 120px;
