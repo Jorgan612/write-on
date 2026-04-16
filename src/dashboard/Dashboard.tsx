@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaChevronRight } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import { User, UserProps } from '../interfaces/interfaces';
 import './Dashboard.scss';
@@ -11,8 +12,12 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: UserProps) {
     return (
         <div className='dashboard-contents'>
             <div className='dash-header'>
-                <button className={`personal ${activeDash === 'personal' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('personal')}>Personal</button>
-                <button className={`group ${activeDash === 'group' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('group')}>Group</button>
+                <button className={`personal ${activeDash === 'personal' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('personal')}>
+                    Personal {activeDash === 'personal' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
+                    </button>
+                <button className={`group ${activeDash === 'group' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('group')}>
+                    Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
+                    </button>
             </div>
 
             <div className={`user-dash ${activeDash === 'personal' ? 'show' : 'hide'}`}>
