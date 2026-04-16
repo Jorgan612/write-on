@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+import { Link } from 'react-router-dom';
 import './LandingPage.scss';
 import { FaEnvelope, FaPenFancy, FaArrowAltCircleDown } from 'react-icons/fa';
 import calendarImg from '../assets/images/calendar.png';
@@ -32,7 +34,7 @@ function LandingPage() {
                 <div>
                     <button className='sign-up-button'>Sign Up</button>
                     <span>or</span>
-                    <span className='login-link'>Login</span>
+                    <Link title='login' to="/login" className='login-link'>Login</Link>
                 </div>
 
             </section>
@@ -48,7 +50,7 @@ function LandingPage() {
                         <img src={calendarImg} alt='image of a calendar' />
                         <img src={calendarWCUpdate} alt='image of a calendar update feature' />
                     </div>
-                    <div className='item highlight'>
+                    <div className='highlight'>
                         <p>
                             Monitor your output with the color-coded productivity calendar. Peak writing days shine brighter, giving you an instant view of your writing habits.
                             <br/>
@@ -63,7 +65,7 @@ function LandingPage() {
                         <img src={wordtrackerImg} alt='word tracker image one'/>
                         <img src={trackerTwo} alt='word tracker image two' />
                     </div>
-                    <div className='item highlight'>
+                    <div className='highlight'>
                         <p>
                            Effortlessly log your progress throughout the day. Whether you write in sprints or steady sessions, every word counts toward your goal.
                         </p>
@@ -101,7 +103,7 @@ function LandingPage() {
                     <div className='item'>
                         <img src={warmupImg} />
                     </div>
-                    <div className='item highlight'>
+                    <div className='highlight'>
                         <p>
                             The warm-up page is designed to get your words flowing. Use it for unstructured freewriting or tap into your personal prompt list. You can select a specific prompt or reveal a random prompt to beat writer's block. Completed responses can be saved along with the selected prompt for future review, while prompts that no longer resonate can be moved to a discard list or permanently deleted. The warm-up page is your personalized toolkit for daily creative maintenance.
                         </p>

@@ -13,6 +13,7 @@ import Dashboard from './dashboard/Dashboard';
 import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
+import Login from './login/Login';
 
 import "chart.js/auto";
 
@@ -102,38 +103,43 @@ function App() {
   };
   
   return (
-    signedIn ? (
-      <div className="main-app-container">
-        <div className='sidebar'>
-          <div className='app-title'>
-            Write On
-            <FaPenFancy />
-            </div>
-          <Calendar combinedEntries={combinedEntries} setEntries={handleSetEntries}/>
-          <WordTracker setEntries={handleSetEntries} combinedEntries={combinedEntries} />
-          <Header />
-        </div>
-        <div className='content-right'>
-          <div className='header'>
-            <Timer />
-            <div className='top-right-corner'>
-              <button onClick={handleLogInLogOut}>{!signedIn ? 'Log In' : 'Log Out'}</button>
-              <span>/</span>
-              <button>Sign Up</button>
-              <FaCog className='icon' />
-            </div>
+    <div className="main-app-container">
+      <div className='sidebar'>
+        <div className='app-title'>
+          Write On
+          <FaPenFancy />
           </div>
-
-          <Routes>
-            <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
-            <Route path="warmup" element={ <Warmup /> } />
-            <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-            <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries}/> } />
-          </Routes>
+        <Calendar combinedEntries={combinedEntries} setEntries={handleSetEntries}/>
+        <WordTracker setEntries={handleSetEntries} combinedEntries={combinedEntries} />
+        <Header />
+      </div>
+      <div className='content-right'>
+        <div className='header'>
+          <Timer />
+          <div className='top-right-corner'>
+            <button onClick={handleLogInLogOut}>{!signedIn ? 'Log In' : 'Log Out'}</button>
+            <span>/</span>
+            <button>Sign Up</button>
+            <FaCog className='icon' />
+          </div>
         </div>
-      </div>) : (
-        <LandingPage />
-    )
+
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
+          {signedIn ? (
+            <>
+              <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
+              <Route path="warmup" element={ <Warmup /> } />
+              <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
+              <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries}/> } />
+            </>
+          ) : (
+            <Route path="*" element={<LandingPage />} />
+          )}
+        </Routes>
+      </div>
+    </div>
   );
 }
 
