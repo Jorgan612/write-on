@@ -23,29 +23,39 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         navigate('/dashboard');
     };
 
+    const returnToLandingPage = () => {
+        navigate('/');
+    };
+
     const toggleVisibility = () => {
         setIsVisible(prev  => !prev);
-    }
+    };
     
     return (
         <form className='login-form' onSubmit={handleLoginSubmit}>
             <div className='app-title'>
-                <h1>Write On <FaPenFancy /></h1>
+                <h1 onClick={returnToLandingPage}>Write On <FaPenFancy /></h1>
             </div>
             <div className='username'>
-                <input type="text" placeholder="Username" />
+                <label>Username:</label>
+                <div>
+                    <input type="text" placeholder="Username" />
+                </div>
             </div>
             <div className='password'>
-                <input type="text" placeholder="Password" />
-                <span className='visibility-icon' onClick={toggleVisibility}>
-                    {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
-                </span>
+                <label>Password:</label>
+                <div>
+                    <input type="text" placeholder="Password" />
+                    <span className='visibility-icon' onClick={toggleVisibility}>
+                        {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
+                    </span>
+                </div>
             </div>
+            <button type="submit">Log In</button>
             <span className='stuck'>
                 <span className='forgot-password'>Forgot password?</span>
                 <span className='no-account'>Don't have an account?</span>
             </span>
-            <button type="submit">Log In</button>
         </form>
     );
 }
