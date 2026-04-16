@@ -51,7 +51,7 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                     </span>
                 </div>
             </div>
-            <button type="submit">Log In</button>
+            <button type="submit">Log in</button>
             <span className='stuck'>
                 <span className='forgot-password'>Forgot password?</span>
                 <span className='no-account'>Don't have an account?</span>

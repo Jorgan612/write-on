@@ -1,0 +1,8 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.sign-up-container {
+    @include flexbox(flex, column, flex-start, center);
+    @include content(100%, 100%, $dark5);
+
+}
