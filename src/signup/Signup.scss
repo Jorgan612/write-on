@@ -1,8 +1,87 @@
 @import '../variables.scss';
 @import '../mixins.scss';
 
-.sign-up-container {
+.signup-form {
     @include flexbox(flex, column, flex-start, center);
     @include content(100%, 100%, $dark5);
+    padding: 1rem;
 
+    input {
+        @include content(fit-content, 100%, null);
+        padding: .7rem;
+        background-color: $dark3;
+        color: $dark1;
+        border-radius: 5px;
+        border: none;
+    }
+    
+    input:focus {
+        outline: 2px solid $dark2;
+    }
+
+    button {
+        width: 20%;
+    }
+    
+    .app-title {
+        @include flexbox(flex, row, center, center);
+        @include content(20%, 100%, null);
+        font-size: 4rem;
+        margin: 4rem 0;
+        
+        h1 {
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .password,
+    .username {
+        @include flexbox(flex, column, flex-start, flex-start);
+        @include content(fit-content, 20%, null );
+        margin: 0 0 2rem 0;
+
+        label {
+            padding: .5rem 0;
+        }
+
+        div {
+            @include flexbox(flex, row, center, center);
+            @include content(fit-content, 100%, null);
+        }
+    }
+    
+    .visibility-icon {
+        position: relative;
+        
+        .icon {
+            @include content(24px, 24px, null);
+            position: absolute;
+            bottom: -30px;
+            right: -10px;
+            padding: 1rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+             color: $highlight1;
+        }
+    }
+
+    .stuck {
+        margin: 2rem;
+
+        .forgot-password,
+        .no-account {
+            margin: 0 1rem;
+            font-size: $font2;
+    
+            &:hover {
+                cursor: pointer;
+                color: $highlight1;
+            }
+        }
+    }
 }

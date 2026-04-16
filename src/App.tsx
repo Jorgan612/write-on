@@ -108,7 +108,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     )

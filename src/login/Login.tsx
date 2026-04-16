@@ -4,7 +4,7 @@ import { FaPenFancy, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import './Login.scss';
 
 function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const navigate = useNavigate();
     
@@ -25,6 +25,10 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
 
     const returnToLandingPage = () => {
         navigate('/');
+    };
+
+    const takeToSignupPage = () => {
+        navigate('/signup');
     };
 
     const toggleVisibility = () => {
@@ -54,7 +58,7 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <button type="submit">Log in</button>
             <span className='stuck'>
                 <span className='forgot-password'>Forgot password?</span>
-                <span className='no-account'>Don't have an account?</span>
+                <span className='no-account' onClick={takeToSignupPage}>Don't have an account?</span>
             </span>
         </form>
     );
