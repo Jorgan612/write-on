@@ -38,10 +38,15 @@
             }
         }
     }
+
+    .asterisk {
+        color: $highlight1;
+    }
     
     .email,
     .password,
     .username,
+    .website,
     .goals {
         @include flexbox(flex, column, flex-start, flex-start);
         @include content(fit-content, 20%, null );
@@ -58,15 +63,16 @@
     }
 
     .goal-msg,
-    .goal-msg1 {
+    .msg1 {
         @include content(fit-content, 20%, null);
         text-wrap: wrap;
         text-align: center;
     }
 
-    .goal-msg1 {
+    .msg1 {
         font-size: $font1;
         padding: 1rem;
+        border-bottom: 1px solid $highlight1;
     }
 
     .goal-msg {
