@@ -101,6 +101,16 @@ function App() {
   const handleLogInLogOut = () => {
     setSignedIn(prev => !prev);
   };
+
+  if (!signedIn) {
+    return (
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login setSignedIn={setSignedIn} />} />
+        <Route path='*' element={<LandingPage />} />
+      </Routes>
+    )
+  }
   
   return (
     <div className="main-app-container">
@@ -125,8 +135,6 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
           {signedIn ? (
             <>
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />

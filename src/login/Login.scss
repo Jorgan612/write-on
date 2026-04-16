@@ -4,7 +4,7 @@
 
 .login-form {
     @include flexbox(flex, column, flex-start, center);
-    @include content(90vh, 97%, $dark5);
+    @include content(100%, 100%, $dark5);
     padding: 1rem;
 
     
