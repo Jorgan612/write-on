@@ -19,7 +19,10 @@ import "chart.js/auto";
 
 const user: User = {
     id: 612,
-    name: 'Jesso',
+    name: 'Jessica',
+    username: 'Jesso',
+    email: 'Jorgan612@gmail.com',
+    password: '123456',
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',

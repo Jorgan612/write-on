@@ -4,6 +4,9 @@ import { IconType } from "react-icons";
 export interface User {
     id: number;
     name: string;
+    username: string;
+    email: string;
+    password: string;
     pronouns: string;
     bio: string;
     joined: string;
