@@ -102,16 +102,22 @@
         }
     }
 
+    .goals {
+        margin-bottom: 0;
+    }
+
     .goal-msg,
     .msg1 {
         @include content(fit-content, 20%, null);
         text-wrap: wrap;
         text-align: center;
+        margin-top: .5rem;
     }
 
     .msg1 {
         font-size: $font1;
         padding: 1rem;
+        margin-top: 4rem;
         border-bottom: 1px solid $highlight1;
     }
 

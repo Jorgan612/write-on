@@ -6,7 +6,8 @@ import { useState } from 'react';
 function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const navigate = useNavigate();
 
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
 
     const returnToLandingPage = () => {
         navigate('/');
@@ -22,11 +23,6 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         setSignedIn(true);
         navigate('/dashboard');
     };
-
-    const toggleVisibility = () => {
-        setIsVisible(prev => !prev);
-    };
-
 
     return (
         <form className='signup-form' onSubmit={handlesSignupSubmit}>
@@ -54,21 +50,21 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 <label htmlFor='password'><span className='asterisk'>*</span>Password:</label>
                 <div>
                     <input required type="text" id='password' />
-                    <span className='visibility-icon' onClick={toggleVisibility}>
-                        {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
+                    <span className='visibility-icon' onClick={() => setIsPasswordVisible(prev => !prev)}>
+                        {isPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
                 <label htmlFor='confirm-password'><span className='asterisk'>*</span>Confirm Password:</label>
                 <div>
                     <input required type="text" id='confirm-passowrd' />
-                    <span className='visibility-icon' onClick={toggleVisibility}>
-                        {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
+                    <span className='visibility-icon' onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
+                        {isConfirmPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
             </div>
 
             <span className='msg1'>Optional Details</span>
-            <span className='goal-msg'>(These details will be displayed on your user profile.)</span>
+            <span className='goal-msg'>(These will show on your user profile.)</span>
             <div className='pronouns'>
                 <label htmlFor='pronouns'>Pronouns:</label>
                 <div>
@@ -106,7 +102,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='add-social'>
                 <FaPlusCircle className='icon' title='Add another social' />
             </div>
-            <span className='msg1'>Let's set a few goals...</span>
+            <span className='msg1'>Let's set some goals...</span>
             <span className='goal-msg'>(Your goals are only visible to you.)</span>
             <div className='goals'>
                 <label htmlFor='weekly-wc'>Weekly Word Count:</label>
