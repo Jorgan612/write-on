@@ -1,6 +1,6 @@
 import './Signup.scss';
 import { useNavigate } from 'react-router-dom';
-import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle } from 'react-icons/fa';
+import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
 import { useState, ChangeEvent } from 'react';
 
@@ -19,7 +19,7 @@ const userObj = {
         url: '',
     },
     socials: [{
-        id: 0,
+        id: Date.now(),
         handle: '',
         url: ''
     }],
@@ -114,8 +114,28 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     };
 
     const addSocialInputs = () => {
-        // for when a user clicks add icon to add a new social 
-    }
+        const newSocial = {
+            id: Date.now(),
+            handle: '',
+            url: ''
+        };
+
+        setNewUser((prevUser) => {
+            return {
+                ...prevUser,
+                socials: [...prevUser.socials, newSocial]
+            }
+        });
+    };
+
+    const removeSocialInputs = (id: number) => {
+        setNewUser((prev) => ({
+            ...prev,
+            socials: prev.socials.filter((social) => {
+                return social.id !== id;
+            }
+        )}));
+    };
 
     return (
         <form className='signup-form' onSubmit={handlesSignupSubmit}>
@@ -184,6 +204,9 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <p>Socials</p>
             {newUser?.socials?.map((social, index) => (
                 <div className='socials' key={social.id}>
+                    <div className='close-icon'>
+                        <FaTimesCircle className='icon' onClick={() => removeSocialInputs(social.id)}/>
+                    </div>
                     <label htmlFor='social-handle'>Handle:</label>
                     <div>
                         <input type="text" id='social-handle' value={social.handle}
@@ -197,7 +220,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
             ))}
             <div className='add-social'>
-                <FaPlusCircle className='icon' title='Add another social' />
+                <FaPlusCircle className='icon' title='Add another social' onClick={addSocialInputs} />
             </div>
             <span className='msg1'>Let's set some goals...</span>
             <span className='goal-msg'>(Your goals are only visible to you and can be updated from your personal dashboard at any time.)</span>
