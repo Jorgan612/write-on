@@ -2,7 +2,7 @@ import './Signup.scss';
 import { useNavigate } from 'react-router-dom';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, ChangeEventHandler } from 'react';
 
 const userObj = {
     id: Date.now(),
@@ -50,9 +50,23 @@ const userObj = {
 function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const navigate = useNavigate();
 
+    const [newUser, setNewUser] = useState<User>(userObj);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
-    const [newUser, setNewUser] = useState<User>(userObj);
+    const [confirmEmail, setConfirmEmail] = useState<string>();
+    const [confirmPassword, setConfirmPassword] = useState<string>();
+    const [confirmationTouched, setConfirmationTouched] = useState({
+        email: false,
+        password: false
+    })
+    const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    const emailMismatch = confirmationTouched.email && confirmEmail !== newUser.email;
+    const passwordMismatch = confirmationTouched.password && confirmPassword !== newUser.password;
+
+    const isFormValid = newUser.email.length > 0 &&
+        newUser.password.length > 0  &&
+        confirmEmail === newUser.email &&
+        confirmPassword === newUser.password;
 
     const returnToLandingPage = () => {
         navigate('/');
@@ -69,6 +83,14 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             [id]: value,
         }));
     };
+
+    const handlePasswordConfirmation = () => {
+        if (confirmPassword !== newUser.password) {
+            setPasswordsMatch(false);
+        } else {
+            setPasswordsMatch(true);
+        }
+    }
 
     const handleSocialChange = (index: number, field: 'handle' | 'url', value: string) => {
         setNewUser((prev) => ({
@@ -99,6 +121,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
 
     const handlesSignupSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!isFormValid) return;
         // Figure out logic to create a new user and where a list of all users will be
         // verify email and password fields match
         // separately update userObj with separate handleInput functions
@@ -149,7 +173,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
                 <label htmlFor='confirm-email'><span className='asterisk'>*</span>Confirm Email:</label>
                 <div>
-                    <input required type="text" id='confirm-email' />
+                    <input required type="text" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} />
                 </div>
 
             </div>
@@ -162,18 +186,27 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='password'>
                 <label htmlFor='password'><span className='asterisk'>*</span>Password:</label>
                 <div>
-                    <input required type="text" id='password' value={newUser?.password} onChange={handleInputChange} />
+                    <input required type={isPasswordVisible ? 'text' : 'password'} id='password' 
+                        value={newUser?.password}
+                        onChange={handleInputChange}
+                        onBlur={() => setConfirmationTouched(prev  => ({...prev, password: true}))} />
                     <span className='visibility-icon' onClick={() => setIsPasswordVisible(prev => !prev)}>
                         {isPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
                 <label htmlFor='confirm-password'><span className='asterisk'>*</span>Confirm Password:</label>
                 <div>
-                    <input required type="text" id='confirm-passowrd' />
+                    <input required className={!passwordsMatch ? 'input-error' : ''} type={isConfirmPasswordVisible ? 'text' : 'password'} id='confirm-password' 
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onBlur={() => setConfirmationTouched(prev => ({...prev, password: true}))} />
                     <span className='visibility-icon' onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
                         {isConfirmPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
+                {!passwordMismatch && (
+                    <p className='error-text'>Passwords do not match. Re-enter your password.</p>
+                )}
             </div>
 
             <span className='msg1'>Optional Details</span>
@@ -238,7 +271,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                     <input type="text" id='overall' placeholder="What is your target word count?" onChange={(e) => handleGoalChange(2, e.target.value)} />
                 </div>
             </div>
-            <button type="submit">Sign up</button>
+            <button type="submit" disabled={!isFormValid} title={isFormValid ? 'Sign up' : 'Complete form to sign up'}>Sign up</button>
             <span className='stuck'>
                 <span className='no-account' onClick={takeToLoginPage}>Have an account already?</span>
             </span>
