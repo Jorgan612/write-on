@@ -40,16 +40,16 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='app-title'>
                 <h1 onClick={returnToLandingPage}>Write On <FaPenFancy /></h1>
             </div>
-            <div className='username'>
-                <label htmlFor='username'>Username:</label>
+            <div className='email'>
+                <label htmlFor='email'>Email:</label>
                 <div>
-                    <input type="text" id='username' placeholder="Username" />
+                    <input type="text" id='email' />
                 </div>
             </div>
             <div className='password'>
                 <label htmlFor='password'>Password:</label>
                 <div>
-                    <input type="text" id='password' placeholder="Password" />
+                    <input type="text" id='password' />
                     <span className='visibility-icon' onClick={toggleVisibility}>
                         {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>

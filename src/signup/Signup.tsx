@@ -88,13 +88,13 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
 
     const handleWebsiteChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        // setFormData((prev) => ({
-        //     ...prev,
-        //     website: {
-        //         ...prev.website,
-        //         [name]: value,
-        //     },
-        // }));
+        setNewUser((prev) => ({
+            ...prev,
+            website: {
+                ...prev.website,
+                [name]: value,
+            },
+        }));
     };
 
     const handlesSignupSubmit = (e: React.FormEvent) => {
@@ -174,11 +174,11 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='website'>
                 <label htmlFor='website-name'>Website name:</label>
                 <div>
-                    <input type="text" id='website-name' value={newUser?.website.name} />
+                    <input type="text" id='website-name' name='name' value={newUser?.website.name} onChange={handleWebsiteChange} />
                 </div>
                 <label htmlFor='website-url'>Website URL:</label>
                 <div>
-                    <input type="text" id='website-url' value={newUser?.website.url} />
+                    <input type="text" id='website-url' name='url' value={newUser?.website.url} onChange={handleWebsiteChange} />
                 </div>
             </div>
             <p>Socials</p>
@@ -200,7 +200,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 <FaPlusCircle className='icon' title='Add another social' />
             </div>
             <span className='msg1'>Let's set some goals...</span>
-            <span className='goal-msg'>(Your goals are only visible to you.)</span>
+            <span className='goal-msg'>(Your goals are only visible to you and can be updated from your personal dashboard at any time.)</span>
             <div className='goals'>
                 <label htmlFor='weekly-wc'>Weekly Word Count:</label>
                 <div>
@@ -215,7 +215,6 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                     <input type="text" id='overall' placeholder="What is your target word count?" onChange={(e) => handleGoalChange(2, e.target.value)} />
                 </div>
             </div>
-            <span className='goal-msg'>You can update goals at any time from your personal dashboard.</span>
             <button type="submit">Sign up</button>
             <span className='stuck'>
                 <span className='no-account' onClick={takeToLoginPage}>Have an account already?</span>

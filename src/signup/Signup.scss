@@ -102,10 +102,6 @@
         }
     }
 
-    .goals {
-        margin-bottom: 0;
-    }
-
     .goal-msg,
     .msg1 {
         @include content(fit-content, 20%, null);
