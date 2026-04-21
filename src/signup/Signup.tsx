@@ -49,7 +49,7 @@ const userObj = {
 
 function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const navigate = useNavigate();
-
+    
     const [newUser, setNewUser] = useState<User>(userObj);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
@@ -58,11 +58,15 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const [confirmationTouched, setConfirmationTouched] = useState({email: false, password: false});
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailFormatted = emailRegex.test(newUser.email);
     const emailMismatch = confirmationTouched.email && confirmEmail !== newUser.email;
     const passwordMismatch = confirmationTouched.password && confirmPassword !== newUser.password;
+    const showFormatError = confirmationTouched.email && !isEmailFormatted;
 
-    const isFormValid = newUser.email.length > 0 &&
-        newUser.password.length > 0  &&
+    const isFormValid = isEmailFormatted &&
+        newUser.email.length > 0 &&
+        newUser.password.length >= 11  &&
         confirmEmail === newUser.email &&
         confirmPassword === newUser.password;
 
@@ -70,7 +74,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     useEffect(() => {
         handlePasswordConfirmation();
         handleEmailConfirmation();
-
+        console.log('isEmailFormatted', isEmailFormatted)
     }, [confirmEmail, confirmPassword])
 
     const returnToLandingPage = () => {
@@ -95,7 +99,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         } else {
             setPasswordsMatch(true);
         }
-    }
+    };
 
     const handleEmailConfirmation = () => {
         if (confirmationTouched.email && confirmEmail !== newUser.email) {
@@ -103,7 +107,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         } else {
             setEmailsMatch(true);
         }
-    }
+    };
 
     const handleSocialChange = (index: number, field: 'handle' | 'url', value: string) => {
         setNewUser((prev) => ({
@@ -182,13 +186,18 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='email'>
                 <label htmlFor='email'><span className='asterisk'>*</span>Email:</label>
                 <div>
-                    <input required className={!emailsMatch ? 'input-error' : ''} type="text" id='email' value={newUser?.email} onChange={handleInputChange} />
+                    <input required className={!emailsMatch ? 'input-error' : ''} type="email" id='email' value={newUser?.email} onChange={handleInputChange} />
                 </div>
                 <label htmlFor='confirm-email'><span className='asterisk'>*</span>Confirm Email:</label>
                 <div>
-                    <input required className={!emailsMatch ? 'input-error' : ''} type="text" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
+                    <input required className={showFormatError || !emailsMatch ? 'input-error' : ''} type="email" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
                 </div>
-                {emailMismatch && (
+
+                {showFormatError && (
+                    <p className='error-text'>Please enter a valid email address.</p>
+                )}
+
+                {!showFormatError && emailMismatch && (
                     <p className='error-text'>Email does not match. Re-enter your email.</p>
                 )}
             </div>
