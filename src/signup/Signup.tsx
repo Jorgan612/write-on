@@ -2,7 +2,7 @@ import './Signup.scss';
 import { useNavigate } from 'react-router-dom';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
-import { useState, ChangeEvent, ChangeEventHandler, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 
 const userObj = {
     id: Date.now(),
