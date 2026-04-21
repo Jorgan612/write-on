@@ -2,7 +2,7 @@ import './Signup.scss';
 import { useNavigate } from 'react-router-dom';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
 import { User } from '../interfaces/interfaces';
-import { useState, ChangeEvent, ChangeEventHandler } from 'react';
+import { useState, ChangeEvent, ChangeEventHandler, useEffect } from 'react';
 
 const userObj = {
     id: Date.now(),
@@ -55,11 +55,9 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
     const [confirmEmail, setConfirmEmail] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [confirmationTouched, setConfirmationTouched] = useState({
-        email: false,
-        password: false
-    })
+    const [confirmationTouched, setConfirmationTouched] = useState({email: false, password: false});
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+    const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
     const emailMismatch = confirmationTouched.email && confirmEmail !== newUser.email;
     const passwordMismatch = confirmationTouched.password && confirmPassword !== newUser.password;
 
@@ -67,6 +65,13 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         newUser.password.length > 0  &&
         confirmEmail === newUser.email &&
         confirmPassword === newUser.password;
+
+
+    useEffect(() => {
+        handlePasswordConfirmation();
+        handleEmailConfirmation();
+
+    }, [confirmEmail, confirmPassword])
 
     const returnToLandingPage = () => {
         navigate('/');
@@ -85,10 +90,18 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     };
 
     const handlePasswordConfirmation = () => {
-        if (confirmPassword !== newUser.password) {
+        if (confirmationTouched.password && confirmPassword !== newUser.password) {
             setPasswordsMatch(false);
         } else {
             setPasswordsMatch(true);
+        }
+    }
+
+    const handleEmailConfirmation = () => {
+        if (confirmationTouched.email && confirmEmail !== newUser.email) {
+            setEmailsMatch(false);
+        } else {
+            setEmailsMatch(true);
         }
     }
 
@@ -173,9 +186,11 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
                 <label htmlFor='confirm-email'><span className='asterisk'>*</span>Confirm Email:</label>
                 <div>
-                    <input required type="text" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} />
+                    <input required type="text" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
                 </div>
-
+                {emailMismatch && (
+                    <p className='error-text'>Email does not match. Re-enter your email.</p>
+                )}
             </div>
             <div className='username'>
                 <label htmlFor='username'><span className='asterisk'>*</span>Username:</label>
@@ -188,8 +203,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 <div>
                     <input required type={isPasswordVisible ? 'text' : 'password'} id='password' 
                         value={newUser?.password}
-                        onChange={handleInputChange}
-                        onBlur={() => setConfirmationTouched(prev  => ({...prev, password: true}))} />
+                        onChange={handleInputChange}/>
                     <span className='visibility-icon' onClick={() => setIsPasswordVisible(prev => !prev)}>
                         {isPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
@@ -204,8 +218,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                         {isConfirmPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
-                {!passwordMismatch && (
-                    <p className='error-text'>Passwords do not match. Re-enter your password.</p>
+                {passwordMismatch && (
+                    <p className='error-text'>Password does not match. Re-enter your password.</p>
                 )}
             </div>
 
