@@ -1,0 +1,183 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.signup-form {
+    @include flexbox(flex, column, flex-start, center);
+    @include content(100%, 99%, $dark5);
+    padding: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    input,
+    textarea {
+        @include content(fit-content, 100%, null);
+        padding: .7rem;
+        background-color: $dark3;
+        color: $dark1;
+        border-radius: 5px;
+        border: none;    
+    }
+    
+    input:focus,
+    textarea:focus {
+        outline: 2px solid $dark2;
+    }
+
+    textarea {
+        height: 6rem;
+        resize: none;
+
+        textarea::-webkit-resizer {
+            display: none;
+        }
+    }
+    
+    button {
+        width: 20%;
+    }
+
+    button:disabled {
+        background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+    }
+
+    .app-title {
+        @include flexbox(flex, row, center, center);
+        @include content(20%, 100%, null);
+        font-size: 4rem;
+        margin: 4rem 0;
+        
+        h1 {
+            
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .asterisk {
+        color: $highlight1;
+    }
+    
+    .email,
+    .password,
+    .username,
+    .website,
+    .socials,
+    .pronouns,
+    .bio,
+    .goals {
+        @include flexbox(flex, column, flex-start, flex-start);
+        @include content(fit-content, 20%, null );
+        margin: 0 0 2rem 0;
+
+        label {
+            padding: 1rem 0 .5rem 0;
+        }
+
+        div {
+            @include flexbox(flex, row, center, center);
+            @include content(fit-content, 100%, null);
+        }
+    }
+
+    .website {
+        border: 1px solid $dark3;
+        border-radius: 5px;
+        padding: .5rem;
+    }
+    
+    .socials {
+        @include content(fit-content, 20%, null);
+        border: 1px solid $dark3;
+        border-radius: 5px;
+        padding: .5rem;
+        margin: 0 0 1rem 0;
+        
+        .close-icon {
+            @include flexbox(flex, row, flex-end, center);
+
+            &:hover {
+                cursor: pointer;
+                color: $highlight1;
+            }
+        }
+    }
+
+    .add-social {
+        @include content(fit-content, fit-content, null);
+
+        .icon {
+            @include content(24px, 24px, null);
+        }
+
+        &:hover {
+            cursor: pointer;
+            color: $highlight1;
+        }
+    }
+
+    .goal-msg,
+    .msg1 {
+        @include content(fit-content, 20%, null);
+        text-wrap: wrap;
+        text-align: center;
+        margin-top: .5rem;
+    }
+
+    .msg1 {
+        font-size: $font1;
+        padding: 1rem;
+        margin-top: 4rem;
+        border-bottom: 1px solid $highlight1;
+    }
+
+    .goal-msg {
+        padding: 1rem;
+    }
+    
+    .visibility-icon {
+        position: relative;
+        
+        .icon {
+            @include content(24px, 24px, null);
+            position: absolute;
+            bottom: -30px;
+            right: -10px;
+            padding: 1rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+             color: $highlight1;
+        }
+    }
+
+    .stuck {
+        margin: 2rem 0 4rem 0;
+
+        .forgot-password,
+        .no-account {
+            margin: 0 1rem;
+            font-size: $font2;
+    
+            &:hover {
+                cursor: pointer;
+                color: $highlight1;
+            }
+        }
+    }
+
+    .input-error {
+        border: 1px solid #e06666;
+    }
+
+    .error-text {
+        font-size: 14px;
+        margin-top: 4px;
+        font-weight: 500;
+        color: #e06666;
+    }
+}

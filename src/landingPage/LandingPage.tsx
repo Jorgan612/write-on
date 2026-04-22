@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LandingPage.scss';
 import { FaEnvelope, FaPenFancy, FaArrowAltCircleDown } from 'react-icons/fa';
 import calendarImg from '../assets/images/calendar.png';
@@ -12,6 +11,11 @@ import trackerTwo from '../assets/images/trackerTwo.png';
 
 
 function LandingPage() {
+    const navigate = useNavigate();
+
+    const takeToSignupPage = () => {
+        navigate('/signup');
+    }
 
     return (
         <div className="landing-page-container">
@@ -32,9 +36,9 @@ function LandingPage() {
                     Don't have an account? 
                 </p>
                 <div>
-                    <button className='sign-up-button'>Sign Up</button>
+                    <button className='sign-up-button' onClick={takeToSignupPage}>Sign up</button>
                     <span>or</span>
-                    <Link title='login' to="/login" className='login-link'>Login</Link>
+                    <Link title='login' to="/login" className='login-link'>Log in</Link>
                 </div>
 
             </section>

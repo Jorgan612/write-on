@@ -175,7 +175,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                             </div>
 
                             <div className="user-identity">
-                                <span>Name</span>
+                                <span>Username</span>
                                 <div className="user-name">
                                     <input 
                                         id="name" 

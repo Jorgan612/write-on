@@ -4,7 +4,7 @@ import { FaPenFancy, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import './Login.scss';
 
 function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const navigate = useNavigate();
     
@@ -27,6 +27,10 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         navigate('/');
     };
 
+    const takeToSignupPage = () => {
+        navigate('/signup');
+    };
+
     const toggleVisibility = () => {
         setIsVisible(prev  => !prev);
     };
@@ -36,25 +40,25 @@ function Login({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='app-title'>
                 <h1 onClick={returnToLandingPage}>Write On <FaPenFancy /></h1>
             </div>
-            <div className='username'>
-                <label>Username:</label>
+            <div className='email'>
+                <label htmlFor='email'>Email:</label>
                 <div>
-                    <input type="text" placeholder="Username" />
+                    <input type="text" id='email' />
                 </div>
             </div>
             <div className='password'>
-                <label>Password:</label>
+                <label htmlFor='password'>Password:</label>
                 <div>
-                    <input type="text" placeholder="Password" />
+                    <input type="text" id='password' />
                     <span className='visibility-icon' onClick={toggleVisibility}>
                         {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
             </div>
-            <button type="submit">Log In</button>
+            <button type="submit">Log in</button>
             <span className='stuck'>
                 <span className='forgot-password'>Forgot password?</span>
-                <span className='no-account'>Don't have an account?</span>
+                <span className='no-account' onClick={takeToSignupPage}>Don't have an account?</span>
             </span>
         </form>
     );

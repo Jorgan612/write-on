@@ -1,7 +1,6 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
-import './App.scss';
 import { Entry, User } from './interfaces/interfaces';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
@@ -10,17 +9,20 @@ import WordTracker from './tracker/WordTracker';
 import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
 import Dashboard from './dashboard/Dashboard';
-import ActiveGoals from './goals/ActiveGoals';
 import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
+import Signup from './signup/Signup';
 import Login from './login/Login';
-
+import './App.scss';
 import "chart.js/auto";
 
 
 const user: User = {
     id: 612,
-    name: 'Jesso',
+    name: 'Jessica',
+    username: 'Jesso',
+    email: 'Jorgan612@gmail.com',
+    password: '123456',
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',
@@ -107,9 +109,10 @@ function App() {
   if (!signedIn) {
     return (
       <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/login' element={<Login setSignedIn={setSignedIn} />} />
-        <Route path='*' element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
+        <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
+        <Route path="*" element={<LandingPage />} />
       </Routes>
     )
   }
@@ -129,7 +132,7 @@ function App() {
         <div className='header'>
           <Timer />
           <div className='top-right-corner'>
-            <button onClick={handleLogOut}>Logout</button>
+            <button onClick={handleLogOut}>Log out</button>
             <FaCog className='icon' />
           </div>
         </div>

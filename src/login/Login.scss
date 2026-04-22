@@ -40,7 +40,7 @@
     }
     
     .password,
-    .username {
+    .email {
         @include flexbox(flex, column, flex-start, flex-start);
         @include content(fit-content, 20%, null );
         margin: 0 0 2rem 0;
