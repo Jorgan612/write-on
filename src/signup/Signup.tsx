@@ -66,7 +66,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
 
     const isFormValid = isEmailFormatted &&
         newUser.email.length > 0 &&
-        newUser.password.length >= 11  &&
+        newUser.password.length > 0  &&
         confirmEmail === newUser.email &&
         confirmPassword === newUser.password;
 
