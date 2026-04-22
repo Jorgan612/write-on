@@ -140,14 +140,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         e.preventDefault();
 
         if (!isFormValid) return;
-        // Figure out logic to create a new user and where a list of all users will be
-        // verify email and password fields match
-        // separately update userObj with separate handleInput functions
-        // dynamic handleInput function for optional details (besides website/socials/goals?)
-        // user icon remains default until updated from user profile.
-        // need to pass setCurrentUser to this component.
-        // 
-        console.log('newUser test submit', newUser)
+
+        // The logic for this funciton will be completed in another issue.
 
         // uncomment when logic is completed!
         // setSignedIn(true);
