@@ -155,7 +155,7 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
             <div className='calendar-header'>
                 <FaChevronLeft className="previous" onClick={() => {changeMonth('previous')}} />
                 <span className='month'>{currentMonth}</span>
-                <span>{currentYear}</span>
+                <span className='year'>{currentYear}</span>
                 <FaChevronRight className="next" onClick={() => {changeMonth('next')}} />
             </div>
             <div className='grid-container'>
