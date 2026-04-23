@@ -1,4 +1,5 @@
 import {
+    FaRegUserCircle,
     FaAnchor,
     FaAppleAlt,
     FaBaseballBall,
@@ -75,6 +76,7 @@ import {
 } from "react-icons/fa";
 
 export const userIcons = [
+    {icon: FaRegUserCircle, id: 'default'},
     {icon: FaAnchor, id: 'anchor'},
     {icon: FaAppleAlt, id: 'apple'},
     {icon: FaBaseballBall, id: 'baseball'},
