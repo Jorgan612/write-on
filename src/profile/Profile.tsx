@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import './Profile.scss';
 import { FaRegUserCircle, FaUsers, FaEdit, FaUpload, FaExternalLinkAlt } from 'react-icons/fa';
 import { User, UserIcon, UserSelection } from '../interfaces/interfaces';
@@ -17,8 +17,13 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [selectedIcon, setSelectedIcon] = useState<string>('');
     const [updatedUserIcon, setUpdatedUserIcon] = useState<UserSelection | null>(null);
     
-    const PreviewIcon = formData.userIcon?.icon || FaRegUserCircle;
+    const iconData = userIcons.find(icon => icon.id === currentUser.userIcon.id);
+    const PreviewIcon = iconData?.icon || FaRegUserCircle;
     const previewColor = formData.userIcon?.color || '#94a3b8';
+
+    useEffect(() => {
+        // figure out why to render new icon selection while still in edit mode.
+    }, [PreviewIcon]);
 
     const activateEditing = () => {
         setFormData(currentUser);
