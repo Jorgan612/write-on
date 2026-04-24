@@ -11,7 +11,6 @@ export interface User {
     bio: string;
     joined: string;
     userIcon: {
-        icon: IconType;
         id: string;
         color: string;
     };
@@ -55,7 +54,6 @@ export interface UserIcon {
 }
 
 export interface UserSelection {
-    icon: IconType;
     id: string;
     color: string;
 }
