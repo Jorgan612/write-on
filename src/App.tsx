@@ -26,7 +26,7 @@ const user: User = {
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',
-    userIcon: {icon: FaCoffee, id: 'coffee', color: '#94a3b8'},
+    userIcon: {id: 'coffee', color: '#94a3b8'},
     website: {
         name: 'jessoportfolio',
         url: 'https://jess-o-portfolio.vercel.app/',
