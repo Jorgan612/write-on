@@ -16,7 +16,7 @@ function Members({users}: MembersProps) {
                     <div className='member-card'>
                         <div className='user-icon-name'>
                             <PreviewIcon className='icon' style={{color: previewColor}} />
-                            <label>{user.name}</label>
+                            <label>{user.username}</label>
                         </div>
 
                     </div>

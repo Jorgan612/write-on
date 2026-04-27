@@ -10,7 +10,7 @@ export const user: User = {
     pronouns: 'She/Her',
     bio: 'bookworm | game enthusiast | perpetually curious',
     joined: 'January 1st, 2026',
-    userIcon: {id: 'coffee', color: '#94a3b8'},
+    userIcon: {id: 'coffee', color: '#9dd6ff'},
     website: {
         name: 'jessoportfolio',
         url: 'https://jess-o-portfolio.vercel.app/',
@@ -59,7 +59,7 @@ export const users: UsersList = [
         pronouns: 'She/Her',
         bio: 'bookworm | game enthusiast | perpetually curious',
         joined: 'January 1st, 2026',
-        userIcon: {id: 'coffee', color: '#94a3b8'},
+        userIcon: {id: 'coffee', color: '#9dd6ff'},
         website: {
             name: 'jessoportfolio',
             url: 'https://jess-o-portfolio.vercel.app/',
@@ -146,8 +146,8 @@ export const users: UsersList = [
     },
     {
         id: 123,
-        name: 'Lizzy',
-        username: 'Ms. Bennet',
+        name: 'Elizabeth',
+        username: 'Lizzy',
         email: 'test@gmail.com',
         password: '001589',
         pronouns: 'She/Her',
@@ -290,7 +290,7 @@ export const users: UsersList = [
         pronouns: 'He/Him',
         bio: 'They do move in herds',
         joined: 'January 1st, 2026',
-        userIcon: {id: 'bone', color: '#94a3b8'},
+        userIcon: {id: 'bone', color: '#ffd07e'},
         website: {
             name: 'I dig it',
             url: 'https://jess-o-portfolio.vercel.app/',

@@ -95,17 +95,17 @@
         @include flexbox(flex, row, space-between, flex-start);
         @include content(100%, 100%, null);
         margin: 5px;
-        border: 1px solid yellow;
+        // border: 1px solid yellow;
         overflow: hidden;
 
         .sign-up {
             @include content(100%, 75%, null);
-            border: 1px solid white;
+            // border: 1px solid white;
         }
 
         .members-list {
             @include content(100%, 25%, null);
-            border: 1px solid white;
+            border-left: 2px solid $dark3;
         }
     }
 }
