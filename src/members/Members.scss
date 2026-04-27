@@ -1,0 +1,42 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+
+.members-list {
+    @include flexbox(flex, column, flex-start, center);
+    // @include content(100%, 100%, null);
+    padding: .5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    // border: 1px solid white;
+
+    h3 {
+        font-size: $font1
+    }
+
+
+    .member-card {
+        @include content(40%, 90%, null);
+        // border: 1px solid rgb(44, 32, 32);
+        margin: .5rem;
+        padding: .5rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.25), 
+            0 1px 3px rgba(0, 0, 0, 0.2);
+
+        .user-icon-name {
+            @include flexbox(flex, row, flex-start, center);
+            font-size: $font4;
+
+            .icon {
+                @include content(50px, 50px, null);
+                padding: 1rem;
+                border: 2px solid $highlight1;
+                border-radius: 50%;
+                margin-right: .5rem;
+            }
+        }
+
+    }
+}
