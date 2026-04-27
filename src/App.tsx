@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
-import { Entry, User } from './interfaces/interfaces';
+import { Entry, UsersList, User } from './interfaces/interfaces';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
 import Stats from './stats/Stats';
@@ -13,62 +13,17 @@ import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
 import Signup from './signup/Signup';
 import Login from './login/Login';
+import { users, user } from './datasets/datasets';
 import './App.scss';
 import "chart.js/auto";
 
 
-const user: User = {
-    id: 612,
-    name: 'Jessica',
-    username: 'Jesso',
-    email: 'Jorgan612@gmail.com',
-    password: '123456',
-    pronouns: 'She/Her',
-    bio: 'bookworm | game enthusiast | perpetually curious',
-    joined: 'January 1st, 2026',
-    userIcon: {id: 'coffee', color: '#94a3b8'},
-    website: {
-        name: 'jessoportfolio',
-        url: 'https://jess-o-portfolio.vercel.app/',
-    },
-    socials: [{
-        id: 1,
-        handle: 'jessowrites.bsky.social',
-        url: 'https://bsky.app/profile/jessowrites.bsky.social'
-    },
-    {
-        id: 2,
-        handle: 'jess.o.writes',
-        url: 'https://instagram.com'
-    }],
-    goals: [{
-        name: 'Weekly Word Count',
-        id: '1',
-        total: 3000,
-        current: 0,
-        type: 'word(s)'
-      },
-      {
-        name: 'Weekly Session Frequency ',
-        id: '2',
-        total: 4,
-        current: 0,
-        type: 'day(s)'
-      },
-      {
-        name: 'Overall Word Count',
-        id: '3',
-        total: 90000,
-        current: 0,
-        type: 'word(s)'
-      }],
-    entries: [],
-};
 
 function App() {
   const navigate = useNavigate();
-
+  
   const [signedIn, setSignedIn] = useState<boolean>(true);
+  const [usersList, setUsersList] =  useState<User[]>(users);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
     return savedUser ? JSON.parse(savedUser) : user;
@@ -143,7 +98,7 @@ function App() {
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-              <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries}/> } />
+              <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
             </>
           ) : (
             <Route path="*" element={<LandingPage />} />
