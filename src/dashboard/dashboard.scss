@@ -102,11 +102,6 @@
             @include content(100%, 75%, null);
             // border: 1px solid white;
         }
-
-        .members-list {
-            @include content(100%, 25%, null);
-            border-left: 2px solid $dark3;
-        }
     }
 }
 

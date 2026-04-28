@@ -1,5 +1,5 @@
 import { MembersProps } from '../interfaces/interfaces';
-import { userIcons, userIconColor } from '../assets/icons/userIcons/userIcons';
+import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { FaRegUserCircle } from 'react-icons/fa';
 import './Members.scss';
 
@@ -18,7 +18,9 @@ function Members({users}: MembersProps) {
                             <PreviewIcon className='icon' style={{color: previewColor}} />
                             <label>{user.username}</label>
                         </div>
+                        <div className='card-details'>
 
+                        </div>
                     </div>
                 )
             })}

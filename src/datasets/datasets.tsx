@@ -285,7 +285,7 @@ export const users: UsersList = [
         id: 1993,
         name: 'Dr. Grant',
         username: 'Bone Guy',
-        email: 'Jorgan612@gmail.com',
+        email: 'thedrgrant@gmail.com',
         password: '123456',
         pronouns: 'He/Him',
         bio: 'They do move in herds',
@@ -293,12 +293,12 @@ export const users: UsersList = [
         userIcon: {id: 'bone', color: '#ffd07e'},
         website: {
             name: 'I dig it',
-            url: 'https://jess-o-portfolio.vercel.app/',
+            url: 'https://',
         },
         socials: [{
             id: 1,
             handle: 'DrG.bsky.social',
-            url: 'https://bsky.app/profile/jessowrites.bsky.social'
+            url: 'https://bsky.app/'
         },
         {
             id: 2,
@@ -328,4 +328,286 @@ export const users: UsersList = [
         }],
         entries: [],
     },
+    {
+        id: 1001,
+        name: 'Sherlock Holmes',
+        username: 'HighFunctioningSociopath',
+        email: '221b-baker@consulting-detective.uk',
+        password: 'ireneadlerforever',
+        pronouns: 'He/Him',
+        bio: 'The game is afoot! (Please do not move my violin)',
+        joined: 'February 12th, 2026',
+        userIcon: {id: 'meteor', color: '#2c3e50'},
+        website: {
+            name: 'The Science of Deduction',
+            url: 'https://scienceofdeduction.co.uk',
+        },
+        socials: [{
+            id: 1,
+            handle: 'Watson_Official',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'Sherly_Not_Surely',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Cases Solved',
+            id: '1',
+            total: 10,
+            current: 3,
+            type: 'case(s)'
+        },
+        {
+            name: 'Violin Practice',
+            id: '2',
+            total: 7,
+            current: 1,
+            type: 'day(s)'
+        },
+        {
+            name: 'Tobacco Ash Cataloging',
+            id: '3',
+            total: 140,
+            current: 139,
+            type: 'entry(ies)'
+        }],
+        entries: [],
+    },
+    {
+        id: 1937,
+        name: 'Bilbo Baggins',
+        username: 'SecondBreakfastLover',
+        email: 'burglar_not_really@theshire.com',
+        password: 'mystealerprecious',
+        pronouns: 'He/Him',
+        bio: 'I am looking for someone to share in an adventure.',
+        joined: 'March 15th, 2026',
+        userIcon: {id: 'ring', color: '#ffd700'},
+        website: {
+            name: 'There and Back Again',
+            url: 'https://bag-end.hobbiton',
+        },
+        socials: [{
+            id: 1,
+            handle: 'Bilbo_B',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'Bagshot_Row_Official',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Meals Eaten Today',
+            id: '1',
+            total: 7,
+            current: 4,
+            type: 'meal(s)'
+        },
+        {
+            name: 'Unexpected Guests',
+            id: '2',
+            total: 13,
+            current: 13,
+            type: 'dwarf(ves)'
+        },
+        {
+            name: 'Gold Stolen from Dragon',
+            id: '3',
+            total: 1,
+            current: 1,
+            type: 'cup(s)'
+        }],
+        entries: [],
+    },
+    {
+        id: 1979,
+        name: 'Arthur Dent',
+        username: 'AlwaysConfused',
+        email: 'tea-less-arthur@galactic-highway.com',
+        password: 'dontpanic42',
+        pronouns: 'He/Him',
+        bio: 'I never could get the hang of Thursdays.',
+        joined: 'April 1st, 2026',
+        userIcon: {id: 'gem', color: '#87ceeb'},
+        website: {
+            name: 'The Hitchhikers Guide',
+            url: 'https://guide.galaxy',
+        },
+        socials: [{
+            id: 1,
+            handle: 'DentArthurDent',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'SandwichMaker',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Cups of Tea Located',
+            id: '1',
+            total: 1,
+            current: 0,
+            type: 'cup(s)'
+        },
+        {
+            name: 'Near-Death Experiences',
+            id: '2',
+            total: 50,
+            current: 42,
+            type: 'event(s)'
+        },
+        {
+            name: 'Vogon Poetry Heard',
+            id: '3',
+            total: 10,
+            current: 1,
+            type: 'line(s)'
+        }],
+        entries: [],
+    },
+    {
+        id: 1865,
+        name: 'Alice Liddell',
+        username: 'CuriouserAndCuriouser',
+        email: 'tea-party-guest@wonderland.net',
+        password: 'down-the-rabbit-hole',
+        pronouns: 'She/Her',
+        bio: 'How long is forever? Sometimes, just one second.',
+        joined: 'January 10th, 2026',
+        userIcon: {id: 'crow', color: '#ff4d4d'},
+        website: {
+            name: 'The Looking Glass',
+            url: 'https://wonderland.logic',
+        },
+        socials: [{
+            id: 1,
+            handle: 'AliceInWonderland',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'QueenOfHeartsHater',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Shrinking/Growing Cycles',
+            id: '1',
+            total: 10,
+            current: 5,
+            type: 'time(s)'
+        },
+        {
+            name: 'Riddles Unanswered',
+            id: '2',
+            total: 100,
+            current: 99,
+            type: 'riddle(s)'
+        },
+        {
+            name: 'Impossible Things Believed',
+            id: '3',
+            total: 6,
+            current: 2,
+            type: 'thing(s)'
+        }],
+        entries: [],
+    },
+    {
+        id: 1997,
+        name: 'Ron Weasley',
+        username: 'KingWeasley',
+        email: 'spider-hater-97@owlpost.wiz',
+        password: 'scabbers-was-a-man',
+        pronouns: 'He/Him',
+        bio: 'Follow the butterflies? Why couldn’t it be follow the moths?',
+        joined: 'May 2nd, 2026',
+        userIcon: {id: 'knight', color: '#740001'},
+        website: {
+            name: 'Chudley Cannons Fan Page',
+            url: 'https://cannons.quidditch',
+        },
+        socials: [{
+            id: 1,
+            handle: 'TheRealR_Weasley',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'Ginger_Ninja',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Quidditch Saves',
+            id: '1',
+            total: 20,
+            current: 8,
+            type: 'save(s)'
+        },
+        {
+            name: 'Spiders Avoided',
+            id: '2',
+            total: 500,
+            current: 499,
+            type: 'spider(s)'
+        },
+        {
+            name: 'Howlers Received',
+            id: '3',
+            total: 5,
+            current: 1,
+            type: 'letter(s)'
+        }],
+        entries: [],
+    },
+    {
+        id: 1813,
+        name: 'Elizabeth Bennet',
+        username: 'Headstrong_Lizzy',
+        email: 'tolerable-but-not-handsome@longbourn.com',
+        password: 'pemberley-estate-rules',
+        pronouns: 'She/Her',
+        bio: 'Obstinate, headstrong girl! (Actually, I just like walking in the mud)',
+        joined: 'June 18th, 2026',
+        userIcon: {id: 'mountain', color: '#f5f5dc'},
+        website: {
+            name: 'Prejudice and Other Opinions',
+            url: 'https://netherfield.ball',
+        },
+        socials: [{
+            id: 1,
+            handle: 'L_Bennet',
+            url: 'https://bsky.app/'
+        },
+        {
+            id: 2,
+            handle: 'Jane_Fan_Account',
+            url: 'https://instagram.com'
+        }],
+        goals: [{
+            name: 'Walks Across Fields',
+            id: '1',
+            total: 10,
+            current: 3,
+            type: 'mile(s)'
+        },
+        {
+            name: 'Proposals Rejected',
+            id: '2',
+            total: 2,
+            current: 2,
+            type: 'proposal(s)'
+        },
+        {
+            name: 'Books Read in Library',
+            id: '3',
+            total: 50,
+            current: 12,
+            type: 'book(s)'
+        }],
+        entries: [],
+    }
 ];
