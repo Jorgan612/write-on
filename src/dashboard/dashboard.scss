@@ -3,7 +3,7 @@
 
 .dashboard-contents {
     @include flexbox(flex, column, flex-start, null);
-    @include content(calc(95vh - 3rem), 97.5%, null);
+    @include content(calc(95vh - 1rem), 99%, null);
     
     .dash-header {
         @include flexbox(flex, row, flex-start, center);

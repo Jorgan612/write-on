@@ -25,15 +25,17 @@
             0 4px 12px rgba(0, 0, 0, 0.25), 
             0 1px 3px rgba(0, 0, 0, 0.2);
 
+        label {
+            padding: .5rem;
+        }
+
         .user-icon-name {
-            @include flexbox(flex, row, flex-start, center);
+            @include flexbox(flex, column, flex-start, center);
             font-size: $font4;
 
             .icon {
                 @include content(40px, 40px, null);
-                padding: 1rem;
-                border-right: 1px solid $dark3;
-                margin-right: .5rem;
+                min-width: 40px;
             }
         }
 

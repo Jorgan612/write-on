@@ -331,7 +331,7 @@ export const users: UsersList = [
     {
         id: 1001,
         name: 'Sherlock Holmes',
-        username: 'HighFunctioningSociopath',
+        username: '000HighFunctioningSociopath000',
         email: '221b-baker@consulting-detective.uk',
         password: 'ireneadlerforever',
         pronouns: 'He/Him',
