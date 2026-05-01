@@ -46,6 +46,8 @@ export interface User {
 
 export interface MembersProps {
     users: UsersList;
+    selectedMember: User | null;
+    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 export interface UserProps {

@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import Members from '../members/Members';
-import { UserProps, MembersProps } from '../interfaces/interfaces';
+import { User, UserProps, MembersProps } from '../interfaces/interfaces';
 import './Dashboard.scss';
 import '../App.scss';
 
-type DashProps = UserProps & MembersProps;
+type DashProps = UserProps & {users: User[]};
 
 function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
+    const [selectedMember, setSelectedMember] = useState<User | null>(null);
 
     return (
         <div className='dashboard-contents'>
@@ -42,7 +43,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                 <div className='sign-up'>
                     <p>Sign up to share</p>
                 </div>
-                <Members users={users} />
+                <Members users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember} />
             </div>
         </div>
     );

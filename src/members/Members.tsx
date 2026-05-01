@@ -1,9 +1,16 @@
-import { MembersProps } from '../interfaces/interfaces';
+import { MembersProps, User } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { FaRegUserCircle } from 'react-icons/fa';
 import './Members.scss';
+import { useState } from 'react';
 
-function Members({users}: MembersProps) {
+function Members({users, selectedMember, setSelectedMember}: MembersProps) {
+
+    const showDetails = (user: User) => {
+        console.log('showDetails!', user)
+        setSelectedMember(user);
+    };
+    
 
     return (
         <div className="members-list">
@@ -13,15 +20,16 @@ function Members({users}: MembersProps) {
                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                 const previewColor = user.userIcon?.color || '#94a3b8';
                 return (
-                    <div className='member-card'>
+                    <div className={`member-card ${user.id === selectedMember?.id ? 'selected' : ''}`} key={user.id} onClick={() => {showDetails(user)}}>
                         <div className='user-icon-name'>
                             <div>
                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                             </div>
                             <label>{user.username}</label>
                         </div>
-                        <div className='card-details'>
-
+                        <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : 'is-hidden'}`}>
+                            <label>Details:</label>
+                            <textarea placeholder='TEST'></textarea>
                         </div>
                     </div>
                 )
