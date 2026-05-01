@@ -27,9 +27,12 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                             </div>
                             <label>{user.username}</label>
                         </div>
-                        <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : 'is-hidden'}`}>
-                            <label>Details:</label>
-                            <textarea placeholder='TEST'></textarea>
+                        <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : ''}`}>
+                            <div className='details-inner'>
+                                <label>Details:</label>
+                                <textarea placeholder='TEST'></textarea>
+                            </div>
+
                         </div>
                     </div>
                 )

@@ -17,11 +17,14 @@
 
 
     .member-card {
-        @include content(40%, 90%, null);
+        @include content(auto, 90%, null);
+        min-height: fit-content;
         position: relative;
         margin: .5rem;
         padding: .5rem;
         border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background-color 0.3s ease, border 0.3s ease;
+        overflow: hidden;
         box-shadow: 
             0 4px 12px rgba(0, 0, 0, 0.25), 
             0 1px 3px rgba(0, 0, 0, 0.2);
@@ -35,7 +38,9 @@
 
         .user-icon-name {
             @include flexbox(flex, row, flex-start, center);
+            position: relative;
             font-size: $font4;
+            z-index: 2;
 
             div {
                 @include flexbox(flex, row, center, center);
@@ -54,34 +59,35 @@
         }
 
         .card-details {
-            @include content(100%, 100%, null);
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            transition: max-width 0.4s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
+            @include content(auto, 100%, null);
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
-            z-index: 10;
 
-            textarea {
-                @include content(150px, 100%, $dark5);
-                border: 2px solid $dark3;
-                color: $dark1;
+            &.is-visible {
+                grid-template-rows: 1fr;
             }
-        }
 
-        .hide-details {
-            max-width: 0;
-            opacity: 0;
-            pointer-events: none;
-            margin-top: 0;
-            transform: scaleX(0);
-            transform-origin: left;
-        }   
+            .details-inner {
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+                padding-top: 1rem;
 
-        .show-details {
-            opacity: 1;
-            transform: scaleX(1);
-            max-width: 40px;
+                textarea {
+                    @include content(150px, 95%, $dark5);
+                    border: 2px solid $dark3;
+                    padding: 4px;
+                    color: $dark1;
+                    resize: none;
+
+                    &:focus {
+                        border: none;
+                    }
+                }
+            }
+
         }
 
         &:hover {
