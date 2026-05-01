@@ -1,6 +1,6 @@
 import { MembersProps, User } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaRegUserCircle, FaPlusCircle } from 'react-icons/fa';
 import './Members.scss';
 import { useState } from 'react';
 
@@ -29,7 +29,14 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                         </div>
                         <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : ''}`}>
                             <div className='details-inner'>
-                                <label>Details:</label>
+                                <div className='links-container'>
+                                    <div>
+                                        <label>Link:</label>
+                                        <input />
+                                    </div>
+                                    <FaPlusCircle className='add-link' />
+                                </div>
+                                <label>Description:</label>
                                 <textarea placeholder='TEST'></textarea>
                             </div>
 

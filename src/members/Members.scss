@@ -90,6 +90,24 @@
                         border: none;
                     }
                 }
+
+                .links-container {
+                    @include flexbox(flex, column, flex-start, center);
+                    border: 1px solid red;
+
+                    div {
+                        @include content(fit-content, 100%, null);
+                    }
+
+                    .add-link {
+                        @include content(24px, 24px, null);
+                        padding: .5rem;
+
+                        &:hover {
+                            color: $highlight1;
+                        }
+                    }
+                }
             }
 
         }
