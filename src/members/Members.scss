@@ -34,6 +34,10 @@
             padding: .5rem;
             text-wrap: nowrap;
             overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         .user-icon-name {
