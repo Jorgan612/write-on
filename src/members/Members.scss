@@ -36,11 +36,13 @@
             .icon {
                 @include content(40px, 40px, null);
                 min-width: 40px;
+                padding: 0 .5rem .5rem .5rem;
+                border-bottom: 1px solid $highlight3;
             }
         }
 
         .card-details {
-            border-top:1px solid $dark4;
+            // border-top:1px solid $dark4;
         }
 
         &:hover {
