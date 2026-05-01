@@ -26,19 +26,30 @@
             0 1px 3px rgba(0, 0, 0, 0.2);
 
         label {
+            width: 100%;
             padding: .5rem;
+            text-wrap: nowrap;
+            overflow: hidden;
         }
 
         .user-icon-name {
-            @include flexbox(flex, column, flex-start, center);
+            @include flexbox(flex, row, flex-start, center);
             font-size: $font4;
 
-            .icon {
-                @include content(40px, 40px, null);
-                min-width: 40px;
-                padding: 0 .5rem .5rem .5rem;
-                border-bottom: 1px solid $highlight3;
+            div {
+                @include flexbox(flex, row, center, center);
+                text-align: center;
+                background-color: $dark5;
+                border: 2px solid $dark3;
+                border-radius: 50%;
+                padding: .5rem;
+
+                .icon {
+                    @include content(40px, 40px, null);
+                    min-width: 40px;
+                }
             }
+
         }
 
         .card-details {
