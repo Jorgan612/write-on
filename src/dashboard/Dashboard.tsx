@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import Members from '../members/Members';

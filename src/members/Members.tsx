@@ -1,8 +1,7 @@
 import { MembersProps, User } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { FaRegUserCircle, FaPlusCircle } from 'react-icons/fa';
+import { FaRegUserCircle, FaPlusCircle, FaCheckCircle } from 'react-icons/fa';
 import './Members.scss';
-import { useState } from 'react';
 
 function Members({users, selectedMember, setSelectedMember}: MembersProps) {
 
@@ -10,6 +9,11 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
         console.log('showDetails!', user)
         setSelectedMember(user);
     };
+
+    const saveUserDetailsUpdate = (user: User) => {
+        setSelectedMember(null);
+        console.log("Save logic/details collapse here!")
+    }
     
 
     return (
@@ -38,6 +42,7 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                                 </div>
                                 <label>Description:</label>
                                 <textarea placeholder='TEST'></textarea>
+                                <FaCheckCircle className='save-check' onClick={() => {saveUserDetailsUpdate(user)}} />
                             </div>
 
                         </div>
