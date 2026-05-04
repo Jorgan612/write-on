@@ -74,8 +74,7 @@
             }
 
             .details-inner {
-                display: flex;
-                flex-direction: column;
+                @include flexbox(flex, column, flex-start, center);
                 min-height: 0;
                 padding-top: 1rem;
 
@@ -85,18 +84,34 @@
                     padding: 4px;
                     color: $dark1;
                     resize: none;
-
+                    
                     &:focus {
                         border: none;
                     }
                 }
-
+                
                 .links-container {
                     @include flexbox(flex, column, flex-start, center);
-                    border: 1px solid red;
+                    @include content(fit-content, 95%, $dark5);
+                    // border: 1px solid red;
 
-                    div {
+                    .link {
+                        @include flexbox(flex, column, flex-start, flex-start);
                         @include content(fit-content, 100%, null);
+
+                        input {
+                            @include content(fit-content, 90%, null);
+                            padding: .5rem;
+                            margin-left: .5rem;
+                            background-color: $dark3;
+                            color: $dark1;
+                            border-radius: 5px;
+                            border: none;
+                        }
+                        
+                        input:focus {
+                            outline: 2px solid $dark2;
+                        }
                     }
 
                     .add-link {
@@ -111,13 +126,13 @@
 
                 .save-check {
                     @include content(24px, 24px, null);
+                    padding: .5rem;
 
                     &:hover {
                         color: $highlight1;
                     }
                 }
             }
-
         }
 
         &:hover {

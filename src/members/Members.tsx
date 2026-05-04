@@ -34,7 +34,9 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                         <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : ''}`}>
                             <div className='details-inner'>
                                 <div className='links-container'>
-                                    <div>
+                                    <div className='link'>
+                                        <label>Link Name:</label>
+                                        <input />
                                         <label>Link:</label>
                                         <input />
                                     </div>
