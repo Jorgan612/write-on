@@ -1,0 +1,149 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+
+.members-list {
+    @include flexbox(flex, column, flex-start, center);
+    @include content(100%, 25%, null);
+    border-left: 2px solid $dark3;
+    padding: .5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    h3 {
+        font-size: $font1;
+        margin: .5rem;
+    }
+
+
+    .member-card {
+        @include content(auto, 90%, null);
+        min-height: fit-content;
+        position: relative;
+        margin: .5rem;
+        padding: .5rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background-color 0.3s ease, border 0.3s ease;
+        overflow: hidden;
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.25), 
+            0 1px 3px rgba(0, 0, 0, 0.2);
+
+        label {
+            width: 100%;
+            padding: .5rem;
+            text-wrap: nowrap;
+            overflow: hidden;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .user-icon-name {
+            @include flexbox(flex, row, flex-start, center);
+            position: relative;
+            font-size: $font4;
+            z-index: 2;
+
+            div {
+                @include flexbox(flex, row, center, center);
+                text-align: center;
+                background-color: $dark5;
+                border: 2px solid $dark3;
+                border-radius: 50%;
+                padding: .5rem;
+
+                .icon {
+                    @include content(40px, 40px, null);
+                    min-width: 40px;
+                }
+            }
+
+        }
+
+        .card-details {
+            @include content(auto, 100%, null);
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+
+            &.is-visible {
+                grid-template-rows: 1fr;
+            }
+
+            .details-inner {
+                @include flexbox(flex, column, flex-start, center);
+                min-height: 0;
+                padding-top: 1rem;
+
+                textarea {
+                    @include content(150px, 95%, $dark5);
+                    outline: none;
+                    padding: 4px;
+                    color: $dark1;
+                    resize: none;
+                    
+                    &:focus {
+                        outline: 1px solid $dark3;
+                        caret-color: $dark1;
+                        color: $dark1;
+                    }
+                }
+                
+                .links-container {
+                    @include flexbox(flex, column, flex-start, center);
+                    @include content(fit-content, 95%, $dark5);
+
+                    .link {
+                        @include flexbox(flex, column, flex-start, flex-start);
+                        @include content(fit-content, 100%, null);
+
+                        input {
+                            @include content(fit-content, 90%, null);
+                            padding: .5rem;
+                            margin-left: .5rem;
+                            background-color: $dark3;
+                            color: $dark1;
+                            border-radius: 5px;
+                            border: none;
+                        }
+                        
+                        input:focus {
+                            outline: 2px solid $dark2;
+                        }
+                    }
+
+                    .add-link {
+                        @include content(24px, 24px, null);
+                        padding: .5rem;
+
+                        &:hover {
+                            color: $highlight1;
+                        }
+                    }
+                }
+
+                .save-check {
+                    @include content(24px, 24px, null);
+                    padding: .5rem;
+
+                    &:hover {
+                        color: $highlight1;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: $dark4;
+        }
+
+    }
+
+    .selected { 
+        border: 1px solid $dark1;
+    }
+}

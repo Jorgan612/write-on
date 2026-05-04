@@ -1,6 +1,9 @@
 import { IconType } from "react-icons";
 
-/* User Data */
+export type UsersList = User[];
+
+
+    /* User Data */
 export interface User {
     id: number;
     name: string;
@@ -39,6 +42,12 @@ export interface User {
         total: number;
         year: number;
     }[];
+}
+
+export interface MembersProps {
+    users: UsersList;
+    selectedMember: User | null;
+    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 export interface UserProps {
