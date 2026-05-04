@@ -80,20 +80,21 @@
 
                 textarea {
                     @include content(150px, 95%, $dark5);
-                    border: 2px solid $dark3;
+                    outline: none;
                     padding: 4px;
                     color: $dark1;
                     resize: none;
                     
                     &:focus {
-                        border: none;
+                        outline: 1px solid $dark3;
+                        caret-color: $dark1;
+                        color: $dark1;
                     }
                 }
                 
                 .links-container {
                     @include flexbox(flex, column, flex-start, center);
                     @include content(fit-content, 95%, $dark5);
-                    // border: 1px solid red;
 
                     .link {
                         @include flexbox(flex, column, flex-start, flex-start);
@@ -137,7 +138,7 @@
 
         &:hover {
             cursor: pointer;
-            background-color: $dark3;
+            background-color: $dark4;
         }
 
     }

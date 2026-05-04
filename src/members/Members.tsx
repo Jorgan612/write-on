@@ -35,7 +35,7 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                             <div className='details-inner'>
                                 <div className='links-container'>
                                     <div className='link'>
-                                        <label>Link Name:</label>
+                                        <label>Document Name:</label>
                                         <input />
                                         <label>Link:</label>
                                         <input />
