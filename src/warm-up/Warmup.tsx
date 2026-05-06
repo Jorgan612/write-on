@@ -128,7 +128,7 @@ function Warmup() {
 
     const copyPrompt = (text: string) => {
         navigator.clipboard.writeText(text);
-    }
+    };
 
     const selectTool = (tool: any) => {
         setCurrentTool(tool.id);

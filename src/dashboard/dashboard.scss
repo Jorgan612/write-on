@@ -3,11 +3,11 @@
 
 .dashboard-contents {
     @include flexbox(flex, column, flex-start, null);
-    @include content(calc(95vh - 3rem), 97.5%, null);
+    @include content(calc(95vh - 1rem), 100%, null);
     
     .dash-header {
         @include flexbox(flex, row, flex-start, center);
-        @include content(55px, 130px, null);
+        @include content(50px, 130px, null);
         position: relative;
         transition: transform 0.3s ease;
 
@@ -51,6 +51,7 @@
     .group-dash {
         @include content(100%, 100%, null);
         transition: opacity 0.3s ease;
+        border-top: 1px solid $dark3;
 
         &.hide {
             display: none;
@@ -80,12 +81,10 @@
 
             .milestones-list {
                 @include content(100%, 50%, null);
-                // border: 1px solid white;
             }
             
             .achievements-list {
                 @include content(100%, 50%, null);
-                // border: 1px solid white;
             }
         }
 
@@ -95,16 +94,10 @@
         @include flexbox(flex, row, space-between, flex-start);
         @include content(100%, 100%, null);
         margin: 5px;
-        border: 1px solid yellow;
+        overflow: hidden;
 
         .sign-up {
             @include content(100%, 75%, null);
-            border: 1px solid white;
-        }
-
-        .members-list {
-            @include content(100%, 25%, null);
-            border: 1px solid white;
         }
     }
 }

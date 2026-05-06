@@ -10,40 +10,24 @@
         @include content(null, auto, null);
         gap: 0.5rem;
 
-        .month {
-            flex-grow: 1;
+        .month,
+        .year {
+            @include content(fit-content, 50%, null);
             text-align: center;
-            white-space: nowrap
         }
 
         .previous,
         .next {
-            flex-shrink: 0;
-        }
-
-        .previous {
-            border-radius: 50%;
-            padding: .4rem;
-            cursor: pointer;
-            margin-right: .5rem;
-        }
-
-        .next {
             border-radius: 50%;
             padding: .4rem;
             cursor: pointer;
         }
 
-        .previous:hover {
-            background-color: $dark2;
-            transition: .5s;
-        }
-        
+        .previous:hover,
         .next:hover {
             background-color: $dark2;
             transition: .5s;
         }
-
     }
 
     .grid-container {

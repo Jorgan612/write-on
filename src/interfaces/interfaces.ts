@@ -1,6 +1,9 @@
 import { IconType } from "react-icons";
 
-/* User Data */
+export type UsersList = User[];
+
+
+    /* User Data */
 export interface User {
     id: number;
     name: string;
@@ -11,7 +14,6 @@ export interface User {
     bio: string;
     joined: string;
     userIcon: {
-        icon: IconType;
         id: string;
         color: string;
     };
@@ -42,6 +44,12 @@ export interface User {
     }[];
 }
 
+export interface MembersProps {
+    users: UsersList;
+    selectedMember: User | null;
+    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
 export interface UserProps {
   currentUser: User;
   setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
@@ -55,7 +63,6 @@ export interface UserIcon {
 }
 
 export interface UserSelection {
-    icon: IconType;
     id: string;
     color: string;
 }

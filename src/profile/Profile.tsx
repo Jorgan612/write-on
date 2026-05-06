@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import './Profile.scss';
 import { FaRegUserCircle, FaUsers, FaEdit, FaUpload, FaExternalLinkAlt } from 'react-icons/fa';
 import { User, UserIcon, UserSelection } from '../interfaces/interfaces';
@@ -16,12 +16,14 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const [updateProfileIcon, setUpdateProfileIcon] = useState<boolean>(false);
     const [selectedIcon, setSelectedIcon] = useState<string>('');
     const [updatedUserIcon, setUpdatedUserIcon] = useState<UserSelection | null>(null);
-    
-    const PreviewIcon = formData.userIcon?.icon || FaRegUserCircle;
+    const currentIconId = editing? formData.userIcon?.id : currentUser.userIcon?.id;
+    const iconData = userIcons.find(icon => icon.id === currentIconId);
+    const PreviewIcon = iconData?.icon || FaRegUserCircle;
     const previewColor = formData.userIcon?.color || '#94a3b8';
 
     const activateEditing = () => {
         setFormData(currentUser);
+        setUpdatedUserIcon(currentUser.userIcon);
         setEditing(true);
     };
 
@@ -70,7 +72,6 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
 
         if (btnID === 'color') {
             setUpdatedUserIcon({
-                icon: icon.icon,
                 id: icon.id,
                 color: color.hexcode
             }) 
@@ -92,8 +93,6 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         }));
 
         setUpdateProfileIcon(false);
-        setUpdatedUserIcon(null);
-        setSelectedIcon('');
     };
 
     const updateUserProfile = (e: FormEvent) => {
@@ -270,7 +269,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                                 )
                             })}
                             <div className={`select-profile-icon-buttons ${updateProfileIcon ? 'show' : 'hide'}`}>
-                                <button type='button' className={`${ !updatedUserIcon?.color ? 'disabled' : ''}`} onClick={saveIconSelection} title={`${ !updatedUserIcon?.icon || !updatedUserIcon?.color ? 'Select an icon and color to Save': 'Save'}`} disabled={ updatedUserIcon ===  null ? true : false}>Save</button>
+                                <button type='button' className={`${ !updatedUserIcon?.color ? 'disabled' : ''}`} onClick={saveIconSelection} title={`${ !updatedUserIcon?.color ? 'Select an icon and color to Save': 'Save'}`} disabled={ updatedUserIcon ===  null ? true : false}>Save</button>
                                 <button type="button" onClick={cancelIconSelection} title='Cancel'>Cancel</button>
                             </div>
                         </div>
