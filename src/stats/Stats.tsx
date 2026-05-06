@@ -254,7 +254,7 @@ function Stats({combinedEntries}: StatsProps) {
     return totalDaysWrittenInCurrentYear;
   };
 
-  const getLongestStreak = () => {
+  const getCurrentStreak = () => {
     const today = new Date();
     const yesterday = subDays(today, 1);
     const currentYear = getYear(new Date());
@@ -312,10 +312,10 @@ function Stats({combinedEntries}: StatsProps) {
           </div>
         </div>
         <div className='stats-basic'>
-          <p>Longest Streak</p>
+          <p>Current Streak</p>
           <div className='stat'>
-            {getLongestStreak()}
-            <span> {getLongestStreak() === 1 ? 'day' : 'days'}</span>
+            {getCurrentStreak()}
+            <span> {getCurrentStreak() === 1 ? 'day' : 'days'}</span>
           </div>
         </div>
       </div>
