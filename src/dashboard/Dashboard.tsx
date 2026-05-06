@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
+import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
 import { User, UserProps, MembersProps } from '../interfaces/interfaces';
 import './Dashboard.scss';
@@ -40,9 +41,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
 
 
             <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                <div className='sign-up'>
-                    <p>Sign up to share</p>
-                </div>
+                <GroupSignUp />
                 <Members users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember} />
             </div>
         </div>

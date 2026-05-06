@@ -1,0 +1,8 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.sign-up {
+    @include content(100%, 75%, null);
+    border: 1px solid red;
+}
