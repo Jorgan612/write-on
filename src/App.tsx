@@ -13,7 +13,7 @@ import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
 import Signup from './signup/Signup';
 import Login from './login/Login';
-import { users, user } from './datasets/datasets';
+import { user } from './datasets/datasets';
 import './App.scss';
 import "chart.js/auto";
 
@@ -23,7 +23,7 @@ function App() {
   const navigate = useNavigate();
   
   const [signedIn, setSignedIn] = useState<boolean>(true);
-  const [usersList, setUsersList] =  useState<User[]>(users);
+  const [usersList, setUsersList] =  useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
     return savedUser ? JSON.parse(savedUser) : user;
@@ -45,6 +45,22 @@ function App() {
       localStorage.setItem("user_info", JSON.stringify(currentUser));
       localStorage.setItem(`user_${currentUser.id}`, JSON.stringify(currentUser));
   }, [currentUser]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/users');
+        if (!response.ok) throw new Error('Network response is not ok.');
+
+        const data: User[] = await response.json();
+        setUsersList(data);
+      } catch (error) {
+        console.error('Could not fetch users:', error);
+      }
+    }
+
+    fetchUsers();
+  }, []);
 
   const handleSetEntries = (updateFn: (prev: Entry[]) => Entry[]) => {
     setCurrentUser(prevUser => {
