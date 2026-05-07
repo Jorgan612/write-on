@@ -3,22 +3,40 @@
 
 
 .sign-up {
-    @include flexbox(flex, row, flex-start, center);
+    @include flexbox(flex, row, space-around, center);
     @include content(100%, 75%, null);
+    margin-top: .5rem;
     // border: 1px solid red;
 
     .column {
         @include flexbox(flex, column, flex-start, center);
-        @include content(100%, 25%, null);
+        @include content(100%, 24%, null);
         border: .5px solid $dark3;
 
         .options-header {
-            @include content(10%, 100%, null);
-            border: 1px solid yellow;
+            @include flexbox(flex, row, space-around, center);
+            @include content(fit-content, 100%, null);
+            border-bottom: 1px solid $dark4;
+            padding: .5rem;
+
+            .option {
+                @include content(24px, 24px, null);
+                border: 1px solid $dark4;
+            }
         }
 
         .sign-up-list {
-            border: 1px solid blue;
+            @include flexbox(flex, column, flex-start, center);
+            @include content(fit-content, 100%, null);
+            // border: 1px solid blue;
+            
+            .user-card {
+                @include flexbox(flex, column, center, center);
+                @include content(fit-content, 90%, null);
+                margin: .5rem 0;
+                border: 1px solid $dark3;
+                padding: .5rem;
+            }
         }
     }
 }
