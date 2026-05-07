@@ -3,6 +3,22 @@
 
 
 .sign-up {
+    @include flexbox(flex, row, flex-start, center);
     @include content(100%, 75%, null);
-    border: 1px solid red;
+    // border: 1px solid red;
+
+    .column {
+        @include flexbox(flex, column, flex-start, center);
+        @include content(100%, 25%, null);
+        border: .5px solid $dark3;
+
+        .options-header {
+            @include content(10%, 100%, null);
+            border: 1px solid yellow;
+        }
+
+        .sign-up-list {
+            border: 1px solid blue;
+        }
+    }
 }
