@@ -41,7 +41,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
 
 
             <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                <GroupSignUp />
+                <GroupSignUp users={users}/>
                 <Members users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember} />
             </div>
         </div>

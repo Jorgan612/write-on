@@ -21,7 +21,15 @@
 
             .option {
                 @include content(24px, 24px, null);
-                border: 1px solid $dark4;
+
+                .icon {
+                    @include content(24px, 24px, null);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    color: $highlight1
+                }
             }
         }
 

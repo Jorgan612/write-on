@@ -1,7 +1,12 @@
 import './GroupSignUp.scss';
+import { userIcons } from '../assets/icons/userIcons/userIcons';
+import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle } from 'react-icons/fa';
+import { User } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 
-function GroupSignUp() {
+type SignUpProps = {users: User[]};
+
+function GroupSignUp({users}: SignUpProps) {
     const dates = [
         {
             id: '1',
@@ -35,13 +40,22 @@ function GroupSignUp() {
                     <div className='column'>
                         <h3>{date.date}</h3>
                         <div className='options-header'>
-                            <div className='option'></div>
-                            <div className='option'></div>
-                            <div className='option'></div>
+                            <div className='option' title='Sign Up'>
+                                <FaRegHandPaper className='icon' />
+                            </div>
+                            <div className='option' title='Add Event'>
+                                <FaPlusCircle className='icon' />
+                            </div>
+                            <div className='option' title='Edit Date'>
+                                <FaEdit className='icon' />
+                            </div>
 
                         </div>
                         <div className='sign-up-list'>
                             {date.signups.map((user) => {
+                                const iconData = userIcons.find(icon => icon.id === user.userIcon.id);
+                                const PreviewIcon = iconData?.icon || FaRegUserCircle;
+                                const previewColor = user.userIcon?.color || '#94a3b8';
                                 return (
                                     <div className='user-card'>
                                         <p>{user.username}</p>
