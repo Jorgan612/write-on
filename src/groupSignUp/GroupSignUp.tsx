@@ -30,8 +30,22 @@ function GroupSignUp({users}: SignUpProps) {
         }
     ];
 
-    // need to add userIcon - basically look like members list cards without dropdown?
-
+    const dummyExcerpt = {
+        id: '1',
+        links: [
+            {
+                id: '123',
+                linkName: 'Chapter 1',
+                linkURL: 'https://docs.google.com'
+            },
+            {
+                id: '321',
+                linkName: 'Chapter 2',
+                linkURL: 'https://docs.google.com'
+            },
+        ],
+        description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
+    }
 
     return (
         <div className='sign-up'>
@@ -49,7 +63,6 @@ function GroupSignUp({users}: SignUpProps) {
                             <div className='option' title='Edit Date'>
                                 <FaEdit className='icon' />
                             </div>
-
                         </div>
                         <div className='sign-up-list'>
                             {date.signups.map((user) => {
@@ -57,8 +70,27 @@ function GroupSignUp({users}: SignUpProps) {
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                                 const previewColor = user.userIcon?.color || '#94a3b8';
                                 return (
-                                    <div className='user-card'>
-                                        <p>{user.username}</p>
+                                    <div className='user-card' key={user.id}>
+                                        <div className='user-icon-name'>
+                                            <div>
+                                                <PreviewIcon className='icon' style={{color: previewColor}} />
+                                            </div>
+                                            <label>{user.username}</label>
+                                        </div>
+                                        <div className='card-details'>
+                                            <div className='links-container'>
+                                                {dummyExcerpt.links.map((link) => {
+                                                    return (
+                                                        <div className='link'>
+                                                            <a href={link.linkURL} target='_blank' rel='noopener noreferrer'>{link.linkName}</a>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className='descrition-container'>
+                                                <div className='description'>{dummyExcerpt.description}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 )
                             })}
