@@ -95,10 +95,6 @@
         @include content(100%, 100%, null);
         margin: 5px;
         overflow: hidden;
-
-        .sign-up {
-            @include content(100%, 75%, null);
-        }
     }
 }
 

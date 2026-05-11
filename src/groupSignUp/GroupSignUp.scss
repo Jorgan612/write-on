@@ -1,0 +1,112 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.sign-up {
+    @include flexbox(flex, row, space-around, center);
+    @include content(99%, 75%, null);
+    margin-top: .5rem;
+
+    .column {
+        @include flexbox(flex, column, flex-start, center);
+        @include content(100%, 24%, null);
+        min-width: 250px;
+        border: .5px solid $dark3;
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.25), 
+            0 1px 3px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+        overflow-x: hidden;
+            
+            .options-header {
+                @include flexbox(flex, row, space-around, center);
+                @include content(fit-content, 100%, null);
+                border-bottom: 1px solid $dark4;
+                padding: .5rem;
+                box-shadow: 
+                0 1px 6px rgba(0, 0, 0, 0.25), 
+                0 1px 3px rgba(0, 0, 0, 0.2);
+                
+                .option {
+                    @include content(24px, 24px, null);
+                    
+                    .icon {
+                        @include content(24px, 24px, null);
+                    }
+                    
+                    &:hover {
+                        cursor: pointer;
+                        color: $highlight1
+                    }
+                }
+            }
+            
+            .sign-up-list {
+                @include flexbox(flex, column, flex-start, center);
+                @include content(fit-content, 100%, null);
+            
+            .user-card {
+                @include flexbox(flex, column, center, flex-start);
+                @include content(fit-content, 90%, null);
+                margin: .5rem 0;
+                border: 1px solid $dark3;
+                padding: .5rem;
+                overflow: hidden;
+                box-shadow: 
+                    0 4px 12px rgba(0, 0, 0, 0.25), 
+                    0 1px 3px rgba(0, 0, 0, 0.2);
+
+                label {
+                    width: 100%;
+                    padding: .5rem;
+                    text-wrap: nowrap;
+                    overflow: hidden;
+                }
+
+                .user-icon-name {
+                    @include flexbox(flex, row, flex-start, center);
+                    font-size: $font4;
+                    z-index: 2;
+
+                    div {
+                        @include flexbox(flex, row, center, center);
+                        text-align: center;
+                        background-color: $dark5;
+                        border: 2px solid $dark3;
+                        border-radius: 50%;
+                        padding: .5rem;
+
+                        .icon {
+                            @include content(40px, 40px, null);
+                            min-width: 40px;
+                        }
+                    }
+                }    
+
+                .card-details {
+                    margin-top: .5rem;
+
+                    .links-container {
+
+                        .link {
+                            padding: 4px;
+
+                            a {
+                                color: $highlight1;
+                                text-decoration: none;
+
+                                &:hover {
+                                    color: $dark1;
+                                }
+                            }
+                        }
+                    }
+
+                    .descrition-container {
+                        margin-top: .5rem;
+                    }
+                }
+            }
+        }
+    }
+}
