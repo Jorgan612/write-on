@@ -144,3 +144,99 @@ export const user1: User = {
         }],
         entries: [],
     }
+
+    export const milestones = [
+        {
+            id: 1,
+            name: 'The First Spark',
+            description: 'Reach your first 1,000 words.',
+            milestone: 1000
+        },
+        {
+            id: 2,
+            name: 'The Novella Mark',
+            description: 'Reach 20,000 words.',
+            milestone: 20000
+        },
+        {
+            id: 3,
+            name: 'The Hump',
+            description: 'Reach 40,000 words.',
+            milestone: 40000
+        },
+        {
+            id: 4,
+            name: 'The Marathoner',
+            description: 'Reach 80,000 words.',
+            milestone: 80000
+        },
+        {
+            id: 5,
+            name: 'The Tome',
+            description: 'Reach 100,000 words.',
+            milestone: 100000
+        },
+        {
+            id: 6,
+            name: 'Quarter-Way There',
+            description: 'Reach 25% of yoru total word count goal.',
+            milestone: 25
+        },
+        {
+            id: 7,
+            name: 'The Final Stretch',
+            description: 'Reach 90% of your word count goal.',
+            milestone: 90
+        },
+        {
+            id: 8,
+            name: 'Mission Accomplished',
+            description: '100% of the goal met.',
+            milestone: 100
+        },
+    ];
+
+    export const achievements = [
+        {
+            id: 1,
+            name: 'Early Bird',
+            description: 'Log a writing session before 7:00 AM.',
+            condition: '07:00'
+        },
+        {
+            id: 2,
+            name: 'Night Owl',
+            description: 'Log a writing session after midnight.',
+            condition: '00:00'
+        },
+        {
+            id: 3,
+            name: 'The Streak',
+            description: 'Write for 5 days in a row.',
+            condition: 5
+        },
+        {
+            id: 4,
+            name: 'The Habit Maker',
+            description: 'Write every day for 30 days.',
+            condition: 30
+        },
+        {
+            id: 5,
+            name: 'Unstoppable',
+            description: 'Write more than 2,000 words in a single sitting.',
+            condition: 30
+        },
+        {
+            id: 6,
+            name: 'Plot Hole Filler',
+            description: 'Complete a session after a hiatus of more than a week.',
+            condition: 10
+        },
+        {
+            id: 7,
+            name: 'The Muse is Calling',
+            description: 'Write on a weekend.',
+            condition: 6 | 0
+        },
+    ];
