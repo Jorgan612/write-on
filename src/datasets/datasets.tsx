@@ -179,19 +179,19 @@ export const user1: User = {
         {
             id: 6,
             name: 'Quarter-Way There',
-            description: 'Reach 25% of yoru total word count goal.',
+            description: 'Reach 25% of your overall word count goal.',
             milestone: 25
         },
         {
             id: 7,
             name: 'The Final Stretch',
-            description: 'Reach 90% of your word count goal.',
+            description: 'Almost there! You\'ve reached 90% of your overall word count goal.',
             milestone: 90
         },
         {
             id: 8,
             name: 'Mission Accomplished',
-            description: '100% of the goal met.',
+            description: 'Congratulations, you\'ve reached your overall word count goal.',
             milestone: 100
         },
     ];
@@ -238,5 +238,17 @@ export const user1: User = {
             name: 'The Muse is Calling',
             description: 'Write on a weekend.',
             condition: 6 | 0
+        },
+        {
+            id: 8,
+            name: 'Weekly Word Count Wizard',
+            description: 'You\'ve met your weekly word count goal!',
+            condition: null
+        },
+        {
+            id: 9,
+            name: 'Frequent  ',
+            description: 'You\'ve met your weekly word count goal!',
+            condition: null
         },
     ];

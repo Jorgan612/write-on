@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { User, UserProps, MembersProps } from '../interfaces/interfaces';
+import { User, UserProps } from '../interfaces/interfaces';
 import './Dashboard.scss';
 import '../App.scss';
 
@@ -32,9 +32,11 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                 <div className='bottom-lists'>
                     <div className='milestones-list'>
                         <p>Milestones</p>
+                        <div className='list-item'></div>
                     </div>
                     <div className='achievements-list'>
                         <p>Achievements</p>
+                        <div className='list-item'></div>
                     </div>
                 </div>
             </div>

@@ -76,15 +76,19 @@
         }
         
         .bottom-lists {
-            @include flexbox(flex, row, space-between, flex-start);
+            @include flexbox(flex, row, space-evenly, flex-start);
             @include content(75%, 100%, null);
 
-            .milestones-list {
-                @include content(100%, 50%, null);
-            }
-            
+            .milestones-list,
             .achievements-list {
-                @include content(100%, 50%, null);
+                @include flexbox(flex, column, flex-start, center);
+                @include content(98%, 45%, null);
+                border: 1px solid $dark4;
+                margin-top: .5rem;
+
+                p {
+                    font-size: $font1;
+                }
             }
         }
 
