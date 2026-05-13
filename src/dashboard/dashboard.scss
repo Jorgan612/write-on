@@ -84,14 +84,38 @@
                 @include flexbox(flex, column, flex-start, center);
                 @include content(98%, 45%, null);
                 margin-top: .5rem;
+                overflow-y: auto;
+                overflow-x: hidden;
 
                 p {
                     font-size: $font1;
                 }
 
                 .list-item {
+                    @include flexbox(flex, row, flex-start, center);
+                    @include content(fit-content, 60%, null);
+                    border-radius: 4px;
+                    border: 1px solid $dark3;
+                    padding-left: 1rem;;
+                    
                     .icon {
-                        @include content(24px, 24px, null);
+                        @include content(50px, 50px, null);
+                        padding-right: .5rem;
+                        padding: 1rem;
+                    }
+                    
+                    .details {
+                        @include flexbox(flex, column, flex-start, center);
+                        @include content(fit-content, 90%, null);
+                        padding: 1rem;
+                    }
+
+                    .name {
+                        font-size: $font1;
+                    }
+
+                    .description {
+                        padding: .5rem;
                     }
                 }
             }

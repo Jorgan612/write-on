@@ -5,7 +5,6 @@ import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
 import { User, UserProps } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { milestones, achievements } from '../datasets/datasets';
 import './Dashboard.scss';
 import '../App.scss';
 
@@ -34,37 +33,47 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                 <div className='bottom-lists'>
                     <div className='milestones-list'>
                         <p>Milestones</p>
-                        {milestones.map((milestone) => {
-                            const iconData = userIcons.find(icon => icon.id === milestone.userIcon.id);
-                            const PreviewIcon = iconData?.icon || FaRegUserCircle;
-                            const previewColor = milestone.userIcon?.color || '#94a3b8';
-                            return (
-                                <div className='list-item'>
-                                    <div>
-                                        <PreviewIcon className='icon' style={{color: previewColor}}/>
+                        {currentUser.milestones?.length ? 
+                            currentUser.milestones.map((milestone) => {
+                                const iconData = userIcons.find(icon => icon.id === milestone.userIcon.id);
+                                const PreviewIcon = iconData?.icon || FaRegUserCircle;
+                                const previewColor = milestone.userIcon?.color || '#94a3b8';
+                                return (
+                                    <div className='list-item' key={milestone.id}>
+                                        <div>
+                                            <PreviewIcon className='icon' style={{color: previewColor}}/>
+                                        </div>
+                                        <div className='details'>
+                                            <div className='name'>{milestone.name}</div>
+                                            <div className='description'>{milestone.description}</div>
+                                        </div>
                                     </div>
-                                    <div className='name'>{milestone.name}</div>
-                                    <div className='description'>{milestone.description}</div>
-                                </div>
-                            )
-                        })}
+                                )
+                            }) :
+                            <div> You haven't reached any milestones yet.</div>
+                        }
                     </div>
                     <div className='achievements-list'>
                         <p>Achievements</p>
-                        {achievements.map((achievement) => {
-                            const iconData = userIcons.find(icon => icon.id === achievement.userIcon.id);
-                            const PreviewIcon = iconData?.icon || FaRegUserCircle;
-                            const previewColor = achievement.userIcon?.color || '#94a3b8';
-                            return (
-                                <div className='list-item'>
-                                    <div>
-                                        <PreviewIcon className='icon' style={{color: previewColor}}/>
+                        {currentUser.achievements?.length ? 
+                            currentUser.achievements.map((achievement) => {
+                                const iconData = userIcons.find(icon => icon.id === achievement.userIcon.id);
+                                const PreviewIcon = iconData?.icon || FaRegUserCircle;
+                                const previewColor = achievement.userIcon?.color || '#94a3b8';
+                                return (
+                                    <div className='list-item' key={achievement.id}>
+                                        <div>
+                                            <PreviewIcon className='icon' style={{color: previewColor}}/>
+                                        </div>
+                                        <div className='details'>
+                                            <div className='name'>{achievement.name}</div>
+                                            <div className='description'>{achievement.description}</div>
+                                        </div>
                                     </div>
-                                    <div className='name'>{achievement.name}</div>
-                                    <div className='description'>{achievement.description}</div>
-                                </div>
-                            )
-                        })}
+                                )
+                            }) : 
+                            <div> You haven't unlocked any achievements yet.</div>
+                        }
                     </div>
                 </div>
             </div>

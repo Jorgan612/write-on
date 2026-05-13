@@ -42,6 +42,20 @@ export interface User {
         total: number;
         year: number;
     }[];
+    milestones: {
+        id: number;
+        userIcon: UserIcon;
+        name: string;
+        description: string;
+        milestone: number;
+    }[]
+    achievements: {
+        id: number;
+        userIcon: UserIcon;
+        name: string;
+        description: string;
+        condition: string | number;
+    }[]
 }
 
 export interface MembersProps {
@@ -57,7 +71,7 @@ export interface UserProps {
 }
 
 export interface UserIcon {
-    icon: IconType;
+    icon?: IconType;
     id: string;
     color?: string;
 }
