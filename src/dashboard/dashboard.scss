@@ -83,11 +83,16 @@
             .achievements-list {
                 @include flexbox(flex, column, flex-start, center);
                 @include content(98%, 45%, null);
-                border: 1px solid $dark4;
                 margin-top: .5rem;
 
                 p {
                     font-size: $font1;
+                }
+
+                .list-item {
+                    .icon {
+                        @include content(24px, 24px, null);
+                    }
                 }
             }
         }

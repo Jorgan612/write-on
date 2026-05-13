@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
 import { User, UserProps } from '../interfaces/interfaces';
+import { userIcons } from '../assets/icons/userIcons/userIcons';
+import { milestones, achievements } from '../datasets/datasets';
 import './Dashboard.scss';
 import '../App.scss';
 
@@ -32,11 +34,37 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                 <div className='bottom-lists'>
                     <div className='milestones-list'>
                         <p>Milestones</p>
-                        <div className='list-item'></div>
+                        {milestones.map((milestone) => {
+                            const iconData = userIcons.find(icon => icon.id === milestone.userIcon.id);
+                            const PreviewIcon = iconData?.icon || FaRegUserCircle;
+                            const previewColor = milestone.userIcon?.color || '#94a3b8';
+                            return (
+                                <div className='list-item'>
+                                    <div>
+                                        <PreviewIcon className='icon' style={{color: previewColor}}/>
+                                    </div>
+                                    <div className='name'>{milestone.name}</div>
+                                    <div className='description'>{milestone.description}</div>
+                                </div>
+                            )
+                        })}
                     </div>
                     <div className='achievements-list'>
                         <p>Achievements</p>
-                        <div className='list-item'></div>
+                        {achievements.map((achievement) => {
+                            const iconData = userIcons.find(icon => icon.id === achievement.userIcon.id);
+                            const PreviewIcon = iconData?.icon || FaRegUserCircle;
+                            const previewColor = achievement.userIcon?.color || '#94a3b8';
+                            return (
+                                <div className='list-item'>
+                                    <div>
+                                        <PreviewIcon className='icon' style={{color: previewColor}}/>
+                                    </div>
+                                    <div className='name'>{achievement.name}</div>
+                                    <div className='description'>{achievement.description}</div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </div>

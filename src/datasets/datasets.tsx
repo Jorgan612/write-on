@@ -148,56 +148,56 @@ export const user1: User = {
     export const milestones = [
         {
             id: 1,
-            iconID: 'seedling',
+            userIcon: {id: 'seedling', color: '#f5f5f5'},
             name: 'The First Spark',
             description: 'Reach your first 1,000 words.',
             milestone: 1000
         },
         {
             id: 2,
-            iconID: 'penFancy',
+            userIcon: {id: 'penFancy', color: '#aec78d'},
             name: 'The Novella Mark',
             description: 'Reach 20,000 words.',
             milestone: 20000
         },
         {
             id: 3,
-            iconID: 'hippo',
+            userIcon: {id:'hippo', color: '#74c3b0'},
             name: 'The Hump',
             description: 'Reach 40,000 words.',
             milestone: 40000
         },
         {
             id: 4,
-            iconID: 'meteor',
+            userIcon: {id:'meteor', color: '#f18581'},
             name: 'The Marathoner',
             description: 'Reach 80,000 words.',
             milestone: 80000
         },
         {
             id: 5,
-            iconID: 'paperPlane',
+            userIcon: {id:'paperPlane', color:'#f5f5f5'},
             name: 'The Tome',
             description: 'Reach 100,000 words.',
             milestone: 100000
         },
         {
             id: 6,
-            iconID: 'bomb',
+            userIcon: {id:'bomb', color: '#9dd6ff'},
             name: 'Quarter-Way There',
             description: 'Reach 25% of your overall word count goal.',
             milestone: 25
         },
         {
             id: 7,
-            iconID: 'bicycle',
+            userIcon: {id:'bicycle', color: '#b9e3d7'},
             name: 'The Final Stretch',
             description: 'Almost there! You\'ve reached 90% of your overall word count goal.',
             milestone: 90
         },
         {
             id: 8,
-            iconID: 'bolt',
+            userIcon: {id:'bolt', color: '#ffeaab'},
             name: 'Mission Accomplished',
             description: 'Congratulations, you\'ve reached your overall word count goal.',
             milestone: 100
@@ -207,63 +207,63 @@ export const user1: User = {
     export const achievements = [
         {
             id: 1,
-            iconID: 'kiwi',
+            userIcon: {id:'kiwi', color: '#d8aed6'},
             name: 'Early Bird',
             description: 'Log a writing session before 7:00 AM.',
             condition: '07:00'
         },
         {
             id: 2,
-            iconID: 'moon',
+            userIcon: {id:'moon', color: '#c8eafe'},
             name: 'Night Owl',
             description: 'Log a writing session after midnight.',
             condition: '00:00'
         },
         {
             id: 3,
-            iconID: 'hotJar',
+            userIcon: {id:'hotJar', color: '#ffd07e'},
             name: 'The Streak',
             description: 'Write for 5 days in a row.',
             condition: 5
         },
         {
             id: 4,
-            iconID: 'coffee',
+            userIcon: {id:'coffee', color: '#9dd6ff'},
             name: 'The Habit Maker',
             description: 'Write every day for 30 days.',
             condition: 30
         },
         {
             id: 5,
-            iconID: 'feather',
+            userIcon: {id:'feather', color: '#ffccd9'},
             name: 'Unstoppable',
             description: 'Write more than 2,000 words in a single sitting.',
             condition: 30
         },
         {
             id: 6,
-            iconID: 'leaf',
+            userIcon: {id:'leaf', color: '#74c3b0'},
             name: 'Plot Hole Filler',
             description: 'Complete a session after a hiatus of more than a week.',
             condition: 10
         },
         {
             id: 7,
-            iconID: 'tunesNote',
+            userIcon: {id:'tunesNote', color: '#869bd2'},
             name: 'The Muse is Calling',
             description: 'Write on a weekend.',
             condition: 6 | 0
         },
         {
             id: 8,
-            iconID: 'wizardHat',
+            userIcon: {id:'wizardHat', color: '#7eced3'},
             name: 'Weekly Word Count Wizard',
             description: 'You\'ve met your weekly word count goal!',
             condition: null
         },
         {
             id: 9,
-            iconID: 'hiking',
+            userIcon: {id:'hiking', color: '#ffa884'},
             name: 'Frequent  ',
             description: 'You\'ve met your weekly word count goal!',
             condition: null
