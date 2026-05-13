@@ -148,48 +148,56 @@ export const user1: User = {
     export const milestones = [
         {
             id: 1,
+            iconID: 'seedling',
             name: 'The First Spark',
             description: 'Reach your first 1,000 words.',
             milestone: 1000
         },
         {
             id: 2,
+            iconID: 'penFancy',
             name: 'The Novella Mark',
             description: 'Reach 20,000 words.',
             milestone: 20000
         },
         {
             id: 3,
+            iconID: 'hippo',
             name: 'The Hump',
             description: 'Reach 40,000 words.',
             milestone: 40000
         },
         {
             id: 4,
+            iconID: 'meteor',
             name: 'The Marathoner',
             description: 'Reach 80,000 words.',
             milestone: 80000
         },
         {
             id: 5,
+            iconID: 'paperPlane',
             name: 'The Tome',
             description: 'Reach 100,000 words.',
             milestone: 100000
         },
         {
             id: 6,
+            iconID: 'bomb',
             name: 'Quarter-Way There',
             description: 'Reach 25% of your overall word count goal.',
             milestone: 25
         },
         {
             id: 7,
+            iconID: 'bicycle',
             name: 'The Final Stretch',
             description: 'Almost there! You\'ve reached 90% of your overall word count goal.',
             milestone: 90
         },
         {
             id: 8,
+            iconID: 'bolt',
             name: 'Mission Accomplished',
             description: 'Congratulations, you\'ve reached your overall word count goal.',
             milestone: 100
@@ -199,54 +207,63 @@ export const user1: User = {
     export const achievements = [
         {
             id: 1,
+            iconID: 'kiwi',
             name: 'Early Bird',
             description: 'Log a writing session before 7:00 AM.',
             condition: '07:00'
         },
         {
             id: 2,
+            iconID: 'moon',
             name: 'Night Owl',
             description: 'Log a writing session after midnight.',
             condition: '00:00'
         },
         {
             id: 3,
+            iconID: 'hotJar',
             name: 'The Streak',
             description: 'Write for 5 days in a row.',
             condition: 5
         },
         {
             id: 4,
+            iconID: 'coffee',
             name: 'The Habit Maker',
             description: 'Write every day for 30 days.',
             condition: 30
         },
         {
             id: 5,
+            iconID: 'feather',
             name: 'Unstoppable',
             description: 'Write more than 2,000 words in a single sitting.',
             condition: 30
         },
         {
             id: 6,
+            iconID: 'leaf',
             name: 'Plot Hole Filler',
             description: 'Complete a session after a hiatus of more than a week.',
             condition: 10
         },
         {
             id: 7,
+            iconID: 'tunesNote',
             name: 'The Muse is Calling',
             description: 'Write on a weekend.',
             condition: 6 | 0
         },
         {
             id: 8,
+            iconID: 'wizardHat',
             name: 'Weekly Word Count Wizard',
             description: 'You\'ve met your weekly word count goal!',
             condition: null
         },
         {
             id: 9,
+            iconID: 'hiking',
             name: 'Frequent  ',
             description: 'You\'ve met your weekly word count goal!',
             condition: null
