@@ -45,6 +45,8 @@ const userObj = {
         type: 'word(s)'
         }],
     entries: [],
+    milestones: [],
+    achievements: []
 };
 
 function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {

@@ -254,7 +254,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     <div className={`select-profile-icon ${updateProfileIcon ? 'show' : 'hide'}`}>
                         <div className='icon-grid-scroll'>
                             {userIcons.map((icon: UserIcon) => {
-                                const IconComponent = icon.icon;
+                                const IconComponent = icon.icon || FaRegUserCircle;
                                 return (
                                     <div key={icon.id} className='icon-selection-wrapper'>
                                         <div id='icon' className='user-icon' onClick={() => handleIconChange(icon, null, 'icon')}>

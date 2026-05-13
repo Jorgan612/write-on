@@ -51,7 +51,7 @@ function GroupSignUp({users}: SignUpProps) {
         <div className='sign-up'>
             {dates.map((date) => {
                 return (
-                    <div className='column'>
+                    <div className='column' key={date.id}>
                         <h3>{date.date}</h3>
                         <div className='options-header'>
                             <div className='option' title='Sign Up'>
@@ -81,7 +81,7 @@ function GroupSignUp({users}: SignUpProps) {
                                             <div className='links-container'>
                                                 {dummyExcerpt.links.map((link) => {
                                                     return (
-                                                        <div className='link'>
+                                                        <div className='link' key={link.id}>
                                                             <a href={link.linkURL} target='_blank' rel='noopener noreferrer'>{link.linkName}</a>
                                                         </div>
                                                     )
