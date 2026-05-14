@@ -81,7 +81,7 @@ function App() {
     return (
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login setSignedIn={setSignedIn} />} />
+        <Route path="/login" element={<Login setCurrentUser={setCurrentUser} setSignedIn={setSignedIn} />} />
         <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
