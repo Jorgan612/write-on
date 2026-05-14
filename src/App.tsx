@@ -115,9 +115,10 @@ function App() {
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
               <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
+              <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
             </>
           ) : (
-            <Route path="*" element={<LandingPage />} />
+            <Route path="*" element={ <LandingPage /> } />
           )}
         </Routes>
       </div>
