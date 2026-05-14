@@ -49,13 +49,16 @@ function App() {
 
     if (!token) {
       setSignedIn(false);
+      setCurrentUser({} as User);
       navigate('/login');
     }
 
   }, [navigate]);
   
   useEffect(() => {
+    if (currentUser && currentUser.id) {
       localStorage.setItem("user_info", JSON.stringify(currentUser));
+    }
   }, [currentUser]);
 
   useEffect(() => {
@@ -100,7 +103,9 @@ function App() {
   };
 
   const handleLogOut = () => {
+    localStorage.clear();
     setSignedIn(false);
+    setCurrentUser({} as User);
     navigate('/login');
   };
 
