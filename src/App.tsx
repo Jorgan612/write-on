@@ -16,13 +16,16 @@ import Login from './login/Login';
 import { user } from './datasets/datasets';
 import './App.scss';
 import "chart.js/auto";
+import { RequireAuth } from './requireAuth/RequireAuth';
 
 
 
 function App() {
   const navigate = useNavigate();
   
-  const [signedIn, setSignedIn] = useState<boolean>(true);
+  const [signedIn, setSignedIn] = useState<boolean>(() => {
+    return !!localStorage.getItem('token');
+  });
   const [usersList, setUsersList] =  useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
@@ -40,6 +43,17 @@ function App() {
   if (!currentUser) {
     console.log('No user data!');
   };
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      setSignedIn(false);
+      navigate('/login');
+    }
+
+  }, [navigate]);
   
   useEffect(() => {
       localStorage.setItem("user_info", JSON.stringify(currentUser));
@@ -48,12 +62,20 @@ function App() {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const token = localStorage.getItem('token');
+
       try {
-        const response = await fetch('http://localhost:5000/users');
+        const response = await fetch('http://localhost:5000/users', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
         if (!response.ok) throw new Error('Network response is not ok.');
 
         const data: User[] = await response.json();
         setUsersList(data);
+
       } catch (error) {
         console.error('Could not fetch users:', error);
       }
@@ -114,7 +136,11 @@ function App() {
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-              <Route path="/dashboard" element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
+              <Route path="/dashboard" element={ 
+                <RequireAuth>
+                  <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> 
+                </RequireAuth>
+                } />
               <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
             </>
           ) : (
