@@ -62,6 +62,10 @@ function App() {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
 
+      if (!token) {
+        return;
+      }
+
       try {
         const response = await fetch('http://localhost:5000/users', {
           headers: {
@@ -79,8 +83,11 @@ function App() {
       }
     }
 
-    fetchUsers();
-  }, []);
+    if (signedIn) {
+      fetchUsers();
+    }
+
+  }, [signedIn]);
 
   const handleSetEntries = (updateFn: (prev: Entry[]) => Entry[]) => {
     setCurrentUser(prevUser => {
