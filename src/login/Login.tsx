@@ -30,6 +30,7 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
 
             if (response.ok) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem("user_info", JSON.stringify(data.user));
                 setCurrentUser(data.user);
                 setSignedIn(true);
                 navigate('/dashboard');

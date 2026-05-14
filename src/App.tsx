@@ -13,7 +13,6 @@ import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
 import Signup from './signup/Signup';
 import Login from './login/Login';
-import { user } from './datasets/datasets';
 import './App.scss';
 import "chart.js/auto";
 import { RequireAuth } from './requireAuth/RequireAuth';
@@ -29,7 +28,7 @@ function App() {
   const [usersList, setUsersList] =  useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
-    return savedUser ? JSON.parse(savedUser) : user;
+    return savedUser ? JSON.parse(savedUser) : {};
   });
 
   const combinedEntries = useMemo(() => {
@@ -57,7 +56,6 @@ function App() {
   
   useEffect(() => {
       localStorage.setItem("user_info", JSON.stringify(currentUser));
-      localStorage.setItem(`user_${currentUser.id}`, JSON.stringify(currentUser));
   }, [currentUser]);
 
   useEffect(() => {
