@@ -62,13 +62,13 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
             <div className='email'>
                 <label htmlFor='email'>Email:</label>
                 <div>
-                    <input name='email' type="email" id='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input name='email' type="email" id='email' autoComplete='username' value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
             </div>
             <div className='password'>
                 <label htmlFor='password'>Password:</label>
                 <div>
-                    <input name='password' type={isVisible ? 'text' : 'password'} id='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input name='password' type={isVisible ? 'text' : 'password'} id='password' autoComplete='current-password' value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <span className='visibility-icon' onClick={toggleVisibility}>
                         {isVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
