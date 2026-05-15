@@ -76,7 +76,6 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     useEffect(() => {
         handlePasswordConfirmation();
         handleEmailConfirmation();
-        console.log('isEmailFormatted', isEmailFormatted)
     }, [confirmEmail, confirmPassword])
 
     const returnToLandingPage = () => {
