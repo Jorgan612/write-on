@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import { Entry, UsersList, User } from './interfaces/interfaces';
@@ -21,6 +21,7 @@ import { RequireAuth } from './requireAuth/RequireAuth';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [signedIn, setSignedIn] = useState<boolean>(() => {
     return !!localStorage.getItem('token');
@@ -44,16 +45,15 @@ function App() {
   };
 
   useEffect(() => {
-
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      setSignedIn(false);
-      setCurrentUser({} as User);
-      navigate('/login');
+    if (
+      !signedIn && location.pathname  === '/dashboard' ||
+      !signedIn && location.pathname  === '/stats' ||
+      !signedIn && location.pathname  === '/warmup' ||
+      !signedIn && location.pathname  === '/profile'
+    ) {
+        navigate('/login', { replace: true });
     }
-
-  }, [navigate]);
+  }, [signedIn, location.pathname, navigate]);
   
   useEffect(() => {
     if (currentUser && currentUser.id) {
@@ -106,7 +106,7 @@ function App() {
     localStorage.clear();
     setSignedIn(false);
     setCurrentUser({} as User);
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
 
   if (!signedIn) {
@@ -126,7 +126,7 @@ function App() {
         <div className='app-title'>
           Write On
           <FaPenFancy />
-          </div>
+        </div>
         <Calendar combinedEntries={combinedEntries} setEntries={handleSetEntries}/>
         <WordTracker setEntries={handleSetEntries} combinedEntries={combinedEntries} />
         <Header />
@@ -141,7 +141,6 @@ function App() {
         </div>
 
         <Routes>
-          {signedIn ? (
             <>
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
@@ -153,9 +152,6 @@ function App() {
                 } />
               <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
             </>
-          ) : (
-            <Route path="*" element={ <LandingPage /> } />
-          )}
         </Routes>
       </div>
     </div>
