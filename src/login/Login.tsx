@@ -46,7 +46,7 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
     const returnToLandingPage = () => {
         navigate('/');
     };
-
+    
     const takeToSignupPage = () => {
         navigate('/signup');
     };
