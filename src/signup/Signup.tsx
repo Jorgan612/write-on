@@ -135,19 +135,36 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 [name]: value,
             },
         }));
-
     };
     
-    const handlesSignupSubmit = (e: React.FormEvent) => {
+    const handlesSignupSubmit =  async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!isFormValid) return;
 
-        // The logic for this funciton will be completed in another issue.
+        try {
+            const response = await fetch('http://localhost:5000/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
 
-        // uncomment when logic is completed!
-        // setSignedIn(true);
-        // navigate('/dashboard');
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user_info', JSON.stringify(data.user));
+                setSignedIn(true);
+                navigate('/dashboard', { replace: true });
+            } else {
+                alert(data.message || 'Singup failed. Please try again.');
+            }
+        } catch (err) {
+            console.error('Signup error:', err);
+            alert('An error occured connecting to the server.');
+        }
     };
 
     const addSocialInputs = () => {
