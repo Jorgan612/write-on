@@ -186,7 +186,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 </div>
                 <label htmlFor='confirm-email'><span className='asterisk'>*</span>Confirm Email:</label>
                 <div>
-                    <input required className={showFormatError || !emailsMatch ? 'input-error' : ''} type="email" id='confirm-email' autoComplete='email' onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
+                    <input required className={showFormatError || !emailsMatch ? 'input-error' : ''} type="email" id='confirm-email' autoComplete='email' value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
                 </div>
 
                 {showFormatError && (
