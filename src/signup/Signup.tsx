@@ -55,8 +55,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const [newUser, setNewUser] = useState<User>(userObj);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
-    const [confirmEmail, setConfirmEmail] = useState<string>();
-    const [confirmPassword, setConfirmPassword] = useState<string>();
+    const [confirmEmail, setConfirmEmail] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [confirmationTouched, setConfirmationTouched] = useState({email: false, password: false});
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
@@ -135,8 +135,9 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 [name]: value,
             },
         }));
-    };
 
+    };
+    
     const handlesSignupSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
