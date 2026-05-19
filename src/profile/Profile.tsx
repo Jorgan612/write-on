@@ -11,7 +11,6 @@ interface ProfileProps {
 }
 
 function Profile({ currentUser, setCurrentUser }: ProfileProps) {
-    console.log('currentUser', currentUser)
     const [editing, setEditing] = useState<boolean>(false);
     const [formData, setFormData] = useState<User>(currentUser);
     const [oldUserData, setOldUserData] = useState<User>(currentUser);
