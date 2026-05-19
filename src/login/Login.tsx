@@ -63,7 +63,7 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
             <div className='email'>
                 <label htmlFor='email'>Email:</label>
                 <div>
-                    <input name='email' type="email" id='email' autoComplete='username' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input name='email' type="email" id='email' autoComplete='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
             </div>
             <div className='password'>

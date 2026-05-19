@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { format } from 'date-fns';
 import './Profile.scss';
 import { FaRegUserCircle, FaUsers, FaEdit, FaUpload, FaExternalLinkAlt } from 'react-icons/fa';
 import { User, UserIcon, UserSelection } from '../interfaces/interfaces';
@@ -122,18 +123,18 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                     </div>
                     <div className="user-identity">
                         <div className="user-name">
-                            {currentUser.name}
+                            {currentUser.username}
                             <span>
                                 <FaEdit className="icon" onClick={activateEditing} />
                             </span>
                     </div>
-                    <div className="user-pronouns">({currentUser.pronouns})</div>
+                    <div className="user-pronouns">{currentUser.pronouns ? `(${currentUser.pronouns})` : ''}</div>
                 </div>
 
                 </div>
                 <div className="user-bio">{currentUser.bio}</div>
                 <div className="user-join-date">
-                    <span>Joined</span> {currentUser.joined}
+                    <span>Joined</span> {format(currentUser.joined, 'LLLL dd, yyyy')}
                 </div>
                 <div className="user-website">
                     <span>Website</span>

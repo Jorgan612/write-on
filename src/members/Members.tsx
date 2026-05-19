@@ -20,7 +20,7 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
         <div className="members-list">
             <h3>Members</h3>
             {users.map((user) => {
-                const iconData = userIcons.find(icon => icon.id === user.userIcon.id);
+                const iconData = userIcons.find(icon => icon.id === user.userIcon?.id);
                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                 const previewColor = user.userIcon?.color || '#94a3b8';
                 return (

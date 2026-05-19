@@ -55,8 +55,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const [newUser, setNewUser] = useState<User>(userObj);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
-    const [confirmEmail, setConfirmEmail] = useState<string>();
-    const [confirmPassword, setConfirmPassword] = useState<string>();
+    const [confirmEmail, setConfirmEmail] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [confirmationTouched, setConfirmationTouched] = useState({email: false, password: false});
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
@@ -136,17 +136,35 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             },
         }));
     };
-
-    const handlesSignupSubmit = (e: React.FormEvent) => {
+    
+    const handlesSignupSubmit =  async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!isFormValid) return;
 
-        // The logic for this funciton will be completed in another issue.
+        try {
+            const response = await fetch('http://localhost:5000/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
 
-        // uncomment when logic is completed!
-        // setSignedIn(true);
-        // navigate('/dashboard');
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user_info', JSON.stringify(data.user));
+                setSignedIn(true);
+                navigate('/dashboard', { replace: true });
+            } else {
+                alert(data.message || 'Singup failed. Please try again.');
+            }
+        } catch (err) {
+            console.error('Signup error:', err);
+            alert('An error occured connecting to the server.');
+        }
     };
 
     const addSocialInputs = () => {
@@ -181,11 +199,11 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             <div className='email'>
                 <label htmlFor='email'><span className='asterisk'>*</span>Email:</label>
                 <div>
-                    <input required className={!emailsMatch ? 'input-error' : ''} type="email" id='email' value={newUser?.email} onChange={handleInputChange} />
+                    <input required className={!emailsMatch ? 'input-error' : ''} type="email" id='email' autoComplete='email' value={newUser?.email} onChange={handleInputChange} />
                 </div>
                 <label htmlFor='confirm-email'><span className='asterisk'>*</span>Confirm Email:</label>
                 <div>
-                    <input required className={showFormatError || !emailsMatch ? 'input-error' : ''} type="email" id='confirm-email' onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
+                    <input required className={showFormatError || !emailsMatch ? 'input-error' : ''} type="email" id='confirm-email' autoComplete='email' value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, email: true}))} />
                 </div>
 
                 {showFormatError && (
@@ -206,14 +224,14 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
                 <label htmlFor='password'><span className='asterisk'>*</span>Password:</label>
                 <div>
                     <input required className={!passwordsMatch ? 'input-error' : ''} type={isPasswordVisible ? 'text' : 'password'} id='password' 
-                        value={newUser?.password} onChange={handleInputChange}/>
+                        autoComplete='password' value={newUser?.password} onChange={handleInputChange}/>
                     <span className='visibility-icon' onClick={() => setIsPasswordVisible(prev => !prev)}>
                         {isPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
                 </div>
                 <label htmlFor='confirm-password'><span className='asterisk'>*</span>Confirm Password:</label>
                 <div>
-                    <input required className={!passwordsMatch ? 'input-error' : ''} type={isConfirmPasswordVisible ? 'text' : 'password'} id='confirm-password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, password: true}))} />
+                    <input required className={!passwordsMatch ? 'input-error' : ''} type={isConfirmPasswordVisible ? 'text' : 'password'} id='confirm-password' autoComplete='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setConfirmationTouched(prev => ({...prev, password: true}))} />
                     <span className='visibility-icon' onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
                         {isConfirmPasswordVisible ? <FaRegEye className='icon'/> : <FaRegEyeSlash className='icon' />}
                     </span>
