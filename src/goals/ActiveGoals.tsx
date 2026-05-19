@@ -150,7 +150,7 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
                             <span className='goal-value'>{
                                 goal.id === '1' ? currentWeekly : 
                                 goal.id === '2' ? currentFrequency : 
-                                goal.id === '3' ? currentOverall : '0'
+                                goal.id === '3' ? currentOverall : 0
                             }</span>
                             <span> / </span>
                             <input 
