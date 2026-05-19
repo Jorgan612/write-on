@@ -169,16 +169,14 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
             </div>
             <div className={`update-date-container  ${updateDate ? 'is-visible' : 'is-hidden'}`}>
                 <form onSubmit={updatePreviousDate}>
-                <p>Add a new total for <span>{selectedUpdateDate}</span></p>
+                <p>Add a new total for <span>{`${selectedUpdateDate.split('-')[1]?.charAt(0) === '0' ? format(selectedUpdateDate.split('-')[1]?.charAt(1)!, 'LLLL') : selectedUpdateDate.split('-')[1]} ${selectedUpdateDate.split('-')[2]?.charAt(0) === '0' ? selectedUpdateDate.split('-')[2]?.charAt(1) :selectedUpdateDate.split('-')[2]}`}</span></p>
                     <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
                     <p className='caution-msg'>Update will replace the current word count for the selected day.</p>
                     <div>
                         <button type='submit'>Update</button>
                         <button type='button' onClick={closeUpdateDateBox}>Cancel</button>
-                        {/* <FaTimes /> */}
                     </div>
                 </form>
-
             </div>
 
         </div>
