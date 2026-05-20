@@ -36,7 +36,7 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         total: 0,
         current: 0,
         type: 'word(s)'
-      }];
+    }];
 
     
     useEffect(() => {
