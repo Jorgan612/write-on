@@ -6,6 +6,7 @@ export type UsersList = User[];
     /* User Data */
 export interface User {
     id: number;
+    isVerified: boolean;
     name: string;
     username: string;
     email: string;
