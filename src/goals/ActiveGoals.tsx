@@ -8,9 +8,9 @@ import Form from '../forms/Form';
 
 function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) {
 
-    const [weeklyTotal, setWeeklyTotal] =  useState<number | ''>(currentUser.goals[0]?.total || '');
-    const [frequencyTotal, setFrequencyTotal] =  useState<number | ''>(currentUser.goals[1]?.total || '');
-    const [overallTotal, setOverallTotal] =  useState<number | ''>(currentUser.goals[2]?.total || '');
+    const [weeklyTotal, setWeeklyTotal] =  useState<number | ''>(currentUser?.goals[0]?.total || '');
+    const [frequencyTotal, setFrequencyTotal] =  useState<number | ''>(currentUser?.goals[1]?.total || '');
+    const [overallTotal, setOverallTotal] =  useState<number | ''>(currentUser?.goals[2]?.total || '');
 
     const [currentWeekly, setCurrentWeekly] = useState<number | 0 >(0);
     const [currentFrequency, setCurrentFrequency] = useState<number | 0 >(0);
@@ -41,11 +41,14 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
     
     useEffect(() => {
 
-        if (!currentUser.goals || currentUser.goals.length === 0) {
-            setCurrentUser(prev => ({
-                ...prev,
-                goals: defaultGoals
-            }));
+        if (!currentUser || !currentUser.goals || currentUser.goals.length === 0) {
+            if (currentUser) {
+                setCurrentUser(prev => ({
+                    ...prev,
+                    goals: defaultGoals
+                }));
+            }
+
             return;
         }
 
@@ -56,6 +59,12 @@ function ActiveGoals({currentUser, setCurrentUser, combinedEntries}: UserProps) 
         determineCurrentValues();
         
     }, [currentUser]);
+
+    if (!currentUser || !currentUser.goals) {
+        return <div className='goals-container'>
+            <p>Loading goals...</p>
+        </div>;
+    }
 
     const handleInputChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
         let newTotal = Number(e.target.value)
