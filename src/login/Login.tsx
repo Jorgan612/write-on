@@ -51,6 +51,10 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
         navigate('/signup');
     };
 
+    const takeToForgotPasswordPage = () => {
+        navigate('/forgot-password');
+    }
+
     const toggleVisibility = () => {
         setIsVisible(prev  => !prev);
     };
@@ -77,7 +81,7 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
             </div>
             <button type="submit">Log in</button>
             <span className='stuck'>
-                <span className='forgot-password'>Forgot password?</span>
+                <span className='forgot-password' onClick={takeToForgotPasswordPage}>Forgot password?</span>
                 <span className='no-account' onClick={takeToSignupPage}>Don't have an account?</span>
             </span>
         </form>

@@ -16,6 +16,7 @@ import Login from './login/Login';
 import './App.scss';
 import "chart.js/auto";
 import { RequireAuth } from './requireAuth/RequireAuth';
+import ForgotPassword from './forgotPassword/ForgotPassword';
 
 
 
@@ -115,6 +116,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login setCurrentUser={setCurrentUser} setSignedIn={setSignedIn} />} />
         <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     )
