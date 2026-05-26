@@ -125,7 +125,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         <div className="user-name">
                             {currentUser.username}
                             <span>
-                                <FaEdit className="icon" onClick={activateEditing} />
+                                <FaEdit className="icon" onClick={activateEditing} title='Update Details' />
                             </span>
                     </div>
                     <div className="user-pronouns">{currentUser.pronouns ? `(${currentUser.pronouns})` : ''}</div>
