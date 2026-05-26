@@ -6,6 +6,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 
 const userObj = {
     id: Date.now(),
+    isVerified: false,
     name: '',
     username: '',
     email: '',

@@ -3,6 +3,7 @@ import { UsersList, User } from '../interfaces/interfaces';
 
 export const user1: User = {
         id: 612,
+        isVerified: true,
         name: 'Jessica',
         username: 'Jesso',
         email: 'Jorgan612@gmail.com',
@@ -61,6 +62,7 @@ export const user1: User = {
 
     export const user2:User = {
         id: 311,
+        isVerified: true,
         name: 'Max',
         username: 'MaxExplores',
         email: 'mhenrey091@gmail.com',
