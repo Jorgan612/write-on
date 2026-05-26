@@ -138,7 +138,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         }));
     };
     
-    const handlesSignupSubmit =  async (e: React.FormEvent) => {
+    const handleSignupSubmit =  async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!isFormValid) return;
@@ -155,10 +155,8 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user_info', JSON.stringify(data.user));
-                setSignedIn(true);
-                navigate('/dashboard', { replace: true });
+                alert(data.message || 'Registration successful! Please check your email.');
+                navigate('/login');
             } else {
                 alert(data.message || 'Singup failed. Please try again.');
             }
@@ -193,7 +191,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     };
 
     return (
-        <form className='signup-form' onSubmit={handlesSignupSubmit}>
+        <form className='signup-form' onSubmit={handleSignupSubmit}>
             <div className='app-title'>
                 <h1 onClick={returnToLandingPage}>Write On <FaPenFancy /></h1>
             </div>
