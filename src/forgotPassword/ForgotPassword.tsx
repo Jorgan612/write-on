@@ -6,7 +6,6 @@ function ForgotPassword() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailFormatted = emailRegex.test(inputEmail);
     const isFormValid = isEmailFormatted;
-    let emailSent = false;
 
     const sendPasswordResetEmail = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,7 +25,6 @@ function ForgotPassword() {
 
             if (response.ok) {
                 alert(data.message || 'Password Reset email sent. Check your email for reset link.');
-                emailSent = true;
             }
 
         } catch (err) {

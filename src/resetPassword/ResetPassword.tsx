@@ -1,27 +1,35 @@
 import { FormEvent, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import './ResetPassword.scss';
 
 function ResetPassword() {
     const [inputPassword, setInputPassword] = useState<string>('');
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const token = searchParams.get('token');
 
     const submitNewPassword = async (e: FormEvent) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5000/reset-password', {
+            const response = await fetch('http://localhost:5000/users/reset-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json',
                 },
-                body: JSON.stringify({ password: inputPassword }),
+                body: JSON.stringify({ 
+                    token: token,
+                    newPassword: inputPassword 
+                }),
             });
 
             const data = await response.json();
 
             if  (response.ok) {
                 alert(data.message || 'Password reset successfully! You may now log into your account using the new password.');
+                navigate('/login');
             }
 
         } catch (err) {
