@@ -26,7 +26,7 @@ function ResetPassword() {
 
         } catch (err) {
             console.error('Error resetting password:', err);
-            console.error('Something went wrong while resetting your password. Please try again.');
+            alert('Something went wrong while resetting your password. Please try again.');
         }
     };
 
