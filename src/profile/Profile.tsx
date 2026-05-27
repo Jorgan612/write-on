@@ -22,6 +22,13 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
     const PreviewIcon = iconData?.icon || FaRegUserCircle;
     const previewColor = formData.userIcon?.color || '#94a3b8';
 
+    useEffect(() => {
+        if (currentUser) { 
+            setFormData(currentUser);
+            setOldUserData(currentUser);
+        }
+    }, [currentUser]);
+
     const activateEditing = () => {
         setFormData(currentUser);
         setUpdatedUserIcon(currentUser.userIcon);
@@ -134,7 +141,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                 </div>
                 <div className="user-bio">{currentUser.bio}</div>
                 <div className="user-join-date">
-                    <span>Joined</span> {format(currentUser.joined, 'LLLL dd, yyyy')}
+                    <span>Joined</span> {currentUser?.joined && !isNaN(new Date(currentUser.joined).getTime()) ? format(new Date(currentUser.joined), 'LLLL dd, yyyy') : 'Error retrieving date joined.'}
                 </div>
                 <div className="user-website">
                     <span>Website</span>
@@ -179,7 +186,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                                 <div className="user-name">
                                     <input 
                                         id="name" 
-                                        value={formData.name} 
+                                        value={formData.username || ''} 
                                         onChange={handleInputChange} 
                                     />
                                 </div>
@@ -187,7 +194,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                                 <div className="user-pronouns">
                                     <input 
                                         id="pronouns" 
-                                        value={formData.pronouns} 
+                                        value={formData.pronouns || ''} 
                                         onChange={handleInputChange} 
                                     />
                                 </div>
@@ -198,7 +205,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
                         <div className="user-bio">
                             <textarea 
                                 id="bio" 
-                                value={formData.bio} 
+                                value={formData.bio || ''} 
                                 onChange={handleInputChange} 
                                 rows={4} 
                                 maxLength={250} 

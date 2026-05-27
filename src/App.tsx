@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { FaPenFancy, FaCoffee, FaCog } from 'react-icons/fa';
 import { Entry, UsersList, User } from './interfaces/interfaces';
+import { RequireAuth } from './requireAuth/RequireAuth';
 import Header from './header/header'
 import Calendar from './calendar/Calendar';
 import Stats from './stats/Stats';
@@ -13,9 +14,10 @@ import Profile from './profile/Profile';
 import LandingPage from './landingPage/LandingPage';
 import Signup from './signup/Signup';
 import Login from './login/Login';
+import ForgotPassword from './forgotPassword/ForgotPassword';
+import ResetPassword from './resetPassword/ResetPassword';
 import './App.scss';
 import "chart.js/auto";
-import { RequireAuth } from './requireAuth/RequireAuth';
 
 
 
@@ -115,6 +117,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login setCurrentUser={setCurrentUser} setSignedIn={setSignedIn} />} />
         <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     )
