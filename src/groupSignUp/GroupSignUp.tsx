@@ -1,10 +1,18 @@
 import './GroupSignUp.scss';
-import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle, FaRegCalendarAlt, FaRegCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
+import { useState } from 'react';
 import { format } from 'date-fns';
+import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { MembersProps, User } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
-import { useState } from 'react';
+import { FaRegUserCircle,
+    FaRegHandPaper,
+    FaEdit,
+    FaPlusCircle,
+    FaRegCalendarAlt,
+    FaRegCheckCircle,
+    FaRegTimesCircle,
+    FaTimes 
+} from 'react-icons/fa';
 
 function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
     const [editing, setEditing] = useState<boolean>(false);
@@ -93,7 +101,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                                 const previewColor = user.userIcon?.color || '#94a3b8';
                                 return (
-                                    <div className='user-card' key={user.id}>
+                                    <div className={`user-card ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'selected' : ''}`} key={user.id}>
                                         <div className='user-icon-name'>
                                             <div>
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />

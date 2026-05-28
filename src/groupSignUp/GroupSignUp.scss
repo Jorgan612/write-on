@@ -182,4 +182,8 @@
             color: $highlight1;
         }
     }
+
+    .selected {
+        border: 2px solid $dark2 !important;
+    }
 }
