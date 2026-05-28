@@ -1,6 +1,7 @@
 import './GroupSignUp.scss';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle, FaRegCalendarAlt, FaRegCheckCircle } from 'react-icons/fa';
+import { format } from 'date-fns';
 import { MembersProps, User } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 import { useState } from 'react';
@@ -64,7 +65,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
             {dates.map((date) => {
                 return (
                     <div className='column' key={date.id}>
-                        <h3>{date.date}</h3>
+                        <h3>{`${date.date.split('-')[1]?.charAt(0) === '0' ? format(date.date.split('-')[1]?.charAt(1)!, 'LLLL') : date.date.split('-')[1]} ${date.date.split('-')[2]?.charAt(0) === '0' ? date.date.split('-')[2]?.charAt(1) :date.date.split('-')[2]}`}</h3>
                         <div className='options-header'>
                             <div className='option' title='Sign Up'>
                                 <FaRegHandPaper className='icon' />
@@ -90,7 +91,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             <label>{user.username}</label>
                                         </div>
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing ? 'show' : 'hide'}`}>
+                                        <div className={`card-details ${!editing && selectedMember?.id !== user.id ? 'show' : 'hide'}`}>
                                             <FaEdit className='edit-icon icon' title='Edit card' onClick={() => {EditCardDetails(user)}} />
                                             <div className='links-container'>
                                                 {dummyExcerpt.links.map((link) => {
@@ -106,7 +107,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             </div>
                                         </div>
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing? 'show' : 'hide'}`}>
+                                        <div className={`edit-card-details ${editing && selectedMember?.id === user.id ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 <div className='link'>
                                                     <label>Document Name:</label>
