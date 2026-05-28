@@ -46,7 +46,6 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                                 <textarea placeholder='TEST'></textarea>
                                 <FaCheckCircle className='save-check' onClick={() => {saveUserDetailsUpdate(user)}} />
                             </div>
-
                         </div>
                     </div>
                 )

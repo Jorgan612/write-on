@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
     const [editing, setEditing] = useState<boolean>(false);
+    const [selectedDate, setSelectedDate] = useState<string>('');
 
     const dates = [
         {
@@ -49,15 +50,16 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
     }
 
-    const EditCardDetails = (user: User) => {
+    const EditCardDetails = (user: User, date: string) => {
         setEditing(true);
         setSelectedMember(user);
+        setSelectedDate(date);
     };
 
     const saveCardDetails = (user: User) => {
         setEditing(false);
         setSelectedMember(null);
-        console.log('user', user)
+        setSelectedDate('');
     };
 
     return (
@@ -91,8 +93,8 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             <label>{user.username}</label>
                                         </div>
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing && selectedMember?.id !== user.id ? 'show' : 'hide'}`}>
-                                            <FaEdit className='edit-icon icon' title='Edit card' onClick={() => {EditCardDetails(user)}} />
+                                        <div className={`card-details ${!editing || selectedMember?.id !== user.id || (selectedDate !== date.date && selectedMember?.id === user.id) ? 'show' : 'hide'}`}>
+                                            <FaEdit className='edit-icon icon' title='Edit card' onClick={() => {EditCardDetails(user, date.date)}} />
                                             <div className='links-container'>
                                                 {dummyExcerpt.links.map((link) => {
                                                     return (
@@ -107,7 +109,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             </div>
                                         </div>
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing && selectedMember?.id === user.id ? 'show' : 'hide'}`}>
+                                        <div className={`edit-card-details ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 <div className='link'>
                                                     <label>Document Name:</label>
@@ -118,7 +120,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                                 <FaPlusCircle className='add-link' title='Add Link' />
                                             </div>
                                             <label>Description:</label>
-                                            <textarea placeholder='TEST'></textarea>
+                                            <textarea placeholder=''></textarea>
                                             <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
                                         </div>
                                     </div>

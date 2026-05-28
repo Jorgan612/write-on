@@ -4,7 +4,7 @@
 
 .sign-up {
     @include flexbox(flex, row, space-around, center);
-    @include content(99%, 75%, null);
+    @include content(99%, 80%, null);
     margin-top: .5rem;
 
     .column {
@@ -80,7 +80,7 @@
                     .links-container {
 
                         .link {
-                            padding: 4px;
+                            padding: 4px 0;
 
                             a {
                                 color: $highlight1;
@@ -116,10 +116,13 @@
                             @include flexbox(flex, column, flex-start, flex-start);
                             @include content(fit-content, 100%, null);
 
+                            label {
+                                padding: 4px 0;
+                            }
+
                             input {
-                                @include content(fit-content, 90%, null);
+                                @include content(fit-content, 95%, null);
                                 padding: .5rem;
-                                margin-left: .5rem;
                                 background-color: $dark3;
                                 color: $dark1;
                                 border-radius: 5px;
@@ -142,25 +145,27 @@
                         }
                     }
 
+                    textarea {
+                        @include content(150px, 100%, $dark3);
+                        border: 2px solid $dark5;
+                        border-radius: 5px;
+                        padding: 4px;
+                        color: $dark1;
+                        resize: none;
+                        
+                        &:focus {
+                            border: 2px solid $dark2;
+                            outline: none;
+                            caret-color: $dark1;
+                            color: $dark1;
+                        }
+                    }
+
                     .save-icon {
                         padding: .5rem;
                     }
                 }
             }
-        }
-    }
-
-    textarea {
-        @include content(150px, 95%, $dark5);
-        outline: none;
-        padding: 4px;
-        color: $dark1;
-        resize: none;
-        
-        &:focus {
-            outline: 1px solid $dark3;
-            caret-color: $dark1;
-            color: $dark1;
         }
     }
 
