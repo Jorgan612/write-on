@@ -80,52 +80,52 @@
                 min-height: 0;
                 padding-top: 1rem;
 
-                textarea {
-                    @include content(150px, 95%, $dark5);
-                    outline: none;
-                    padding: 4px;
-                    color: $dark1;
-                    resize: none;
+                // textarea {
+                //     @include content(150px, 95%, $dark5);
+                //     outline: none;
+                //     padding: 4px;
+                //     color: $dark1;
+                //     resize: none;
                     
-                    &:focus {
-                        outline: 1px solid $dark3;
-                        caret-color: $dark1;
-                        color: $dark1;
-                    }
-                }
+                //     &:focus {
+                //         outline: 1px solid $dark3;
+                //         caret-color: $dark1;
+                //         color: $dark1;
+                //     }
+                // }
                 
-                .links-container {
-                    @include flexbox(flex, column, flex-start, center);
-                    @include content(fit-content, 95%, $dark5);
+                // .links-container {
+                //     @include flexbox(flex, column, flex-start, center);
+                //     @include content(fit-content, 95%, $dark5);
 
-                    .link {
-                        @include flexbox(flex, column, flex-start, flex-start);
-                        @include content(fit-content, 100%, null);
+                //     .link {
+                //         @include flexbox(flex, column, flex-start, flex-start);
+                //         @include content(fit-content, 100%, null);
 
-                        input {
-                            @include content(fit-content, 90%, null);
-                            padding: .5rem;
-                            margin-left: .5rem;
-                            background-color: $dark3;
-                            color: $dark1;
-                            border-radius: 5px;
-                            border: none;
-                        }
+                //         input {
+                //             @include content(fit-content, 90%, null);
+                //             padding: .5rem;
+                //             margin-left: .5rem;
+                //             background-color: $dark3;
+                //             color: $dark1;
+                //             border-radius: 5px;
+                //             border: none;
+                //         }
                         
-                        input:focus {
-                            outline: 2px solid $dark2;
-                        }
-                    }
+                //         input:focus {
+                //             outline: 2px solid $dark2;
+                //         }
+                //     }
 
-                    .add-link {
-                        @include content(24px, 24px, null);
-                        padding: .5rem;
+                //     .add-link {
+                //         @include content(24px, 24px, null);
+                //         padding: .5rem;
 
-                        &:hover {
-                            color: $highlight1;
-                        }
-                    }
-                }
+                //         &:hover {
+                //             color: $highlight1;
+                //         }
+                //     }
+                // }
 
                 .save-check {
                     @include content(24px, 24px, null);

@@ -13,7 +13,7 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
     const saveUserDetailsUpdate = (user: User) => {
         setSelectedMember(null);
         console.log("Save logic/details collapse here!")
-    }
+    };
     
 
     return (

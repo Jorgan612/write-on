@@ -1,12 +1,13 @@
 import './GroupSignUp.scss';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle } from 'react-icons/fa';
-import { User } from '../interfaces/interfaces';
+import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle, FaRegCalendarAlt, FaRegCheckCircle } from 'react-icons/fa';
+import { MembersProps, User } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
+import { useState } from 'react';
 
-type SignUpProps = {users: User[]};
+function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
+    const [editing, setEditing] = useState<boolean>(false);
 
-function GroupSignUp({users}: SignUpProps) {
     const dates = [
         {
             id: '1',
@@ -47,6 +48,17 @@ function GroupSignUp({users}: SignUpProps) {
         description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
     }
 
+    const EditCardDetails = (user: User) => {
+        setEditing(true);
+        setSelectedMember(user);
+    };
+
+    const saveCardDetails = (user: User) => {
+        setEditing(false);
+        setSelectedMember(null);
+        console.log('user', user)
+    };
+
     return (
         <div className='sign-up'>
             {dates.map((date) => {
@@ -61,7 +73,7 @@ function GroupSignUp({users}: SignUpProps) {
                                 <FaPlusCircle className='icon' />
                             </div>
                             <div className='option' title='Edit Date'>
-                                <FaEdit className='icon' />
+                                <FaRegCalendarAlt className='icon' />
                             </div>
                         </div>
                         <div className='sign-up-list'>
@@ -77,7 +89,9 @@ function GroupSignUp({users}: SignUpProps) {
                                             </div>
                                             <label>{user.username}</label>
                                         </div>
-                                        <div className='card-details'>
+                                        {/*Read only view*/}
+                                        <div className={`card-details ${!editing ? 'show' : 'hide'}`}>
+                                            <FaEdit className='edit-icon icon' title='Edit card' onClick={() => {EditCardDetails(user)}} />
                                             <div className='links-container'>
                                                 {dummyExcerpt.links.map((link) => {
                                                     return (
@@ -91,11 +105,25 @@ function GroupSignUp({users}: SignUpProps) {
                                                 <div className='description'>{dummyExcerpt.description}</div>
                                             </div>
                                         </div>
+                                        {/*Edit view*/}
+                                        <div className={`edit-card-details ${editing? 'show' : 'hide'}`}>
+                                            <div className='links-container'>
+                                                <div className='link'>
+                                                    <label>Document Name:</label>
+                                                    <input />
+                                                    <label>Link:</label>
+                                                    <input />
+                                                </div>
+                                                <FaPlusCircle className='add-link' title='Add Link' />
+                                            </div>
+                                            <label>Description:</label>
+                                            <textarea placeholder='TEST'></textarea>
+                                            <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
+                                        </div>
                                     </div>
                                 )
                             })}
                         </div>
-
                     </div>
                 )
             })}
