@@ -32,12 +32,12 @@ function Members({users}: Pick<MembersProps, 'users'>) {
                                 <div className='bio'>{user.bio}</div>
                                 <div className='website'>
                                     <label className='website-label'>Website</label>
-                                    <a className='website-link' href={user.website.url}>{user.website.name}</a>
+                                    <a className='website-link' href={user.website.url} target='_blank' rel='noopener noreferrer'>{user.website.name}</a>
                                 </div>
                                 <label className='socials-label'>Socials</label>
                                 {user.socials.map((social) => {
                                     return (
-                                        <a className='socials-link' href={social.url}>@{social.handle}</a>
+                                        <a className='socials-link' href={social.url} target='_blank' rel='noopener noreferrer'>@{social.handle}</a>
                                     )
                                 })}
                             </div>
