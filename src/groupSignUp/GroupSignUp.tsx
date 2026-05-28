@@ -1,6 +1,6 @@
 import './GroupSignUp.scss';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle, FaRegCalendarAlt, FaRegCheckCircle } from 'react-icons/fa';
+import { FaRegUserCircle, FaRegHandPaper, FaEdit, FaPlusCircle, FaRegCalendarAlt, FaRegCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { MembersProps, User } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
@@ -57,10 +57,18 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
     };
 
     const saveCardDetails = (user: User) => {
+        // save user card details for this date
         setEditing(false);
         setSelectedMember(null);
         setSelectedDate('');
     };
+
+    const cancelEdit = (user: User) => {
+        //DO NOT save changes. Revert to previous user card details.
+        setEditing(false);
+        setSelectedMember(null);
+        setSelectedDate('');
+    }
 
     return (
         <div className='sign-up'>
@@ -121,7 +129,10 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             </div>
                                             <label>Description:</label>
                                             <textarea placeholder=''></textarea>
-                                            <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
+                                            <div className='button-container'>
+                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
+                                                <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(user)}} />
+                                            </div>
                                         </div>
                                     </div>
                                 )

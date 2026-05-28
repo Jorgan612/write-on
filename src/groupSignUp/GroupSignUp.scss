@@ -161,9 +161,14 @@
                         }
                     }
 
-                    .save-icon {
-                        padding: .5rem;
+                    .button-container {
+                        
+                        .save-icon,
+                        .cancel-icon {
+                            padding: .5rem;
+                        }
                     }
+
                 }
             }
         }
