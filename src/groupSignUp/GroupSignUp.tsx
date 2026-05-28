@@ -146,12 +146,10 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             </div>
                                         </div>
                                     </div>
-                                )
-                            })}
+                                )})}
                         </div>
                     </div>
-                )
-            })}
+                )})}
         </div>
     )
 }
