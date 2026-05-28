@@ -4,12 +4,13 @@
 
 .members-list {
     @include flexbox(flex, column, flex-start, center);
-    @include content(100%, 20%, null);
+    @include content(96%, 20%, null);
     min-width: 250px;
     border-left: 1px solid $dark3;
     border-top: 1px solid $dark3;
+    border-bottom: 1px solid $dark3;
     padding: .5rem;
-    margin-top: .5rem;
+    margin-top: .7rem;
     overflow-y: auto;
     overflow-x: hidden;
 

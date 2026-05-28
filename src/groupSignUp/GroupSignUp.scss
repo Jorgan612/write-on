@@ -9,7 +9,7 @@
 
     .column {
         @include flexbox(flex, column, flex-start, center);
-        @include content(100%, 24%, null);
+        @include content(99%, 24%, null);
         min-width: 250px;
         border: .5px solid $dark3;
         box-shadow: 
@@ -97,10 +97,19 @@
                         margin-top: .5rem;
                     }
 
-                    .edit-icon {
+                    .edit-button {
+                        @include content(24px, 24px, null);
+                        background-color: rgb(21, 25, 29, 0);
+                        padding: .5rem;
                         position: absolute;
                         top: 0px;
                         right: 0px;
+                        border: none;
+
+                        &:hover {
+                            color: $highlight1;
+                            background-color: none;
+                        }
                     }
                 }
 
@@ -185,5 +194,9 @@
 
     .selected {
         border: 2px solid $dark2 !important;
+    }
+
+    .disable {
+        cursor: not-allowed !important;
     }
 }

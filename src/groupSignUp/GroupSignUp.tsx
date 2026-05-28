@@ -110,7 +110,11 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                         </div>
                                         {/*Read only view*/}
                                         <div className={`card-details ${!editing || selectedMember?.id !== user.id || (selectedDate !== date.date && selectedMember?.id === user.id) ? 'show' : 'hide'}`}>
-                                            <FaEdit className='edit-icon icon' title='Edit card' onClick={() => {EditCardDetails(user, date.date)}} />
+                                            <h4>Excerpt Details</h4>
+                                            <button className='edit-button' disabled={editing}>
+                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(user, date.date)}} />
+
+                                            </button>
                                             <div className='links-container'>
                                                 {dummyExcerpt.links.map((link) => {
                                                     return (
