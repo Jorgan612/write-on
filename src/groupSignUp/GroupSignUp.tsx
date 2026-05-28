@@ -11,7 +11,6 @@ import { FaRegUserCircle,
     FaRegCalendarAlt,
     FaRegCheckCircle,
     FaRegTimesCircle,
-    FaTimes 
 } from 'react-icons/fa';
 
 function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
