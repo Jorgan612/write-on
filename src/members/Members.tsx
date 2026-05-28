@@ -33,18 +33,18 @@ function Members({users, selectedMember, setSelectedMember}: MembersProps) {
                         </div>
                         <div className={`card-details ${selectedMember?.id === user.id ? 'is-visible'  : ''}`}>
                             <div className='details-inner'>
-                                <div className='links-container'>
-                                    <div className='link'>
-                                        <label>Document Name:</label>
-                                        <input />
-                                        <label>Link:</label>
-                                        <input />
-                                    </div>
-                                    <FaPlusCircle className='add-link' />
+                                <div className='pronouns'>({user.pronouns})</div>
+                                <div className='bio'>{user.bio}</div>
+                                <div className='website'>
+                                    <label className='website-label'>Website:</label>
+                                    <a className='website-link' href={user.website.url}>{user.website.name}</a>
                                 </div>
-                                <label>Description:</label>
-                                <textarea placeholder='TEST'></textarea>
-                                <FaCheckCircle className='save-check' onClick={() => {saveUserDetailsUpdate(user)}} />
+                                <label className='socials-label'>Socials</label>
+                                {user.socials.map((social) => {
+                                    return (
+                                        <a className='socials-link' href={social.url}>@{social.handle}</a>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

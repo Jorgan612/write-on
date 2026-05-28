@@ -20,22 +20,22 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
     const dates = [
         {
             id: '1',
-            date: '2026-05-07',
+            date: '2026-05-06',
             signups: [user1, user2]
         },
         {
             id: '2',
-            date: '2026-05-08',
+            date: '2026-05-013',
             signups: []
         },
         {
             id: '3',
-            date: '2026-05-09',
+            date: '2026-05-20',
             signups: [user2]
         },
         {
             id: '4',
-            date: '2026-05-010',
+            date: '2026-05-27',
             signups: []
         }
     ];
