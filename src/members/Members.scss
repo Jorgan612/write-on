@@ -94,12 +94,12 @@
                 }
 
                 .website {
-                    @include flexbox(flex, column, flex-start, center);
+                    @include flexbox(flex, column, flex-start, flex-start);
 
                     .website-label {
                         font-size: $font4;
                         font-weight: bold;
-                        padding: 0 .5rem .5rem .5rem;
+                        padding: 0 .5rem .5rem 0;
                     }
 
                     .website-link {
