@@ -124,6 +124,14 @@
                         .link {
                             @include flexbox(flex, column, flex-start, flex-start);
                             @include content(fit-content, 100%, null);
+                            border-bottom: 2px solid $dark3;
+                            padding: 1rem 0;
+
+                            h4 {
+                                @include content(fit-content, 100%, null);
+                                text-align: center;
+                                font-size: $font2;
+                            }
 
                             label {
                                 padding: 4px 0;

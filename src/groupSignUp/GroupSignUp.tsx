@@ -16,6 +16,14 @@ import { FaRegUserCircle,
 function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
+    const [activeExcerpt, setActiveExcerpt] = useState<{
+        links: {
+            id: string;
+            linkName: string;
+            linkURL: string
+        }[];
+        description: string;
+    } | null>(null);
 
     const dates = [
         {
@@ -61,6 +69,11 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         setEditing(true);
         setSelectedMember(user);
         setSelectedDate(date);
+
+        setActiveExcerpt({
+            links: [...dummyExcerpt.links],
+            description: dummyExcerpt.description
+        });
     };
 
     const saveCardDetails = (user: User) => {
@@ -75,7 +88,36 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         setEditing(false);
         setSelectedMember(null);
         setSelectedDate('');
+        setActiveExcerpt(null);
     }
+
+    const addLink = () => {
+        if (!activeExcerpt) {
+            return;
+        }
+
+        if (activeExcerpt.links.length >= 5) {
+            alert('Unable to add more links.');
+            return;
+        }
+
+        const newLink = {
+            id: Date.now().toString(),
+            linkName: '',
+            linkURL: ''
+        };
+
+        setActiveExcerpt((prev) => {
+            if (!prev) {
+                return null;
+            }
+
+            return {
+                ...prev,
+                links: [...prev.links, newLink]
+            };
+        });
+    };
 
     return (
         <div className='sign-up'>
@@ -130,16 +172,34 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                         {/*Edit view*/}
                                         <div className={`edit-card-details ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
-                                                <div className='link'>
-                                                    <label>Document Name:</label>
-                                                    <input />
-                                                    <label>Link:</label>
-                                                    <input />
-                                                </div>
-                                                <FaPlusCircle className='add-link' title='Add Link' />
+                                                {activeExcerpt?.links.map((link, index) => (
+                                                    <div className='link' key={link.id}>
+                                                        <h4 className={`${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>Link {index + 1}/5</h4>
+                                                        <label>Document Name:</label>
+                                                        <input
+                                                        value={link.linkName}
+                                                        onChange={(e) => {
+                                                            const updatedLinks = [...activeExcerpt.links];
+                                                            updatedLinks[index]!.linkName = e.target.value;
+                                                            setActiveExcerpt({...activeExcerpt, links: updatedLinks});
+                                                        }} />
+                                                        <label>Link:</label>
+                                                        <input
+                                                        value={link.linkURL}
+                                                        onChange={(e) => {
+                                                            const updatedLinks = [...activeExcerpt.links];
+                                                            updatedLinks[index]!.linkURL = e.target.value;
+                                                            setActiveExcerpt({...activeExcerpt, links: updatedLinks});
+                                                        }} />
+                                                    </div>
+                                                ))}
+                                                <FaPlusCircle className='add-link' title='Add Link' onClick={addLink} />
                                             </div>
                                             <label>Description:</label>
-                                            <textarea placeholder=''></textarea>
+                                            <textarea
+                                                value={activeExcerpt?.description || ''}
+                                                onChange={(e) => setActiveExcerpt(prev => prev ? {...prev, description: e.target.value} : null)}
+                                            />
                                             <div className='button-container'>
                                                 <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
                                                 <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(user)}} />
