@@ -119,6 +119,21 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         });
     };
 
+    const removeLink = (id: string) => {
+        setActiveExcerpt((prev) => {
+            if (!prev) {
+                return null;
+            }
+
+            const filteredLinks = prev.links.filter(link => link.id !== id);
+
+            return {
+                ...prev,
+                links: filteredLinks
+            };
+        });
+    };
+
     return (
         <div className='sign-up'>
             {dates.map((date) => {
@@ -174,7 +189,12 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                             <div className='links-container'>
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
-                                                        <h4 className={`${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>Link {index + 1}/5</h4>
+                                                        <h4 className={`${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
+                                                            Link {index + 1}/5
+                                                            <span>
+                                                                <FaRegTimesCircle className='remove-icon icon' title='Remove' onClick={() => {removeLink(link.id)}} />
+                                                            </span>
+                                                        </h4>
                                                         <label>Document Name:</label>
                                                         <input
                                                         value={link.linkName}

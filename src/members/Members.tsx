@@ -37,7 +37,7 @@ function Members({users}: Pick<MembersProps, 'users'>) {
                                 <label className='socials-label'>Socials</label>
                                 {user.socials.map((social) => {
                                     return (
-                                        <a className='socials-link' href={social.url} target='_blank' rel='noopener noreferrer'>@{social.handle}</a>
+                                        <a className='socials-link' href={social.url} target='_blank' rel='noopener noreferrer' key={social.id}>@{social.handle}</a>
                                     )
                                 })}
                             </div>
