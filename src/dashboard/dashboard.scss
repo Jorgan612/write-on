@@ -51,7 +51,6 @@
     .group-dash {
         @include content(100%, 100%, null);
         transition: opacity 0.3s ease;
-        border-top: 1px solid $dark3;
 
         &.hide {
             display: none;

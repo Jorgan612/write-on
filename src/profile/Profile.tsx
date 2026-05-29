@@ -39,7 +39,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
         setFormData((prev) => ({
             ...prev,
             userIcon: oldUserData.userIcon
-        }))
+        }));
 
         setEditing(false);
     };
@@ -68,7 +68,7 @@ function Profile({ currentUser, setCurrentUser }: ProfileProps) {
             ...prev,
             socials: prev.socials.map((social, i) => 
                 i === index ? { ...social, [field]: value } : social
-            )}));
+        )}));
     };
 
     const handleIconChange = (icon: UserIcon, color: any | null, btnID: string) => {
