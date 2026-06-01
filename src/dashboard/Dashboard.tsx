@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
@@ -14,15 +15,26 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
 
+    const navigate =  useNavigate();
+
+    const navigateToCreateGroup = () => {
+        navigate('/create-group')
+    };
+
     return (
         <div className='dashboard-contents'>
-            <div className='dash-header'>
-                <button className={`personal ${activeDash === 'personal' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('personal')}>
-                    Personal {activeDash === 'personal' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
+            <div className='header-container'>
+                <div className='dash-header'>
+                    <button className={`personal ${activeDash === 'personal' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('personal')}>
+                        Personal {activeDash === 'personal' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
                     </button>
-                <button className={`group ${activeDash === 'group' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('group')}>
-                    Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
+                    <button className={`group ${activeDash === 'group' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('group')}>
+                        Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
                     </button>
+                </div>
+                <button className={activeDash === 'group' ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
+                    Create Group
+                </button>
             </div>
 
             <div className={`user-dash ${activeDash === 'personal' ? 'show' : 'hide'}`}>

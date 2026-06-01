@@ -11,6 +11,7 @@ import Timer from './timer/Timer';
 import Warmup from './warm-up/Warmup';
 import Dashboard from './dashboard/Dashboard';
 import Profile from './profile/Profile';
+import CreateGroup from './createGroup/CreateGroup';
 import LandingPage from './landingPage/LandingPage';
 import Signup from './signup/Signup';
 import Login from './login/Login';
@@ -148,6 +149,7 @@ function App() {
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
+              <Route path='/create-group' element={ <CreateGroup />} />
               <Route path="/dashboard" element={ 
                 <RequireAuth>
                   <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> 

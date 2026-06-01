@@ -4,6 +4,10 @@
 .dashboard-contents {
     @include flexbox(flex, column, flex-start, null);
     @include content(calc(95vh - 1rem), 100%, null);
+
+    .header-container {
+        @include flexbox(flex, row, space-between, center);
+    }
     
     .dash-header {
         @include flexbox(flex, row, flex-start, center);
