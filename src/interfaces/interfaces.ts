@@ -14,6 +14,9 @@ export interface User {
     pronouns: string;
     bio: string;
     joined: string;
+    groups: {
+        groupId: string;
+    }[];
     userIcon: {
         id: string;
         color: string;

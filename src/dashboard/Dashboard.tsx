@@ -32,7 +32,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                         Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
                     </button>
                 </div>
-                <button className={activeDash === 'group' ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
+                <button className={activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
                     Create Group
                 </button>
             </div>
@@ -91,10 +91,18 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
             </div>
 
 
-            <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                <GroupSignUp users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
-                <Members users={users} />
-            </div>
+            {activeDash === 'group' && currentUser.groups?.length ? 
+                <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
+                    <GroupSignUp users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
+                    <Members users={users} />
+                </div> : 
+                <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
+                    <p>Don't have a group?</p>
+                    <button className={activeDash === 'group' ? 'show' : 'hide'} title='Create Group' onClick={navigateToCreateGroup}>
+                        Create Group
+                    </button>
+                </div>
+            }
         </div>
     );
 }

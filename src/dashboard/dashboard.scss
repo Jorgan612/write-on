@@ -132,6 +132,11 @@
         margin: 5px;
         overflow: hidden;
     }
+
+    .no-group {
+        @include flexbox(flex, column, center, center);
+        border: 1px solid red;
+    }
 }
 
 /* FOR VERTICAL TABLET RESPONSIVENESS */
