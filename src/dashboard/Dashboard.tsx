@@ -97,7 +97,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
                     <Members users={users} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <p>Don't have a group?</p>
+                    <h3>Don't have a group?</h3>
                     <button className={activeDash === 'group' ? 'show' : 'hide'} title='Create Group' onClick={navigateToCreateGroup}>
                         Create Group
                     </button>
