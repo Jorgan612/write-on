@@ -5,10 +5,83 @@
     @include flexbox(flex, column, flex-start, center);
     @include content(95vh, 100%, null);
 
-    .group-calendar {
-        @include content(50%, 50%, null);
-        border: 2px solid $dark3;
+    
+    .group-name {
+        @include flexbox(flex, column, flex-start, flex-start);
+        @include content(fit-content, 50%, null);
+        
+        label {
+            padding: .5rem 0;
+        }
+        
+        input {
+            @include content(fit-content, 100%, null);
+            padding: .5rem;
+            background-color: $dark3;
+            color: $dark1;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        input:focus {
+            outline: 2px solid $dark2;
+        }
+        
+    }
+    
+    .date-selection {
+        @include flexbox(flex, row, center, flex-start);
+        @include content(fit-content, 100%, null);
         padding: .5rem;
-        margin: .5rem;
+        
+        .group-calendar {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(500px, 40%, null);
+            border: 2px solid $dark3;
+            padding: .5rem;
+            margin: .5rem;
+        }
+
+        .group-dates {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(500px, 40%, null);
+            border: 2px solid $dark3;
+            padding: .5rem;
+            margin: .5rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            p {
+                margin: 0;
+            }
+
+            li {
+                @include flexbox(flex, row, space-between, center);
+                @include content(fit-content, 25%, $dark4);
+                border: 2px solid $dark4;
+                border-radius: 4px;
+                padding: .5rem;
+                margin: .5rem;
+
+                .icon {
+                    @include content(24px, 24px, null);
+
+                    &:hover {
+                        cursor: pointer;
+                        color: $highlight1;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $dark3;
+                    border: 2px solid $dark3;
+                }
+            }
+        }
+    }
+
+    .button-container {
+        @include flexbox(flex, row, flex-start, center);
     }
 }

@@ -135,7 +135,6 @@
 
     .no-group {
         @include flexbox(flex, column, center, center);
-        border: 1px solid red;
     }
 }
 
