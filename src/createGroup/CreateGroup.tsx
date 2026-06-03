@@ -7,19 +7,33 @@ import { FaRegUserCircle,
     FaRegTimesCircle,
 } from 'react-icons/fa';
 import { format } from 'date-fns';
-import './CreateGroup.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CalendarGrid from '../calendarGrid/CalendarGrid';
+import './CreateGroup.scss';
 
 
 function CreateGroup() {
 
-    const [selectedDates, setSelectedDates] = useState([{id: 1, date: '2026-06-02'}]);
+    const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
 
     }, [selectedDates]);
+
+    const toggleDateSelection = (dateKey: string, isFuture: boolean) => {
+        if (!isFuture) return;
+
+        setSelectedDates(prev => {
+            const exists = prev.some(d => d.date === dateKey);
+            if (exists) {
+                return prev.filter(d => d.date !== dateKey);
+            } else {
+                return [...prev, { id: Date.now(), date: dateKey }];
+            }
+        });
+    };
 
     const removeDate = () => {
         console.log('Date removed!');
@@ -40,7 +54,18 @@ function CreateGroup() {
             <div className='date-selection'>
                 <div className='group-calendar'>
                     <p>Select a few or all future meeting dates on the calendar below.</p>
-                    {/* The calendar to schedule meeting dates goes here */}
+                    <CalendarGrid 
+                        renderDayCube={(dateKey, d, isFuture) => {
+                            const isSelected = selectedDates.some(sd => sd.date === dateKey);
+                            return (
+                                <div key={d}
+                                    className={`default-cube ${isFuture ? 'future' : 'past'} ${isSelected ? 'meeting-selected' : ''}`}
+                                    onClick={() => toggleDateSelection(dateKey, isFuture)}>
+                                    <span className='day-number'>{d}</span>
+                                </div>
+                            );
+                        }}
+                    />
                 </div>
                 { selectedDates.length ?
                     < ul className='group-dates'>
@@ -61,10 +86,8 @@ function CreateGroup() {
                 <button>Create</button>
                 <button onClick={navigateToDashboard}>Cancel</button>
             </div>
-
         </div>
     )
-
 }
 
 export default CreateGroup;
