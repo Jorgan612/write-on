@@ -40,6 +40,7 @@ function CreateGroup() {
             <div className='date-selection'>
                 <div className='group-calendar'>
                     <p>Select a few or all future meeting dates on the calendar below.</p>
+                    {/* The calendar to schedule meeting dates goes here */}
                 </div>
                 { selectedDates.length ?
                     < ul className='group-dates'>

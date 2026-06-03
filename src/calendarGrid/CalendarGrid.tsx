@@ -23,9 +23,10 @@ interface MonthInfo {
 
 interface CalendarGridProps {
     renderDayCube: (dateKey: string, dayNumber: number, isFuture: boolean) => React.ReactNode;
+    children?: React.ReactNode;
 }
 
-function CalendarGrid({ renderDayCube}: CalendarGridProps) {
+function CalendarGrid({ renderDayCube, children }: CalendarGridProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const [months, setMonths] = useState<MonthInfo[] | null>(null);
 
@@ -63,7 +64,7 @@ function CalendarGrid({ renderDayCube}: CalendarGridProps) {
             days.push(<div key={`empty-${i}`} className="default-cube empty"></div>)
         }
 
-        for (let d = 0; d < currentMonthData.daysInMonth; d++) {
+        for (let d = 1; d <= currentMonthData.daysInMonth; d++) {
             const monthStr = String(currentMonthData.monthNumber + 1).padStart(2, '0');
             const dayStr = String(d).padStart(2, '0');
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
@@ -83,12 +84,13 @@ function CalendarGrid({ renderDayCube}: CalendarGridProps) {
                 <span className="year">{currentYear}</span>
                 <FaChevronRight className="next" onClick={() => changeMonth('next')} />
             </div>
-            <div className="'grid-container">
+            <div className="grid-container">
                 <div className="weekdays-row">
                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span> 
                 </div>
                 <div className="days-grid">{renderDays()}</div>
             </div>
+            {children}
         </div>
     );
 }
