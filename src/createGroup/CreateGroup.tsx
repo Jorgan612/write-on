@@ -1,4 +1,4 @@
-import { FaRegTimesCircle } from 'react-icons/fa';
+import { FaRegTimesCircle, FaPlusCircle } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -42,13 +42,14 @@ function CreateGroup() {
     return (
         <div className='create-group-page'>
             <h1>Create Group</h1>
+            <p className='sub-text'> Enter your group name, select meeting dates, and invite members to create a group.</p>
             <div className='group-name'>
                 <label>Group Name:</label>
                 <input />
             </div>
             <div className='date-selection'>
                 <div className='group-calendar'>
-                    <p>Select a few or all future meeting dates on the calendar below.</p>
+                    {/* <p>Select a few or all future meeting dates on the calendar below.</p> */}
                     <CalendarGrid 
                         renderDayCube={(dateKey, d, isFuture) => {
                             const isSelected = selectedDates.some(selectedDate => selectedDate.date === dateKey);
@@ -62,22 +63,32 @@ function CreateGroup() {
                             );
                         }}
                     />
+                    { selectedDates.length ?
+                        < ul className='group-dates'>
+                            {selectedDates.map((date)=> {
+                            return (
+                                    <li key={date.id}>
+                                        <p>{format(date.date, 'LLLL dd yyyy')}</p>
+                                        <FaRegTimesCircle className='icon' onClick={removeDate}/>
+                                    </li>
+                                )
+                            })}
+                        </ ul> :
+                        <div className='group-dates'>
+                            <p className='text'>
+                                No dates selected yet...
+                            </p>
+                        </div>
+                    }
                 </div>
-                { selectedDates.length ?
-                    < ul className='group-dates'>
-                        <p>Selected meeting dates.</p>
-                        {selectedDates.map((date)=> {
-                           return (
-                                <li key={date.id}>
-                                    <p>{format(date.date, 'LLLL dd yyyy')}</p>
-                                    <FaRegTimesCircle className='icon' onClick={removeDate}/>
-                                </li>
-                            )
-                        })}
-                    </ ul> :
-                    <div className='group-dates'>No dates selected yet...</div>
-                }
-                <div className='group-invites'></div>
+                <div className='group-invites'>
+                    <p>Enter the email(s) of the people you wish to invite.</p>
+                    <div className='invite-input'>
+                        <label>Email:</label>
+                        <input />
+                        <FaPlusCircle className='icon' title='Send' />
+                    </div>
+                </div>
             </div>
             <div className='button-container'>
                 <button>Create</button>
