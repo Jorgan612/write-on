@@ -68,7 +68,7 @@ function CalendarGrid({ renderDayCube, children }: CalendarGridProps) {
             const monthStr = String(currentMonthData.monthNumber + 1).padStart(2, '0');
             const dayStr = String(d).padStart(2, '0');
             const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
-            const isFuture = dateKey > todayKey;
+            const isFuture = dateKey >= todayKey;
 
             days.push(renderDayCube(dateKey, d, isFuture));
         }

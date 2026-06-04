@@ -59,7 +59,8 @@
             }
         }
 
-        .default-cube {
+        .default-cube,
+        .empty {
             @include flexbox(flex, null, center, center);
             aspect-ratio: 1 / 1;
             font-weight: bolder;
@@ -70,10 +71,6 @@
             margin: .2rem;
             cursor: pointer;
 
-            &.empty {
-                border: none;
-            }
-
             &.future {
                 cursor: not-allowed;
             }
@@ -83,7 +80,6 @@
                 color: $dark1;
             }
 
-            // Correct implementation for element hover modifications
             &:hover,
             &.words1:hover,
             &.words2:hover,

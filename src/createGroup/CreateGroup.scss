@@ -9,6 +9,7 @@
     .group-name {
         @include flexbox(flex, column, flex-start, flex-start);
         @include content(fit-content, 25%, null);
+        margin-bottom: 1rem;
         
         label {
             padding: .5rem 0;
@@ -30,57 +31,125 @@
     }
     
     .date-selection {
-        @include flexbox(flex, row, center, flex-start);
-        @include content(fit-content, 100%, null);
-        padding: .5rem;
+        @include flexbox(flex, row, space-around, flex-start);
+        @include content(fit-content, 95%, null);
+        min-height: 450px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
         
         .group-calendar {
             @include flexbox(flex, column, flex-start, center);
-            @include content(500px, 40%, null);
+            @include content(100%, 50%  , null);
             border: 2px solid $dark3;
             padding: .5rem;
             margin: .5rem;
-        }
-
-        .group-dates {
-            @include flexbox(flex, column, flex-start, center);
-            @include content(500px, 40%, null);
-            border: 2px solid $dark3;
-            padding: .5rem;
-            margin: .5rem;
-            overflow-y: auto;
-            overflow-x: hidden;
 
             p {
+                margin: 1.5rem;
+                padding-top: .5rem;
+                font-weight: 500;
+                align-self: center;
                 margin: 0;
             }
-
+            
+            .calendar-container {
+                width: 100% !important;
+                max-width: 500px;
+                padding: 1.5rem;
+                box-sizing: border-box;
+                
+                .calendar-header {
+                    width: 100% !important;
+                    font-size: 1.3rem;
+                    margin-bottom: 1.5rem;
+                    
+                    .previous, .next {
+                        font-size: 1.2rem;
+                    }
+                }
+                
+                .grid-container {
+                    width: 100%;
+                    
+                    .weekdays-row,
+                    .days-grid {
+                        display: grid;
+                        grid-template-columns: repeat(7, 1fr);
+                        gap: 0.6rem;
+                        width: 100%;
+                    }
+                    
+                    .weekdays-row span {
+                        font-size: 1rem;
+                        padding-bottom: 0.5rem;
+                    }
+                    
+                    .default-cube {
+                        width: 100% !important;
+                        margin: 0 !important;
+                        aspect-ratio: 1 / 1;
+                        
+                        .day-number {
+                            font-size: 1.1rem;
+                        }
+                    }
+                    
+                    .day-selected {
+                        border: 1px solid $dark1;
+                    }
+                }
+            }
+        }
+        
+        .group-dates {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(100%, fit-content, null);
+            border: 2px solid $dark3;
+            padding: 1rem;
+            margin: .5rem 2rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            
+            p {
+                margin: 0;
+                padding-top: .5rem;
+            }
+            
             li {
                 @include flexbox(flex, row, space-between, center);
-                @include content(fit-content, 25%, $dark4);
+                @include content(fit-content, 95%, $dark4);
                 border: 2px solid $dark4;
                 border-radius: 4px;
                 padding: .5rem;
                 margin: .5rem;
-
+                
                 .icon {
                     @include content(24px, 24px, null);
-
+                    
                     &:hover {
                         cursor: pointer;
                         color: $highlight1;
                     }
                 }
-
+                
                 &:hover {
                     background-color: $dark3;
                     border: 2px solid $dark3;
                 }
             }
         }
+        
+        .group-invites {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(100%, 25%, null);
+            border: 1px solid $dark3;
+        }
     }
 
     .button-container {
         @include flexbox(flex, row, flex-start, center);
+        margin-top: 1rem;
     }
 }
