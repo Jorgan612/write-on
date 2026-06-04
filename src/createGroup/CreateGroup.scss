@@ -42,7 +42,7 @@
         @include flexbox(flex, row, center, flex-start);
         @include content(600px, 95%, null);
         min-height: 450px;
-        max-height: 500px;
+        max-height: 550px;
 
         @media (max-width: 768px) {
             flex-direction: column;
@@ -53,6 +53,7 @@
             @include content(100%, 50%, null);
             border: 2px solid $dark3;
             margin: .5rem;
+            box-shadow: 1px 0px 20px -10px #000;
 
             p {
                 margin: 1.5rem;
@@ -151,6 +152,7 @@
             @include content(100%, 40%, null);
             border: 2px solid $dark3;
             margin: .5rem;
+            box-shadow: 1px 0px 20px -10px #000;
 
             .invite-input {
                 @include content(fit-content, 50%, null);
@@ -163,12 +165,40 @@
                     right: -40px;
                 }
             }
+
+            .invite-list {
+                @include flexbox(flex, column, flex-start, center);
+                @include content(75%, 90%, null);
+                overflow: hidden;
+                 overflow-y: auto;
+                 overflow-x: hidden;
+
+                li {
+                    @include flexbox(flex, row, space-between, center);
+                    @include content(fit-content, 50%, null);
+                    background-color: $dark4;
+                    border: 1px solid $dark5;
+                    border-radius: 4px;
+                    padding: .5rem;
+                    margin: .5rem;
+                    // overflow: hidden; // acting weird with long emails? Investigate.
+
+                    &:hover {
+                        background-color: $dark3;
+                    }
+
+                    &.icon:hover {
+                        cursor: pointer;
+                        color: $highlight1;
+                    }
+                }
+            }
         }
     }
     
     .button-container {
         @include flexbox(flex, row, flex-start, center);
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 
     .icon {

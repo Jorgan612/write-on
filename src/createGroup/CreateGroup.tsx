@@ -9,11 +9,12 @@ import './CreateGroup.scss';
 function CreateGroup() {
     
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
+    const [emails, setEmails] = useState<{id: string, email: string}[]>([{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}]);
     const navigate = useNavigate();
     
     useEffect(() => {
         
-    }, [selectedDates]);
+    }, [selectedDates, emails]);
     
     const toggleDateSelection = (dateKey: string, isFuture: boolean) => {
         if (!isFuture) {
@@ -86,8 +87,20 @@ function CreateGroup() {
                     <div className='invite-input'>
                         <label>Email:</label>
                         <input />
-                        <FaPlusCircle className='icon' title='Send' />
+                        <FaPlusCircle className='icon' title='Add' />
                     </div>
+                    <ul className='invite-list'>
+                        {emails.map((email) => {
+                            return (
+                                <li className='email' key={email.id} title={email.email}>
+                                    <p>
+                                        {email.email}
+                                    </p>
+                                    <FaRegTimesCircle className='icon'/>
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </div>
             </div>
             <div className='button-container'>
