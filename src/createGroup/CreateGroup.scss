@@ -115,7 +115,7 @@
                 @include flexbox(flex, column, flex-start, center);
                 @include content(100%, fit-content, null);
                 min-width: 175px;
-                max-height: 475px;
+                max-height: 500px;
                 border-right: none;
                 padding: 0 1rem;
                 margin-left: 2rem;
@@ -143,6 +143,7 @@
 
                 .text {
                     padding: 1rem 0;
+                    border-bottom: 1px solid $dark4; 
                 }
             }
         }
@@ -156,13 +157,15 @@
 
             .invite-input {
                 @include content(fit-content, 50%, null);
-                position: relative;
                 padding: .5rem;
 
+                div {
+                    @include flexbox(flex, row, space-between, center);
+                }
+
                 .icon {
-                    position: absolute;
-                    top: 30px;
-                    right: -40px;
+                    @include content(24px, 24px, null);
+                    padding: .5rem;
                 }
             }
 

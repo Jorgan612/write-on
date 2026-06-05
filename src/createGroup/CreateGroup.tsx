@@ -10,6 +10,7 @@ function CreateGroup() {
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
     const [emails, setEmails] = useState<{id: string, email: string}[]>([]);
     const [inputEmail, setInputEmail] = useState<string>('');
+    const [inputGroupName, setInputGroupName] = useState<string>('');
     const [errorMsg, setErrorMsg] = useState<string>('');
     const navigate = useNavigate();
     
@@ -73,8 +74,8 @@ function CreateGroup() {
             <h1>Create Group</h1>
             <p className='sub-text'> Enter your group name, select meeting dates, and invite members to create a group.</p>
             <div className='group-name'>
-                <label>Group Name:</label>
-                <input />
+                <label htmlFor='groupName'>Group Name:</label>
+                <input id='groupName' value={inputGroupName} onChange={(e) => {setInputGroupName(e.target.value)}} />
             </div>
             <div className='date-selection'>
                 <div className='group-calendar'>
@@ -113,8 +114,10 @@ function CreateGroup() {
                     <p>Enter the email(s) of the people you wish to invite.</p>
                     <div className='invite-input'>
                         <label htmlFor='inputEmail'>Email:</label>
-                        <input id='inputEmail' value={inputEmail} onChange={(e) => {setInputEmail(e.target.value)}}  />
-                        <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
+                        <div>
+                            <input id='inputEmail' value={inputEmail} onChange={(e) => {setInputEmail(e.target.value)}}  />
+                            <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
+                        </div>
                     </div>
                     {errorMsg ? <p className='error-msg'>{errorMsg}</p> : ''}
                     <ul className='invite-list'>
