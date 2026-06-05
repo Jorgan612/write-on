@@ -1,4 +1,4 @@
-import { FaRegTimesCircle, FaPlusCircle } from 'react-icons/fa';
+import { FaRegTimesCircle, FaPlusCircle, FaRegTrashAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -64,6 +64,10 @@ function CreateGroup() {
         });
     };
 
+    const clearDateList = () => {
+        setSelectedDates([]);
+    }
+
     const navigateToDashboard = () => {
         setSelectedDates([]);
         setEmails([]);
@@ -95,23 +99,28 @@ function CreateGroup() {
                             );
                         }}
                     />
-                    { selectedDates.length ?
-                        < ul className='group-dates'>
-                            {selectedDates.map((date)=> {
-                            return (
-                                    <li key={date.id}>
-                                        <p>{format(new Date(`${date.date}T00:00:00`), 'LLLL dd yyyy')}</p>
-                                        <FaRegTimesCircle className='icon' onClick={() => removeDate(date.date)}/>
-                                    </li>
-                                )
-                            })}
-                        </ ul> :
-                        <div className='group-dates'>
-                            <p className='text'>
-                                No dates selected yet...
-                            </p>
-                        </div>
-                    }
+                    <div className='content-right'>
+                        {selectedDates.length ? <div className='clear-dates'>
+                            <FaRegTrashAlt className='icon' title='Clear All' onClick={clearDateList} />
+                        </div> : <div className='clear-dates'></div>}
+                        { selectedDates.length ?
+                            < ul className='group-dates'>
+                                {selectedDates.map((date)=> {
+                                return (
+                                        <li key={date.id}>
+                                            <p>{format(new Date(`${date.date}T00:00:00`), 'LLLL dd yyyy')}</p>
+                                            <FaRegTimesCircle className='icon' onClick={() => removeDate(date.date)}/>
+                                        </li>
+                                    )
+                                })}
+                            </ ul> :
+                            <div className='group-dates'>
+                                <p className='text'>
+                                    No dates selected yet...
+                                </p>
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div className='group-invites'>
                     <p>Enter the email(s) of the people you wish to invite.</p>
