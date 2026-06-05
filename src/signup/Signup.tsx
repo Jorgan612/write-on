@@ -14,6 +14,7 @@ const userObj = {
     pronouns: '',
     bio: '',
     joined: '',
+    groups: [],
     userIcon: {icon: FaRegUserCircle, id: 'default', color: '#94a3b8'},
     website: {
         name: '',

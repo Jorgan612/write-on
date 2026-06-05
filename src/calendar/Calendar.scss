@@ -34,14 +34,12 @@
         display: block;
 
         .weekdays-row,
-        .days-grid,
-        .weekdays-row {
+        .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
         }
 
         .days-grid {
-
             .selected { 
                 border: 1px solid #c6c6c6;
             }
@@ -61,7 +59,8 @@
             }
         }
 
-        .default-cube {
+        .default-cube,
+        .empty {
             @include flexbox(flex, null, center, center);
             aspect-ratio: 1 / 1;
             font-weight: bolder;
@@ -72,10 +71,6 @@
             margin: .2rem;
             cursor: pointer;
 
-            &.empty {
-                border: none;
-            }
-
             &.future {
                 cursor: not-allowed;
             }
@@ -84,28 +79,28 @@
                 font-size: 0.8rem;
                 color: $dark1;
             }
-        }
 
-        .default-cube:hover,
-        .words1:hover,
-        .words2:hover,
-        .words3:hover {
-            border: 1px solid $dark5;
-        }
-
-        .words1 {
-            background-color: $highlight1;
-            border: 2px solid $highlight1;
-        }
-
-        .words2 {
-            background-color: $highlight2;
-            border: 2px solid $highlight2;
-        }
-
-        .words3 {
-            background-color: $highlight3;
-            border: 2px solid $highlight3;
+            &:hover,
+            &.words1:hover,
+            &.words2:hover,
+            &.words3:hover {
+                border: 1px solid $dark5;
+            }
+    
+            &.words1 {
+                background-color: $highlight1;
+                border: 2px solid $highlight1;
+            }
+    
+            &.words2 {
+                background-color: $highlight2;
+                border: 2px solid $highlight2;
+            }
+    
+            &.words3 {
+                background-color: $highlight3;
+                border: 2px solid $highlight3;
+            }
         }
     }
 
@@ -142,11 +137,9 @@
             font-weight: 500;
 
             span {
-                font-weight:900;
+                font-weight: 900;
             }
         }
-
-        
 
         form {
             @include flexbox(flex, column, space-between, flex-start);
@@ -168,15 +161,13 @@
             border: none;
         }
 
-        /* Hide the input field increment/decrement buttons for now */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
+            -webkit-appearance: none;
         }
 
-
         input[type=number] {
-        -moz-appearance: textfield;
+            -moz-appearance: textfield;
         }
 
         .caution-msg {

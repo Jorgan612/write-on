@@ -1,109 +1,16 @@
-import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
-/* Adding for future icon implementation */
-// import { FaTimes } from 'react-icons/fa'; 
+import { useState, FormEvent, ChangeEvent } from 'react';
 import './Calendar.scss';
 import { Entry } from '../interfaces/interfaces';
-import {
-    getDay,
-    getMonth,
-    getDaysInMonth,
-    eachMonthOfInterval,
-    startOfMonth, startOfYear,
-    endOfYear,
-    format,
-    subMonths,
-    addMonths
-} from 'date-fns';
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import CalendarGrid from '../calendarGrid/CalendarGrid';
 interface CalendarProps {
     combinedEntries: Record<string, number>;
     setEntries: (updateFn: (prev: Entry[]) => Entry[]) => void;
 }
 
-interface monthInfo {
-    monthName: string;
-    monthNumber: number;
-    daysInMonth: number;
-    startDayOfWeek: number;
-    year: string;
-}
-
 function Calendar({combinedEntries, setEntries}: CalendarProps) {
-    const [viewDate, setViewDate] = useState(new Date());
-    const [months, setmonths ] = useState<monthInfo[] | null>(null);
     const [updateDate, setUpdateDate] = useState(false);
     const [selectedUpdateDate, setSelectedUpdateDate] = useState<string>('');
     const [updatedWordCount, setUpdatedWordCount] = useState<number>(0);
-    const currentMonth = format(viewDate, 'MMMM');
-    const currentMonthData = months?.find(m => m.monthName === currentMonth);
-    const currentYear = format(viewDate, 'yyyy');
-
-    useEffect(() => {
-        if (!months) {
-            retrieveMonths();
-        }
-        
-    }, []);
-
-    const changeMonth = (direction: 'previous' | 'next') => {
-        setViewDate( prevDate => {
-            return direction === 'previous'
-            ? subMonths(prevDate, 1)
-            : addMonths(prevDate, 1);
-        })
-    };
-
-    const retrieveMonths = () => {
-        const monthsInYear = eachMonthOfInterval({
-            start: startOfYear(viewDate),
-            end: endOfYear(viewDate)
-        }).map(monthDate => {
-        return {
-            monthName: format(monthDate, 'MMMM'),
-            monthNumber: getMonth(monthDate),
-            daysInMonth: getDaysInMonth(monthDate),
-            startDayOfWeek: getDay(startOfMonth(monthDate)), 
-            year: format(monthDate, 'yyyy')
-            };
-        });
-
-        setmonths(monthsInYear);
-    };
-
-    const renderDays = () => {
-        const days = [];
-        const todayKey = format(new Date(), 'yyyy-MM-dd');
-
-        if (!currentMonthData) {
-            return null;
-        }
-
-        for (let i = 0; i < currentMonthData.startDayOfWeek; i++) {
-            days.push(<div key={`empty-${i}`} className='default-cube empty'></div>);
-        }
-
-        for (let d = 1; d <= currentMonthData.daysInMonth; d++) {
-            const monthStr = String(currentMonthData.monthNumber + 1).padStart(2, '0'); 
-            const dayStr = String(d).padStart(2, '0');
-            const dateKey = `${currentYear}-${monthStr}-${dayStr}`;
-            const isFuture = dateKey > todayKey;
-
-            days.push(
-                <div key={d} 
-                    id={dateKey} 
-                    className={`default-cube ${isFuture ? 'future' : ''} ${!combinedEntries[dateKey] ? '' : 
-                        combinedEntries[dateKey] > 1000 ? 'words1' : 
-                        combinedEntries[dateKey] > 400 ? 'words2' : 'words3'} ${dateKey === selectedUpdateDate ? 'selected' : ''}`}
-                    title={isFuture ? "Cannot edit future dates" : `${combinedEntries[dateKey] ?? 0} words`} 
-                    onClick={() => !isFuture && openDateUpdateBox(dateKey)}>
-                    <span className='day-number'>{d}</span>
-                </div>
-            )
-        }
-
-        return days;
-    };
 
     const handleUpdatedWordCount = (e: ChangeEvent<HTMLInputElement>) => {
         setUpdatedWordCount(Number(e.target.value));
@@ -151,25 +58,22 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
     };
 
     return (
-        <div className='calendar-container'>
-            <div className='calendar-header'>
-                <FaChevronLeft className="previous" onClick={() => {changeMonth('previous')}} />
-                <span className='month'>{currentMonth}</span>
-                <span className='year'>{currentYear}</span>
-                <FaChevronRight className="next" onClick={() => {changeMonth('next')}} />
-            </div>
-            <div className='grid-container'>
-                <div className='weekdays-row'>
-                    <span>S</span><span>M</span><span>T</span><span>W</span>
-                    <span>T</span><span>F</span><span>S</span>
+        <CalendarGrid 
+            renderDayCube={(dateKey, d, isFuture) => (
+                <div key={d} 
+                    id={dateKey} 
+                    className={`default-cube ${isFuture ? 'future' : ''} ${!combinedEntries[dateKey] ? '' : 
+                        combinedEntries[dateKey] > 1000 ? 'words1' : 
+                        combinedEntries[dateKey] > 400 ? 'words2' : 'words3'} ${dateKey === selectedUpdateDate ? 'selected' : ''}`}
+                    title={isFuture ? "Cannot edit future dates" : `${combinedEntries[dateKey] ?? 0} words`} 
+                    onClick={() => !isFuture && openDateUpdateBox(dateKey)}>
+                    <span className='day-number'>{d}</span>
                 </div>
-                <div className='days-grid'>
-                    {renderDays()}
-                </div>
-            </div>
-            <div className={`update-date-container  ${updateDate ? 'is-visible' : 'is-hidden'}`}>
+            )}
+        >
+            <div className={`update-date-container ${updateDate ? 'is-visible' : 'is-hidden'}`}>
                 <form onSubmit={updatePreviousDate}>
-                <p>Add a new total for <span>{`${selectedUpdateDate.split('-')[1]?.charAt(0) === '0' ? format(selectedUpdateDate.split('-')[1]?.charAt(1)!, 'LLLL') : selectedUpdateDate.split('-')[1]} ${selectedUpdateDate.split('-')[2]?.charAt(0) === '0' ? selectedUpdateDate.split('-')[2]?.charAt(1) :selectedUpdateDate.split('-')[2]}`}</span></p>
+                    <p>Add a new total for <span>{selectedUpdateDate ? selectedUpdateDate : ''}</span></p>
                     <input placeholder='####' type='number' value={updatedWordCount} onChange={handleUpdatedWordCount}/>
                     <p className='caution-msg'>Update will replace the current word count for the selected day.</p>
                     <div>
@@ -178,11 +82,8 @@ function Calendar({combinedEntries, setEntries}: CalendarProps) {
                     </div>
                 </form>
             </div>
-
-        </div>
-    )
-
+        </CalendarGrid>
+    );
 }
-
 
 export default Calendar;

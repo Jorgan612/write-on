@@ -11,6 +11,9 @@ export const user1: User = {
         pronouns: 'She/Her',
         bio: 'bookworm | game enthusiast | perpetually curious',
         joined: 'January 1st, 2026',
+        groups: [
+            {groupId: '905'}
+        ],
         userIcon: {id: 'coffee', color: '#9dd6ff'},
         website: {
             name: 'jessoportfolio',
@@ -70,6 +73,9 @@ export const user1: User = {
         pronouns: 'He/Him',
         bio: 'I LIKE SPAAAAAAAACE!',
         joined: 'April 27th, 2026',
+                groups: [
+            {groupId: '905'}
+        ],
         userIcon: {id: 'moon', color: '#74c3b0'},
         website: {
             name: 'MaxExploresLife',

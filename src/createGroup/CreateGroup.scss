@@ -1,0 +1,259 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.create-group-page {
+    @include flexbox(flex, column, flex-start, center);
+    @include content(95vh, 100%, null);
+
+    h1 {
+        margin-bottom: 0;
+    }
+
+    label {
+        padding: .5rem 0;
+    }
+    
+    input {
+        @include content(fit-content, 100%, null);
+        padding: .5rem;
+        background-color: $dark3;
+        color: $dark1;
+        border-radius: 5px;
+        border: none;
+    }
+    
+    input:focus {
+        outline: 2px solid $dark2;
+    }
+
+    .sub-text {
+        margin-top: none;
+    }
+
+    
+    .group-name {
+        @include flexbox(flex, column, flex-start, flex-start);
+        @include content(fit-content, 25%, null);
+        margin-bottom: 1rem;
+        min-width: 300px;        
+    }
+    
+    .date-selection {
+        @include flexbox(flex, row, center, flex-start);
+        @include content(600px, 95%, null);
+        min-height: 450px;
+        max-height: 550px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
+        
+        .group-calendar {
+            @include flexbox(flex, row, space-between, flex-start);
+            @include content(100%, 50%, null);
+            border: 2px solid $dark4;
+            margin: .5rem;
+            box-shadow: 1px 0px 20px -10px #000;
+            padding-left: .5rem;
+
+            p {
+                margin: 1.5rem;
+                font-weight: 500;
+                align-self: center;
+                margin: 0;
+            }
+
+            
+            .calendar-container {
+                @include content(auto, auto, null);
+                width: 100% !important;
+                max-width: 500px;
+                padding: 1.5rem 0;
+                box-sizing: border-box;
+
+                .calendar-header {
+                    width: 100% !important;
+                    font-size: 1.3rem;
+                    margin-bottom: 1rem;
+                    padding: 0 0.2rem;
+                    
+                    .previous, .next {
+                        font-size: 1.2rem;
+                    }
+                }
+                
+                .grid-container {
+                    width: 100%;
+                    
+                    .weekdays-row,
+                    .days-grid {
+                        display: grid;
+                        grid-template-columns: repeat(7, 1fr);
+                        gap: 0.6rem;
+                        width: 95%;
+                    }
+                    
+                    .weekdays-row { 
+                        width: 100% !important;
+                        padding: 0 0.2rem;
+
+                        span {
+                            font-size: 1rem;
+                            padding-bottom: 0.5rem;
+                            width: 100%;
+                            margin: 0 !important;
+                        }
+                    }
+                    
+                    .default-cube {
+                        width: 100% !important;
+                        margin: 0 !important;
+                        aspect-ratio: 1 / 1;
+                        
+                        .day-number {
+                            font-size: 1.1rem;
+                        }
+                    }
+                    
+                    .day-selected {
+                        border: 1px solid $dark1;
+                    }
+                }
+            }
+
+            .content-right {
+                @include flexbox(flex, column, flex-start, center);
+                @include content(fit-content, 40%, null);
+
+                .group-dates {
+                    @include flexbox(flex, column, flex-start, center);
+                    @include content(500px, fit-content, null);
+                    min-width: 200px;
+                    max-height: 500px;
+                    border-right: none;
+                    padding: 0 1rem;
+                    margin: 0;
+                    overflow: hidden;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+       
+                    p {
+                        margin: 0;
+                    }
+                    
+                    li {
+                        @include flexbox(flex, row, space-between, center);
+                        @include content(fit-content, 95%, $dark4);
+                        border: 2px solid $dark4;
+                        border-radius: 4px;
+                        padding: .5rem;
+                        margin: .5rem;
+                        
+                        &:hover {
+                            background-color: $dark3;
+                            border: 2px solid $dark3;
+                        }
+                    }
+    
+                    .text {
+                        padding: 1rem 0;
+                        border-bottom: 1px solid $dark4; 
+                    }
+                }
+
+                .clear-dates {
+                    margin: .5rem;
+
+                    .icon {
+                        @include content(24px, 24px, null);
+                    }
+                }
+
+            }
+            
+        }
+        
+        .group-invites {
+            @include flexbox(flex, column, flex-start, center);
+            @include content(100%, 40%, null);
+            border: 2px solid $dark4;
+            margin: .5rem;
+            box-shadow: 1px 0px 20px -10px #000;
+
+            .invite-input {
+                @include content(fit-content, 50%, null);
+
+                div {
+                    @include flexbox(flex, row, space-between, center);
+                }
+
+                .icon {
+                    @include content(24px, 24px, null);
+                    padding: .5rem;
+                }
+            }
+
+            .invite-list {
+                @include flexbox(flex, column, flex-start, flex-start);
+                @include content(75%, 50%, null);
+                border-top: 2px solid $dark4;
+                padding: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+
+                div {
+                    @include flexbox(flex, row, flex-start, center);
+    
+                    p {
+                        margin: 0;
+                    }
+    
+                    li {
+                        @include flexbox(flex, row, space-between, center);
+                        @include content(fit-content, 250px, null);
+                        background-color: $dark4;
+                        border: 1px solid $dark4;
+                        border-radius: 4px;
+                        padding: .5rem;
+                        margin: .5rem 0;
+                        overflow: hidden;
+    
+                        
+                        &:hover {
+                            background-color: $dark3;
+                            border: 1px solid $dark3;
+                        }
+                    }
+
+                    .icon {
+                        padding: .5rem;
+                        z-index: 10;
+
+                        &:hover {
+                            cursor: pointer;
+                            color: $highlight1;
+                        }
+                    }
+                }
+            }
+
+            .error-msg {
+                color: $error;
+            }
+        }
+    }
+    
+    .button-container {
+        @include flexbox(flex, row, flex-start, center);
+        margin-top: 2rem;
+    }
+
+    .icon {
+        @include content(15px, 15px, null);
+        
+        &:hover {
+            cursor: pointer;
+            color: $highlight1;
+        }
+    }
+}
