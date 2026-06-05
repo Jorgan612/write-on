@@ -54,6 +54,7 @@
             border: 2px solid $dark4;
             margin: .5rem;
             box-shadow: 1px 0px 20px -10px #000;
+            padding-left: .5rem;
 
             p {
                 margin: 1.5rem;
@@ -64,15 +65,17 @@
 
             
             .calendar-container {
+                @include content(auto, auto, null);
                 width: 100% !important;
                 max-width: 500px;
-                padding: 1.5rem;
+                padding: 1.5rem 0;
                 box-sizing: border-box;
-                
+
                 .calendar-header {
                     width: 100% !important;
                     font-size: 1.3rem;
-                    margin-bottom: 1.5rem;
+                    margin-bottom: 1rem;
+                    padding: 0 0.2rem;
                     
                     .previous, .next {
                         font-size: 1.2rem;
@@ -87,12 +90,19 @@
                         display: grid;
                         grid-template-columns: repeat(7, 1fr);
                         gap: 0.6rem;
-                        width: 100%;
+                        width: 95%;
                     }
                     
-                    .weekdays-row span {
-                        font-size: 1rem;
-                        padding-bottom: 0.5rem;
+                    .weekdays-row { 
+                        width: 100% !important;
+                        padding: 0 0.2rem;
+
+                        span {
+                            font-size: 1rem;
+                            padding-bottom: 0.5rem;
+                            width: 100%;
+                            margin: 0 !important;
+                        }
                     }
                     
                     .default-cube {
