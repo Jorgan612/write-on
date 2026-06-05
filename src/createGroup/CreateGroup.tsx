@@ -37,7 +37,7 @@ function CreateGroup() {
 
     const addEmail = () => {
         const isDuplicate = emails.some((email) => {
-            return email.email === inputEmail;
+            return email.email.toLowerCase().trim() === inputEmail.toLowerCase().trim();
         });
 
         if (isDuplicate) {
@@ -46,7 +46,7 @@ function CreateGroup() {
         } else {
             const newEmail = {
                 id: crypto.randomUUID(),
-                email: inputEmail
+                email: inputEmail.toLowerCase().trim()
             };
     
             setEmails(prev => {
@@ -126,12 +126,14 @@ function CreateGroup() {
                     <ul className='invite-list'>
                         {emails.map((email) => {
                             return (
-                                <li className='email' key={email.id} title={email.email}>
-                                    <p>
-                                        {email.email}
-                                    </p>
-                                    <FaRegTimesCircle className='icon' onClick={() => removeEmail(email.id)}/>
-                                </li>
+                                <div>
+                                    <li className='email' key={email.id} title={email.email}>
+                                        <p>
+                                            {email.email}
+                                        </p>
+                                    </li>
+                                    <FaRegTimesCircle className='icon' title='Remove' onClick={() => removeEmail(email.id)}/>
+                                </div>
                             )
                         })}
                     </ul>
