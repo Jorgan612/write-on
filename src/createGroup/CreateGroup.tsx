@@ -7,15 +7,11 @@ import './CreateGroup.scss';
 
 
 function CreateGroup() {
-    
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
     const [emails, setEmails] = useState<{id: string, email: string}[]>([]);
     const [inputEmail, setInputEmail] = useState<string>('');
+    const [errorMsg, setErrorMsg] = useState<string>('');
     const navigate = useNavigate();
-    
-    useEffect(() => {
-        
-    }, [selectedDates, emails]);
     
     const toggleDateSelection = (dateKey: string, isFuture: boolean) => {
         if (!isFuture) {
@@ -39,15 +35,26 @@ function CreateGroup() {
     };
 
     const addEmail = () => {
-        // need check to make sure email has not already been added to the list!!
-        const newEmail = {
-            id: crypto.randomUUID(),
-            email: inputEmail
-        };
-
-        setEmails(prev => {
-            return [...prev, newEmail];
+        const isDuplicate = emails.some((email) => {
+            return email.email === inputEmail;
         });
+
+        if (isDuplicate) {
+            setErrorMsg('This email has already been added to the invite list.');
+            return;
+        } else {
+            const newEmail = {
+                id: crypto.randomUUID(),
+                email: inputEmail
+            };
+    
+            setEmails(prev => {
+                return [...prev, newEmail];
+            });
+            setErrorMsg('');
+        }
+
+        setInputEmail('');
     };
 
     const removeEmail = (emailId: string) => {
@@ -109,6 +116,7 @@ function CreateGroup() {
                         <input id='inputEmail' value={inputEmail} onChange={(e) => {setInputEmail(e.target.value)}}  />
                         <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
                     </div>
+                    {errorMsg ? <p className='error-msg'>{errorMsg}</p> : ''}
                     <ul className='invite-list'>
                         {emails.map((email) => {
                             return (
