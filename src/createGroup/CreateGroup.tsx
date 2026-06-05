@@ -66,6 +66,9 @@ function CreateGroup() {
 
     const navigateToDashboard = () => {
         setSelectedDates([]);
+        setEmails([]);
+        setInputEmail('');
+        setInputGroupName('');
         navigate('/dashboard');
     };
 
