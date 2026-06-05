@@ -51,7 +51,7 @@
         .group-calendar {
             @include flexbox(flex, row, space-between, flex-start);
             @include content(100%, 50%, null);
-            border: 2px solid $dark3;
+            border: 2px solid $dark4;
             margin: .5rem;
             box-shadow: 1px 0px 20px -10px #000;
 
@@ -150,7 +150,7 @@
         .group-invites {
             @include flexbox(flex, column, flex-start, center);
             @include content(100%, 40%, null);
-            border: 2px solid $dark3;
+            border: 2px solid $dark4;
             margin: .5rem;
             box-shadow: 1px 0px 20px -10px #000;
 
@@ -172,6 +172,10 @@
                 overflow: hidden;
                  overflow-y: auto;
                  overflow-x: hidden;
+
+                 p {
+                    margin: 0;
+                 }
 
                 li {
                     @include flexbox(flex, row, space-between, center);
@@ -202,7 +206,7 @@
     }
 
     .icon {
-        @include content(24px, 24px, null);
+        @include content(15px, 15px, null);
         
         &:hover {
             cursor: pointer;

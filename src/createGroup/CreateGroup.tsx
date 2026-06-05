@@ -9,7 +9,8 @@ import './CreateGroup.scss';
 function CreateGroup() {
     
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
-    const [emails, setEmails] = useState<{id: string, email: string}[]>([{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}, {id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'},{id: 'Jorgan612@gmail.com', email: 'Jorgan612@gmail.com'}]);
+    const [emails, setEmails] = useState<{id: string, email: string}[]>([]);
+    const [inputEmail, setInputEmail] = useState<string>('');
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -31,8 +32,28 @@ function CreateGroup() {
         });
     };
 
-    const removeDate = () => {
-        console.log('Date removed!');
+    const removeDate = (date: string) => {
+        setSelectedDates(prev => {
+            return prev.filter(d => d.date !== date);
+        });
+    };
+
+    const addEmail = () => {
+        // need check to make sure email has not already been added to the list!!
+        const newEmail = {
+            id: crypto.randomUUID(),
+            email: inputEmail
+        };
+
+        setEmails(prev => {
+            return [...prev, newEmail];
+        });
+    };
+
+    const removeEmail = (emailId: string) => {
+        setEmails(prev => {
+            return prev.filter(e => e.id !== emailId);
+        });
     };
 
     const navigateToDashboard = () => {
@@ -50,7 +71,6 @@ function CreateGroup() {
             </div>
             <div className='date-selection'>
                 <div className='group-calendar'>
-                    {/* <p>Select a few or all future meeting dates on the calendar below.</p> */}
                     <CalendarGrid 
                         renderDayCube={(dateKey, d, isFuture) => {
                             const isSelected = selectedDates.some(selectedDate => selectedDate.date === dateKey);
@@ -69,8 +89,8 @@ function CreateGroup() {
                             {selectedDates.map((date)=> {
                             return (
                                     <li key={date.id}>
-                                        <p>{format(date.date, 'LLLL dd yyyy')}</p>
-                                        <FaRegTimesCircle className='icon' onClick={removeDate}/>
+                                        <p>{format(new Date(`${date.date}T00:00:00`), 'LLLL dd yyyy')}</p>
+                                        <FaRegTimesCircle className='icon' onClick={() => removeDate(date.date)}/>
                                     </li>
                                 )
                             })}
@@ -85,9 +105,9 @@ function CreateGroup() {
                 <div className='group-invites'>
                     <p>Enter the email(s) of the people you wish to invite.</p>
                     <div className='invite-input'>
-                        <label>Email:</label>
-                        <input />
-                        <FaPlusCircle className='icon' title='Add' />
+                        <label htmlFor='inputEmail'>Email:</label>
+                        <input id='inputEmail' value={inputEmail} onChange={(e) => {setInputEmail(e.target.value)}}  />
+                        <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
                     </div>
                     <ul className='invite-list'>
                         {emails.map((email) => {
@@ -96,7 +116,7 @@ function CreateGroup() {
                                     <p>
                                         {email.email}
                                     </p>
-                                    <FaRegTimesCircle className='icon'/>
+                                    <FaRegTimesCircle className='icon' onClick={() => removeEmail(email.id)}/>
                                 </li>
                             )
                         })}
