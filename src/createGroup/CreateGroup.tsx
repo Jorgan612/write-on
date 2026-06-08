@@ -68,6 +68,10 @@ function CreateGroup() {
         setSelectedDates([]);
     }
 
+    const createGroup = () => {
+        console.log('Create Clicked!', inputGroupName)
+    }
+
     const navigateToDashboard = () => {
         setSelectedDates([]);
         setEmails([]);
@@ -81,8 +85,8 @@ function CreateGroup() {
             <h1>Create Group</h1>
             <p className='sub-text'> Enter your group name, select meeting dates, and invite members to create a group.</p>
             <div className='group-name'>
-                <label htmlFor='groupName'>Group Name:</label>
-                <input id='groupName' value={inputGroupName} onChange={(e) => {setInputGroupName(e.target.value)}} />
+                <label htmlFor='groupName'>Group Name<span className='highlight-required'>*</span></label>
+                <input required id='groupName' value={inputGroupName} onChange={(e) => {setInputGroupName(e.target.value)}} />
             </div>
             <div className='date-selection'>
                 <div className='group-calendar'>
@@ -149,8 +153,8 @@ function CreateGroup() {
                 </div>
             </div>
             <div className='button-container'>
-                <button>Create</button>
-                <button onClick={navigateToDashboard}>Cancel</button>
+                <button className={!inputGroupName ? 'disable' : ''} title={!inputGroupName ? 'Your group must have a unique name.' : 'Create'} disabled={!inputGroupName} onClick={createGroup}>Create</button>
+                <button onClick={navigateToDashboard} title='Cancel'>Cancel</button>
             </div>
         </div>
     )

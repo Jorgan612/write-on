@@ -35,7 +35,11 @@
         @include flexbox(flex, column, flex-start, flex-start);
         @include content(fit-content, 25%, null);
         margin-bottom: 1rem;
-        min-width: 300px;        
+        min-width: 300px;   
+        
+        .highlight-required {
+            color: $highlight1;
+        }
     }
     
     .date-selection {
@@ -246,6 +250,10 @@
     .button-container {
         @include flexbox(flex, row, flex-start, center);
         margin-top: 2rem;
+
+        .disable {
+            cursor: not-allowed !important;
+        }
     }
 
     .icon {
