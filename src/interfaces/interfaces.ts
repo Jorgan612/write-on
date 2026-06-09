@@ -62,6 +62,15 @@ export interface User {
     }[]
 }
 
+export interface GroupProps {
+    groupId: string;
+    name: string;
+    ownerID: number;
+    creationDate: string;
+    members: string[];
+    meetingDates: string[];
+}
+
 export interface MembersProps {
     users: UsersList;
     selectedMember: User | null;

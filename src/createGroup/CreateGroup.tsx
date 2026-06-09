@@ -1,12 +1,16 @@
 import { FaRegTimesCircle, FaPlusCircle, FaRegTrashAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CalendarGrid from '../calendarGrid/CalendarGrid';
+import { GroupProps, User } from '../interfaces/interfaces';
 import './CreateGroup.scss';
 
+interface CreateGroupProps {
+    currentUser: User;
+}
 
-function CreateGroup() {
+function CreateGroup({currentUser}: CreateGroupProps) {
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
     const [emails, setEmails] = useState<{id: string, email: string}[]>([]);
     const [inputEmail, setInputEmail] = useState<string>('');
@@ -66,11 +70,46 @@ function CreateGroup() {
 
     const clearDateList = () => {
         setSelectedDates([]);
-    }
+    };
 
-    const createGroup = () => {
-        console.log('Create Clicked!', inputGroupName)
-    }
+    const createGroup = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!inputGroupName) {
+            return;
+        }
+
+        const newGroup: GroupProps = {
+            groupId: Date.now().toString(),
+            name: inputGroupName.trim(),
+            ownerID: currentUser.id,
+            creationDate: new Date().toISOString(),
+            meetingDates: selectedDates.map(d => d.date),
+            members: emails.map(e => e.email)
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/groups/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newGroup),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message || 'Group Created successfully.');
+                navigate('/dashboard');
+            } else {
+                alert(data.message || 'Something went wrong while attempting to create your group. Please try again.');
+            }
+        } catch (err) {
+            console.error('Create group error:', err);
+            alert('An error occured while creating your group.');
+        }
+    };
 
     const navigateToDashboard = () => {
         setSelectedDates([]);
@@ -81,7 +120,7 @@ function CreateGroup() {
     };
 
     return (
-        <div className='create-group-page'>
+        <form className='create-group-page' onSubmit={createGroup}>
             <h1>Create Group</h1>
             <p className='sub-text'> Enter your group name, select meeting dates, and invite members to create a group.</p>
             <div className='group-name'>
@@ -139,7 +178,7 @@ function CreateGroup() {
                     <ul className='invite-list'>
                         {emails.map((email) => {
                             return (
-                                <div>
+                                <div key={email.id}>
                                     <li className='email' key={email.id} title={email.email}>
                                         <p>
                                             {email.email}
@@ -153,10 +192,10 @@ function CreateGroup() {
                 </div>
             </div>
             <div className='button-container'>
-                <button className={!inputGroupName ? 'disable' : ''} title={!inputGroupName ? 'Your group must have a unique name.' : 'Create'} disabled={!inputGroupName} onClick={createGroup}>Create</button>
+                <button className={!inputGroupName ? 'disable' : ''} title={!inputGroupName ? 'Your group must have a unique name.' : 'Create'} disabled={!inputGroupName} type='submit'>Create</button>
                 <button onClick={navigateToDashboard} title='Cancel'>Cancel</button>
             </div>
-        </div>
+        </form>
     )
 }
 
