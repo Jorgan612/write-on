@@ -170,7 +170,15 @@ function CreateGroup({currentUser}: CreateGroupProps) {
                     <div className='invite-input'>
                         <label htmlFor='inputEmail'>Email:</label>
                         <div>
-                            <input id='inputEmail' value={inputEmail} onChange={(e) => {setInputEmail(e.target.value)}}  />
+                            <input id='inputEmail'
+                            value={inputEmail}
+                            onChange={(e) => {setInputEmail(e.target.value)}}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    addEmail();
+                                }
+                            }}/>
                             <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
                         </div>
                     </div>
@@ -179,7 +187,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
                         {emails.map((email) => {
                             return (
                                 <div key={email.id}>
-                                    <li className='email' key={email.id} title={email.email}>
+                                    <li className='email' title={email.email}>
                                         <p>
                                             {email.email}
                                         </p>
