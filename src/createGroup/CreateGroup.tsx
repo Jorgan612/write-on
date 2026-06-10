@@ -85,7 +85,8 @@ function CreateGroup({currentUser}: CreateGroupProps) {
             ownerID: currentUser.id,
             creationDate: new Date().toISOString(),
             meetings: selectedDates.map(d => d.date),
-            members: emails.map(e => e.email)
+            invites: emails.map(e => e.email),
+            members: []
         };
 
         try {
