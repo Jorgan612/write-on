@@ -68,7 +68,7 @@ export interface GroupProps {
     ownerID: number;
     creationDate: string;
     members: string[];
-    meetingDates: string[];
+    meetings: string[];
 }
 
 export interface MembersProps {

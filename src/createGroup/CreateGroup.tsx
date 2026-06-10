@@ -84,12 +84,12 @@ function CreateGroup({currentUser}: CreateGroupProps) {
             name: inputGroupName.trim(),
             ownerID: currentUser.id,
             creationDate: new Date().toISOString(),
-            meetingDates: selectedDates.map(d => d.date),
+            meetings: selectedDates.map(d => d.date),
             members: emails.map(e => e.email)
         };
 
         try {
-            const response = await fetch('http://localhost:5000/groups/', {
+            const response = await fetch('http://localhost:5000/groups', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
