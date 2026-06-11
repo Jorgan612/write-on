@@ -2,7 +2,7 @@ import './GroupSignUp.scss';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { MembersProps, User } from '../interfaces/interfaces';
+import { MembersProps, User, Excerpt } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 import { FaRegUserCircle,
     FaRegHandPaper,
@@ -89,7 +89,7 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         setSelectedMember(null);
         setSelectedDate('');
         setActiveExcerpt(null);
-    }
+    };
 
     const addLink = () => {
         if (!activeExcerpt) {
