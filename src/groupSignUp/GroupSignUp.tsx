@@ -1,5 +1,5 @@
 import './GroupSignUp.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { MembersProps, User, Excerpt } from '../interfaces/interfaces';
@@ -13,7 +13,7 @@ import { FaRegUserCircle,
     FaRegTimesCircle,
 } from 'react-icons/fa';
 
-function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
+function GroupSignUp({currentUser, selectedMember, setSelectedMember}: MembersProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
@@ -24,6 +24,12 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
         }[];
         description: string;
     } | null>(null);
+
+    useEffect(() => {
+        if (currentUser) {
+            getGroupInfo();
+        }
+    }, [])
 
     const dates = [
         {
@@ -63,6 +69,10 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
             },
         ],
         description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
+    }
+
+    const getGroupInfo = () => {
+
     }
 
     const EditCardDetails = (user: User, date: string) => {

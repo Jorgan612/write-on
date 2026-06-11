@@ -93,7 +93,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp users={users} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
+                    <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
                     <Members users={users} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
