@@ -2,7 +2,7 @@ import './GroupSignUp.scss';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { MembersProps, User, Excerpt } from '../interfaces/interfaces';
+import { User, Excerpt } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 import { FaRegUserCircle,
     FaRegHandPaper,
@@ -13,7 +13,13 @@ import { FaRegUserCircle,
     FaRegTimesCircle,
 } from 'react-icons/fa';
 
-function GroupSignUp({currentUser, selectedMember, setSelectedMember}: MembersProps) {
+interface GroupSignUpProps {
+    currentUser: User;
+    selectedMember: User | null;
+    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSignUpProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
