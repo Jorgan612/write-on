@@ -152,10 +152,10 @@ function App() {
               <Route path='/create-group' element={ <CreateGroup currentUser={currentUser} />} />
               <Route path="/dashboard" element={ 
                 <RequireAuth>
-                  <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> 
+                  <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> 
                 </RequireAuth>
                 } />
-              <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
+              <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> } />
             </>
         </Routes>
       </div>

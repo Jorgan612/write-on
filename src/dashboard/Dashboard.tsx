@@ -1,21 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { User, UserProps } from '../interfaces/interfaces';
+import { CombinedEntry, User, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
 
-type DashProps = UserProps & {users: User[]};
+interface GroupData {
+    id: string;
+    groupName: string;
+    members: User[];
+}
 
-function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashProps) {
+type DashProps = UserProps & {
+    combinedEntries: Record<string, number>;
+}
+
+function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
+    const [groupInfo, setGroupInfo] = useState<GroupData | null>(null);
+    const [membersList, setMembersList] = useState<UsersList>([]);
 
     const navigate =  useNavigate();
+
+    useEffect(() => {
+        if (currentUser) {
+            getGroupInfo();
+        }
+        // will need a way to retrieve a new group when a different one is selected from the future groups dropdown.
+    }, [currentUser]);
+
+    const getGroupInfo = async () => {
+        if (currentUser.groups.length) {
+            try {
+                const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json'},
+                })
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    setGroupInfo(data);
+                } else {
+                    alert(data.message || 'Something went wrong.');
+                }
+
+            } catch (error) {
+                console.error('Error retrieving group data.', error);
+            }
+        }
+
+        getGroupMembers();
+        console.log('groupInfo', groupInfo)
+
+
+    };
+
+    const getGroupMembers = async () => {
+        if (groupInfo?.members.length) {
+            try {
+                const response = await fetch(`http://localhost:5000/groups/group/members`)
+            }
+        }
+
+    };
 
     const navigateToCreateGroup = () => {
         navigate('/create-group')
@@ -94,7 +147,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries, users}: DashPr
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
-                    <Members users={users} />
+                    <Members members={groupInfo?.members || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <h3>Don't have a group?</h3>

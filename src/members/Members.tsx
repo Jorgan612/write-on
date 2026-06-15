@@ -4,17 +4,25 @@ import { FaRegUserCircle, FaPlusCircle, FaCheckCircle } from 'react-icons/fa';
 import './Members.scss';
 import { useState } from 'react';
 
-function Members({users}: Pick<MembersProps, 'users'>) {
+function Members({members}: Pick<MembersProps, 'members'>) {
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
+
+    if (!members) {
+        return <div>Loading members list...</div>;
+    }
 
     const showDetails = (user: User) => {
         setSelectedMember(user);
     };
 
+    const getGroupMembers = () => {
+        // obtain group members user obj via id
+    }
+
     return (
         <div className="members-list">
             <h3>Members</h3>
-            {users.map((user) => {
+            {members.map((user) => {
                 const iconData = userIcons.find(icon => icon.id === user.userIcon?.id);
                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                 const previewColor = user.userIcon?.color || '#94a3b8';

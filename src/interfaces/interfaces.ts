@@ -153,7 +153,7 @@ export interface Link {
 
 export interface MembersProps {
     currentUser: User;
-    users: UsersList;
+    members: UsersList | null;
     selectedMember: User | null;
     setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
 }

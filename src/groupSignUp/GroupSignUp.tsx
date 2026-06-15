@@ -31,12 +31,6 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSign
         description: string;
     } | null>(null);
 
-    useEffect(() => {
-        if (currentUser) {
-            getGroupInfo();
-        }
-    }, [])
-
     const dates = [
         {
             id: '1',
@@ -77,7 +71,7 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSign
         description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
     }
 
-    const getGroupInfo = () => {
+    const setUpcomingMeetings = () => {
 
     }
 
