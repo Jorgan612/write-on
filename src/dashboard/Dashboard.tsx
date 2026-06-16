@@ -4,7 +4,7 @@ import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { CombinedEntry, User, UserProps, UsersList } from '../interfaces/interfaces';
+import { User, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
@@ -31,7 +31,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         if (currentUser) {
             getGroupInfo();
         }
-        // will need a way to retrieve a new group when a different one is selected from the future groups dropdown.
     }, [currentUser]);
 
     useEffect(() => {
@@ -82,7 +81,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                     return [...prev, user];
                 })
             })
-            console.log('membersList', membersList)
 
         } catch (error) {
             console.error('Could not fetch users:', error);

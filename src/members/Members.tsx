@@ -15,10 +15,6 @@ function Members({members}: Pick<MembersProps, 'members'>) {
         setSelectedMember(user);
     };
 
-    const getGroupMembers = () => {
-        // obtain group members user obj via id
-    }
-
     return (
         <div className="members-list">
             <h3>Members</h3>
