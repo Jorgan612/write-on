@@ -77,9 +77,11 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             const data: User[] = await response.json();
 
             data.forEach((user) => {
-                setMembersList(prev => {
-                    return [...prev, user];
-                })
+                if (!membersList.includes(user)) {
+                    setMembersList(prev => {
+                        return [...prev, user];
+                    })
+                }
             })
 
         } catch (error) {
