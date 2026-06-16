@@ -10,7 +10,7 @@ import './Dashboard.scss';
 import '../App.scss';
 
 interface GroupData {
-    id: string;
+    groupId: string;
     groupName: string;
     members: User[];
 }
@@ -34,6 +34,12 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         // will need a way to retrieve a new group when a different one is selected from the future groups dropdown.
     }, [currentUser]);
 
+    useEffect(() => {
+        if (groupInfo) {
+            fetchGroupMembers();
+        }
+    }, [groupInfo]);
+
     const getGroupInfo = async () => {
         if (currentUser.groups.length) {
             try {
@@ -46,6 +52,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
                 if (response.ok) {
                     setGroupInfo(data);
+                    console.log('groupInfo RESPONSE.OK', groupInfo)
                 } else {
                     alert(data.message || 'Something went wrong.');
                 }
@@ -54,24 +61,36 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 console.error('Error retrieving group data.', error);
             }
         }
-
-        getGroupMembers();
-        console.log('groupInfo', groupInfo)
-
-
     };
 
-    const getGroupMembers = async () => {
-        if (groupInfo?.members.length) {
-            try {
-                const response = await fetch(`http://localhost:5000/groups/group/members`)
-            }
+    const fetchGroupMembers = async () => {
+
+        try {
+            const response = await fetch(`http://localhost:5000/users/${groupInfo?.groupId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) throw new Error('Network response is not ok.');
+
+            const data: User[] = await response.json();
+
+            data.forEach((user) => {
+                setMembersList(prev => {
+                    return [...prev, user];
+                })
+            })
+            console.log('membersList', membersList)
+
+        } catch (error) {
+            console.error('Could not fetch users:', error);
         }
-
-    };
+    }
 
     const navigateToCreateGroup = () => {
-        navigate('/create-group')
+        navigate('/create-group');
     };
 
     return (
@@ -147,7 +166,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
-                    <Members members={groupInfo?.members || null} />
+                    <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <h3>Don't have a group?</h3>
