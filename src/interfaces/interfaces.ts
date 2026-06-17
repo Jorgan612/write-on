@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 
 export type UsersList = User[];
+export type Excerpts = Excerpt[];
 
 
     /* User Data */
@@ -135,11 +136,21 @@ export interface GroupProps {
     members: number[];
 }
 
+export interface GroupData {
+    groupId: string;
+    groupName: string;
+    members: User[];
+}
+
 export interface Excerpt {
     id: number;
     groupId: string;
     meetingDate: string;
     userID: number;
+    userIcon: {
+        id: string;
+        color: string;
+    };
     links: Link[];
     description: string;
     createdAt: string;

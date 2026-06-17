@@ -1,5 +1,5 @@
 // removed dummy data. Keeping file for now. Will delete later.
-import { UsersList, User } from '../interfaces/interfaces';
+import { User } from '../interfaces/interfaces';
 
 export const user1: User = {
         id: 612,

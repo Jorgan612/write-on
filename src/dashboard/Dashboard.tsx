@@ -4,16 +4,11 @@ import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { User, UserProps, UsersList } from '../interfaces/interfaces';
+import { GroupData, Excerpts, User, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
 
-interface GroupData {
-    groupId: string;
-    groupName: string;
-    members: User[];
-}
 
 type DashProps = UserProps & {
     combinedEntries: Record<string, number>;
@@ -24,6 +19,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
     const [groupInfo, setGroupInfo] = useState<GroupData | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
+    const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
 
     const navigate =  useNavigate();
 
@@ -34,6 +30,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     useEffect(() => {
         if (groupInfo?.groupId) {
             fetchGroupMembers();
+            fetchGroupExcerpts();
         }
     }, [groupInfo?.groupId]);
 
@@ -82,6 +79,38 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         } catch (error) {
             console.error('Could not fetch users:', error);
         }
+    };
+
+    const fetchGroupExcerpts = async () => {
+        if (!groupInfo?.groupId) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/groups/group/${groupInfo?.groupId}/excerpts`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) throw new Error('Network response is not ok.');
+
+            const data: Excerpts = await response.json();
+
+                if (response.ok) {
+                    setGroupExcerpts(data);
+                    console.log('response.ok', groupExcerpts)
+                } else {
+                    alert('Something went wrong.');
+                }
+
+            console.log('groupExcerpts', groupExcerpts)
+
+        } catch (error) {
+            console.error('Could not fetch excerpts:', error);
+        }
+
     };
 
     const navigateToCreateGroup = () => {
@@ -160,7 +189,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember}/>
+                    <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember} groupInfo={groupInfo} excerpts={groupExcerpts}/>
                     <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>

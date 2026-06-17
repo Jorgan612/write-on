@@ -2,7 +2,7 @@ import './GroupSignUp.scss';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { User, Excerpt } from '../interfaces/interfaces';
+import { User, Excerpts, GroupData } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 import { FaRegUserCircle,
     FaRegHandPaper,
@@ -17,9 +17,11 @@ interface GroupSignUpProps {
     currentUser: User;
     selectedMember: User | null;
     setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
+    groupInfo: GroupProps | null;
+    excerpts: Excerpts;
 }
 
-function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSignUpProps) {
+function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo, excerpts}: GroupSignUpProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
@@ -30,6 +32,8 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSign
         }[];
         description: string;
     } | null>(null);
+
+    console.log('GROUPINFO', groupInfo)
 
     const dates = [
         {
@@ -146,10 +150,10 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSign
 
     return (
         <div className='sign-up'>
-            {dates.map((date) => {
+            {groupInfo.meetings.map((date: any) => {
                 return (
-                    <div className='column' key={date.id}>
-                        <h3>{`${date.date.split('-')[1]?.charAt(0) === '0' ? format(date.date.split('-')[1]?.charAt(1)!, 'LLLL') : date.date.split('-')[1]} ${date.date.split('-')[2]?.charAt(0) === '0' ? date.date.split('-')[2]?.charAt(1) :date.date.split('-')[2]}`}</h3>
+                    <div className='column' key={date}>
+                        <h3>{`${date.split('-')[1]?.charAt(0) === '0' ? format(date.split('-')[1]?.charAt(1)!, 'LLLL') : date.split('-')[1]} ${date.split('-')[2]?.charAt(0) === '0' ? date.split('-')[2]?.charAt(1) : date.split('-')[2]}`}</h3>
                         <div className='options-header'>
                             <div className='option' title='Sign Up'>
                                 <FaRegHandPaper className='icon' />
@@ -162,7 +166,7 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember}: GroupSign
                             </div>
                         </div>
                         <div className='sign-up-list'>
-                            {date.signups.map((user) => {
+                            {excerpts.map((user) => {
                                 const iconData = userIcons.find(icon => icon.id === user.userIcon.id);
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                                 const previewColor = user.userIcon?.color || '#94a3b8';
