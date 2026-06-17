@@ -34,10 +34,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     }, [currentUser]);
 
     useEffect(() => {
-        if (groupInfo) {
+        if (groupInfo?.groupId) {
             fetchGroupMembers();
         }
-    }, [groupInfo]);
+    }, [groupInfo?.groupId]);
 
     const getGroupInfo = async () => {
         if (currentUser.groups.length) {
@@ -51,7 +51,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
                 if (response.ok) {
                     setGroupInfo(data);
-                    console.log('groupInfo RESPONSE.OK', groupInfo)
                 } else {
                     alert(data.message || 'Something went wrong.');
                 }
@@ -63,6 +62,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     };
 
     const fetchGroupMembers = async () => {
+
+        if (!groupInfo?.groupId) {
+            return;
+        }
 
         try {
             const response = await fetch(`http://localhost:5000/users/${groupInfo?.groupId}`, {
@@ -76,13 +79,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             const data: User[] = await response.json();
 
-            data.forEach((user) => {
-                if (!membersList.includes(user)) {
-                    setMembersList(prev => {
-                        return [...prev, user];
-                    })
-                }
-            })
+            setMembersList(data);
 
         } catch (error) {
             console.error('Could not fetch users:', error);
