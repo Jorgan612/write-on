@@ -28,10 +28,8 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const navigate =  useNavigate();
 
     useEffect(() => {
-        if (currentUser) {
-            getGroupInfo();
-        }
-    }, [currentUser]);
+        getGroupInfo();
+    }, []);
 
     useEffect(() => {
         if (groupInfo?.groupId) {
@@ -40,7 +38,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     }, [groupInfo?.groupId]);
 
     const getGroupInfo = async () => {
-        if (currentUser.groups.length) {
+        if (currentUser?.groups.length) {
             try {
                 const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
                     method: 'GET',
@@ -84,7 +82,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         } catch (error) {
             console.error('Could not fetch users:', error);
         }
-    }
+    };
 
     const navigateToCreateGroup = () => {
         navigate('/create-group');
