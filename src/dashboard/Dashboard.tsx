@@ -4,7 +4,7 @@ import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { GroupProps, Excerpts, User, UserProps, UsersList } from '../interfaces/interfaces';
+import { GroupProps, Excerpts, Excerpt, User, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
@@ -16,7 +16,7 @@ type DashProps = UserProps & {
 
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
-    const [selectedMember, setSelectedMember] = useState<User | null>(null);
+    const [selectedExcerpt, setSelectedExcerpt] = useState<Excerpt | null>(null);
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
@@ -75,7 +75,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             const data: User[] = await response.json();
 
             setMembersList(data);
-
         } catch (error) {
             console.error('Could not fetch users:', error);
         }
@@ -186,7 +185,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp currentUser={currentUser} selectedMember={selectedMember} setSelectedMember={setSelectedMember} groupInfo={groupInfo} excerpts={groupExcerpts}/>
+                    <GroupSignUp currentUser={currentUser} selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} groupInfo={groupInfo} excerpts={groupExcerpts}/>
                     <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>

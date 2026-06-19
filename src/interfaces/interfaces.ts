@@ -147,6 +147,7 @@ export interface Excerpt {
     groupId: string;
     meetingDate: string;
     userID: number;
+    username: string;
     userIcon: {
         id: string;
         color: string;
