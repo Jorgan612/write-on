@@ -38,23 +38,6 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, groupInf
         getUpcomingMeetings();
     }, []);
 
-    const dummyExcerpt = {
-        id: '1',
-        links: [
-            {
-                id: '123',
-                linkName: 'Chapter 1',
-                linkURL: 'https://docs.google.com'
-            },
-            {
-                id: '321',
-                linkName: 'Chapter 2',
-                linkURL: 'https://docs.google.com'
-            },
-        ],
-        description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
-    }
-
     const getUpcomingMeetings = () => {
         const todayKey = format(new Date(), 'yyyy-MM-dd');
         const sortedMeetings = groupInfo?.meetings.sort();
@@ -77,8 +60,8 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, groupInf
         setSelectedDate(date);
 
         setActiveExcerpt({
-            links: [...dummyExcerpt.links],
-            description: dummyExcerpt.description
+            links: [...excerpt.links],
+            description: excerpt.description
         });
     };
 
@@ -178,7 +161,7 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, groupInf
 
                                             </button>
                                             <div className='links-container'>
-                                                {dummyExcerpt.links.map((link) => {
+                                                {excerpt.links.map((link) => {
                                                     return (
                                                         <div className='link' key={link.id}>
                                                             <a href={link.linkURL} target='_blank' rel='noopener noreferrer'>{link.linkName}</a>
@@ -187,15 +170,15 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, groupInf
                                                 })}
                                             </div>
                                             <div className='descrition-container'>
-                                                <div className='description'>{dummyExcerpt.description}</div>
+                                                <div className='description'>{excerpt.description}</div>
                                             </div>
                                         </div>
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing && selectedExcerpt?.id === excerpt.id && date.signups.includes(excerpt) && selectedDate === date.date ? 'show' : 'hide'}`}>
+                                        <div className={`edit-card-details ${editing && selectedExcerpt?.id === excerpt.id && excerpts.includes(excerpt) && selectedDate === date.date ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
-                                                        <h4 className={`${editing && selectedExcerpt?.id === excerpt.id && date.signups.includes(excerpt) && selectedDate === date.date ? 'show' : 'hide'}`}>
+                                                        <h4 className={`${editing && selectedExcerpt?.id === excerpt.id && excerpts.includes(excerpt) && selectedDate === date.date ? 'show' : 'hide'}`}>
                                                             Link {index + 1}/5
                                                             <span>
                                                                 <FaRegTimesCircle className='remove-icon icon' title='Remove' onClick={() => {removeLink(link.id)}} />
