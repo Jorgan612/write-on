@@ -4,7 +4,7 @@ import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { GroupData, Excerpts, User, UserProps, UsersList } from '../interfaces/interfaces';
+import { GroupProps, Excerpts, User, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
@@ -17,7 +17,7 @@ type DashProps = UserProps & {
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
-    const [groupInfo, setGroupInfo] = useState<GroupData | null>(null);
+    const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
 
@@ -100,12 +100,9 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
                 if (response.ok) {
                     setGroupExcerpts(data);
-                    console.log('response.ok', groupExcerpts)
                 } else {
                     alert('Something went wrong.');
                 }
-
-            console.log('groupExcerpts', groupExcerpts)
 
         } catch (error) {
             console.error('Could not fetch excerpts:', error);

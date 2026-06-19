@@ -2,7 +2,7 @@ import './GroupSignUp.scss';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { User, Excerpts, GroupData } from '../interfaces/interfaces';
+import { User, Excerpts, GroupData, GroupProps } from '../interfaces/interfaces';
 import { user1, user2 } from '../datasets/datasets';
 import { FaRegUserCircle,
     FaRegHandPaper,
@@ -24,6 +24,7 @@ interface GroupSignUpProps {
 function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo, excerpts}: GroupSignUpProps) {
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
+    const [upcomingMeetings, setUpcomingMeetings] = useState<string[]>([]);
     const [activeExcerpt, setActiveExcerpt] = useState<{
         links: {
             id: string;
@@ -33,30 +34,10 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
         description: string;
     } | null>(null);
 
-    console.log('GROUPINFO', groupInfo)
+    useEffect(() => {
+        getUpcomingMeetings();
 
-    const dates = [
-        {
-            id: '1',
-            date: '2026-05-06',
-            signups: [user1, user2]
-        },
-        {
-            id: '2',
-            date: '2026-05-013',
-            signups: []
-        },
-        {
-            id: '3',
-            date: '2026-05-20',
-            signups: [user2]
-        },
-        {
-            id: '4',
-            date: '2026-05-27',
-            signups: []
-        }
-    ];
+    }, []);
 
     const dummyExcerpt = {
         id: '1',
@@ -75,8 +56,20 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
         description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
     }
 
-    const setUpcomingMeetings = () => {
+    const getUpcomingMeetings = () => {
+        const todayKey = format(new Date(), 'yyyy-MM-dd');
+        const sortedMeetings = groupInfo?.meetings.sort();
+        
+        const upcoming = sortedMeetings?.reduce((acc: string[], meeting) => {
+            const isFuture = meeting >= todayKey;
+            if (isFuture && acc.length < 4) {
+                acc.push(meeting);
+            }
 
+            return acc;
+        }, []);
+
+        setUpcomingMeetings(upcoming || []);
     }
 
     const EditCardDetails = (user: User, date: string) => {
@@ -150,7 +143,7 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
 
     return (
         <div className='sign-up'>
-            {groupInfo.meetings.map((date: any) => {
+            {upcomingMeetings.map((date: any) => {
                 return (
                     <div className='column' key={date}>
                         <h3>{`${date.split('-')[1]?.charAt(0) === '0' ? format(date.split('-')[1]?.charAt(1)!, 'LLLL') : date.split('-')[1]} ${date.split('-')[2]?.charAt(0) === '0' ? date.split('-')[2]?.charAt(1) : date.split('-')[2]}`}</h3>
@@ -165,7 +158,7 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
                                 <FaRegCalendarAlt className='icon' />
                             </div>
                         </div>
-                        <div className='sign-up-list'>
+                        {/* <div className='sign-up-list'>
                             {excerpts.map((user) => {
                                 const iconData = userIcons.find(icon => icon.id === user.userIcon.id);
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
@@ -177,9 +170,9 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                                             </div>
                                             <label>{user.username}</label>
-                                        </div>
+                                        </div> */}
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing || selectedMember?.id !== user.id || (selectedDate !== date.date && selectedMember?.id === user.id) ? 'show' : 'hide'}`}>
+                                        {/* <div className={`card-details ${!editing || selectedMember?.id !== user.id || (selectedDate !== date.date && selectedMember?.id === user.id) ? 'show' : 'hide'}`}>
                                             <h4>Excerpt Details</h4>
                                             <button className='edit-button' disabled={editing}>
                                                 <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(user, date.date)}} />
@@ -197,9 +190,9 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
                                             <div className='descrition-container'>
                                                 <div className='description'>{dummyExcerpt.description}</div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
+                                        {/* <div className={`edit-card-details ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
@@ -241,7 +234,7 @@ function GroupSignUp({currentUser, selectedMember, setSelectedMember, groupInfo,
                                         </div>
                                     </div>
                                 )})}
-                        </div>
+                        </div> */}
                     </div>
                 )})}
         </div>
