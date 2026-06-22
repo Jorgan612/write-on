@@ -123,7 +123,7 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, meetings
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                                 const previewColor = excerpt.userIcon?.color || '#94a3b8';
                                 return (
-                                    <div className={`user-card ${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'selected' : ''}`} key={excerpt.id}>
+                                    <div className={`user-card ${editing && selectedExcerpt?.id === excerpt.id ? 'selected' : ''}`} key={excerpt.id}>
                                         <div className='user-icon-name'>
                                             <div>
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
