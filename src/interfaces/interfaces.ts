@@ -142,6 +142,11 @@ export interface GroupData {
     members: User[];
 }
 
+export interface UpcomingMeeting {
+    meetingDate: string;
+    excerpts: Excerpt[];
+}
+
 export interface Excerpt {
     id: number;
     groupId: string;

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
+import { format } from 'date-fns';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
-import { GroupProps, Excerpts, Excerpt, User, UserProps, UsersList } from '../interfaces/interfaces';
+import { GroupProps, Excerpts, Excerpt, User, UpcomingMeeting, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
@@ -20,6 +21,28 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
+    const upcomingMeetings: UpcomingMeeting[] = useMemo(() => {
+        if (!groupInfo?.meetings) {
+            return [];
+        }
+
+        const todayKey = format(new Date(), 'yyyy-MM-dd');
+        const sortedMeetings = [...groupInfo.meetings].sort();
+        const upcomingDates = sortedMeetings.filter((date) => {
+            return date >= todayKey;
+        }).slice(0, 4);
+
+        return upcomingDates.map((meetingDate) => {
+            const filteredExcerpts = groupExcerpts.filter((excerpt) => {
+                return excerpt.meetingDate === meetingDate;
+            });
+
+            return {
+                meetingDate,
+                excerpts: filteredExcerpts,
+            };
+        });
+    }, [groupInfo?.meetings, groupExcerpts]);
 
     const navigate =  useNavigate();
 
@@ -185,7 +208,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp currentUser={currentUser} selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} groupInfo={groupInfo} excerpts={groupExcerpts}/>
+                    <GroupSignUp currentUser={currentUser} selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} meetings={upcomingMeetings}/>
                     <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
