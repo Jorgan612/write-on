@@ -1,5 +1,5 @@
 import './GroupSignUp.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { User, UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
@@ -13,14 +13,16 @@ import { FaRegUserCircle,
 } from 'react-icons/fa';
 
 interface GroupSignUpProps {
-    currentUser: User;
     selectedExcerpt: Excerpt | null;
     setSelectedExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+    editing: boolean;
+    setEditing: React.Dispatch<React.SetStateAction<boolean>>;
     meetings: UpcomingMeeting[];
+    onSignUp: (meetingDate:string) => void;
 }
 
-function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, meetings}: GroupSignUpProps) {
-    const [editing, setEditing] = useState<boolean>(false);
+function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, meetings, onSignUp}: GroupSignUpProps) {
+    // const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
         links: {
@@ -31,24 +33,25 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, meetings
         description: string;
     } | null>(null);
 
+    
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
         setSelectedExcerpt(excerpt);
         setSelectedDate(date);
-
+        
         setActiveExcerpt({
             links: [...excerpt.links],
             description: excerpt.description
         });
     };
-
+    
     const saveCardDetails = (excerpt: Excerpt) => {
         // save user card details for this date
         setEditing(false);
         setSelectedExcerpt(null);
         setSelectedDate('');
     };
-
+    
     const cancelEdit = (excerpt: Excerpt) => {
         //DO NOT save changes. Revert to previous user card details.
         setEditing(false);
@@ -56,50 +59,50 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, meetings
         setSelectedDate('');
         setActiveExcerpt(null);
     };
-
+    
     const addLink = () => {
         if (!activeExcerpt) {
             return;
         }
-
+        
         if (activeExcerpt.links.length >= 5) {
             alert('Unable to add more links.');
             return;
         }
-
+        
         const newLink = {
             id: Date.now().toString(),
             linkName: '',
             linkURL: ''
         };
-
+        
         setActiveExcerpt((prev) => {
             if (!prev) {
                 return null;
             }
-
+            
             return {
                 ...prev,
                 links: [...prev.links, newLink]
             };
         });
     };
-
+    
     const removeLink = (id: string) => {
         setActiveExcerpt((prev) => {
             if (!prev) {
                 return null;
             }
-
+            
             const filteredLinks = prev.links.filter(link => link.id !== id);
-
+            
             return {
                 ...prev,
                 links: filteredLinks
             };
         });
     };
-
+    
     return (
         <div className='sign-up'>
             {meetings.map((meeting: any) => {
@@ -108,7 +111,7 @@ function GroupSignUp({currentUser, selectedExcerpt, setSelectedExcerpt, meetings
                         <h3>{`${meeting.meetingDate.split('-')[1]?.charAt(0) === '0' ? format(meeting.meetingDate.split('-')[1]?.charAt(1)!, 'LLLL') : meeting.meetingDate.split('-')[1]} ${meeting.meetingDate.split('-')[2]?.charAt(0) === '0' ? meeting.meetingDate.split('-')[2]?.charAt(1) : meeting.meetingDate.split('-')[2]}`}</h3>
                         <div className='options-header'>
                             <div className='option' title='Sign Up'>
-                                <FaRegHandPaper className='icon' />
+                                <FaRegHandPaper className='icon' onClick={() => {onSignUp(meeting.meetingDate)}} />
                             </div>
                             <div className='option' title='Add Event'>
                                 <FaPlusCircle className='icon' />

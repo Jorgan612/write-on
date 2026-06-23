@@ -21,6 +21,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
+    const [editing, setEditing] = useState<boolean>(false);
     const upcomingMeetings: UpcomingMeeting[] = useMemo(() => {
         if (!groupInfo?.meetings) {
             return [];
@@ -39,6 +40,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             return {
                 meetingDate,
+                groupId: groupInfo.groupId,
                 excerpts: filteredExcerpts,
             };
         });
@@ -132,6 +134,38 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
     };
 
+    const onSignUp = (meetingDate: string) => {
+        if (!groupInfo?.groupId) {
+            return;
+        }
+
+        const existingExcerpt = groupExcerpts.find((excerpt) => {
+            return excerpt.userID === currentUser.id && excerpt.meetingDate === meetingDate;
+        });
+        
+        if (existingExcerpt) {
+            setSelectedExcerpt(existingExcerpt);
+            setEditing(true);
+            return;
+        }
+        
+        const newExcerpt: Excerpt = {
+            id: Date.now(),
+            groupId: groupInfo.groupId,
+            meetingDate: meetingDate,
+            userID: currentUser.id,
+            username: currentUser.username,
+            userIcon: currentUser.userIcon,
+            links: [],
+            description: '',
+            createdAt: Date.now().toString()
+        }
+        
+        setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
+        setSelectedExcerpt(newExcerpt);
+        setEditing(true);
+    };
+
     const navigateToCreateGroup = () => {
         navigate('/create-group');
     };
@@ -208,7 +242,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp currentUser={currentUser} selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} meetings={upcomingMeetings}/>
+                    <GroupSignUp selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} editing={editing} setEditing={setEditing} meetings={upcomingMeetings} onSignUp={onSignUp}/>
                     <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
