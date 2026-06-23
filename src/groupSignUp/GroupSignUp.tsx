@@ -1,8 +1,8 @@
 import './GroupSignUp.scss';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { User, UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
+import { UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
 import { FaRegUserCircle,
     FaRegHandPaper,
     FaEdit,
@@ -22,7 +22,6 @@ interface GroupSignUpProps {
 }
 
 function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, meetings, onSignUp}: GroupSignUpProps) {
-    // const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
         links: {
