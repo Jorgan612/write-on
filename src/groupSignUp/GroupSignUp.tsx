@@ -17,12 +17,14 @@ interface GroupSignUpProps {
     setSelectedExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
     editing: boolean;
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+    selectedDate: string;
     meetings: UpcomingMeeting[];
     onSignUp: (meetingDate:string) => void;
 }
 
-function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, meetings, onSignUp}: GroupSignUpProps) {
-    const [selectedDate, setSelectedDate] = useState<string>('');
+function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp}: GroupSignUpProps) {
+    // const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<{
         links: {
             id: string;
