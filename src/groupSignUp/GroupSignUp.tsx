@@ -147,7 +147,7 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
                                                         <h4 className={`${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
-                                                            Link {index + 1}/5
+                                                            Link {index + 1} of 5
                                                             <span>
                                                                 <FaRegTimesCircle className='remove-icon icon' title='Remove' onClick={() => {removeLink(link.id)}} />
                                                             </span>
