@@ -121,15 +121,13 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                             <div>
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                                             </div>
-                                            <label>{excerpt.username}</label>
+                                            <p>{excerpt.username}</p>
+                                            <button className='edit-button' disabled={editing}>
+                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
+                                            </button>
                                         </div>
                                         {/*Read only view*/}
                                         <div className={`card-details ${!editing || selectedExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && selectedExcerpt?.id === excerpt.id) ? 'show' : 'hide'}`}>
-                                            <h4>Excerpt Details</h4>
-                                            <button className='edit-button' disabled={editing}>
-                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
-
-                                            </button>
                                             <div className='links-container'>
                                                 {excerpt.links.map((link: any) => {
                                                     return (

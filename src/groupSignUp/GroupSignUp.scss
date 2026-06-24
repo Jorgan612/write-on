@@ -53,10 +53,15 @@
                 .user-icon-name {
                     @include flexbox(flex, row, flex-start, center);
                     @include content(fit-content, 100%, null);
+                    position: relative;
                     font-size: $font4;
                     padding-bottom: .5rem;
                     border-bottom: 1px solid $dark3;
                     z-index: 2;
+
+                    p {
+                        padding: 0 .5rem;
+                    }
 
                     div {
                         @include flexbox(flex, row, center, center);
@@ -69,6 +74,21 @@
                         .icon {
                             @include content(40px, 40px, null);
                             min-width: 40px;
+                        }
+                    }
+
+                    .edit-button {
+                        @include content(24px, 24px, null);
+                        background-color: rgb(21, 25, 29, 0);
+                        padding: .5rem;
+                        position: absolute;
+                        top: -15px;
+                        right: 0px;
+                        border: none;
+
+                        &:hover {
+                            color: $highlight1;
+                            background-color: none;
                         }
                     }
                 }    
@@ -95,21 +115,6 @@
 
                     .descrition-container {
                         margin-top: .5rem;
-                    }
-
-                    .edit-button {
-                        @include content(24px, 24px, null);
-                        background-color: rgb(21, 25, 29, 0);
-                        padding: .5rem;
-                        position: absolute;
-                        top: 0px;
-                        right: 0px;
-                        border: none;
-
-                        &:hover {
-                            color: $highlight1;
-                            background-color: none;
-                        }
                     }
                 }
 
