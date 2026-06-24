@@ -1,5 +1,4 @@
 import './GroupSignUp.scss';
-import { useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
@@ -21,35 +20,25 @@ interface GroupSignUpProps {
     selectedDate: string;
     meetings: UpcomingMeeting[];
     onSignUp: (meetingDate:string) => void;
+    activeExcerpt: Excerpt | null;
+    setActiveExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
 }
 
-function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp}: GroupSignUpProps) {
-    // const [selectedDate, setSelectedDate] = useState<string>('');
-    const [activeExcerpt, setActiveExcerpt] = useState<{
-        links: {
-            id: string;
-            linkName: string;
-            linkURL: string
-        }[];
-        description: string;
-    } | null>(null);
-
+function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt}: GroupSignUpProps) {
     
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
         setSelectedExcerpt(excerpt);
         setSelectedDate(date);
         
-        setActiveExcerpt({
-            links: [...excerpt.links],
-            description: excerpt.description
-        });
+        setActiveExcerpt({ ...excerpt });
     };
     
     const saveCardDetails = (excerpt: Excerpt) => {
         // save user card details for this date
         setEditing(false);
         setSelectedExcerpt(null);
+        setActiveExcerpt(null);
         setSelectedDate('');
     };
     

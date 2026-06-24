@@ -23,6 +23,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
     const [editing, setEditing] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
+    const [activeExcerpt, setActiveExcerpt] = useState<Excerpt | null>(null);
     const upcomingMeetings: UpcomingMeeting[] = useMemo(() => {
         if (!groupInfo?.meetings) {
             return [];
@@ -147,6 +148,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         if (existingExcerpt) {
             setSelectedExcerpt(existingExcerpt);
             setSelectedDate(meetingDate);
+            setActiveExcerpt(existingExcerpt)
             setEditing(true);
             return;
         }
@@ -165,6 +167,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         
         setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
         setSelectedExcerpt(newExcerpt);
+        setActiveExcerpt(newExcerpt);
         setSelectedDate(meetingDate);
         setEditing(true);
     };
@@ -245,7 +248,18 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
-                    <GroupSignUp selectedExcerpt={selectedExcerpt} setSelectedExcerpt={setSelectedExcerpt} editing={editing} setEditing={setEditing} setSelectedDate={setSelectedDate} selectedDate={selectedDate} meetings={upcomingMeetings} onSignUp={onSignUp}/>
+                    <GroupSignUp
+                        selectedExcerpt={selectedExcerpt}
+                        setSelectedExcerpt={setSelectedExcerpt}
+                        editing={editing}
+                        setEditing={setEditing}
+                        setSelectedDate={setSelectedDate}
+                        selectedDate={selectedDate}
+                        meetings={upcomingMeetings}
+                        onSignUp={onSignUp}
+                        activeExcerpt={activeExcerpt}
+                        setActiveExcerpt={setActiveExcerpt}
+                    />
                     <Members members={membersList || null} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
