@@ -148,7 +148,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         if (existingExcerpt) {
             setSelectedExcerpt(existingExcerpt);
             setSelectedDate(meetingDate);
-            setActiveExcerpt(existingExcerpt)
+            setActiveExcerpt(existingExcerpt);
             setEditing(true);
             return;
         }
@@ -160,10 +160,14 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             userID: currentUser.id,
             username: currentUser.username,
             userIcon: currentUser.userIcon,
-            links: [],
+            links: [{
+                id: Date.now().toString(),
+                linkName: '',
+                linkURL: ''
+            }],
             description: '',
             createdAt: Date.now().toString()
-        }
+        };
         
         setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
         setSelectedExcerpt(newExcerpt);
