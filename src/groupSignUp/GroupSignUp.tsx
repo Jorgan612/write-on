@@ -127,7 +127,7 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                             </button>
                                         </div>
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing || selectedExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && selectedExcerpt?.id === excerpt.id) ? 'show' : 'hide'}`}>
+                                        <div className={`card-details ${!editing || selectedExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && selectedExcerpt?.id === excerpt.id) ? 'show' : 'hide'} ${(!excerpt.links[0].linkName || !excerpt.description ? 'empty': '')}`}>
                                             <div className='links-container'>
                                                 {excerpt.links.map((link: any) => {
                                                     return (

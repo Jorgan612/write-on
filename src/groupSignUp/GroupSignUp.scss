@@ -56,7 +56,6 @@
                     position: relative;
                     font-size: $font4;
                     padding-bottom: .5rem;
-                    border-bottom: 1px solid $dark3;
                     z-index: 2;
 
                     p {
@@ -96,6 +95,8 @@
                 .card-details {
                     position: relative;
                     margin-top: .5rem;
+                    padding-top: .5rem;
+                    border-top: 1px solid $dark3;
 
                     .links-container {
 
@@ -116,6 +117,10 @@
                     .descrition-container {
                         margin-top: .5rem;
                     }
+                }
+                
+                .empty {
+                    display: none;
                 }
 
                 .edit-card-details {

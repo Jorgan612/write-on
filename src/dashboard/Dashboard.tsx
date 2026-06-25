@@ -124,11 +124,11 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             const data: Excerpts = await response.json();
 
-                if (response.ok) {
-                    setGroupExcerpts(data);
-                } else {
-                    alert('Something went wrong.');
-                }
+            if (response.ok) {
+                setGroupExcerpts(data);
+            } else {
+                alert('Something went wrong.');
+            }
 
         } catch (error) {
             console.error('Could not fetch excerpts:', error);
