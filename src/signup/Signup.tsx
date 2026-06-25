@@ -139,7 +139,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         }));
     };
     
-    const handleSignupSubmit =  async (e: React.FormEvent) => {
+    const handleSignupSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!isFormValid) return;

@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 
 export type UsersList = User[];
+export type Excerpts = Excerpt[];
 
 
     /* User Data */
@@ -62,12 +63,6 @@ export interface User {
     }[]
 }
 
-export interface MembersProps {
-    users: UsersList;
-    selectedMember: User | null;
-    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
-}
-
 export interface UserProps {
   currentUser: User;
   setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
@@ -100,7 +95,6 @@ export interface Icon {
     toolTip: string;
 }
 
-
 /* Word Count */
 export interface Entry {
     id: number;
@@ -111,7 +105,6 @@ export interface Entry {
     day: number;
     time: string;
 }
-
 
 export interface CombinedEntry {
     id: number;
@@ -124,11 +117,60 @@ export interface CombinedEntry {
 }
 
 /* Goals */
-
 export interface Goal {
         name: string;
         id: string;
         value: number;
         current: number
         type: string
+}
+
+/* Group */
+export interface GroupProps {
+    groupId: string;
+    name: string;
+    ownerID: number;
+    creationDate: string;
+    meetings: string[];
+    invites: string[];
+    members: number[];
+}
+
+export interface GroupData {
+    groupId: string;
+    groupName: string;
+    members: User[];
+}
+
+export interface UpcomingMeeting {
+    meetingDate: string;
+    excerpts: Excerpt[];
+}
+
+export interface Excerpt {
+    id: number;
+    groupId: string;
+    meetingDate: string;
+    userID: number;
+    username: string;
+    userIcon: {
+        id: string;
+        color: string;
+    };
+    links: Link[];
+    description: string;
+    createdAt: string;
+}
+
+export interface Link {
+    id: string;
+    linkName: string;
+    linkURL: string;
+}
+
+export interface MembersProps {
+    currentUser: User;
+    members: UsersList | null;
+    selectedMember: User | null;
+    setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
 }

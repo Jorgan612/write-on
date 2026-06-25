@@ -29,7 +29,6 @@ function App() {
   const [signedIn, setSignedIn] = useState<boolean>(() => {
     return !!localStorage.getItem('token');
   });
-  const [usersList, setUsersList] =  useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const savedUser  = localStorage.getItem(`user_info`);
     return savedUser ? JSON.parse(savedUser) : {};
@@ -63,36 +62,6 @@ function App() {
       localStorage.setItem("user_info", JSON.stringify(currentUser));
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    if (signedIn) {
-      fetchUsers();
-    }
-  }, [signedIn]);
-
-  const fetchUsers = async () => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/users', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) throw new Error('Network response is not ok.');
-
-      const data: User[] = await response.json();
-      setUsersList(data);
-
-    } catch (error) {
-      console.error('Could not fetch users:', error);
-    }
-  }
 
   const handleSetEntries = (updateFn: (prev: Entry[]) => Entry[]) => {
     setCurrentUser(prevUser => {
@@ -149,13 +118,13 @@ function App() {
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-              <Route path='/create-group' element={ <CreateGroup />} />
+              <Route path='/create-group' element={ <CreateGroup currentUser={currentUser} />} />
               <Route path="/dashboard" element={ 
                 <RequireAuth>
-                  <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> 
+                  <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> 
                 </RequireAuth>
                 } />
-              <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} users={usersList}/> } />
+              <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> } />
             </>
         </Routes>
       </div>

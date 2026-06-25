@@ -1,9 +1,7 @@
 import './GroupSignUp.scss';
-import { useState } from 'react';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { MembersProps, User } from '../interfaces/interfaces';
-import { user1, user2 } from '../datasets/datasets';
+import { UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
 import { FaRegUserCircle,
     FaRegHandPaper,
     FaEdit,
@@ -13,136 +11,97 @@ import { FaRegUserCircle,
     FaRegTimesCircle,
 } from 'react-icons/fa';
 
-function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
-    const [editing, setEditing] = useState<boolean>(false);
-    const [selectedDate, setSelectedDate] = useState<string>('');
-    const [activeExcerpt, setActiveExcerpt] = useState<{
-        links: {
-            id: string;
-            linkName: string;
-            linkURL: string
-        }[];
-        description: string;
-    } | null>(null);
+interface GroupSignUpProps {
+    selectedExcerpt: Excerpt | null;
+    setSelectedExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+    editing: boolean;
+    setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+    selectedDate: string;
+    meetings: UpcomingMeeting[];
+    onSignUp: (meetingDate:string) => void;
+    activeExcerpt: Excerpt | null;
+    setActiveExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+}
 
-    const dates = [
-        {
-            id: '1',
-            date: '2026-05-06',
-            signups: [user1, user2]
-        },
-        {
-            id: '2',
-            date: '2026-05-013',
-            signups: []
-        },
-        {
-            id: '3',
-            date: '2026-05-20',
-            signups: [user2]
-        },
-        {
-            id: '4',
-            date: '2026-05-27',
-            signups: []
-        }
-    ];
-
-    const dummyExcerpt = {
-        id: '1',
-        links: [
-            {
-                id: '123',
-                linkName: 'Chapter 1',
-                linkURL: 'https://docs.google.com'
-            },
-            {
-                id: '321',
-                linkName: 'Chapter 2',
-                linkURL: 'https://docs.google.com'
-            },
-        ],
-        description: "Here are chapters 1 & 2. Any feedback is appreciated! Thank you!"
-    }
-
-    const EditCardDetails = (user: User, date: string) => {
+function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt}: GroupSignUpProps) {
+    
+    const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
-        setSelectedMember(user);
+        setSelectedExcerpt(excerpt);
         setSelectedDate(date);
-
-        setActiveExcerpt({
-            links: [...dummyExcerpt.links],
-            description: dummyExcerpt.description
-        });
+        
+        setActiveExcerpt({ ...excerpt });
     };
-
-    const saveCardDetails = (user: User) => {
+    
+    const saveCardDetails = (excerpt: Excerpt) => {
         // save user card details for this date
         setEditing(false);
-        setSelectedMember(null);
+        setSelectedExcerpt(null);
+        setActiveExcerpt(null);
         setSelectedDate('');
     };
-
-    const cancelEdit = (user: User) => {
+    
+    const cancelEdit = (excerpt: Excerpt) => {
         //DO NOT save changes. Revert to previous user card details.
         setEditing(false);
-        setSelectedMember(null);
+        setSelectedExcerpt(null);
         setSelectedDate('');
         setActiveExcerpt(null);
-    }
-
+    };
+    
     const addLink = () => {
         if (!activeExcerpt) {
             return;
         }
-
+        
         if (activeExcerpt.links.length >= 5) {
             alert('Unable to add more links.');
             return;
         }
-
+        
         const newLink = {
             id: Date.now().toString(),
             linkName: '',
             linkURL: ''
         };
-
+        
         setActiveExcerpt((prev) => {
             if (!prev) {
                 return null;
             }
-
+            
             return {
                 ...prev,
                 links: [...prev.links, newLink]
             };
         });
     };
-
+    
     const removeLink = (id: string) => {
         setActiveExcerpt((prev) => {
             if (!prev) {
                 return null;
             }
-
+            
             const filteredLinks = prev.links.filter(link => link.id !== id);
-
+            
             return {
                 ...prev,
                 links: filteredLinks
             };
         });
     };
-
+    
     return (
         <div className='sign-up'>
-            {dates.map((date) => {
+            {meetings.map((meeting: any) => {
                 return (
-                    <div className='column' key={date.id}>
-                        <h3>{`${date.date.split('-')[1]?.charAt(0) === '0' ? format(date.date.split('-')[1]?.charAt(1)!, 'LLLL') : date.date.split('-')[1]} ${date.date.split('-')[2]?.charAt(0) === '0' ? date.date.split('-')[2]?.charAt(1) :date.date.split('-')[2]}`}</h3>
+                    <div className='column' key={meeting.meetingDate}>
+                        <h3>{`${meeting.meetingDate.split('-')[1]?.charAt(0) === '0' ? format(meeting.meetingDate.split('-')[1]?.charAt(1)!, 'LLLL') : meeting.meetingDate.split('-')[1]} ${meeting.meetingDate.split('-')[2]?.charAt(0) === '0' ? meeting.meetingDate.split('-')[2]?.charAt(1) : meeting.meetingDate.split('-')[2]}`}</h3>
                         <div className='options-header'>
                             <div className='option' title='Sign Up'>
-                                <FaRegHandPaper className='icon' />
+                                <FaRegHandPaper className='icon' onClick={() => {onSignUp(meeting.meetingDate)}} />
                             </div>
                             <div className='option' title='Add Event'>
                                 <FaPlusCircle className='icon' />
@@ -152,27 +111,25 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                             </div>
                         </div>
                         <div className='sign-up-list'>
-                            {date.signups.map((user) => {
-                                const iconData = userIcons.find(icon => icon.id === user.userIcon.id);
+                            {meeting.excerpts.map((excerpt: any) => {
+                                const iconData = userIcons.find(icon => icon.id === excerpt.userIcon.id);
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
-                                const previewColor = user.userIcon?.color || '#94a3b8';
+                                const previewColor = excerpt.userIcon?.color || '#94a3b8';
                                 return (
-                                    <div className={`user-card ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'selected' : ''}`} key={user.id}>
+                                    <div className={`user-card ${editing && selectedExcerpt?.id === excerpt.id ? 'selected' : ''}`} key={excerpt.id}>
                                         <div className='user-icon-name'>
                                             <div>
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                                             </div>
-                                            <label>{user.username}</label>
+                                            <p>{excerpt.username}</p>
+                                            <button className='edit-button' disabled={editing}>
+                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
+                                            </button>
                                         </div>
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing || selectedMember?.id !== user.id || (selectedDate !== date.date && selectedMember?.id === user.id) ? 'show' : 'hide'}`}>
-                                            <h4>Excerpt Details</h4>
-                                            <button className='edit-button' disabled={editing}>
-                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(user, date.date)}} />
-
-                                            </button>
+                                        <div className={`card-details ${!editing || selectedExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && selectedExcerpt?.id === excerpt.id) ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
-                                                {dummyExcerpt.links.map((link) => {
+                                                {excerpt.links.map((link: any) => {
                                                     return (
                                                         <div className='link' key={link.id}>
                                                             <a href={link.linkURL} target='_blank' rel='noopener noreferrer'>{link.linkName}</a>
@@ -181,16 +138,16 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                                 })}
                                             </div>
                                             <div className='descrition-container'>
-                                                <div className='description'>{dummyExcerpt.description}</div>
+                                                <div className='description'>{excerpt.description}</div>
                                             </div>
                                         </div>
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
+                                        <div className={`edit-card-details ${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
-                                                        <h4 className={`${editing && selectedMember?.id === user.id && date.signups.includes(user) && selectedDate === date.date ? 'show' : 'hide'}`}>
-                                                            Link {index + 1}/5
+                                                        <h4 className={`${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
+                                                            Link {index + 1} of 5
                                                             <span>
                                                                 <FaRegTimesCircle className='remove-icon icon' title='Remove' onClick={() => {removeLink(link.id)}} />
                                                             </span>
@@ -221,8 +178,8 @@ function GroupSignUp({users, selectedMember, setSelectedMember}: MembersProps) {
                                                 onChange={(e) => setActiveExcerpt(prev => prev ? {...prev, description: e.target.value} : null)}
                                             />
                                             <div className='button-container'>
-                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(user)}/>
-                                                <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(user)}} />
+                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(excerpt)}/>
+                                                <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(excerpt)}} />
                                             </div>
                                         </div>
                                     </div>
