@@ -17,7 +17,6 @@ type DashProps = UserProps & {
 
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
-    const [selectedExcerpt, setSelectedExcerpt] = useState<Excerpt | null>(null);
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
@@ -146,7 +145,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         });
         
         if (existingExcerpt) {
-            setSelectedExcerpt(existingExcerpt);
             setSelectedDate(meetingDate);
             setActiveExcerpt(existingExcerpt);
             setEditing(true);
@@ -170,7 +168,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         };
         
         setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
-        setSelectedExcerpt(newExcerpt);
         setActiveExcerpt(newExcerpt);
         setSelectedDate(meetingDate);
         setEditing(true);
@@ -253,8 +250,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <GroupSignUp
-                        selectedExcerpt={selectedExcerpt}
-                        setSelectedExcerpt={setSelectedExcerpt}
                         editing={editing}
                         setEditing={setEditing}
                         setSelectedDate={setSelectedDate}
