@@ -20,10 +20,10 @@ interface GroupSignUpProps {
     onSignUp: (meetingDate:string) => void;
     activeExcerpt: Excerpt | null;
     setActiveExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+    onSave: (updateExcerpt: Excerpt) => Promise<void>;
 }
 
-function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt}: GroupSignUpProps) {
-
+function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave}: GroupSignUpProps) {
     
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
@@ -31,13 +31,15 @@ function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetin
         
         setActiveExcerpt({ ...excerpt });
     };
-    
-    const saveCardDetails = (excerpt: Excerpt) => {
 
-        console.log('excerpt', excerpt)
+    const saveCardDetails = async () => {
+        if (!activeExcerpt) return;
+
+        await onSave(activeExcerpt);
+
         setEditing(false);
-        setActiveExcerpt(null);
         setSelectedDate('');
+        setActiveExcerpt(null);
     };
     
     const cancelEdit = (excerpt: Excerpt) => {
@@ -174,7 +176,7 @@ function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetin
                                                 onChange={(e) => setActiveExcerpt(prev => prev ? {...prev, description: e.target.value} : null)}
                                             />
                                             <div className='button-container'>
-                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(excerpt)}/>
+                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={saveCardDetails}/>
                                                 <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(excerpt)}} />
                                             </div>
                                         </div>

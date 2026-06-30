@@ -160,6 +160,7 @@ export interface Excerpt {
     links: Link[];
     description: string;
     createdAt: string;
+    isNewTemporary?: boolean;
 }
 
 export interface Link {

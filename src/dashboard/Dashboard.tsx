@@ -135,6 +135,38 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
     };
 
+    const onSave = async (excerpt: Excerpt) => {
+        if (!groupInfo?.groupId) {
+            return;
+        }
+
+        const isNew = !!excerpt.isNewTemporary;
+        const method = isNew ? 'POST' : 'PUT';
+        const url = isNew 
+        ? `http://localhost:5000/groups/group/${groupInfo.groupId}/excerpts`
+        : `http://localhost:5000/groups/group/${groupInfo.groupId}/excerpts/${excerpt.id}`;
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(excerpt)
+            });
+
+            if (!response.ok) throw new Error('Failed to save excerpt.');
+
+            const savedData: Excerpt = await response.json();
+
+            setGroupExcerpts((prevExcerpts) => {
+                return prevExcerpts.map(exc => exc.id === excerpt.id ? savedData : exc);
+            });
+
+        } catch (error) {
+            console.error('Error saving excerpt:', error);
+            alert('Could not save your changes. PLease try again.');
+        }
+    };
+
     const onSignUp = (meetingDate: string) => {
         if (!groupInfo?.groupId) {
             return;
@@ -164,7 +196,8 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 linkURL: ''
             }],
             description: '',
-            createdAt: Date.now().toString()
+            createdAt: Date.now().toString(),
+            isNewTemporary: true
         };
         
         setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
@@ -258,6 +291,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         onSignUp={onSignUp}
                         activeExcerpt={activeExcerpt}
                         setActiveExcerpt={setActiveExcerpt}
+                        onSave={onSave}
                     />
                     <Members members={membersList || null} />
                 </div> : 
