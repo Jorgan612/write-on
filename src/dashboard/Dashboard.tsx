@@ -143,7 +143,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         const isNew = !!excerpt.isNewTemporary;
         const method = isNew ? 'POST' : 'PUT';
         const url = isNew 
-        ? `http://localhost:5000/groups/group/${groupInfo.groupId}/excerpts`
+        ? `http://localhost:5000/groups/group/excerpts`
         : `http://localhost:5000/groups/group/${groupInfo.groupId}/excerpts/${excerpt.id}`;
 
         try {
