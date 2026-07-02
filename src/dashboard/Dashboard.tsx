@@ -294,6 +294,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <GroupSignUp
+                        currentUser={currentUser}
                         editing={editing}
                         setEditing={setEditing}
                         setSelectedDate={setSelectedDate}

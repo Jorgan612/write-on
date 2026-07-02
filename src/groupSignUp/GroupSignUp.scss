@@ -83,12 +83,15 @@
                         position: absolute;
                         top: -15px;
                         right: 0px;
-                        border: none;
 
-                        &:hover {
-                            color: $highlight1;
-                            background-color: none;
+                        .icon {
+
+                            &:hover {
+                                color: $highlight1;
+                                background-color: none;
+                            }
                         }
+
                     }
                 }    
 

@@ -1,7 +1,7 @@
 import './GroupSignUp.scss';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
+import { UpcomingMeeting, Excerpt, User } from '../interfaces/interfaces';
 import { FaRegUserCircle,
     FaRegHandPaper,
     FaEdit,
@@ -12,6 +12,7 @@ import { FaRegUserCircle,
 } from 'react-icons/fa';
 
 interface GroupSignUpProps {
+    currentUser: User;
     editing: boolean;
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
     setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
@@ -23,7 +24,7 @@ interface GroupSignUpProps {
     onSave: (updateExcerpt: Excerpt) => Promise<void>;
 }
 
-function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave}: GroupSignUpProps) {
+function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave}: GroupSignUpProps) {
     
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
@@ -120,8 +121,8 @@ function GroupSignUp({editing, setEditing, setSelectedDate, selectedDate, meetin
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                                             </div>
                                             <p>{excerpt.username}</p>
-                                            <button className='edit-button' disabled={editing}>
-                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
+                                            <button className={`edit-button ${currentUser.id !== excerpt.userID ? 'hide' : 'show'}`} disabled={editing}>
+                                                <FaEdit className={`icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
                                             </button>
                                         </div>
                                         {/*Read only view*/}
