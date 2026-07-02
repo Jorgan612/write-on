@@ -47,6 +47,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         });
     }, [groupInfo?.meetings, groupExcerpts]);
 
+    const token = localStorage.getItem('token');
     const navigate =  useNavigate();
 
     useEffect(() => {
@@ -65,7 +66,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             try {
                 const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json'},
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    },
                 })
 
                 const data = await response.json();
@@ -93,6 +97,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 }
             });
 
@@ -116,6 +121,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 }
             });
 
@@ -148,7 +154,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
 
         try {
-            const token = localStorage.getItem('token');
 
             const response = await fetch(url, {
                 method: method,
