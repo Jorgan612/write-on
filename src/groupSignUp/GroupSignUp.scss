@@ -56,7 +56,6 @@
                     position: relative;
                     font-size: $font4;
                     padding-bottom: .5rem;
-                    border-bottom: 1px solid $dark3;
                     z-index: 2;
 
                     p {
@@ -84,18 +83,23 @@
                         position: absolute;
                         top: -15px;
                         right: 0px;
-                        border: none;
 
-                        &:hover {
-                            color: $highlight1;
-                            background-color: none;
+                        .icon {
+
+                            &:hover {
+                                color: $highlight1;
+                                background-color: none;
+                            }
                         }
+
                     }
                 }    
 
                 .card-details {
                     position: relative;
                     margin-top: .5rem;
+                    padding-top: .5rem;
+                    border-top: 1px solid $dark3;
 
                     .links-container {
 
@@ -116,6 +120,10 @@
                     .descrition-container {
                         margin-top: .5rem;
                     }
+                }
+                
+                .empty {
+                    display: none;
                 }
 
                 .edit-card-details {

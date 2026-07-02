@@ -1,7 +1,7 @@
 import './GroupSignUp.scss';
 import { format } from 'date-fns';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
-import { UpcomingMeeting, Excerpt } from '../interfaces/interfaces';
+import { UpcomingMeeting, Excerpt, User } from '../interfaces/interfaces';
 import { FaRegUserCircle,
     FaRegHandPaper,
     FaEdit,
@@ -12,8 +12,7 @@ import { FaRegUserCircle,
 } from 'react-icons/fa';
 
 interface GroupSignUpProps {
-    selectedExcerpt: Excerpt | null;
-    setSelectedExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+    currentUser: User;
     editing: boolean;
     setEditing: React.Dispatch<React.SetStateAction<boolean>>;
     setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
@@ -22,30 +21,30 @@ interface GroupSignUpProps {
     onSignUp: (meetingDate:string) => void;
     activeExcerpt: Excerpt | null;
     setActiveExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
+    onSave: (updateExcerpt: Excerpt) => Promise<void>;
 }
 
-function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt}: GroupSignUpProps) {
+function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave}: GroupSignUpProps) {
     
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
-        setSelectedExcerpt(excerpt);
         setSelectedDate(date);
         
         setActiveExcerpt({ ...excerpt });
     };
-    
-    const saveCardDetails = (excerpt: Excerpt) => {
-        // save user card details for this date
+
+    const saveCardDetails = async () => {
+        if (!activeExcerpt) return;
+
+        await onSave(activeExcerpt);
+
         setEditing(false);
-        setSelectedExcerpt(null);
-        setActiveExcerpt(null);
         setSelectedDate('');
+        setActiveExcerpt(null);
     };
     
     const cancelEdit = (excerpt: Excerpt) => {
-        //DO NOT save changes. Revert to previous user card details.
         setEditing(false);
-        setSelectedExcerpt(null);
         setSelectedDate('');
         setActiveExcerpt(null);
     };
@@ -116,18 +115,18 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                 const PreviewIcon = iconData?.icon || FaRegUserCircle;
                                 const previewColor = excerpt.userIcon?.color || '#94a3b8';
                                 return (
-                                    <div className={`user-card ${editing && selectedExcerpt?.id === excerpt.id ? 'selected' : ''}`} key={excerpt.id}>
+                                    <div className={`user-card ${editing && activeExcerpt?.id === excerpt.id ? 'selected' : ''}`} key={excerpt.id}>
                                         <div className='user-icon-name'>
                                             <div>
                                                 <PreviewIcon className='icon' style={{color: previewColor}} />
                                             </div>
                                             <p>{excerpt.username}</p>
-                                            <button className='edit-button' disabled={editing}>
-                                                <FaEdit className={` icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
+                                            <button className={`edit-button ${currentUser.id !== excerpt.userID ? 'hide' : 'show'}`} disabled={editing}>
+                                                <FaEdit className={`icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
                                             </button>
                                         </div>
                                         {/*Read only view*/}
-                                        <div className={`card-details ${!editing || selectedExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && selectedExcerpt?.id === excerpt.id) ? 'show' : 'hide'}`}>
+                                        <div className={`card-details ${!editing || activeExcerpt?.id !== excerpt.id || (selectedDate !== meeting.meetingDate && activeExcerpt?.id === excerpt.id) ? 'show' : 'hide'} ${(!excerpt.links[0].linkName || !excerpt.description ? 'empty': '')}`}>
                                             <div className='links-container'>
                                                 {excerpt.links.map((link: any) => {
                                                     return (
@@ -142,11 +141,11 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                             </div>
                                         </div>
                                         {/*Edit view*/}
-                                        <div className={`edit-card-details ${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
+                                        <div className={`edit-card-details ${editing && activeExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
                                             <div className='links-container'>
                                                 {activeExcerpt?.links.map((link, index) => (
                                                     <div className='link' key={link.id}>
-                                                        <h4 className={`${editing && selectedExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
+                                                        <h4 className={`${editing && activeExcerpt?.id === excerpt.id && meeting.excerpts.includes(excerpt) && selectedDate === meeting.meetingDate ? 'show' : 'hide'}`}>
                                                             Link {index + 1} of 5
                                                             <span>
                                                                 <FaRegTimesCircle className='remove-icon icon' title='Remove' onClick={() => {removeLink(link.id)}} />
@@ -178,7 +177,7 @@ function GroupSignUp({selectedExcerpt, setSelectedExcerpt, editing, setEditing, 
                                                 onChange={(e) => setActiveExcerpt(prev => prev ? {...prev, description: e.target.value} : null)}
                                             />
                                             <div className='button-container'>
-                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={() => saveCardDetails(excerpt)}/>
+                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={saveCardDetails}/>
                                                 <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(excerpt)}} />
                                             </div>
                                         </div>

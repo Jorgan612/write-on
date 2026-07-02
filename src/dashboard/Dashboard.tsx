@@ -17,7 +17,6 @@ type DashProps = UserProps & {
 
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
-    const [selectedExcerpt, setSelectedExcerpt] = useState<Excerpt | null>(null);
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
@@ -48,6 +47,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         });
     }, [groupInfo?.meetings, groupExcerpts]);
 
+    const token = localStorage.getItem('token');
     const navigate =  useNavigate();
 
     useEffect(() => {
@@ -66,7 +66,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             try {
                 const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json'},
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    },
                 })
 
                 const data = await response.json();
@@ -94,6 +97,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 }
             });
 
@@ -117,6 +121,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 }
             });
 
@@ -124,16 +129,53 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
             const data: Excerpts = await response.json();
 
-                if (response.ok) {
-                    setGroupExcerpts(data);
-                } else {
-                    alert('Something went wrong.');
-                }
+            if (response.ok) {
+                setGroupExcerpts(data);
+            } else {
+                alert('Something went wrong.');
+            }
 
         } catch (error) {
             console.error('Could not fetch excerpts:', error);
         }
 
+    };
+
+    const onSave = async (excerpt: Excerpt) => {
+        if (!groupInfo?.groupId) {
+            return;
+        }
+
+        const isNew = !!excerpt.isNewTemporary;
+        const method = isNew ? 'POST' : 'PUT';
+        const url = isNew 
+        ? `http://localhost:5000/groups/group/excerpts`
+        : `http://localhost:5000/groups/excerpts/${excerpt.id}`;
+
+
+        try {
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${token}`
+                },
+                body: JSON.stringify(excerpt)
+            });
+
+            if (!response.ok) throw new Error('Failed to save excerpt.');
+
+            const savedData: Excerpt = await response.json();
+
+            setGroupExcerpts((prevExcerpts) => {
+                return prevExcerpts.map(exc => exc.id === excerpt.id ? savedData : exc);
+            });
+
+        } catch (error) {
+            console.error('Error saving excerpt:', error);
+            alert('Could not save your changes. Please try again.');
+        }
     };
 
     const onSignUp = (meetingDate: string) => {
@@ -146,7 +188,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         });
         
         if (existingExcerpt) {
-            setSelectedExcerpt(existingExcerpt);
             setSelectedDate(meetingDate);
             setActiveExcerpt(existingExcerpt);
             setEditing(true);
@@ -166,11 +207,11 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 linkURL: ''
             }],
             description: '',
-            createdAt: Date.now().toString()
+            createdAt: Date.now().toString(),
+            isNewTemporary: true
         };
         
         setGroupExcerpts((prevExcerpts) => [...prevExcerpts, newExcerpt]);
-        setSelectedExcerpt(newExcerpt);
         setActiveExcerpt(newExcerpt);
         setSelectedDate(meetingDate);
         setEditing(true);
@@ -253,8 +294,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             {activeDash === 'group' && currentUser.groups?.length ? 
                 <div className={`group-dash ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <GroupSignUp
-                        selectedExcerpt={selectedExcerpt}
-                        setSelectedExcerpt={setSelectedExcerpt}
+                        currentUser={currentUser}
                         editing={editing}
                         setEditing={setEditing}
                         setSelectedDate={setSelectedDate}
@@ -263,6 +303,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         onSignUp={onSignUp}
                         activeExcerpt={activeExcerpt}
                         setActiveExcerpt={setActiveExcerpt}
+                        onSave={onSave}
                     />
                     <Members members={membersList || null} />
                 </div> : 
