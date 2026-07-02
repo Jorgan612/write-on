@@ -144,12 +144,18 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         const method = isNew ? 'POST' : 'PUT';
         const url = isNew 
         ? `http://localhost:5000/groups/group/excerpts`
-        : `http://localhost:5000/groups/group/${groupInfo.groupId}/excerpts/${excerpt.id}`;
+        : `http://localhost:5000/groups/excerpts/${excerpt.id}`;
+
 
         try {
+            const token = localStorage.getItem('token');
+
             const response = await fetch(url, {
                 method: method,
-                headers: {'Content-Type' : 'application/json'},
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${token}`
+                },
                 body: JSON.stringify(excerpt)
             });
 
@@ -163,7 +169,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
 
         } catch (error) {
             console.error('Error saving excerpt:', error);
-            alert('Could not save your changes. PLease try again.');
+            alert('Could not save your changes. Please try again.');
         }
     };
 
