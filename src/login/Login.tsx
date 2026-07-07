@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../interfaces/interfaces';
+import { validateEmail } from '../utils/Validation';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import './Login.scss';
 
@@ -13,6 +14,8 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [email, setEmail] = useState('');
     const [ password, setPassword] = useState('');
+
+    const isValidForm = validateEmail(email);
 
     const navigate = useNavigate();
     
@@ -79,7 +82,7 @@ function Login({ setCurrentUser, setSignedIn }: LoginProps) {
                     </span>
                 </div>
             </div>
-            <button type="submit">Log in</button>
+            <button type="submit" disabled={!isValidForm} title={isValidForm ? 'Log in' : 'Please enter a valid email and password.'}>Log in</button>
             <span className='stuck'>
                 <span className='forgot-password' onClick={takeToForgotPasswordPage}>Forgot password?</span>
                 <span className='no-account' onClick={takeToSignupPage}>Don't have an account?</span>
