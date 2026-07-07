@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CalendarGrid from '../calendarGrid/CalendarGrid';
+import { validateEmail } from '../utils/Validation';
 import { GroupProps, User } from '../interfaces/interfaces';
 import './CreateGroup.scss';
 
@@ -16,6 +17,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
     const [inputEmail, setInputEmail] = useState<string>('');
     const [inputGroupName, setInputGroupName] = useState<string>('');
     const [errorMsg, setErrorMsg] = useState<string>('');
+    const isValid = validateEmail(inputEmail);
     const navigate = useNavigate();
     
     const toggleDateSelection = (dateKey: string, isFuture: boolean) => {
@@ -180,7 +182,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
                                     addEmail();
                                 }
                             }}/>
-                            <FaPlusCircle className='icon' title='Add' onClick={addEmail} />
+                            <FaPlusCircle className={`icon ${!isValid ? 'disable' : ''}`} title={isValid ? 'Add' : 'Invalid Email'} onClick={addEmail} />
                         </div>
                     </div>
                     {errorMsg ? <p className='error-msg'>{errorMsg}</p> : ''}

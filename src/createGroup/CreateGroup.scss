@@ -250,10 +250,6 @@
     .button-container {
         @include flexbox(flex, row, flex-start, center);
         margin-top: 2rem;
-
-        .disable {
-            cursor: not-allowed !important;
-        }
     }
 
     .icon {
@@ -263,5 +259,9 @@
             cursor: pointer;
             color: $highlight1;
         }
+    }
+
+    .disable {
+        cursor: not-allowed !important;
     }
 }
