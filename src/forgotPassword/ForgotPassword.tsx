@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import { validateEmail } from '../utils/Validation';
 import './ForgotPassword.scss';
 
 function ForgotPassword() {
     const [inputEmail, setInputEmail] = useState<string>('');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailFormatted = emailRegex.test(inputEmail);
-    const isFormValid = isEmailFormatted;
+    const isFormValid = validateEmail(inputEmail);
 
     const sendPasswordResetEmail = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,7 +40,7 @@ function ForgotPassword() {
             <label htmlFor="email">Please provide the email address for your account.<span>*</span></label>
             <input required type="email" id="email" placeholder="Email" autoComplete="email" value={inputEmail} onChange={(e) => setInputEmail(e.target.value)}/>
         </div>
-        <button type="submit" disabled={!isFormValid} title={isFormValid ? '' : 'Enter a valid email address'}>Send Reset Email</button>
+        <button type="submit" disabled={!isFormValid} title={isFormValid ? 'Send' : 'Enter a valid email address'}>Send Reset Email</button>
     </form>
     )
 }

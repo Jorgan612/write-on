@@ -1,6 +1,7 @@
 import './Signup.scss';
 import { useNavigate } from 'react-router-dom';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
+import { validateEmail } from '../utils/Validation';
 import { User } from '../interfaces/interfaces';
 import { useState, ChangeEvent, useEffect } from 'react';
 
@@ -62,8 +63,7 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const [confirmationTouched, setConfirmationTouched] = useState({email: false, password: false});
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
     const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailFormatted = emailRegex.test(newUser.email);
+    const isEmailFormatted = validateEmail(newUser.email);
     const emailMismatch = confirmationTouched.email && confirmEmail !== newUser.email;
     const passwordMismatch = confirmationTouched.password && confirmPassword !== newUser.password;
     const showFormatError = confirmationTouched.email && !isEmailFormatted;
