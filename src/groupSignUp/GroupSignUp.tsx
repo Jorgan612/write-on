@@ -9,6 +9,7 @@ import { FaRegUserCircle,
     FaRegCalendarAlt,
     FaRegCheckCircle,
     FaRegTimesCircle,
+    FaRegTrashAlt
 } from 'react-icons/fa';
 
 interface GroupSignUpProps {
@@ -22,9 +23,10 @@ interface GroupSignUpProps {
     activeExcerpt: Excerpt | null;
     setActiveExcerpt: React.Dispatch<React.SetStateAction<Excerpt | null>>;
     onSave: (updateExcerpt: Excerpt) => Promise<void>;
+    deleteExcerpt: (updateExcerpt: Excerpt) => Promise<void>;
 }
 
-function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave}: GroupSignUpProps) {
+function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selectedDate, meetings, onSignUp, activeExcerpt, setActiveExcerpt, onSave, deleteExcerpt}: GroupSignUpProps) {
     
     const EditCardDetails = (excerpt: Excerpt, date: string) => {
         setEditing(true);
@@ -177,8 +179,9 @@ function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selecte
                                                 onChange={(e) => setActiveExcerpt(prev => prev ? {...prev, description: e.target.value} : null)}
                                             />
                                             <div className='button-container'>
-                                                <FaRegCheckCircle className='save-icon icon' title='Save' onClick={saveCardDetails}/>
-                                                <FaRegTimesCircle className='cancel-icon icon' title='Cancel' onClick={() => {cancelEdit(excerpt)}} />
+                                                <FaRegCheckCircle className='save-icon icon' title='Save Excerpt' onClick={saveCardDetails}/>
+                                                <FaRegTimesCircle className='cancel-icon icon' title='Cancel Edit' onClick={() => {cancelEdit(excerpt)}} />
+                                                <FaRegTrashAlt className='delete-icon icon' title='Delete Excerpt' onClick={() => {deleteExcerpt(excerpt)}} />
                                             </div>
                                         </div>
                                     </div>
