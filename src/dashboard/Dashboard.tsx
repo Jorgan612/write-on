@@ -87,7 +87,6 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     };
 
     const fetchGroupMembers = async () => {
-
         if (!groupInfo?.groupId) {
             return;
         }
@@ -177,6 +176,29 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
             alert('Could not save your changes. Please try again.');
         }
     };
+
+    const deleteExcerpt = async (excerpt: Excerpt) => {
+        try {
+            const response = await fetch(`http://localhost:5000/groups/excerpts/${excerpt.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {  
+                setGroupExcerpts((prevExcerpts) => {
+                    return prevExcerpts.filter(exc => exc.id !== excerpt.id);
+                });
+            } else {
+                console.error('Failed to delete the excerpt.');
+            }
+
+        } catch (error) {
+            console.error('Network error:', error);
+        }
+    }
 
     const onSignUp = (meetingDate: string) => {
         if (!groupInfo?.groupId) {
@@ -304,6 +326,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         activeExcerpt={activeExcerpt}
                         setActiveExcerpt={setActiveExcerpt}
                         onSave={onSave}
+                        deleteExcerpt={deleteExcerpt}
                     />
                     <Members members={membersList || null} />
                 </div> : 
