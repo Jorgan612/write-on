@@ -18,6 +18,7 @@ type DashProps = UserProps & {
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
+    const [userGroups, setUserGroups] = useState<GroupProps | []>([]);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
     const [editing, setEditing] = useState<boolean>(false);
@@ -51,7 +52,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const navigate =  useNavigate();
 
     useEffect(() => {
-        getGroupInfo();
+        getUserGroups();
     }, []);
 
     useEffect(() => {
@@ -61,10 +62,13 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         }
     }, [groupInfo?.groupId]);
 
-    const getGroupInfo = async () => {
+    const getUserGroups = async () => {
         if (currentUser?.groups.length) {
             try {
-                const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
+                const params = new URLSearchParams();
+                currentUser.groups.forEach(obj => params.append('ids', obj.groupId));
+
+                const response = await fetch(`http://localhost:5000/groups?${params.toString()}`, {
                     method: 'GET',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -75,7 +79,11 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 const data = await response.json();
 
                 if (response.ok) {
-                    setGroupInfo(data);
+                    setUserGroups(data);
+
+                    if (data.length > 0) {
+                        setGroupInfo(data[0]);
+                    }
                 } else {
                     alert(data.message || 'Something went wrong.');
                 }
