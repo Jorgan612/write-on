@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
+import { FaChevronRight, FaRegUserCircle, FaChevronDown } from 'react-icons/fa';
 import { format } from 'date-fns';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
@@ -263,6 +263,17 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                     <button className={`group ${activeDash === 'group' ? 'top' : 'bottom'}`} onClick={() => setActiveDash('group')}>
                         Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
                     </button>
+                </div>
+                <div className={`selected-group-name ${activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'}`}>
+                    <div>
+                        <p>
+                            {groupInfo?.name}
+                        </p>
+                        <FaChevronDown className='' />
+                    </div>
+                    <div className='user-groups-list'>
+                        {/* user groups list? */}
+                    </div>
                 </div>
                 <button className={activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
                     Create Group

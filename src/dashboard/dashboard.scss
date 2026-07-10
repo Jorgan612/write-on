@@ -7,6 +7,30 @@
 
     .header-container {
         @include flexbox(flex, row, space-between, center);
+
+        .selected-group-name {
+            @include flexbox(flex, column, center, center);
+            @include content(100%, fit-content, null);
+            padding: .5rem .5rem;
+            font-size: $font1;
+
+            div {
+                @include flexbox(flex, row, center, center);
+                padding-bottom: 4px; 
+            }
+
+            p {
+                margin: 0;
+                padding: 0 .5rem;
+            }
+
+            .user-groups-list {
+                @include flexbox(flex, column, center, center);
+                @include content(fit-content, 100%, null);
+                border-top: 1px solid $dark3;
+                // border: 1px solid red;
+            }
+        }
     }
     
     .dash-header {
