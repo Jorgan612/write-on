@@ -17,6 +17,11 @@
             div {
                 @include flexbox(flex, row, center, center);
                 padding-bottom: 4px; 
+
+                &:hover {
+                    cursor: pointer;
+                    color: $highlight1;
+                }
             }
 
             p {
