@@ -10,7 +10,6 @@ import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
 
-
 type DashProps = UserProps & {
     combinedEntries: Record<string, number>;
 }
@@ -66,7 +65,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         if (currentUser?.groups.length) {
             try {
                 const params = new URLSearchParams();
-                currentUser.groups.forEach(obj => params.append('ids', obj.groupId));
+
+                currentUser.groups.forEach((id) => {
+                    params.append('ids', id);
+                });
 
                 const response = await fetch(`http://localhost:5000/groups?${params.toString()}`, {
                     method: 'GET',
