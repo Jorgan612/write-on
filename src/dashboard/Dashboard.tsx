@@ -269,7 +269,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         <p>
                             {groupInfo?.name}
                         </p>
-                        <FaChevronDown className='' />
+                        <FaChevronDown className='dropdown-icon' />
                     </div>
                     <div className='user-groups-list'>
                         {/* user groups list? */}
