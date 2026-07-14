@@ -36,6 +36,20 @@
                 // border: 1px solid red;
             }
         }
+
+        .settings-container {
+            @include flexbox(flex, row, center, center);
+
+            .settings-icon {
+                @include content(24px, 24px, null);
+                padding: .5rem;
+
+                &:hover {
+                    color: $highlight1;
+                    cursor: pointer;
+                }
+            }
+        }
     }
     
     .dash-header {
