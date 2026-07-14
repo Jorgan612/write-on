@@ -124,7 +124,7 @@ function GroupSignUp({currentUser, editing, setEditing, setSelectedDate, selecte
                                             </div>
                                             <p>{excerpt.username}</p>
                                             <button className={`edit-button ${currentUser.id !== excerpt.userID ? 'hide' : 'show'}`} disabled={editing}>
-                                                <FaEdit className={`icon ${editing ? 'disable' : ''}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
+                                                <FaEdit className={`icon ${editing ? 'disable' : ''} ${currentUser.id !== excerpt.userID ? 'hide' : 'show'}`} title={`${editing ? 'Save or cancel current edit before editing a different card' : 'Edit Card'}`} onClick={() => {EditCardDetails(excerpt, meeting.meetingDate)}} />
                                             </button>
                                         </div>
                                         {/*Read only view*/}
