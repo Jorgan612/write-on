@@ -17,6 +17,17 @@
             div {
                 @include flexbox(flex, row, center, center);
                 padding-bottom: 4px; 
+            }
+            
+            p {
+                @include flexbox(flex, row, center, center);
+                padding: 0 .5rem;
+                margin: 0;
+                
+                .dropdown-icon {
+                    @include content($font2, $font2, null);
+                    padding: .5rem;
+                }
 
                 &:hover {
                     cursor: pointer;
@@ -24,31 +35,14 @@
                 }
             }
 
-            p {
-                margin: 0;
-                padding: 0 .5rem;
-            }
-
             .dropdown-list {
                 @include flexbox(flex, column, flex-start, flex-start);
+                @include content(fit-content, 100%, null);
                 border: 2px solid $dark4;
                 position: relative;
+
             }
 
-            .user-group-item {
-                @include flexbox(flex, column, center, center);
-                @include content(fit-content, 100%, null);
-                border-top: 2px solid $dark3;
-
-                &:hover {
-                    cursor: pointer;
-                    background-color: $dark3;
-                }
-            }
-
-            .dropdown-icon {
-                @include content($font2, $font2, null);
-            }
         }
 
         .settings-container {

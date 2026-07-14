@@ -4,55 +4,35 @@
 
 .menu-dropdown-container {
     @include flexbox(flex, column, center, center);
-    @include content(fit-content, 200px, $dark4);
+    @include content(fit-content, 100%, $dark4);
+    flex-direction: column !important;
     position: absolute;
-    top: -30px;
-    right: -125px;
+    top: -35px;
+    // top: 0px;
+    // right: -125px;
+    right: 0px;
     border: 2px solid $dark3;
     background-color: $dark4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     font-size: 1rem;
     
-    .default-option {
-        @include flexbox(flex, column, center, center);
-        @include content(100%, 100%, null);
-        text-align: center;
-        color: $dark1;
-        font-weight: 500;
-        
-        div {
-            @include flexbox(flex, row, center, center);
-            @include content(100%, 60%, null);
-            text-align: center;
-            padding: .5rem;
-        }
-        
-        svg {
-            @include content(2rem, 2rem, null);
-            margin-left: 1rem;
-        }
-        
-        &:hover {
-            @include content(100%, 100%, $light5);
-            cursor: pointer;
-        }
-    }
 
     .option {
         @include flexbox(flex, row, center, center);
         @include content(50%, 90%, null);
-        // position: relative;
-        // top: 3rem;
+
         color: $dark1;
         padding: .5rem;
         font-size: $font2;
         font-weight: 500;
-        // border: 2px solid $light3;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $dark3;
+            color: $highlight1;
+        }
     }
 
-    .option:hover {
-        background-color: $dark3;
-    }
 
     .hidden {
         visibility: hidden;

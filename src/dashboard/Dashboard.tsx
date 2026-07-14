@@ -22,6 +22,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
     const [editing, setEditing] = useState<boolean>(false);
+    const [switchGroup, setSwitchGroup] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<Excerpt | null>(null);
     const upcomingMeetings: UpcomingMeeting[] = useMemo(() => {
@@ -54,23 +55,23 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     useEffect(() => {
         getUserGroups();
     }, []);
-
+    
     useEffect(() => {
         if (groupInfo?.groupId) {
             fetchGroupMembers();
             fetchGroupExcerpts();
         }
     }, [groupInfo?.groupId]);
-
+    
     const getUserGroups = async () => {
         if (currentUser?.groups.length) {
             try {
                 const params = new URLSearchParams();
-
+                
                 currentUser.groups.forEach((id) => {
                     params.append('ids', id);
                 });
-
+                
                 const response = await fetch(`http://localhost:5000/groups?${params.toString()}`, {
                     method: 'GET',
                     headers: { 
@@ -78,9 +79,9 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         'Authorization' : `Bearer ${token}`
                     },
                 })
-
+                
                 const data = await response.json();
-
+                
                 if (response.ok) {
                     setUserGroups(data);
 
@@ -250,6 +251,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         setEditing(true);
     };
 
+    const toggleDropdown = () =>  {
+        setSwitchGroup(true);
+    };
+
     const navigateToCreateGroup = () => {
         navigate('/create-group');
     };
@@ -267,18 +272,13 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 </div>
                 <div className={`selected-group-name ${activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'}`}>
                     <div>
-                        <p>
+                        <p onClick={toggleDropdown}>
                             {groupInfo?.name}
+                            <FaChevronDown className='dropdown-icon' />
                         </p>
-                        <FaChevronDown className='dropdown-icon' />
                     </div>
-                    <div className='dropdown-list'>
-                        <MenuDropdown options={userGroups} />
-                        {/* {userGroups.map((group: any) => {
-                            return (
-                                <p className='user-group-item' key={group.id}>{group.name}</p>
-                            )
-                        })} */}
+                    <div className={`dropdown-list ${!switchGroup ? 'hide' : ''}`}>
+                        <MenuDropdown options={userGroups} setSwitchGroup={setSwitchGroup} setGroupInfo={setGroupInfo} />
                     </div>
                 </div>
                 <div className='settings-container'>
