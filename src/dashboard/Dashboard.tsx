@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
+import MenuDropdown from '../dropdown/MenuDropdown';
 import { GroupProps, Excerpts, Excerpt, User, UpcomingMeeting, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
@@ -17,7 +18,7 @@ type DashProps = UserProps & {
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
-    const [userGroups, setUserGroups] = useState<GroupProps | []>([]);
+    const [userGroups, setUserGroups] = useState<GroupProps[]>([]);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
     const [editing, setEditing] = useState<boolean>(false);
@@ -271,8 +272,13 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         </p>
                         <FaChevronDown className='dropdown-icon' />
                     </div>
-                    <div className='user-groups-list'>
-                        {/* user groups list? */}
+                    <div className='dropdown-list'>
+                        <MenuDropdown options={userGroups} />
+                        {/* {userGroups.map((group: any) => {
+                            return (
+                                <p className='user-group-item' key={group.id}>{group.name}</p>
+                            )
+                        })} */}
                     </div>
                 </div>
                 <div className='settings-container'>

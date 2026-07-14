@@ -29,10 +29,21 @@
                 padding: 0 .5rem;
             }
 
-            .user-groups-list {
+            .dropdown-list {
+                @include flexbox(flex, column, flex-start, flex-start);
+                border: 2px solid $dark4;
+                position: relative;
+            }
+
+            .user-group-item {
                 @include flexbox(flex, column, center, center);
                 @include content(fit-content, 100%, null);
                 border-top: 2px solid $dark3;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $dark3;
+                }
             }
 
             .dropdown-icon {
