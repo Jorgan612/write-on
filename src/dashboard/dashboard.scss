@@ -7,6 +7,7 @@
 
     .header-container {
         @include flexbox(flex, row, space-between, center);
+        @include content(10%, 100%, null);
 
         .selected-group-name {
             @include flexbox(flex, column, center, center);
@@ -16,13 +17,14 @@
 
             div {
                 @include flexbox(flex, row, center, center);
+                @include content(fit-content, 300px, null);
+                text-wrap: nowrap;
                 padding-bottom: 4px; 
+                font-size: $font4;
             }
             
             p {
                 @include flexbox(flex, row, center, center);
-                padding: 0 .5rem;
-                margin: 0;
                 
                 .dropdown-icon {
                     @include content($font2, $font2, null);

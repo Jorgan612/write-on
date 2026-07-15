@@ -9,13 +9,17 @@ function MenuDropdown({options, setSwitchGroup, setGroupInfo}) {
     }
 
     return (
-        <div className='menu-dropdown-container'>
-            {options.map((option) => (
-                <div key={option.groupId} className='option' onClick={() => {selectMenuOption(option)}}>
-                    {option.name}
-                </div>
-            ))}
-        </div>
+        <>
+            <div className='dropdown-backdrop' onClick={() => setSwitchGroup(false)}></div>
+
+            <div className='menu-dropdown-container'>
+                {options.map((option) => (
+                    <p key={option.groupId} className='option' onClick={() => {selectMenuOption(option)}}>
+                        {option.name}
+                    </p>
+                ))}
+            </div>
+        </>
     )
 }
 

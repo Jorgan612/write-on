@@ -7,28 +7,24 @@
     @include content(fit-content, 100%, $dark4);
     flex-direction: column !important;
     position: absolute;
-    top: -35px;
-    // top: 0px;
-    // right: -125px;
+    top: -50px;
     right: 0px;
     border: 2px solid $dark3;
     background-color: $dark4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    font-size: 1rem;
+    font-size: $font2;
+    z-index: 22;
     
 
     .option {
         @include flexbox(flex, row, center, center);
-        @include content(50%, 90%, null);
-
+        @include content(50%, 100%, null);
         color: $dark1;
-        padding: .5rem;
-        font-size: $font2;
+        font-size: $font4;
         font-weight: 500;
 
         &:hover {
             cursor: pointer;
-            background-color: $dark3;
             color: $highlight1;
         }
     }
@@ -37,4 +33,13 @@
     .hidden {
         visibility: hidden;
     }
+}
+
+.dropdown-backdrop {
+    @include content(100% !important, 100% !important, null);
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 21;
 }
