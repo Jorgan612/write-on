@@ -203,6 +203,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 setGroupExcerpts((prevExcerpts) => {
                     return prevExcerpts.filter(exc => exc.id !== excerpt.id);
                 });
+
+                setSelectedDate('');
+                setActiveExcerpt(null);
+                setEditing(false);
             } else {
                 console.error('Failed to delete the excerpt.');
             }
@@ -210,7 +214,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         } catch (error) {
             console.error('Network error:', error);
         }
-    }
+    };
 
     const onSignUp = (meetingDate: string) => {
         if (!groupInfo?.groupId) {
