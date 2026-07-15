@@ -7,6 +7,59 @@
 
     .header-container {
         @include flexbox(flex, row, space-between, center);
+        @include content(10%, 100%, null);
+
+        .selected-group-name {
+            @include flexbox(flex, column, center, center);
+            @include content(100%, fit-content, null);
+            padding: .5rem .5rem;
+            font-size: $font1;
+
+            div {
+                @include flexbox(flex, row, center, center);
+                @include content(fit-content, 300px, null);
+                text-wrap: nowrap;
+                padding-bottom: 4px; 
+                font-size: $font4;
+            }
+            
+            p {
+                @include flexbox(flex, row, center, center);
+                
+                .dropdown-icon {
+                    @include content($font2, $font2, null);
+                    padding: .5rem;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    color: $highlight1;
+                }
+            }
+
+            .dropdown-list {
+                @include flexbox(flex, column, flex-start, flex-start);
+                @include content(fit-content, 100%, null);
+                border: 2px solid $dark4;
+                position: relative;
+
+            }
+
+        }
+
+        .settings-container {
+            @include flexbox(flex, row, center, center);
+
+            .settings-icon {
+                @include content(24px, 24px, null);
+                padding: .5rem;
+
+                &:hover {
+                    color: $highlight1;
+                    cursor: pointer;
+                }
+            }
+        }
     }
     
     .dash-header {
@@ -129,7 +182,7 @@
     .group-dash {
         @include flexbox(flex, row, space-between, flex-start);
         @include content(100%, 100%, null);
-        margin: 5px;
+        margin: 0 5px;
         overflow: hidden;
     }
 

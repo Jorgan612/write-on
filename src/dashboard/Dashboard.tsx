@@ -1,15 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaChevronRight, FaRegUserCircle } from 'react-icons/fa';
+import { FaChevronRight, FaRegUserCircle, FaChevronDown, FaCog } from 'react-icons/fa';
 import { format } from 'date-fns';
 import ActiveGoals from '../goals/ActiveGoals';
 import GroupSignUp from '../groupSignUp/GroupSignUp';
 import Members from '../members/Members';
+import MenuDropdown from '../dropdown/MenuDropdown';
 import { GroupProps, Excerpts, Excerpt, User, UpcomingMeeting, UserProps, UsersList } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import './Dashboard.scss';
 import '../App.scss';
-
 
 type DashProps = UserProps & {
     combinedEntries: Record<string, number>;
@@ -18,9 +18,11 @@ type DashProps = UserProps & {
 function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const [activeDash, setActiveDash] = useState<string>('personal');
     const [groupInfo, setGroupInfo] = useState<GroupProps | null>(null);
+    const [userGroups, setUserGroups] = useState<GroupProps[]>([]);
     const [membersList, setMembersList] = useState<UsersList>([]);
     const [groupExcerpts, setGroupExcerpts] = useState<Excerpts>([]);
     const [editing, setEditing] = useState<boolean>(false);
+    const [switchGroup, setSwitchGroup] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [activeExcerpt, setActiveExcerpt] = useState<Excerpt | null>(null);
     const upcomingMeetings: UpcomingMeeting[] = useMemo(() => {
@@ -51,31 +53,41 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
     const navigate =  useNavigate();
 
     useEffect(() => {
-        getGroupInfo();
+        getUserGroups();
     }, []);
-
+    
     useEffect(() => {
         if (groupInfo?.groupId) {
             fetchGroupMembers();
             fetchGroupExcerpts();
         }
     }, [groupInfo?.groupId]);
-
-    const getGroupInfo = async () => {
+    
+    const getUserGroups = async () => {
         if (currentUser?.groups.length) {
             try {
-                const response = await fetch(`http://localhost:5000/groups/group/${currentUser.groups[0]}`, {
+                const params = new URLSearchParams();
+                
+                currentUser.groups.forEach((id) => {
+                    params.append('ids', id);
+                });
+                
+                const response = await fetch(`http://localhost:5000/groups?${params.toString()}`, {
                     method: 'GET',
                     headers: { 
                         'Content-Type': 'application/json',
                         'Authorization' : `Bearer ${token}`
                     },
                 })
-
+                
                 const data = await response.json();
-
+                
                 if (response.ok) {
-                    setGroupInfo(data);
+                    setUserGroups(data);
+
+                    if (data.length > 0) {
+                        setGroupInfo(data[0]);
+                    }
                 } else {
                     alert(data.message || 'Something went wrong.');
                 }
@@ -191,6 +203,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                 setGroupExcerpts((prevExcerpts) => {
                     return prevExcerpts.filter(exc => exc.id !== excerpt.id);
                 });
+
+                setSelectedDate('');
+                setActiveExcerpt(null);
+                setEditing(false);
             } else {
                 console.error('Failed to delete the excerpt.');
             }
@@ -198,7 +214,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         } catch (error) {
             console.error('Network error:', error);
         }
-    }
+    };
 
     const onSignUp = (meetingDate: string) => {
         if (!groupInfo?.groupId) {
@@ -239,6 +255,10 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
         setEditing(true);
     };
 
+    const toggleDropdown = () =>  {
+        setSwitchGroup(true);
+    };
+
     const navigateToCreateGroup = () => {
         navigate('/create-group');
     };
@@ -254,9 +274,23 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         Group {activeDash === 'group' ? <FaChevronRight className='dashboard-swap-icon'/> : ''}
                     </button>
                 </div>
-                <button className={activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
-                    Create Group
-                </button>
+                <div className={`selected-group-name ${activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'}`}>
+                    <div>
+                        <p onClick={toggleDropdown}>
+                            {groupInfo?.name}
+                            <FaChevronDown className='dropdown-icon' />
+                        </p>
+                    </div>
+                    <div className={`dropdown-list ${!switchGroup ? 'hide' : ''}`}>
+                        <MenuDropdown options={userGroups} setSwitchGroup={setSwitchGroup} setGroupInfo={setGroupInfo} />
+                    </div>
+                </div>
+                <div className='settings-container'>
+                    <button className={activeDash === 'group' && currentUser.groups?.length ? 'show' : 'hide'} onClick={navigateToCreateGroup}>
+                        Create Group
+                    </button>
+                    <FaCog className='settings-icon' />
+                </div>
             </div>
 
             <div className={`user-dash ${activeDash === 'personal' ? 'show' : 'hide'}`}>

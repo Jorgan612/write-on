@@ -109,7 +109,6 @@ function App() {
           <Timer />
           <div className='top-right-corner'>
             <button onClick={handleLogOut}>Log out</button>
-            <FaCog className='icon' />
           </div>
         </div>
 
