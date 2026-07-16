@@ -2,10 +2,16 @@ import { User, MembersProps } from '../interfaces/interfaces';
 import { userIcons } from '../assets/icons/userIcons/userIcons';
 import { FaRegUserCircle, FaPlusCircle, FaCheckCircle } from 'react-icons/fa';
 import './Members.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function Members({members}: Pick<MembersProps, 'members'>) {
+function Members({members, switchGroup}: Pick<MembersProps, 'members' | 'switchGroup'>) {
     const [selectedMember, setSelectedMember] = useState<User | null>(null);
+
+    useEffect(() => {
+        if (switchGroup) {
+            setSelectedMember(null);
+        }
+    }, [switchGroup]);
 
     if (!members) {
         return <div>Loading members list...</div>;

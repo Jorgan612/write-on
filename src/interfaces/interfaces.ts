@@ -172,4 +172,5 @@ export interface MembersProps {
     members: UsersList | null;
     selectedMember: User | null;
     setSelectedMember: React.Dispatch<React.SetStateAction<User | null>>;
+    switchGroup: boolean;
 }

@@ -362,7 +362,7 @@ function Dashboard({currentUser, setCurrentUser, combinedEntries}: DashProps) {
                         onSave={onSave}
                         deleteExcerpt={deleteExcerpt}
                     />
-                    <Members members={membersList || null} />
+                    <Members members={membersList || null} switchGroup={switchGroup} />
                 </div> : 
                 <div className={`group-dash no-group ${activeDash === 'group' ? 'show' : 'hide'}`}>
                     <h3>Don't have a group?</h3>
