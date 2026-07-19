@@ -1,5 +1,5 @@
 import './Signup.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaPenFancy, FaRegEye, FaRegEyeSlash, FaPlusCircle, FaRegUserCircle, FaTimesCircle } from 'react-icons/fa';
 import { validateEmail } from '../utils/Validation';
 import { User } from '../interfaces/interfaces';
@@ -54,6 +54,9 @@ const userObj = {
 
 function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const inviteEmail = searchParams.get('email') || '';
+    const pendingGroupId = searchParams.get('joinGroup') ||'';
     
     const [newUser, setNewUser] = useState<User>(userObj);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -74,6 +77,14 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
         confirmEmail === newUser.email &&
         confirmPassword === newUser.password;
 
+
+    useEffect(() => {
+        if (inviteEmail) {
+            const normalizedEmail = inviteEmail.toLowerCase().trim();
+            setNewUser(prev => ({ ...prev, email: normalizedEmail }));
+            setConfirmEmail(normalizedEmail);
+        }
+    }, [inviteEmail]);
 
     useEffect(() => {
         handlePasswordConfirmation();
@@ -144,20 +155,32 @@ function Signup({ setSignedIn }: { setSignedIn: (val: boolean) => void }) {
 
         if (!isFormValid) return;
 
+        const registrationPayload = {
+            ...newUser,
+            joinGroupId: pendingGroupId || null
+        };
+
         try {
             const response = await fetch('http://localhost:5000/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newUser),
+                body: JSON.stringify(registrationPayload),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                alert(data.message || 'Registration successful! Please check your email.');
-                navigate('/login');
+                if (pendingGroupId) {
+                    alert('Registration successful! You have joined the gorup.');
+                    setSignedIn(true);
+                    navigate('/dashboard');
+                    
+                } else {
+                    alert(data.message || 'Registration successful! Please check your email.');
+                    navigate('/login');
+                }
             } else {
                 alert(data.message || 'Singup failed. Please try again.');
             }
