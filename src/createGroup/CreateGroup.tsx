@@ -18,6 +18,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
     const [inputGroupName, setInputGroupName] = useState<string>('');
     const [errorMsg, setErrorMsg] = useState<string>('');
     const isValid = validateEmail(inputEmail);
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     
     const toggleDateSelection = (dateKey: string, isFuture: boolean) => {
@@ -96,6 +97,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
                 },
                 body: JSON.stringify(newGroup),
             });
