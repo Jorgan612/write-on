@@ -117,7 +117,7 @@ function App() {
               <Route path="/stats" element={ <Stats combinedEntries={combinedEntries} /> } />
               <Route path="warmup" element={ <Warmup /> } />
               <Route path="profile" element={ <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
-              <Route path='/create-group' element={ <CreateGroup currentUser={currentUser} />} />
+              <Route path='/create-group' element={ <CreateGroup currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
               <Route path="/dashboard" element={ 
                 <RequireAuth>
                   <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> 

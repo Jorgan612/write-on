@@ -9,9 +9,10 @@ import './CreateGroup.scss';
 
 interface CreateGroupProps {
     currentUser: User;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-function CreateGroup({currentUser}: CreateGroupProps) {
+function CreateGroup({currentUser, setCurrentUser}: CreateGroupProps) {
     const [selectedDates, setSelectedDates] = useState<{id: number, date: string}[]>([]);
     const [emails, setEmails] = useState<{id: string, email: string}[]>([]);
     const [inputEmail, setInputEmail] = useState<string>('');
@@ -89,7 +90,7 @@ function CreateGroup({currentUser}: CreateGroupProps) {
             creationDate: new Date().toISOString(),
             meetings: selectedDates.map(d => d.date),
             invites: emails.map(e => e.email),
-            members: []
+            members: [currentUser.id]
         };
 
         try {
@@ -105,11 +106,23 @@ function CreateGroup({currentUser}: CreateGroupProps) {
             const data = await response.json();
 
             if (response.ok) {
-                alert(data.message || 'Group Created successfully.');
+                setCurrentUser(prevUser => {
+                    if (!prevUser) {
+                        return null;
+                    }
+
+                    return {
+                        ...prevUser,
+                        groups: prevUser.groups ? [...prevUser.groups, newGroup.groupId] : [newGroup.groupId]
+                    };
+                });
+                
+                if (data.failedInvites && data.failedInvites.length) {
+                    alert(`Group Created! However, we couldn't send invitations to: ${data.failedInvites.join(', ')}. Please double-check the addresses.`)};
+                } else {
+                    alert(data.message || 'Group Created successfully.');
+                }
                 navigate('/dashboard');
-            } else {
-                alert(data.message || 'Something went wrong while attempting to create your group. Please try again.');
-            }
         } catch (err) {
             console.error('Create group error:', err);
             alert('An error occured while creating your group.');

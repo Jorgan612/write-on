@@ -37,10 +37,10 @@ function AcceptInvite({ currentUser }: AcceptInviteProps) {
                             navigate('/dashboard');
                         } else {
                             alert('Invitation verified! Please log in to view your group.');
-                            navigate('/login');
+                            navigate(`/login?email=${encodeURIComponent(data.invitedEmail)}`);
                         }
                     } else {
-                        alert('Valid invitation! Please create your account.');
+                        alert('Welcome! There is no existing account under that email. Please create your account.');
                         navigate(`/signup?email=${encodeURIComponent(data.email)}&joinGroup=${data.groupId}`);
                     }
                 } else {
