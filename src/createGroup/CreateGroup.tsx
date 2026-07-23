@@ -9,7 +9,7 @@ import './CreateGroup.scss';
 
 interface CreateGroupProps {
     currentUser: User;
-    setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
 function CreateGroup({currentUser, setCurrentUser}: CreateGroupProps) {
@@ -107,10 +107,6 @@ function CreateGroup({currentUser, setCurrentUser}: CreateGroupProps) {
 
             if (response.ok) {
                 setCurrentUser(prevUser => {
-                    if (!prevUser) {
-                        return null;
-                    }
-
                     return {
                         ...prevUser,
                         groups: prevUser.groups ? [...prevUser.groups, newGroup.groupId] : [newGroup.groupId]

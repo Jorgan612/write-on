@@ -3,10 +3,12 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { User } from '../interfaces/interfaces';
 
 interface AcceptInviteProps {
-    currentUser: User;
+    currentUser: User | null;
+    setCurrentUser?: (user: User) => void;
+    setSignedIn?: (signedIn: boolean) => void;
 }
 
-function AcceptInvite({ currentUser }: AcceptInviteProps) {
+function AcceptInvite({ currentUser, setCurrentUser, setSignedIn }: AcceptInviteProps) {
     const [searchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -32,16 +34,25 @@ function AcceptInvite({ currentUser }: AcceptInviteProps) {
 
                 if (response.ok && data.status === 'success') {
                     if (data.accountExists) {
-                        if (currentUser) {
-                            alert('You have successfully joined the group!');
-                            navigate('/dashboard');
-                        } else {
-                            alert('Invitation verified! Please log in to view your group.');
-                            navigate(`/login?email=${encodeURIComponent(data.invitedEmail)}`);
+                        if (data.token) {
+                            localStorage.setItem('token', data.token);
                         }
+
+                        if (setCurrentUser && data.user) {
+                            setCurrentUser(data.user);
+                        }
+
+                        if (setSignedIn) {
+                            setSignedIn(true);
+                        }
+
+                        alert('Welcome back! You have successfully joined the group.');
+                        navigate('/dashboard');
                     } else {
+                        const targetEmail = data.invitedEmail || data.email;
+                        
                         alert('Welcome! There is no existing account under that email. Please create your account.');
-                        navigate(`/signup?email=${encodeURIComponent(data.email)}&joinGroup=${data.groupId}`);
+                        navigate(`/signup?email=${encodeURIComponent(targetEmail)}&joinGroup=${data.groupId}`);
                     }
                 } else {
                     setError(data.message || 'Failed to process invitation.');
@@ -55,7 +66,7 @@ function AcceptInvite({ currentUser }: AcceptInviteProps) {
         };
 
         verifyInvitation();
-    }, [token, currentUser, navigate]);
+    }, [token, currentUser, navigate, setCurrentUser]);
 
     if (loading) return <div className="loading-screen">Processing your group invitation...</div>;
     if (error) return <div className="error-screen"><h3>Error</h3><p>{error}</p></div>;

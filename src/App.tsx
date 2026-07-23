@@ -19,6 +19,7 @@ import ForgotPassword from './forgotPassword/ForgotPassword';
 import ResetPassword from './resetPassword/ResetPassword';
 import './App.scss';
 import "chart.js/auto";
+import AcceptInvite from './acceptInvite/AcceptInvite';
 
 
 
@@ -88,6 +89,7 @@ function App() {
         <Route path="/signup" element={<Signup setSignedIn={setSignedIn} />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/accept-invite' element={<AcceptInvite currentUser={null} setCurrentUser={setCurrentUser} setSignedIn={setSignedIn} />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     )
@@ -122,7 +124,8 @@ function App() {
                 <RequireAuth>
                   <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> 
                 </RequireAuth>
-                } />
+              } />
+              <Route path='/accept-invite' element={<AcceptInvite currentUser={currentUser} setCurrentUser={setCurrentUser} setSignedIn={setSignedIn} />} />
               <Route path='*' element={ <Dashboard currentUser={currentUser} setCurrentUser={setCurrentUser} combinedEntries={combinedEntries} /> } />
             </>
         </Routes>
